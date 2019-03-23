@@ -31,9 +31,14 @@
         props: ['userL'],
 
         created: function () {
-            console.log(this.userL);
+           this.me();
             // this.user=response.data.user;
+            
          },
+
+        /* beforeCreate() {
+             this.me();
+             },*/
 
         methods:{
             logout(){
