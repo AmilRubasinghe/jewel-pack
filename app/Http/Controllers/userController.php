@@ -59,7 +59,7 @@ class userController extends Controller
         $this->sendEmail($thisUser);
 
 			//return $table;
-			return redirect('verifyEmailFirst')->with('responseReg','Verify your email & complete the registration');
+			return response()->json(['alert'=>"You would have received a verification email with link. Please click it!"]);
 	}
 
     public function sendEmail($thisUser){
@@ -96,9 +96,17 @@ class userController extends Controller
         }
         //return response()->json(['token'=>$token]);
         $user = User::first();
-        $token = JWTAuth::fromUser($user);
         
+
+        if(!$user->status){
+            return response()->json(['alert' => 'Email not verified'], 200);
+        }
+        
+        
+        $token = JWTAuth::fromUser($user);
         return response()->json(['token'=>$token,'user'=>auth()->user()]);
+        
+        
         //return $this->respondWithToken($token);
             //return ['token'=>$token];
         /*$data = $request->only('email','password','status');
@@ -130,6 +138,7 @@ public function verifyEmailFirst(){
     return view('email/verifyEmailFirst');
 }
 
+//Check this neccesary or not
     public function loginPage(){
         if(Auth::user()){
             return redirect('/logged');

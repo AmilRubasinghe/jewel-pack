@@ -82,9 +82,9 @@ export default{
             if (!this.errors.any()) {
                  this.$http.post('http://localhost:8000/api/register',this.register)
                 .then(response=>{
-                    console.log("Done");
                     console.log(response);
-                    alert('You would have received a verification email with link. Please click it!');
+                    let $alert=response.data.alert;
+                    alert($alert);
                     this.$router.push('/loginPage');
                 })
                 .catch(error=>{
