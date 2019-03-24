@@ -18,12 +18,21 @@ function guard(to, from, next){
     }
 }
 
+function ShouldSkip(to, from, next){
+    if(localStorage.getItem('token')) {
+        // or however you store your logged in state
+        next('/profile'); // allow to enter route
+    } else{
+        next(); // go to '/login';
+    }
+}
+
 
 const router = new VueRouter({
     mode:'history',
     routes:[
-        {path:"/loginPage",component:loginPage},
-        {path:"/registerPage",component:registerPage},
+        {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
+        {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
         {path:"/profile", beforeEnter: guard,component:profile},
     ]
