@@ -12,7 +12,7 @@
                         <b-nav-item><router-link to="/home" active>Home</router-link></b-nav-item>
                         <b-nav-item name="Login"><router-link to="/loginPage">Login</router-link></b-nav-item>
                         <b-nav-item name="Register"><router-link to="/registerPage">Register</router-link></b-nav-item>
-                        <b-nav-item disabled>Disabled</b-nav-item>
+                        
 
 
                         <b-navbar-nav class="ml-auto">

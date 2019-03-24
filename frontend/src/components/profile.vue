@@ -1,6 +1,6 @@
 <template>
 <div>
-
+<div class="container box">
 
 <form class="form-signin" @submit.prevent='loginUser'>
             <h1 align="center">Profile</h1>
@@ -13,6 +13,7 @@
 
     <button @click="logout" class="btn btn-lg btn-primary btn-block">Sign out</button>
      <button @click="me" class="btn btn-lg btn-primary btn-block">Profile</button>
+    </div>
     </div>
 </template>
 
