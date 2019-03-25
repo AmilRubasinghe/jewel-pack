@@ -31,6 +31,7 @@ function ShouldSkip(to, from, next){
 const router = new VueRouter({
     mode:'history',
     routes:[
+        {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},

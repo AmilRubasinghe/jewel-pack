@@ -52,13 +52,11 @@ class userController extends Controller
 
         $table->save();
 
-       // return response()->json(['message'=>$table],201);
-        //return redirect('/verifyEmailFirst');
 
         $thisUser=User::findOrFail($table->id);
         $this->sendEmail($thisUser);
 
-			//return $table;
+			
 			return response()->json(['alert'=>"You would have received a verification email with link. Please click it!"]);
 	}
 
@@ -75,9 +73,8 @@ class userController extends Controller
 	    if($user){
 	        user::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['status'=>'1','verifyToken'=>Null]);
             return redirect('http://localhost:8080/loginPage')->with('responseReg','Registration & verification Completed');
-            //return redirect('/loginPage')->with('responseReg','Registration & verification Completed');
+            
         }else{
-            //return redirect('/loginPage')->with('responseVerifyErr','User Not Found');
             return redirect('http://localhost:8080/loginPage')->with('responseVerifyErr','User Not Found');
         }
 
@@ -94,38 +91,19 @@ class userController extends Controller
         //    if ($token = $this->guard()->attempt($data)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
         }
-        //return response()->json(['token'=>$token]);
-        $user = User::first();
+        
+        $user =auth()->user();
         
 
         if(!$user->status){
             return response()->json(['alert' => 'Email not verified'], 200);
         }
         
-        
-        $token = JWTAuth::fromUser($user);
-        return response()->json(['token'=>$token,'user'=>auth()->user()]);
-        
-        
-        //return $this->respondWithToken($token);
-            //return ['token'=>$token];
-        /*$data = $request->only('email','password','status');
-       // $data2 = $request->only('status');
 
-
-        if(Auth::attempt($data)){
-            //redirect()->route
-            if (!Auth::user()->status) {
-                Auth::logout();
-                return redirect('/loginPage')->with('responseLog','Please Verify your Email');
-            }
-            return ['token'=>$token];
-            //return redirect('/logged')->with('responseLog','Logged in Succesfully');
-
-        }
-        return "Auth failed";
-    //	return redirect('/loginPage')->with('responseLog','Login Failed');
-        */
+        //$token = JWTAuth::fromUser($user);
+        return response()->json(['token'=>$token,'user'=>$user]);
+        
+        
 	}
 
 
@@ -144,6 +122,7 @@ public function verifyEmailFirst(){
             return redirect('/logged');
         }
         return view('loginPage');
+        
     }
 
 
