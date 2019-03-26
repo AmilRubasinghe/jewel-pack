@@ -93,7 +93,7 @@
                     
                     if($token){
                         localStorage.setItem('token',$token);
-                        console.log($token);
+                       // console.log($token);
                         this.$router.push('/profile');
                     }
                 })

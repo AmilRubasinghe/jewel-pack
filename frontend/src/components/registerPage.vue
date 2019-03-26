@@ -118,12 +118,15 @@ export default{
      background-size: 50%;
      background-position: center;
      background-size: cover;
+       /*filter: blur(8px);
+  -webkit-filter: blur(8px);*/
      }
 
 .wrapper {
   height: 100%; 
   width: 100%; 
 }
+
 
 
 

@@ -44,8 +44,8 @@ class userController extends Controller
 
 
 			$table = new User;
-			$table->firstname = $request->input('firstname');
-			$table->lastname = $request->input('lastname');
+			$table->firstName = $request->input('firstname');
+			$table->lastName = $request->input('lastname');
 			$table->email = $request->input('email');
 			$table->password = bcrypt($request->input('password'));
             $table->verifyToken=Str::random(40);
@@ -71,7 +71,7 @@ class userController extends Controller
     public function sendEmailDone($email,$verifyToken){
 	    $user = User::where(['email'=>$email,'verifyToken'=>$verifyToken])->first();
 	    if($user){
-	        user::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['status'=>'1','verifyToken'=>Null]);
+	        user::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['emailStatus'=>'1','verifyToken'=>Null]);
             return redirect('http://localhost:8080/loginPage')->with('responseReg','Registration & verification Completed');
             
         }else{
@@ -95,7 +95,7 @@ class userController extends Controller
         $user =auth()->user();
         
 
-        if(!$user->status){
+        if(!$user->emailStatus){
             return response()->json(['alert' => 'Email not verified'], 200);
         }
         
@@ -224,10 +224,11 @@ public function logoutUser(Request $request){
 
 
       try {
-
+                
                 if (! $user = JWTAuth::parseToken()->authenticate()) {
                         return response()->json(['user_not_found'], 404);
                 }
+
 
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 

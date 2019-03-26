@@ -4,8 +4,8 @@
 
 <form class="form-signin" @submit.prevent='loginUser'>
             <h1 align="center">Profile</h1>
-            <h3>ID : {{ user.id }}</h3>
-            <h3>Name : {{ user.firstname }} {{ user.lastname }}</h3>
+            <h3>ID : {{ user.ID }}</h3>
+            <h3>Name : {{ user.firstName }} {{ user.lastName }}</h3>
             <h3>Email : {{ user.email }}</h3>
             
             
@@ -72,6 +72,7 @@
             this.$http.post('http://localhost:8000/api/me?token='+$Token)
             
                 .then(response => {
+                    console.log(response.data.user);
                     this.user=response.data.user;
                     if(!$Token){
                         this.$router.push('/loginPage');

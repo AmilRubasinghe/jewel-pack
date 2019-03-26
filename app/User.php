@@ -12,7 +12,7 @@ class User extends Model implements Authenticatable
 
 
     protected $fillable=[
-        'firstname','lastname','email','password',
+        'firstName','lastName','email','password',
     ];
 
     protected $hidden=[
