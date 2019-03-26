@@ -1,4 +1,5 @@
 <template>
+<body class="inventory-body">
     <div>
     <div class="container box">
    <form @submit.prevent='registerUser'>
@@ -55,6 +56,8 @@
     </form>
     </div>
     </div>
+    
+    </body>
 </template>
 
 
@@ -100,3 +103,29 @@ export default{
 }
 
 </script>
+
+
+<style>
+    html, body, app-root {
+     height: 100%;
+     margin: 0;
+     }
+ .inventory-body {
+     position: fixed;
+     min-width: 100%;
+     background-image: url("https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg");
+     background-repeat: no-repeat;
+     background-size: 50%;
+     background-position: center;
+     background-size: cover;
+     }
+
+.wrapper {
+  height: 100%; 
+  width: 100%; 
+}
+
+
+
+
+</style>
