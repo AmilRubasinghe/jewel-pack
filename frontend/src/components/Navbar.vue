@@ -9,9 +9,9 @@
 
                 <b-collapse is-nav id="nav_collapse">
                     <b-nav tabs>
-                        <b-nav-item><router-link to="/home" active>Home</router-link></b-nav-item>
-                        <b-nav-item name="Login"><router-link to="/loginPage">Login</router-link></b-nav-item>
-                        <b-nav-item name="Register"><router-link to="/registerPage">Register</router-link></b-nav-item>
+                        <b-nav-item ><router-link to="/home" active exact-active-class="IS_ACTIVATED">Home</router-link></b-nav-item>
+                        <b-nav-item name="Login"><router-link  to="/loginPage" exact-active-class="IS_ACTIVATED">Login</router-link></b-nav-item>
+                        <b-nav-item name="Register"><router-link to="/registerPage" exact-active-class="IS_ACTIVATED">Register</router-link></b-nav-item>
                         
 
 
@@ -35,3 +35,11 @@
 <script>
 
 </script>
+
+<style>
+.IS_ACTIVATED{
+
+    background-color: white;
+    cursor: pointer;
+}
+</style>
