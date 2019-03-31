@@ -19,7 +19,7 @@
 
 
 <script>
-
+import axios from 'axios'
 
 
     export default {
@@ -46,8 +46,8 @@
                 let $Token=localStorage.getItem('token');
                /* console.log(Token);*/
                 
-            this.$http.post('http://localhost:8000/api/logout?token='+$Token)
-            
+   // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+             axios.post('http://localhost:8000/api/logout?token='+$Token)
                 .then(response => {
                     localStorage.removeItem('token');
                     let $Token=localStorage.getItem('token');
@@ -69,8 +69,11 @@
                  
 
                 
-            this.$http.post('http://localhost:8000/api/me?token='+$Token)
-            
+            //this.$http.post('http://localhost:8000/api/me?token='+$Token)
+            axios.post('http://localhost:8000/api/me?token='+$Token
+                , {
+
+            })
                 .then(response => {
                     console.log(response.data.user);
                     this.user=response.data.user;

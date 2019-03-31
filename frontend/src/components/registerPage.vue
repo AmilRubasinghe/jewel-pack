@@ -63,7 +63,7 @@
 
 
 <script>
-
+import axios from 'axios'
 
 export default{
     data(){
@@ -83,8 +83,10 @@ export default{
 
             this.$validator.validateAll()
             if (!this.errors.any()) {
-                 this.$http.post('http://localhost:8000/api/register',this.register)
-                .then(response=>{
+                axios.post('http://localhost:8000/api/register',this.register
+                , {
+
+            }).then(response=>{
                     console.log(response);
                     let $alert=response.data.alert;
                     alert($alert);

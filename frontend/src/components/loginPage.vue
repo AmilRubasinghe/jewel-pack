@@ -69,7 +69,7 @@
 <script>
 
 
-
+import axios from 'axios'
     export default {
         data() {
             return {
@@ -82,7 +82,31 @@
         },
 
         methods:{
-            loginUser(){
+             loginUser(){
+                
+                axios.post('http://localhost:8000/api/login',this.login
+                , {
+
+            })
+            .then( (response) => {
+                    let $alert=response.data.alert;
+                    let $token=response.data.token;
+                        
+                    if($alert){
+                        alert($alert);
+                    }
+                     if($token){
+                        localStorage.setItem('token',$token);
+                       // console.log($token);
+                        this.$router.push('/profile');
+                    }
+            })
+            .catch( (error) => {
+                console.log(error.response);
+                    console.log("ERROR");
+            });
+                
+                /*
             this.$http.post('http://localhost:8000/api/login', this.login)
                 .then(response => {
                     let $alert=response.data.alert;
@@ -102,7 +126,7 @@
                     console.log(error.response);
                     console.log("ERROR");
                 })
-
+*/
         }
         }
     }
