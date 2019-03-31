@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
-export const store=new Vuex.Store({
+export default new Vuex.Store({
     state: {
         loader:false
     },
@@ -11,6 +11,7 @@ export const store=new Vuex.Store({
     mutations:{
 
         LOADER(state,payload){
+            console.log("Loader run");
             state.loader=payload;
         }
     }

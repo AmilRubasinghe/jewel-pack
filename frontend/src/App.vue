@@ -9,10 +9,10 @@
 
 <script>
 
-
+import axios from 'axios'
   import Navbar from './components/Navbar.vue'
   import Home from './components/Home.vue'
-  import Loader from './components/loader.vue'
+  import Loader from './components/loader'
   import Store from './store.js'
   
 
@@ -36,7 +36,7 @@
     // Do something before request is sent
     this.$store.commit('LOADER',true);
         return config;
-      }, function (error) {
+      }, (error) => {
         // Do something with request error
         this.$store.commit('LOADER',false);
         return Promise.reject(error);
@@ -48,14 +48,14 @@
         console.log(response);
         this.$store.commit('LOADER',false);
         return response;
-      }, function (error) {
+      },  (error) => {
         // Do something with response error
         return new Promise((resolve,reject)=>{
           this.$store.dispatch('logout').then(()=>{
             this.$router.push('/loginPage')
           })
-        })
-        return Promise.reject(error);
+          throw error;
+        });
       });
 
 

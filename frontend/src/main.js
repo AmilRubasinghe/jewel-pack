@@ -5,7 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VeeValidate from 'vee-validate'
-import store from './store'
+import store from './store';
 
 import axios from 'axios'
 Vue.use(axios);
@@ -25,7 +25,7 @@ Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 new Vue({
   el: '#app',
-  store,
+  store: store,
   render: h => h(App),
   router:Router
 })
