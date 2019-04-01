@@ -19,7 +19,7 @@
     data () {
       return {
         items: [
-          
+          { title: 'Dashboard', icon: 'supervised_user_circle' ,name:'admin' },
           { title: 'Users', icon: 'supervised_user_circle' ,name:'users' },
           { title: 'Orders', icon: 'library_books' , name:'orders'},
           { title: 'Products', icon: 'business_center' , name:'products'}

@@ -7,7 +7,10 @@ import loginPage from  './components/loginPage.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
 import profile from  './components/profile.vue'
-import adminPanel from './components/adminPanel'
+import adminPanel from './components/admin/adminPanel'
+import manageUsers from './components/admin/manageUsers'
+import manageProducts from './components/admin/manageProducts'
+
 
 
 function guard(to, from, next){
@@ -38,6 +41,8 @@ const router = new VueRouter({
         {path:"/home",component:home},
         {path:"/profile", beforeEnter: guard,component:profile},
         {path:"/admin",component:adminPanel},
+        {path:"/admin/products",component:manageProducts},
+        {path:"/admin/users",component:manageUsers},
     ]
 
 

@@ -13,7 +13,9 @@ import axios from 'axios'
   import Navbar from './components/Navbar.vue'
   import Home from './components/Home.vue'
   import Loader from './components/loader'
-  import adminPanel from './components/adminPanel'
+  import adminPanel from './components/admin/adminPanel'
+  import manageProducts from './components/admin/manageProducts'
+  import manageUsers from './components/admin/manageUsers'
   import Store from './store.js'
   
 
@@ -23,7 +25,9 @@ import axios from 'axios'
       'navbar':Navbar,
       'home':Home,
       'LOADER':Loader,
-      'adminPanel':adminPanel
+      'adminPanel':adminPanel,
+      'manageProducts':manageProducts,
+      'manageUsers':manageUsers
 
     },
     data(){
