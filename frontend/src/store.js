@@ -14,7 +14,13 @@ export default new Vuex.Store({
             console.log("Loader run");
             state.loader=payload;
         }
-    }
+    },
+
+    actions: {
+        logout (context) {
+            this.$router.push('/')
+        }
+      }
 
 
 });

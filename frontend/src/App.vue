@@ -51,9 +51,11 @@ import axios from 'axios'
       },  (error) => {
         // Do something with response error
         return new Promise((resolve,reject)=>{
-          this.$store.dispatch('logout').then(()=>{
-            this.$router.push('/loginPage')
-          })
+           this.$store.commit('LOADER',false);
+        /*  this.$store.dispatch('logout').then(()=>{
+            //this.$store.commit('LOADER',false);
+            this.$router.push('/logout')
+          })*/
           throw error;
         });
       });
