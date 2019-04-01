@@ -7,6 +7,7 @@ import loginPage from  './components/loginPage.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
 import profile from  './components/profile.vue'
+import adminPanel from './components/adminPanel'
 
 
 function guard(to, from, next){
@@ -36,6 +37,7 @@ const router = new VueRouter({
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
         {path:"/profile", beforeEnter: guard,component:profile},
+        {path:"/admin",component:adminPanel},
     ]
 
 

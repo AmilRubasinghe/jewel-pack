@@ -8,7 +8,7 @@
       width="300"
     >
       <v-card
-        color="primary"
+        color="#448AFF"
         dark
       >
         <v-card-text>

@@ -13,6 +13,7 @@ import axios from 'axios'
   import Navbar from './components/Navbar.vue'
   import Home from './components/Home.vue'
   import Loader from './components/loader'
+  import adminPanel from './components/adminPanel'
   import Store from './store.js'
   
 
@@ -22,6 +23,7 @@ import axios from 'axios'
       'navbar':Navbar,
       'home':Home,
       'LOADER':Loader,
+      'adminPanel':adminPanel
 
     },
     data(){
