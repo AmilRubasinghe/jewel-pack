@@ -5,6 +5,7 @@
       color="yellow"
       icon="warning"
       outline
+      transition="scale-transition"
       
     >
       {{message}}

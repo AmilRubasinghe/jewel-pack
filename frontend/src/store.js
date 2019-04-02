@@ -11,7 +11,7 @@ export default new Vuex.Store({
     mutations:{
 
         LOADER(state,payload){
-            console.log("Loader run");
+           
             state.loader=payload;
         }
     },

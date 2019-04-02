@@ -2,6 +2,7 @@
 <body class="inventory-body">
     <div>
     <div class="container box">
+        <alert v-if="alert" v-bind:message="alert" />
    <form @submit.prevent='registerUser'>
 
 
@@ -63,7 +64,8 @@
 
 
 <script>
-import axios from 'axios'
+import alert from './alert.vue';
+import axios from 'axios';
 
 export default{
     data(){
@@ -74,10 +76,13 @@ export default{
                 email:"",
                 password:"",
                 confirm_password:""
-            }
+            },
+             alert:'',
         }
     },
-
+     components:{
+            alert
+        },
     methods:{
         registerUser(){
 
@@ -87,10 +92,9 @@ export default{
                 , {
 
             }).then(response=>{
-                    console.log(response);
-                    let $alert=response.data.alert;
-                    alert($alert);
-                    this.$router.push('/loginPage');
+                //console.log(response.data.message);
+                     this.$router.push({path:'/loginPage',query:{alert:response.data.message}});
+                     
                 })
                 .catch(error=>{
                     console.log(error.response);

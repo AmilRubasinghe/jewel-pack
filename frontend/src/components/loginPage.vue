@@ -85,6 +85,11 @@ import axios from 'axios'
         components:{
             alert
         },
+        created(){
+            if(this.$route.query.alert){
+                    this.alert=this.$route.query.alert;
+            }
+        },
         methods:{
              loginUser(){
                 
