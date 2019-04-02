@@ -54,10 +54,17 @@ class userController extends Controller
 
 
         $thisUser=User::findOrFail($table->id);
-        $this->sendEmail($thisUser);
+        
+        try {
+            $this->sendEmail($thisUser);
+            return response()->json(['message'=>"You would have received a verification email with link. Please click it !"]);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['message' => 'Something went wrong while sending verification email'], 201);
+        }
 
 			
-			return response()->json(['alert'=>"You would have received a verification email with link. Please click it!"]);
+			
 	}
 
     public function sendEmail($thisUser){
@@ -89,14 +96,14 @@ class userController extends Controller
 
         if(!$token=JWTAuth::attempt($data)){
         //    if ($token = $this->guard()->attempt($data)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['message'=>'Email or Password you entered is incorrect !'],200);
         }
         
         $user =auth()->user();
         
 
         if(!$user->emailStatus){
-            return response()->json(['alert' => 'Email not verified'], 200);
+            return response()->json(['message' => 'Email not verified. Please verify email first !'], 200);
         }
         
 
@@ -110,11 +117,11 @@ class userController extends Controller
 public function getLogged(){
 		return view('logged');
 	}
-
+/*
 public function verifyEmailFirst(){
 
     return view('email/verifyEmailFirst');
-}
+}*/
 
 //Check this neccesary or not
     public function loginPage(){
@@ -126,14 +133,14 @@ public function verifyEmailFirst(){
     }
 
 
-
+/*
 	public function registerPage(){
         if(Auth::user()){
             return redirect('/logged');
         }
 		return view('registerPage');
 	}
-
+*/
 public function logoutUser(Request $request){
 		/*Auth::logout();
 		Session::flush();
@@ -166,7 +173,7 @@ public function logoutUser(Request $request){
             return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to logout, please try again.'], 500);
         }
     }
     
@@ -180,7 +187,7 @@ public function logoutUser(Request $request){
             $token=JWTAuth::refresh($token);
             return response()->json(['token' => $token]);
         }catch(Exception $e){
-            Response::json(['msg' => "Need to login again"]);
+            Response::json(['message' => "Need to login again"]);
 
         }
     }
