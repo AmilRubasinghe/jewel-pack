@@ -1,7 +1,7 @@
 <template>
 <div id="app">
 <navbar></navbar>
-
+<alert v-if="alert" v-bind:message="alert" />
   <router-view></router-view>
 <LOADER></LOADER>
 </div>
@@ -16,6 +16,7 @@ import axios from 'axios'
   import adminPanel from './components/admin/adminPanel'
   import manageProducts from './components/admin/manageProducts'
   import manageUsers from './components/admin/manageUsers'
+  //import alert from './components/alert.vue'
   import Store from './store.js'
   
 
@@ -28,6 +29,7 @@ import axios from 'axios'
       'adminPanel':adminPanel,
       'manageProducts':manageProducts,
       'manageUsers':manageUsers
+    //  'alert':alert
 
     },
     data(){

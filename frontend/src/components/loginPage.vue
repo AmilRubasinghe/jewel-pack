@@ -4,12 +4,13 @@
 <div class="wrapper">
     
     
-  
+                            
+ 
 
     <div class="container box" >
 
   
-
+        <alert v-if="alert" v-bind:message="alert" />
         <form class="form-signin" @submit.prevent='loginUser'>
             <h1 align="center">Login</h1>
             <div class="form-group form-group-lg">
@@ -68,7 +69,7 @@
 
 <script>
 
-
+import alert from './alert.vue';
 import axios from 'axios'
     export default {
         data() {
@@ -77,10 +78,13 @@ import axios from 'axios'
                     email: "",
                     password: ""
                 },
-                userL:[],
+                alert:'',
             }
         },
 
+        components:{
+            alert
+        },
         methods:{
              loginUser(){
                 
@@ -89,12 +93,14 @@ import axios from 'axios'
 
             })
             .then( (response) => {
-                    let $alert=response.data.alert;
+                    
+                    this.alert=response.data.message;
                     let $token=response.data.token;
                         
-                    if($alert){
-                        alert($alert);
+                 /*  if($message){
+                       alert($message);
                     }
+                    */
                      if($token){
                         localStorage.setItem('token',$token);
                        // console.log($token);
