@@ -5,8 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loader:false
+        loader:false,
+        isLoggedIn:localStorage.getItem('token') || '',
     },
+
+    getters : {
+        isLoggedIn: state => !!state.token,
+       
+      },
 
     mutations:{
 

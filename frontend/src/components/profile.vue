@@ -1,5 +1,5 @@
 <template>
-<div>
+
 <div class="container box">
 
 <form class="form-signin">
@@ -14,13 +14,13 @@
     <button @click="logout" class="btn btn-lg btn-primary btn-block">Sign out</button>
      <button @click="me" class="btn btn-lg btn-primary btn-block">Profile</button>
     </div>
-    </div>
+    
 </template>
 
 
 <script>
 import axios from 'axios'
-
+import Store from '../store.js'
 
     export default {
         data() {
@@ -65,7 +65,7 @@ import axios from 'axios'
 
         me(){
                 let $Token=localStorage.getItem('token');
-                console.log($Token);
+                //console.log($store.getters.isLoggedIn);
                  
 
                 
@@ -75,7 +75,6 @@ import axios from 'axios'
 
             })
                 .then(response => {
-                    console.log(response.data.user);
                     this.user=response.data.user;
                     if(!$Token){
                         this.$router.push('/loginPage');

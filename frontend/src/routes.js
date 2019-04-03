@@ -30,6 +30,9 @@ function ShouldSkip(to, from, next){
         next(); // go to '/login';
     }
 }
+function signout(){
+    this.logout;
+}
 
 
 const router = new VueRouter({
@@ -43,7 +46,9 @@ const router = new VueRouter({
         {path:"/admin",component:adminPanel},
         {path:"/admin/products",component:manageProducts},
         {path:"/admin/users",component:manageUsers},
-    ]
+        {path:"/logout",beforeEnter:signout,component:home},
+    ],
+
 
 
 });

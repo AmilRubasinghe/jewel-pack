@@ -13,13 +13,36 @@
       <v-toolbar-items class="hidden-xs-only">
         <v-btn
           flat
-          
           v-for="item in menuItems"
-          
           :key="item.title"
           :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
+        </v-btn>
+        <v-btn
+            v-if="!token"
+          flat
+          v-for="item in userItems"
+          :key="item.title"
+          :to="item.path">
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
+        </v-btn>
+        <v-btn
+            v-if="token"
+          flat
+          v-for="item in regItems"
+          :key="item.title"
+          :to="item.path">
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
+        </v-btn>
+        <v-btn
+            v-if="token"
+          flat
+          @click="logout">
+          <v-icon left dark>{{ 'exit_to_app' }}</v-icon>
+          {{ 'Logout' }}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -34,7 +57,7 @@
 
 <script>
 //import HelloWorld from "./components/HelloWorld";
-
+import axios from 'axios'
 export default {
   name: "App",
   data(){
@@ -44,15 +67,46 @@ export default {
       token:'',
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
+         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
+     //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
+     ],
+     userItems: [
           { title: 'Sign Up', path: '/registerPage', icon: 'face'},
-          { title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
-     ]
+          { title: 'Sign In', path: '/loginPage', icon: 'lock_open' },
+     ],
+     regItems: [
+          { title: 'Profile', path: '/profile', icon: 'face'},
+           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+     ],
     }
   },
-  created(){
-      this.token=localStorage.getItem.token;
-      console.log(this.token);
-  }
+    methods:{
+    logout(){
+            let $Token=localStorage.getItem('token');
+           /* console.log(Token);*/
+            
+        // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+         axios.post('http://localhost:8000/api/logout?token='+$Token)
+            .then(response => {
+                localStorage.removeItem('token');
+                let $Token=localStorage.getItem('token');
+                if(!$Token){
+                    this.$router.push('/loginPage');
+                }
+            })
+            .catch(error => {
+                console.log(error.response);
+                console.log("ERROR");
+                
+            })
+        }
+    },
+  beforeMount(){
+      this.token=localStorage.getItem('token');
+  },
+  beforeUpdate(){
+      this.token=localStorage.getItem('token');
+  },
 };
 </script>
 
