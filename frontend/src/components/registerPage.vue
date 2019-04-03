@@ -49,7 +49,7 @@
         </div>
 
 
-        <div class="form-group form-group-lg">
+        <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
             <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
 
         </div>

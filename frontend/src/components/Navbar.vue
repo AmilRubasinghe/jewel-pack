@@ -1,39 +1,59 @@
 <template>
-    <div>
-
-        <div>
-            <b-navbar toggleable="lg" type="dark" variant="info">
-                <b-navbar-brand tag="h1" class="mb-0" href="/home">JewelPack</b-navbar-brand>
-
-                <b-navbar-toggle target="nav_collapse" />
-
-                <b-collapse is-nav id="nav_collapse">
-                    <b-nav tabs>
-                        <b-nav-item ><router-link to="/home" active exact-active-class="IS_ACTIVATED">Home</router-link></b-nav-item>
-                        <b-nav-item name="Login"><router-link  to="/loginPage" exact-active-class="IS_ACTIVATED">Login</router-link></b-nav-item>
-                        <b-nav-item name="Register"><router-link to="/registerPage" exact-active-class="IS_ACTIVATED">Register</router-link></b-nav-item>
-                        
-
-
-                        <b-navbar-nav class="ml-auto">
-                            <b-nav-form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-
-                            </b-nav-form>
-                        </b-navbar-nav>
-                    </b-nav>
-
-                </b-collapse>
-            </b-navbar>
-        </div>
-
-        </div>
+  
+  <v-app>
+    <v-toolbar app prominent>
+      
+<v-toolbar-side-icon>        </v-toolbar-side-icon>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">
+          {{ appTitle }}
+        </router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-xs-only">
+        <v-btn
+          flat
+          
+          v-for="item in menuItems"
+          
+          :key="item.title"
+          :to="item.path">
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+    
+  </v-app>
 
 </template>
 
 <script>
+//import HelloWorld from "./components/HelloWorld";
 
+export default {
+  name: "App",
+  data(){
+    return {
+      appTitle: 'JewelPack',
+      sidebar: false,
+      token:'',
+      menuItems: [
+          { title: 'Home', path: '/home', icon: 'home' },
+          { title: 'Sign Up', path: '/registerPage', icon: 'face'},
+          { title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
+     ]
+    }
+  },
+  created(){
+      this.token=localStorage.getItem.token;
+      console.log(this.token);
+  }
+};
 </script>
 
 <style>

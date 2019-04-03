@@ -2,7 +2,7 @@
 <div>
 <div class="container box">
 
-<form class="form-signin" @submit.prevent='loginUser'>
+<form class="form-signin">
             <h1 align="center">Profile</h1>
             <h3>ID : {{ user.ID }}</h3>
             <h3>Name : {{ user.firstName }} {{ user.lastName }}</h3>
