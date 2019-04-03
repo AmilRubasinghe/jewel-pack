@@ -3,7 +3,7 @@
   <v-app>
     <v-toolbar app prominent>
       
-<v-toolbar-side-icon>        </v-toolbar-side-icon>
+
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           {{ appTitle }}

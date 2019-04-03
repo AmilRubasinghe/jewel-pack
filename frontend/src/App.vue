@@ -2,7 +2,7 @@
 <div id="app">
 <navbar></navbar>
 
-  <router-view></router-view>
+ 
 <LOADER></LOADER>
 </div>
 </template>
