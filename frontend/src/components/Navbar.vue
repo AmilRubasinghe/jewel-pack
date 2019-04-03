@@ -1,6 +1,7 @@
 <template>
   
   <v-app>
+     
     <v-toolbar app prominent>
       
 
@@ -9,6 +10,7 @@
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
+      
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn
@@ -67,6 +69,7 @@ export default {
       token:'',
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
+          { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
          // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
      //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
      ],

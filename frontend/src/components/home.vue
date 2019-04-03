@@ -1,11 +1,15 @@
 <template>
     <div>
-        <router-view></router-view>
   
   <v-carousel
     delimiter-icon="stop"
-    prev-icon="mdi-arrow-left"
-    next-icon="mdi-arrow-right"
+    prev-icon="arrow_back_ios"
+    next-icon="arrow_forward_ios"
+    interval="3000"
+    height="600"
+    
+    
+    
   >
     <v-carousel-item
       v-for="(item,i) in items"
@@ -13,6 +17,8 @@
       :src="item.src"
     ></v-carousel-item>
   </v-carousel>
+
+  
    
     </div>
 </template>
