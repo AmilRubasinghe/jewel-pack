@@ -25,7 +25,7 @@ Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 new Vue({
   el: '#app',
-  store: store,
+  store,
   render: h => h(App),
   router:Router
 })

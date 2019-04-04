@@ -22,7 +22,7 @@
           {{ item.title }}
         </v-btn>
         <v-btn
-            v-if="!token"
+            v-if="!user"
           flat
           v-for="item in userItems"
           :key="item.title"
@@ -31,7 +31,7 @@
           {{ item.title }}
         </v-btn>
         <v-btn
-            v-if="token"
+            v-if="user"
           flat
           v-for="item in regItems"
           :key="item.title"
@@ -40,7 +40,7 @@
           {{ item.title }}
         </v-btn>
         <v-btn
-            v-if="token"
+            v-if="user"
           flat
           @click="logout">
           <v-icon left dark>{{ 'exit_to_app' }}</v-icon>
@@ -59,6 +59,7 @@
 
 <script>
 //import HelloWorld from "./components/HelloWorld";
+import { mapState } from 'vuex'
 import axios from 'axios'
 export default {
   name: "App",
@@ -94,6 +95,7 @@ export default {
                 localStorage.removeItem('token');
                 let $Token=localStorage.getItem('token');
                 if(!$Token){
+                     this.$store.commit("setUser",null);
                     this.$router.push('/loginPage');
                 }
             })
@@ -104,12 +106,17 @@ export default {
             })
         }
     },
+
+     computed: mapState([
+         'user'
+     ]),
+ /* 
   beforeMount(){
       this.token=localStorage.getItem('token');
   },
   beforeUpdate(){
       this.token=localStorage.getItem('token');
-  },
+  }*/
 };
 </script>
 

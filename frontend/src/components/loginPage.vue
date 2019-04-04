@@ -104,7 +104,11 @@ import axios from 'axios'
 
                      if($token){
                         localStorage.setItem('token',$token);
-                       // console.log($token);
+                       // console.log(response.data.user);
+                       this.$store.dispatch("setUser",response.data.user);
+                       console.log("User");
+                       console.log(this.$store.state.user);
+
                         this.$router.push('/profile');
                     }
             })

@@ -11,7 +11,7 @@
             
 </form>
 
-    <v-btn @click="logout"  color="blue" outline class="btn btn-lg btn-primary btn-block">Sign out</v-btn>
+    
      <v-btn @click="me"  color="blue" outline class="btn btn-lg btn-primary btn-block">Profile</v-btn>
     </div>
     
@@ -29,11 +29,12 @@ import Store from '../store.js'
             }
         },
 
-        props: ['userL'],
+        
 
         created: function () {
-           this.me();
+           //this.me();
             // this.user=response.data.user;
+            this.user=this.$store.state.user;
             
          },
 

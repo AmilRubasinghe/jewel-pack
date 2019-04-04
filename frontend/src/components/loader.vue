@@ -2,7 +2,7 @@
     
     
     <v-dialog
-      v-model="$store.state.loader"
+      v-model="$store.getters.loader"
       hide-overlay
       persistent
       width="300"
