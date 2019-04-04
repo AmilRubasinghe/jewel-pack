@@ -6,7 +6,7 @@
     prev-icon="arrow_back_ios"
     next-icon="arrow_forward_ios"
     interval="3000"
-    height="600"
+    height="700"
     
     
     

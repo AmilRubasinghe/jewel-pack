@@ -101,11 +101,7 @@ import axios from 'axios'
                     
                     this.alert=response.data.message;
                     let $token=response.data.token;
-                        
-                 /*  if($message){
-                       alert($message);
-                    }
-                    */
+
                      if($token){
                         localStorage.setItem('token',$token);
                        // console.log($token);

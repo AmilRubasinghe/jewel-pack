@@ -11,8 +11,8 @@
             
 </form>
 
-    <button @click="logout" class="btn btn-lg btn-primary btn-block">Sign out</button>
-     <button @click="me" class="btn btn-lg btn-primary btn-block">Profile</button>
+    <v-btn @click="logout"  color="blue" outline class="btn btn-lg btn-primary btn-block">Sign out</v-btn>
+     <v-btn @click="me"  color="blue" outline class="btn btn-lg btn-primary btn-block">Profile</v-btn>
     </div>
     
 </template>

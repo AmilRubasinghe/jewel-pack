@@ -1,23 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loader:false,
-        isLoggedIn:localStorage.getItem('token') || '',
+        loader:false
     },
 
     getters : {
-        isLoggedIn: state => !!state.token,
        
       },
 
     mutations:{
 
         LOADER(state,payload){
-           
             state.loader=payload;
         }
     },
