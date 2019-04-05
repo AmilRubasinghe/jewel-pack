@@ -21,6 +21,14 @@ export default new Vuex.Store({
         user: state => {
             return state.user
         },
+        role: state => {
+            if(state.user){
+                return state.user.role
+            }else{
+                return false;
+            }
+            
+        },
       },
 
     mutations:{

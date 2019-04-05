@@ -40,6 +40,26 @@
           {{ item.title }}
         </v-btn>
         <v-btn
+        
+            v-if="role=='admin'"
+          flat
+          v-for="item in adminItems"
+          :key="item.title"
+          :to="item.path">
+          <v-icon left dark>{{ item.icon  }}</v-icon>
+          {{  item.title }}
+        </v-btn>
+        <v-btn
+        
+            v-if="role=='editor'"
+          flat
+          v-for="item in editorItems"
+          :key="item.title"
+          :to="item.path">
+          <v-icon left dark>{{ item.icon  }}</v-icon>
+          {{  item.title }}
+        </v-btn>
+        <v-btn
             v-if="user"
           flat
           @click="logout">
@@ -61,13 +81,19 @@
 //import HelloWorld from "./components/HelloWorld";
 import { mapState } from 'vuex'
 import axios from 'axios'
+import Store from '../store.js'
 export default {
   name: "App",
+
+  
   data(){
     return {
       appTitle: 'JewelPack',
       sidebar: false,
       token:'',
+      role:Store.getters.role,
+      
+      
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
           { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
@@ -82,6 +108,15 @@ export default {
           { title: 'Profile', path: '/profile', icon: 'face'},
            // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
      ],
+     adminItems: [
+          { title: 'Dashboard', path: '/admin', icon: 'dashboard'},
+           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+     ],
+     editorItems: [
+          { title: 'Dashboard', path: '/editor', icon: 'dashboard'},
+           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+     ],
+     
     }
   },
     methods:{
@@ -107,9 +142,13 @@ export default {
         }
     },
 
-     computed: mapState([
-         'user'
-     ]),
+    
+     computed: {
+            ...mapState([
+            'user',
+            ]),
+    // Other properties
+  },
  /* 
   beforeMount(){
       this.token=localStorage.getItem('token');

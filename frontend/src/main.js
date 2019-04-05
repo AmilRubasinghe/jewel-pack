@@ -23,6 +23,7 @@ Vue.use(Vuetify)
 
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
+
 new Vue({
   el: '#app',
   store,

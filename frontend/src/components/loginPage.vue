@@ -71,6 +71,7 @@
 
 import alert from './alert.vue';
 import axios from 'axios'
+import Store from '../store.js'
     export default {
         data() {
             return {
@@ -106,10 +107,14 @@ import axios from 'axios'
                         localStorage.setItem('token',$token);
                        // console.log(response.data.user);
                        this.$store.dispatch("setUser",response.data.user);
-                       console.log("User");
-                       console.log(this.$store.state.user);
-
+                      /* console.log("User");
+                       console.log(this.$store.state.user);*/
+                       console.log(Store.getters.role);
+                        if(Store.getters.role=='admin'){
+                            this.$router.push('/admin');
+                        }else{
                         this.$router.push('/profile');
+                        }
                     }
             })
             .catch( (error) => {
