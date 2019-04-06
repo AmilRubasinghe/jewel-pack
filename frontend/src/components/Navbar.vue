@@ -23,21 +23,21 @@
         </v-btn>
         <v-btn
             v-if="!user"
-          flat
-          v-for="item in userItems"
-          :key="item.title"
-          :to="item.path">
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
+            flat
+            v-for="item in userItems"
+            :key="item.title"
+            :to="item.path">
+            <v-icon left dark>{{ item.icon }}</v-icon>
+            {{ item.title }}
         </v-btn>
         <v-btn
             v-if="user"
-          flat
-          v-for="item in regItems"
-          :key="item.title"
-          :to="item.path">
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
+            flat
+            v-for="item in regItems"
+            :key="item.title"
+            :to="item.path">
+            <v-icon left dark>{{ item.icon }}</v-icon>
+            {{ item.title }}
         </v-btn>
         <v-btn
         
@@ -80,6 +80,7 @@
 <script>
 //import HelloWorld from "./components/HelloWorld";
 import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Store from '../store.js'
 export default {
@@ -91,7 +92,6 @@ export default {
       appTitle: 'JewelPack',
       sidebar: false,
       token:'',
-      role:Store.getters.role,
       
       
       menuItems: [
@@ -147,6 +147,10 @@ export default {
             ...mapState([
             'user',
             ]),
+
+            ...mapGetters([
+                'role',
+            ])
     // Other properties
   },
  /* 
