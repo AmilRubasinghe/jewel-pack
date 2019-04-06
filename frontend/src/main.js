@@ -7,12 +7,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VeeValidate from 'vee-validate'
 import store from './store';
 
-import axios from 'axios'
-Vue.use(axios);
+//import axios from 'axios'
+//Vue.use(axios);
 
 
-import VueResource from 'vue-resource';
-Vue.use(VueResource);
+//import VueResource from 'vue-resource';
+//Vue.use(VueResource);
 
 import Vuetify from 'vuetify'
 // index.js or main.js
