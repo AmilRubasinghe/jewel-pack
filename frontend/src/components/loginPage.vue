@@ -12,7 +12,7 @@
   
         <alert v-if="alert" v-bind:message="alert" />
         <form class="form-signin" @submit.prevent='loginUser'>
-            <h1 align="center">Login</h1>
+            <h1 align="center">Sign In</h1>
             <div class="form-group form-group-lg">
                 <input type="email" class="form-control"
                        id="inputEmail3"
