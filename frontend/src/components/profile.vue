@@ -34,7 +34,14 @@ import Store from '../store.js'
         created: function () {
            //this.me();
             // this.user=response.data.user;
-            this.user=this.$store.state.user;
+            console.log("Created");
+            console.log(Store.getters.user);
+            if(Store.getters.user){
+                this.user=Store.getters.user;
+            }else{
+                logout;
+            }
+            
             
          },
 
@@ -76,14 +83,18 @@ import Store from '../store.js'
 
             })
                 .then(response => {
-                    this.user=response.data.user;
+                    
                     if(!$Token){
                         this.$router.push('/loginPage');
+                    }else{
+                        this.user=response.data.user;
                     }
                 })
                 .catch(error => {
                     console.log(error.response);
                     console.log("ERROR");
+                    this.$store.commit("setUser",null);
+                    this.$router.push('/loginPage');
                     this.logout();
                 })
 

@@ -56,18 +56,20 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-//console.log(Store.getters.role);
+console.log(Store.getters.role);
 if(to.meta.requireAuth){
-    if(Store.getters.user){
+    if(localStorage.getItem('token')){
         if(to.meta.roles){
         if (to.meta.roles.includes(Store.getters.role)) {
             next();    
         }else{
+            
             next('./home');    
         }
     }
     }else{
-        next('/loginPage');  
+       
+        next('./loginPage');  
     }
     
     }
@@ -75,7 +77,6 @@ if(to.meta.requireAuth){
    
  }
  )
-
 
 export  default router
 /*

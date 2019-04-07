@@ -17,9 +17,11 @@ export default new Vuex.Store({
            },
         loader: state => {
             return state.loader
+            
         },
         user: state => {
             return state.user
+            
         },
         role: state => {
             if(state.user){
