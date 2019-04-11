@@ -19,10 +19,11 @@ export default{
  data () {
       return {
         items: [
-          { title: 'Dashboard', icon: 'dashboard' ,path:'/' },
+          { title: 'Dashboard', icon: 'dashboard' ,path:'' },
           { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
           { title: 'Orders', icon: 'library_books' , path:'orders'},
-          { title: 'Products', icon: 'business_center' , path:'products'}
+          { title: 'Products', icon: 'business_center' , path:'products'},
+          { title: 'Reports', icon: 'file_copy' , path:'reports'}
         ]
       }
     }

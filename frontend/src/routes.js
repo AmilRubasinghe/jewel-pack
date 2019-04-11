@@ -10,6 +10,8 @@ import profile from  './components/profile.vue'
 import adminPanel from './components/admin/adminPanel'
 import manageUsers from './components/admin/manageUsers'
 import manageProducts from './components/admin/manageProducts'
+import manageOrders from './components/admin/manageOrders'
+import manageReports from './components/admin/reports'
 import Store from './store.js'
 import { mapState } from 'vuex'
 
@@ -44,9 +46,10 @@ const router = new VueRouter({
         {path:"/home",component:home},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
-        {path:"/admin/products",component:manageProducts},
-        {path:"/admin/users",component:manageUsers},
-        {path:"/logout",beforeEnter:signout,component:home},
+        {path:"/admin/products",component:manageProducts,meta:{requireAuth:true,roles: ['admin']}},
+        {path:"/admin/users",component:manageUsers,meta:{requireAuth:true,roles: ['admin']}},
+        {path:"/admin/orders",component:manageOrders,meta:{requireAuth:true,roles: ['admin']}},
+        {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
     ],
 
 
@@ -56,7 +59,7 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-console.log(Store.getters.role);
+//console.log(Store.getters.role);
 if(to.meta.requireAuth){
     if(localStorage.getItem('token')){
         if(to.meta.roles){

@@ -34,8 +34,7 @@ import Store from '../store.js'
         created: function () {
            //this.me();
             // this.user=response.data.user;
-            console.log("Created");
-            console.log(Store.getters.user);
+            
             if(Store.getters.user){
                 this.user=Store.getters.user;
             }else{
@@ -74,8 +73,7 @@ import Store from '../store.js'
         me(){
                 let $Token=localStorage.getItem('token');
                 //console.log($store.getters.isLoggedIn);
-                 
-
+             
                 
             //this.$http.post('http://localhost:8000/api/me?token='+$Token)
             axios.post('http://localhost:8000/api/me?token='+$Token
