@@ -7,23 +7,21 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Users Table</h3>
+                <h3 class="card-title">Order Reports</h3>
 
                 <div class="card-tools">
-                    <button class="btn btn-success" @click="report">Add New <i></i></button>
+                    <button class="btn btn-success" @click="report">Refresh </button>
+                     <button class="btn btn-success" @click="exportPDF">Save as PDF </button>
                 </div>
+
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody>
                     <tr>
-                        <th>OrderID</th>
-                        <th>customerEmail</th>
-                        <th>contactNo</th>
-                        <th>TotQuantity</th>
-                        <th>TotPrice</th>
-                        <th>orderDate</th>
+                        <th v-for="header in headers" :key="header.text">{{header.text}}</th>
+                      
                   </tr>
 
 
@@ -56,23 +54,15 @@ import axios from 'axios'
   export default {      
       data () {
           return {
-            search: '',
-            pagination: {},
             reports: {},
-            rowsPerPageItems: [10, 20, 30, 40],
-            pagination: {
-              rowsPerPage: 10
-            },      
-            selected: [],
             headers: [
-              { text: 'OrderID', value: 'orderID' },
-              { text: 'customerEmail', value: 'customerEmail' },
-              { text: 'contactNo', value: 'contactNo' },
-              { text: 'TotQuantity', value: 'TotQuantity' },
-              { text: 'TotPrice', value: 'TotPrice' },
-              { text: 'orderDate', value: 'orderDate' }
-            ],
-            
+        { text: 'Order ID', value: 'oid' },
+        { text: 'Customer Email', value: 'customerEmail' },
+        { text: 'contact No', value: 'contactNo' },
+        { text: 'Tot Quantity', value: 'TotQuantity' },
+        { text: 'Tot Price', value: 'TotPrice' },
+        { text: 'Order Date', value: 'orderDate' },
+      ],
           }
   },
 
@@ -84,8 +74,6 @@ import axios from 'axios'
 
    mounted(){
             this.report();
-            console.log("this.reports");
-            console.log(this.reports);
             
    },
 
@@ -99,8 +87,6 @@ import axios from 'axios'
               })
                   .then(response => {
                       this.reports=response.data.salesReport;
-                      console.log("this.reports");
-                      console.log(this.reports);
                       
                       
                   })
@@ -108,7 +94,20 @@ import axios from 'axios'
                       console.log(error.response);
                       console.log("ERROR");
                   })
-          }
+          },
+
+          exportPDF(){
+ 
+                const doc = new jsPDF();
+                /** WITH CSS */
+                var canvasElement = document.createElement('canvas');
+                  html2canvas(this.$refs.content, { canvas: canvasElement 
+                    }).then(function (canvas) {
+                  const img = canvas.toDataURL("image/png");
+                  doc.addImage(img,'JPEG',20,20);
+                  doc.save("sample.pdf");
+   });
+ },
         },
   computed: {
         pages () {
