@@ -11,7 +11,7 @@
 
                 <div class="card-tools">
                     <button class="btn btn-success" @click="report">Refresh </button>
-                     <button class="btn btn-success" @click="exportPDF">Save as PDF </button>
+                     <button class="btn btn-success" @click="download">Save as PDF </button>
                 </div>
 
               </div>
@@ -51,6 +51,9 @@
 <script>
 import navDrawer from './navDrawer.vue';
 import axios from 'axios'
+import jsPDF from 'jspdf';
+import html2canvas from "html2canvas"
+import autoTable from 'jspdf-autotable'
   export default {      
       data () {
           return {
@@ -98,17 +101,66 @@ import axios from 'axios'
 
           exportPDF(){
  
-                const doc = new jsPDF();
-                /** WITH CSS */
-                var canvasElement = document.createElement('canvas');
-                  html2canvas(this.$refs.content, { canvas: canvasElement 
-                    }).then(function (canvas) {
-                  const img = canvas.toDataURL("image/png");
-                  doc.addImage(img,'JPEG',20,20);
-                  doc.save("sample.pdf");
-   });
- },
-        },
+      const doc = new jsPDF();
+      /** WITH CSS */
+      var canvasElement = document.createElement('canvas');
+      html2canvas(this.$refs.content, { canvas: canvasElement }).then(function (canvas) {
+        const img = canvas.toDataURL("image/png");
+        doc.addImage(img,'JPEG',20,20);
+        doc.save("sample.pdf");
+      });
+    },
+
+    download() {
+      var vm =this
+      var columns = [
+      
+        {title: "Order_ID", datakey: "oid"},
+        {title: "Customer_Email", datakey: "customerEmail"},
+        {title: "contact_No", datakey: "contactNo" },
+        {title: "Total_Quantity"	, datakey: "totQuantity"	 },
+        {title: "Tot_Price", datakey: "totPrice" },
+        {title: "orderDate", datakey: "orderDate" },
+      ];
+
+        var rows = [];
+
+        for(var item in this.reports){
+            // console.log("Item.oid");
+           // console.log(this.reports[item]);
+            var temp = [
+              this.reports[item].oid,
+              this.reports[item].customerEmail,
+              this.reports[item].contactNo,
+              this.reports[item].TotQuantity,
+              this.reports[item].TotPrice,
+              this.reports[item].orderDate,
+            ];
+            rows.push(temp);
+            
+        }
+
+
+
+      var doc = new jsPDF('p','pt');
+      doc.setFontSize(18);
+      doc.setTextColor(40);
+      doc.setFontStyle('normal');
+      doc.text("Sales Report",50,25)
+      doc.autoTable(columns,rows);
+      doc.save("Sales_Report.pdf");
+/*
+        const doc = new jsPDF();
+      
+      var canvasElement = document.createElement('canvas');
+      html2canvas(this.$refs.content, { canvas: canvasElement }).then(function (canvas) {
+        const img = canvas.toDataURL("image/png");
+        doc.addImage(img,'JPEG',20,20);
+        doc.save("sample.pdf");
+      });
+    */
+    },
+  },
   computed: {
         pages () {
           if (this.pagination.rowsPerPage == null ||

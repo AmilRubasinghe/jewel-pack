@@ -53,13 +53,21 @@ import axios from 'axios'
     // Add a response interceptor
     axios.interceptors.response.use( (response)=> {
         // Do something with response data
-        console.log(response);
+       
         this.$store.commit('LOADER',false);
+         if(response.data.exp){
+             console.log("expired");
+              localStorage.removeItem('token');
+                     Store.commit("setUser",null);
+                    this.$router.push('/loginPage');
+           }
         return response;
       },  (error) => {
+        
         // Do something with response error
         return new Promise((resolve,reject)=>{
            this.$store.commit('LOADER',false);
+           
         /*  this.$store.dispatch('logout').then(()=>{
             //this.$store.commit('LOADER',false);
             this.$router.push('/logout')
