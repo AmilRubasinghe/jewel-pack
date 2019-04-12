@@ -14,6 +14,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
            <v-text-field
+           placeholder="Search"
         hide-details
         single-line
       ></v-text-field>

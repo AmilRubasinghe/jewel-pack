@@ -8,6 +8,7 @@
          
 <v-card-title>
       <h3>Sales Order Reports</h3>
+      
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -16,6 +17,8 @@
         single-line
         hide-details
       ></v-text-field>
+      <v-btn color="blue" outline  @click="download">Save as PDF </v-btn>
+      <v-btn color="blue" outline @click="report">Refresh</v-btn>
     </v-card-title>
  
 
