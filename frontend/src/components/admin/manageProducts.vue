@@ -6,6 +6,7 @@
       :width="7"
       color="purple"
       indeterminate
+      
     ></v-progress-circular>
   </div>
 </template>
