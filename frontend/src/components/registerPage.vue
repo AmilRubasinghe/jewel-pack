@@ -117,7 +117,6 @@ export default{
      margin: 0;
      }
  .inventory-body {
-     position: fixed;
      min-width: 100%;
      background-image: url("https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg");
      background-repeat: no-repeat;

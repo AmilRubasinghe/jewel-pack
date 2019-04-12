@@ -1,9 +1,12 @@
 <template>
 <div id="app">
 <navbar></navbar>
-
+<footers></footers>
  
 <LOADER></LOADER>
+   
+      
+    
 </div>
 </template>
 
@@ -16,6 +19,7 @@ import axios from 'axios'
   import adminPanel from './components/admin/adminPanel'
   import manageProducts from './components/admin/manageProducts'
   import manageUsers from './components/admin/manageUsers'
+  import footers from './components/footers.vue'
   //import alert from './components/alert.vue'
   import Store from './store.js'
   
@@ -28,7 +32,10 @@ import axios from 'axios'
       'LOADER':Loader,
       'adminPanel':adminPanel,
       'manageProducts':manageProducts,
-      'manageUsers':manageUsers
+      'manageUsers':manageUsers,
+       
+    'footers':footers,
+  
     //  'alert':alert
 
     },
@@ -56,10 +63,10 @@ import axios from 'axios'
        
         this.$store.commit('LOADER',false);
          if(response.data.exp){
-             console.log("expired");
+             console.log("Token Expired");
               localStorage.removeItem('token');
-                     Store.commit("setUser",null);
-                    this.$router.push('/loginPage');
+              Store.commit("setUser",null);
+              this.$router.push('/loginPage');
            }
         return response;
       },  (error) => {

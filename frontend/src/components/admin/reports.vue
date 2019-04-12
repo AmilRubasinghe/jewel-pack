@@ -3,7 +3,21 @@
 <navDrawer></navDrawer>
 
 <div class="container">
-        
+       <v-card>
+<v-card-title>
+      <h3>Sales Order Reports</h3>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+ 
+
+        <!--
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
@@ -11,11 +25,11 @@
 
                 <div class="card-tools">
                     <button class="btn btn-success" @click="report">Refresh </button>
-                     <button class="btn btn-success" @click="download">Save as PDF </button>
+                     <button class="btn btn-success" @click="downloadWithCSS">Save as PDF </button>
                 </div>
 
               </div>
-              <!-- /.card-header -->
+              
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody>
@@ -36,14 +50,52 @@
 
                    
                   </tr>
-                </tbody></table>
-              </div>
-              <!-- /.card-body -->
-             
-            </div>
-            <!-- /.card -->
-          </div>
+                </tbody></table>-->
+
+
+                
+<v-data-table
+    v-model="selected"
+    :headers="headers"
+    :items="reports"
+     :search="search"
+    :pagination.sync="pagination"
+    select-all
+    item-key="oid"
+    class="elevation-1"
+  >
+    <template v-slot:headers="props">
+      <tr>
+        <th
+          v-for="header in props.headers"
+          :key="header.text"
+          :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+          @click="changeSort(header.value)"
+        >
+          <v-icon small>arrow_upward</v-icon>
+          {{ header.text }}
+        </th>
+      </tr>
+    </template>
+    <template v-slot:no-data>
+      <v-alert :value="true" color="error" icon="warning">
+        Sorry, nothing to display here :(
+      </v-alert>
+    </template>
+    <template v-slot:items="props">
+      <tr :active="props.selected" @click="props.selected = !props.selected">
         
+        <td class="text-xs-right">{{ props.item.oid }}</td>
+        <td class="text-xs-right">{{ props.item.customerEmail }}</td>
+        <td class="text-xs-right">{{ props.item.contactNo }}</td>
+        <td class="text-xs-right">{{props.item.TotQuantity }}</td>
+        <td class="text-xs-right">{{ props.item.TotPrice }}</td>
+        <td class="text-xs-right">{{ props.item.orderDate }}</td>
+      </tr>
+    </template>
+  </v-data-table>
+
+</v-card> 
 </div>
 </div>
 </template>
@@ -57,7 +109,12 @@ import autoTable from 'jspdf-autotable'
   export default {      
       data () {
           return {
-            reports: {},
+            search: '',
+            reports: [],
+            pagination: {
+            sortBy: 'oid'
+      },
+      selected: [],
             headers: [
         { text: 'Order ID', value: 'oid' },
         { text: 'Customer Email', value: 'customerEmail' },
@@ -89,7 +146,7 @@ import autoTable from 'jspdf-autotable'
 
               })
                   .then(response => {
-                      this.reports=response.data.salesReport;
+                      this.reports=Object.values(response.data.salesReport);
                       
                       
                   })
@@ -99,16 +156,24 @@ import autoTable from 'jspdf-autotable'
                   })
           },
 
-          exportPDF(){
- 
-      const doc = new jsPDF();
-      /** WITH CSS */
-      var canvasElement = document.createElement('canvas');
-      html2canvas(this.$refs.content, { canvas: canvasElement }).then(function (canvas) {
-        const img = canvas.toDataURL("image/png");
-        doc.addImage(img,'JPEG',20,20);
-        doc.save("sample.pdf");
-      });
+          changeSort (column) {
+              if (this.pagination.sortBy === column) {
+                this.pagination.descending = !this.pagination.descending
+              } else {
+                this.pagination.sortBy = column
+                this.pagination.descending = false
+              }
+          },
+
+    downloadWithCSS() {
+          const doc = new jsPDF();
+          /** WITH CSS */
+          var canvasElement = document.createElement('canvas');
+          html2canvas(this.$refs.content, { canvas: canvasElement }).then(function (canvas) {
+            const img = canvas.toDataURL("image/png");
+            doc.addImage(img,'JPEG',20,20);
+            doc.save("sample.pdf");
+          });
     },
 
     download() {

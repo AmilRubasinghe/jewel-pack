@@ -13,6 +13,11 @@
       
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
+           <v-text-field
+        hide-details
+        single-line
+      ></v-text-field>
+      <v-btn icon  @click.native.stop="modalModel=true"><v-icon>search</v-icon></v-btn>
         <v-btn
           flat
           v-for="item in menuItems"
@@ -71,7 +76,10 @@
     
     <v-content>
       <router-view></router-view>
+      
     </v-content>
+
+ 
     
   </v-app>
 
@@ -83,6 +91,7 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Store from '../store.js'
+import footers from './footers.vue'
 export default {
   name: "App",
 
@@ -118,6 +127,10 @@ export default {
      ],
      
     }
+  },
+
+  components:{
+    'footers':footers,
   },
     methods:{
     logout(){
@@ -162,11 +175,3 @@ export default {
   }*/
 };
 </script>
-
-<style>
-.IS_ACTIVATED{
-
-    background-color: white;
-    cursor: pointer;
-}
-</style>

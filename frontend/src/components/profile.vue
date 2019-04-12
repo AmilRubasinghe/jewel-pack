@@ -12,7 +12,7 @@
 </form>
 
     
-     <v-btn @click="me"  color="blue" outline class="btn btn-lg btn-primary btn-block">Profile</v-btn>
+     <v-btn @click="me"  color="blue" outline class="btn btn-lg btn-primary btn-block">Refresh</v-btn>
     </div>
     
 </template>
@@ -32,7 +32,7 @@ import Store from '../store.js'
         
 
         created: function () {
-           //this.me();
+           this.me();
             // this.user=response.data.user;
             
             if(Store.getters.user){
@@ -86,6 +86,7 @@ import Store from '../store.js'
                         this.$router.push('/loginPage');
                     }else{
                         this.user=response.data.user;
+                         Store.dispatch("setUser",this.user);
                     }
                 })
                 .catch(error => {
