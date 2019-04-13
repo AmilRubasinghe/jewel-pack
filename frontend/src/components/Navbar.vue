@@ -27,6 +27,34 @@
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
+
+
+         <v-menu
+      transition="slide-y-transition"
+      bottom
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          v-on="on"
+          flat
+        >
+          Catogories
+        </v-btn>
+        
+      </template>
+      <v-list>
+        <v-list-tile
+          v-for="(item, i) in menuItems"
+          :key="i"
+          
+        >
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+
+
+
         <v-btn
             v-if="!user"
             flat

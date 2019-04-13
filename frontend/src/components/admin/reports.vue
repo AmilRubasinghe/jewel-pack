@@ -17,8 +17,16 @@
         single-line
         hide-details
       ></v-text-field>
-      <v-btn color="blue" outline  @click="download">Save as PDF </v-btn>
-      <v-btn color="blue" outline @click="report">Refresh</v-btn>
+        
+     
+
+         <v-btn fab dark color="blue" @click="download">
+      <v-icon dark>save_alt</v-icon>
+    </v-btn>
+
+      <v-btn fab dark color="blue" @click="report">
+      <v-icon dark >refresh</v-icon>
+    </v-btn>
     </v-card-title>
  
 
@@ -151,7 +159,7 @@ import autoTable from 'jspdf-autotable'
 
               })
                   .then(response => {
-                      this.reports=Object.values(response.data.salesReport);
+                      this.reports=response.data.salesReport;
                       
                       
                   })

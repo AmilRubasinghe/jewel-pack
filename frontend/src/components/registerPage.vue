@@ -50,7 +50,8 @@
 
 
         <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
-            <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+            
+            <v-btn type="submit" round color="blue" outline  block>Register</v-btn>
 
         </div>
 

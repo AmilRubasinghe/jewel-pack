@@ -56,7 +56,7 @@
 
 
             <div class="form-group form-group-lg"  v-ripple="{ class: 'white--text' }">
-                <v-btn type="submit" color="blue" outline  class="btn btn-lg btn-primary btn-block">Sign in</v-btn>
+                <v-btn type="submit" round color="blue" outline  block>Sign in</v-btn>
             </div>
 
 
