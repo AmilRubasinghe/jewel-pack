@@ -29,26 +29,24 @@
         </v-btn>
 
 
-         <v-menu
-      transition="slide-y-transition"
-      bottom
-    >
+<v-menu offset-y>
       <template v-slot:activator="{ on }">
         <v-btn
+          flat          
           v-on="on"
-          flat
         >
-          Catogories
+         <v-icon left dark>{{ 'reorder' }}</v-icon>
+          categories
         </v-btn>
-        
+
       </template>
       <v-list>
         <v-list-tile
-          v-for="(item, i) in menuItems"
-          :key="i"
-          
+          v-for="item in categoryItems" :key="item.CID"
+          :to="item.path"
         >
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        <v-icon left>{{ item.icon }}</v-icon>
+          <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -154,6 +152,12 @@ export default {
           { title: 'Dashboard', path: '/editor', icon: 'dashboard'},
            // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
      ],
+
+     categoryItems: [
+         // { title: 'Gem Boxes', path: '/gemBox', icon: 'local_mall'},
+         // { title: 'Jewellery Boxes', path: '/jewelleryBox', icon: 'local_mall'},
+           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+     ],
      
     }
   },
@@ -181,7 +185,25 @@ export default {
                 console.log("ERROR");
                 
             })
-        }
+        },
+
+
+        catItems(){
+              axios.get('http://localhost:8000/api/category')
+                  .then(response => {
+                    
+                    
+                      this.categoryItems=response.data.catItems;
+
+                      //console.log(this.categoryItems);
+                      
+                      
+                  })
+                  .catch(error => {
+                      console.log(error.response);
+                      console.log("ERROR");
+                  })
+          },
     },
 
     
@@ -195,10 +217,17 @@ export default {
             ])
     // Other properties
   },
- /* 
-  beforeMount(){
-      this.token=localStorage.getItem('token');
+ 
+  mounted(){
+      this.catItems();
+      console.log("000000000000000000000000000000");
+      for(item in this.categoryItems){
+        console.log("-----------------------------------");
+          console.log(item.CID);
+      }
   },
+
+  /*
   beforeUpdate(){
       this.token=localStorage.getItem('token');
   }*/
