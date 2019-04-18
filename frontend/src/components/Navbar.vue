@@ -10,14 +10,25 @@
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
+      <v-divider
+      class="mx-3"
+      inset
+      vertical
+    ></v-divider>
+    
+
+
       
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-           <v-text-field
-           placeholder="Search"
-        hide-details
-        single-line
-      ></v-text-field>
+
+
+        <v-flex xs12 sm6 md3>
+          <v-text-field
+            label="Search"
+          ></v-text-field>
+        </v-flex>
+        
       <v-btn icon  @click.native.stop="modalModel=true"><v-icon>search</v-icon></v-btn>
         <v-btn
           flat
@@ -38,7 +49,6 @@
          <v-icon left dark>{{ 'reorder' }}</v-icon>
           categories
         </v-btn>
-
       </template>
       <v-list>
         <v-list-tile
@@ -153,11 +163,7 @@ export default {
            // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
      ],
 
-     categoryItems: [
-         // { title: 'Gem Boxes', path: '/gemBox', icon: 'local_mall'},
-         // { title: 'Jewellery Boxes', path: '/jewelleryBox', icon: 'local_mall'},
-           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
-     ],
+     categoryItems: [],
      
     }
   },
@@ -183,7 +189,6 @@ export default {
             .catch(error => {
                 console.log(error.response);
                 console.log("ERROR");
-                
             })
         },
 
@@ -220,11 +225,6 @@ export default {
  
   mounted(){
       this.catItems();
-      console.log("000000000000000000000000000000");
-      for(item in this.categoryItems){
-        console.log("-----------------------------------");
-          console.log(item.CID);
-      }
   },
 
   /*

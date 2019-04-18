@@ -31,6 +31,32 @@ export default new Vuex.Store({
             }
             
         },
+        isAdmin: state => {
+            if(state.user){
+                if(state.user.role="admin"){
+                    return true
+                }else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+            
+            
+        },
+        idAdminEditor: state => {
+            if(state.user){
+            if((state.user.role="admin")||(state.user.role="editor")){
+                return true
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+            
+        },
       },
 
     mutations:{

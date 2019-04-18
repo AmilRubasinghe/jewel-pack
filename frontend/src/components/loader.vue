@@ -36,7 +36,7 @@
 -->
 
      <v-layout row justify-center>
-      <v-dialog v-model="$store.getters.loader" persistent fullscreen content-class="loading-dialog">
+      <v-dialog v-model="$store.getters.loader" persistent fullscreen content-class="loading-dialog" transition=false>
         <v-container fill-height>
           <v-layout row justify-center align-center>
             <v-progress-circular indeterminate :size="100" :width="7" color="#42A5F5"></v-progress-circular>

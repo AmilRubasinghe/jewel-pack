@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
 
     public function getItem(){
-        // $salesReport=sales_reports::all();
+        // $catItems=category::all();
        
        $catItems = DB::table('category')->get(); // it will get the entire table
         return response()->json(['catItems'=>$catItems],200);

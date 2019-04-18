@@ -57,3 +57,9 @@ Route::post('/register',[
         
         
     });
+
+
+    
+//SlideshowModuleRoutes
+Route::get('getImages', 'SlideshowController@getImages');
+Route::post('storeImage', 'SlideshowController@storeImage');

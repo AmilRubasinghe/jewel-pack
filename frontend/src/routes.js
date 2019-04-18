@@ -12,6 +12,8 @@ import manageUsers from './components/admin/manageUsers'
 import manageProducts from './components/admin/manageProducts'
 import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
+import manageSlideshow from './components/adminEditor/manageSlideshow'
+import manageCategory from './components/adminEditor/manageCategory'
 import Store from './store.js'
 import { mapState } from 'vuex'
 
@@ -50,6 +52,8 @@ const router = new VueRouter({
         {path:"/admin/users",component:manageUsers,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/orders",component:manageOrders,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
+        {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
     ],
 
 
