@@ -80,6 +80,16 @@ export default {
     
 
     methods:{
+
+
+         changeSort (column) {
+              if (this.pagination.sortBy === column) {
+                this.pagination.descending = !this.pagination.descending
+              } else {
+                this.pagination.sortBy = column
+                this.pagination.descending = false
+              }
+          },
         
         catItems(){
               axios.get('http://localhost:8000/api/category')

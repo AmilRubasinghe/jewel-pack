@@ -63,3 +63,5 @@ Route::post('/register',[
 //SlideshowModuleRoutes
 Route::get('getImages', 'SlideshowController@getImages');
 Route::post('storeImage', 'SlideshowController@storeImage');
+Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
+Route::post ( 'deleteSlideshow/{id}', 'SlideshowController@deleteItem' );

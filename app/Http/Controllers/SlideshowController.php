@@ -28,7 +28,7 @@ class SlideshowController extends Controller
         $table->ext = $request->input('ext');
         $table->size = $request->input('size');
         $table->image = $request->input('image');
-        $table->deleteURL = $request->input('delete');
+        $table->deleteURL = $request->input('deleteURL');
 
     $table->save();
 
@@ -37,6 +37,24 @@ class SlideshowController extends Controller
 
         
         
+}
+
+
+public function editItem(Request $request, $imageId){
+    $thisImage=slideshow::findOrFail($imageId);
+    //$thisImage =slideshow::where('imageId', $imageId)->first();
+    $thisImage->timestamps = false;
+    $thisImage->ext = $request->input('ext');
+    $thisImage->size = $request->input('size');
+    $thisImage->image = $request->input('image');
+    $thisImage->image = $request->input('deleteURL');
+    $thisImage->save();
+    return $thisImage;
+}
+
+
+public function deleteItem($imageId) {
+    $table = slideshow::findOrFail($imageId)->delete ();
 }
 
 

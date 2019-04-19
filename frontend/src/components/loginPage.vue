@@ -109,7 +109,7 @@ import Store from '../store.js'
                        this.$store.dispatch("setUser",response.data.user);
                       /* console.log("User");
                        console.log(this.$store.state.user);*/
-                       console.log(Store.getters.role);
+                      // console.log(Store.getters.role);
                         if(Store.getters.role=='admin'){
                             this.$router.push('/admin');
                         }else{
