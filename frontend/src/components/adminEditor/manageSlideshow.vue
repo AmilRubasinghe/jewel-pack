@@ -159,16 +159,19 @@
         <td class="text-xs-left">{{ props.item.imageID }}</td>
         <td class="text-xs-left">{{ props.item.size }}</td>
         <td class="text-xs-left">{{ props.item.image }}</td>
+        <td class="text-xs-left"><v-img :src="props.item.image"></v-img></td>
         <td class="justify-center layout px-0">
           <v-icon
-            small
+          color="deep-purple darken-1"
+            medium
             class="mr-2"
             @click="editItem(props.item)"
           >
             edit
           </v-icon>
           <v-icon
-            small
+          color="red"
+            medium
             @click="deleteItem(props.item)"
           >
             delete
@@ -220,6 +223,7 @@ import navDrawer from '../admin/navDrawer.vue';
         { text: 'Image ID', value: 'imageID' },
         { text: 'Image Size (Bytes)', value: 'size' },
         { text: 'Image URL', value: 'image' },
+        { text: 'Preview', value: 'preview' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
         }
@@ -262,7 +266,8 @@ import navDrawer from '../admin/navDrawer.vue';
                                 .then(response => {
                                     this.dialog = false;
                                     this.file="";
-                                    console.log("Succesfully Saved");
+                                    this.getSlideshow();
+                                    alert("Succesfully Saved");
                                         
                                         
                                     })
@@ -316,8 +321,9 @@ import navDrawer from '../admin/navDrawer.vue';
         },
 
         editItem (item) {
-            this.editedIndex = item.imageID
+            this.editedIndex = this.slideshowItems.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            console.log(this.editedItem);
             this.showModal = true
         },
 
@@ -345,7 +351,7 @@ import navDrawer from '../admin/navDrawer.vue';
                     console.log("*******************");
                     console.log(this.editedItem);
 
-                    axios.post('http://localhost:8000/api/edititems/'+this.editedIndex,this.editedItem)
+                    axios.post('http://localhost:8000/api/edititems/'+this.editedItem.imageID,this.editedItem)
                     .then(response => {
                         this.showModal=false
                         this.getSlideshow();

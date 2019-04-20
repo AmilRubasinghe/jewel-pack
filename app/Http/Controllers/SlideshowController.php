@@ -28,7 +28,7 @@ class SlideshowController extends Controller
         $table->ext = $request->input('ext');
         $table->size = $request->input('size');
         $table->image = $request->input('image');
-        $table->deleteURL = $request->input('deleteURL');
+        $table->deleteURL = $request->input('delete');
 
     $table->save();
 
@@ -47,7 +47,7 @@ public function editItem(Request $request, $imageId){
     $thisImage->ext = $request->input('ext');
     $thisImage->size = $request->input('size');
     $thisImage->image = $request->input('image');
-    $thisImage->image = $request->input('deleteURL');
+    $thisImage->deleteURL = $request->input('deleteURL');
     $thisImage->save();
     return $thisImage;
 }

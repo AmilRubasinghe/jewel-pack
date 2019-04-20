@@ -102,15 +102,16 @@ import Store from '../store.js'
                     
                     this.alert=response.data.message;
                     let $token=response.data.token;
-
+                    this.$store.dispatch("setUser",null);
                      if($token){
                         localStorage.setItem('token',$token);
-                       // console.log(response.data.user);
+                        console.log(response.data.role);
+                       
                        this.$store.dispatch("setUser",response.data.user);
-                      /* console.log("User");
-                       console.log(this.$store.state.user);*/
+                       console.log("User");
+                     //  console.log(this.$store.state.user);
                       // console.log(Store.getters.role);
-                        if(Store.getters.role=='admin'){
+                        if(response.data.role=='admin'){
                             this.$router.push('/admin');
                         }else{
                         this.$router.push('/profile');
