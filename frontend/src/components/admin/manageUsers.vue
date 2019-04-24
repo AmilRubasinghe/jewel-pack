@@ -42,7 +42,7 @@
  <v-dialog v-model="showModal">
         <v-card>
           <v-card-title>
-            <span class="headline">Edit Item</span>
+            <span class="headline">Edit User</span>
           </v-card-title>
 
           <v-card-text>
@@ -51,14 +51,11 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.ID" label="ID" disabled></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.role" label="Role" ></v-text-field>
-                </v-flex>
                    <v-flex xs12 sm6 md4 d-flex>
                     <v-select
                     
                       :items="roles"
-                      label="Roles"
+                      label="Role"
                       outline
                       menu-props
                        v-model="editedItem.role"
@@ -318,28 +315,29 @@ import navDrawer from '../admin/navDrawer.vue';
                         /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-                        this.getSlideshow();
+                        this.getUsers();
                         alert("Succesfully Deleted");
                     });
             }
         },
           save(){
 
-
+                let $Token=localStorage.getItem('token');
                 if (this.editedIndex > -1) {
-                    Object.assign(this.slideshowItems[this.editedIndex], this.editedItem)
+                    Object.assign(this.users[this.editedIndex], this.editedItem)
                     console.log("*******************");
                     console.log(this.editedItem);
 
-                    axios.post('http://localhost:8000/api/edititems/'+this.editedItem.imageID,this.editedItem)
+                    axios.post('http://localhost:8000/api/editUser/?token='+$Token,this.editedItem)
+                    
                     .then(response => {
                         this.showModal=false
-                        this.getSlideshow();
+                        this.getUsers();
                         console.log("Succesfully Edited");
                     });
 
                  } else {
-                    this.slideshowItems.push(this.editedItem)
+                    this.users.push(this.editedItem)
                  }
                     this.close()
             

@@ -62,7 +62,7 @@ Route::post('/register',[
 
     Route::group(['middleware' => 'jwt.verify:admin'], function() {
         
-        
+        Route::post('editUser', 'UserController@editUser');
         Route::post('salesReport', 'salesReport@getReport');
         
         

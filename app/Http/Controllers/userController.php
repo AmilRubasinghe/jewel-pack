@@ -121,16 +121,7 @@ class userController extends Controller
         return response()->json(['users'=>$users],200);
     }
 
-public function getLogged(){
-		return view('logged');
-	}
-/*
-public function verifyEmailFirst(){
 
-    return view('email/verifyEmailFirst');
-}*/
-
-//Check this neccesary or not
     public function loginPage(){
         if(Auth::user()){
             return redirect('/logged');
@@ -140,14 +131,6 @@ public function verifyEmailFirst(){
     }
 
 
-/*
-	public function registerPage(){
-        if(Auth::user()){
-            return redirect('/logged');
-        }
-		return view('registerPage');
-	}
-*/
 public function logoutUser(Request $request){
 		/*Auth::logout();
 		Session::flush();
@@ -221,10 +204,7 @@ public function logoutUser(Request $request){
      *
      * @return \Illuminate\Contracts\Auth\Guard
      */
-    public function guard()
-    {
-        return Auth::guard();
-    }
+
 
     public function me()
     {
@@ -261,6 +241,23 @@ public function logoutUser(Request $request){
             return response()->json(compact('user'));
         
     }
+
+
+
+    
+    public function editUser(Request $request){
+        $thisUser=User::findOrFail($request->input('ID'));
+        $thisUser->firstName = $request->input('firstName');
+        $thisUser->lastName = $request->input('lastName');
+        $thisUser->contactNo= $request->input('contactNo');
+        $thisUser->role = $request->input('role');
+        $thisUser->email = $request->input('email');
+        $thisUser->emailStatus = $request->input('emailStatus');
+
+        $thisUser->save();
+        return $thisUser;
+    }
+
 
 
 
