@@ -13,7 +13,7 @@ use App\Mail\verifyEmail;
 use phpDocumentor\Reflection\Types\Null_;
 use JWTAuth;
 use App\Http\Controllers\Controller;
-
+use DB;
 
 class userController extends Controller
 {
@@ -113,6 +113,13 @@ class userController extends Controller
         
 	}
 
+
+    public function getUsers(){
+        // $salesReport=sales_reports::all();
+      // echo("report");
+       $users = User::all(); // it will get the entire table
+        return response()->json(['users'=>$users],200);
+    }
 
 public function getLogged(){
 		return view('logged');
