@@ -115,11 +115,16 @@
 <div>
     
     <v-toolbar flat color="white">
-      <v-toolbar-title>Users</v-toolbar-title>
+      <v-toolbar-title>{{table_title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn   @click="dialog = true">
-          <v-icon large color="blue">add_box</v-icon>
-          Add User
+      <v-btn v-if="!deletedUsers" @click="getDeletedUsers">
+          <v-icon large color="blue">delete_sweep</v-icon>
+          Deleted Users
+      </v-btn>
+
+      <v-btn v-if="deletedUsers" @click="getUsers">
+          <v-icon large color="blue">playlist_add_check</v-icon>
+          Active Users
       </v-btn>
       
     </v-toolbar>
@@ -172,11 +177,20 @@
             edit
           </v-icon>
           <v-icon
+          v-if="!deletedUsers"
           color="red"
             medium
             @click="deleteItem(props.item)"
           >
             delete
+          </v-icon>
+          <v-icon
+          v-if="deletedUsers"
+          color="green"
+            medium
+            @click="restoreItem(props.item)"
+          >
+            restore_from_trash
           </v-icon>
         </td>
       </tr>
@@ -225,6 +239,8 @@ import navDrawer from '../admin/navDrawer.vue';
             sortBy: 'ID',
             },
             selected: [],
+            deletedUsers:false,
+            table_title:"Users",
 
          headers: [
         { text: 'ID', value: 'ID' },
@@ -262,7 +278,31 @@ import navDrawer from '../admin/navDrawer.vue';
     methods:{
 
             getUsers(){
-              axios.post('http://localhost:8000/api/users')
+              this.table_title="Active Users",
+              this.deletedUsers=false;
+              let $Token=localStorage.getItem('token');
+              axios.post('http://localhost:8000/api/users?token='+$Token)
+                  .then(response => {
+                    
+                    
+                      this.users=response.data.users;
+
+                      //console.log(this.slideshowItems);
+
+                      
+                      
+                  })
+                  .catch(error => {
+                      console.log(error.response);
+                      console.log("ERROR");
+                  })
+          },
+
+          getDeletedUsers(){
+            this.table_title="Deleted Users",
+            this.deletedUsers=true;
+            let $Token=localStorage.getItem('token');
+              axios.post('http://localhost:8000/api/deletedUsers?token='+$Token)
                   .then(response => {
                     
                     
@@ -306,17 +346,34 @@ import navDrawer from '../admin/navDrawer.vue';
 
         deleteItem (item) {
             
-            var result = confirm("Want to delete?");
+            var result = confirm("Want to delete "+item.firstName+"?");
             if (result) {
                 //Logic to delete the item
-                console.log(item.imageID)
-                axios.post('http://localhost:8000/api/deleteSlideshow/'+item.imageID)
+                let $Token=localStorage.getItem('token');
+                axios.post('http://localhost:8000/api/deleteUser/'+item.ID+'?token='+$Token)
                     .then(response => {
                         /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
                         this.getUsers();
                         alert("Succesfully Deleted");
+                    });
+            }
+        },
+
+        restoreItem (item) {
+            
+            var result = confirm("Want to restore "+item.firstName+"?");
+            if (result) {
+                //Logic to delete the item
+                let $Token=localStorage.getItem('token');
+                axios.post('http://localhost:8000/api/restoreUser/'+item.ID+'?token='+$Token)
+                    .then(response => {
+                        /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+                        this.getDeletedUsers();
+                        alert("Succesfully Restored");
                     });
             }
         },

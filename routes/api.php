@@ -44,7 +44,7 @@ Route::post('/register',[
     Route::post('refresh', 'UserController@refresh');
     Route::post('register','UserController@registerUser');
     Route::post('guard','UserController@guard');
-    Route::post('users','UserController@getUsers');
+    
 
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
@@ -62,7 +62,11 @@ Route::post('/register',[
 
     Route::group(['middleware' => 'jwt.verify:admin'], function() {
         
+        Route::post('users','UserController@getUsers');
+        Route::post('deletedUsers','UserController@getDeletedUsers');
         Route::post('editUser', 'UserController@editUser');
+        Route::post('deleteUser/{id}', 'UserController@deleteUser');
+        Route::post('restoreUser/{id}', 'UserController@restoreUser');
         Route::post('salesReport', 'salesReport@getReport');
         
         

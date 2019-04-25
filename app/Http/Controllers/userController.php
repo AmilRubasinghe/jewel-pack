@@ -105,6 +105,12 @@ class userController extends Controller
         if(!$user->emailStatus){
             return response()->json(['message' => 'Email not verified. Please verify email first !'], 200);
         }
+
+        if($user->isDeleted){
+            $this->restoreUser($user->ID);
+           // return response()->json(['message' => 'Account activated !'], 200);
+            return response()->json(['message' => 'Account activated !','token'=>$token,'user'=>$user,'role'=>$user->role]);
+        }
         
 
         //$token = JWTAuth::fromUser($user);
@@ -117,8 +123,25 @@ class userController extends Controller
     public function getUsers(){
         // $salesReport=sales_reports::all();
       // echo("report");
-       $users = User::all(); // it will get the entire table
+       $users = User::where('isDeleted', '=', 0)->get(); // it will get the entire table
         return response()->json(['users'=>$users],200);
+    }
+
+    public function getDeletedUsers(){
+        // $salesReport=sales_reports::all();
+      // echo("report");
+       $users = User::where('isDeleted', '=', 1)->get(); // it will get the entire table
+        return response()->json(['users'=>$users],200);
+    }
+
+    public function deleteUser($ID){
+
+        user::where(['ID'=>$ID])->update(['isDeleted'=>'1']);
+    }
+
+    public function restoreUser($ID){
+
+        user::where(['ID'=>$ID])->update(['isDeleted'=>'0']);
     }
 
 
