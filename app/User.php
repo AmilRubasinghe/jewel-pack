@@ -10,7 +10,8 @@ class User extends Model implements Authenticatable
 {
     use \Illuminate\Auth\Authenticatable;
 
-
+    protected $primaryKey = 'ID';
+    
     protected $fillable=[
         'firstName','lastName','email','password',
     ];

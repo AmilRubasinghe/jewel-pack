@@ -4,7 +4,7 @@
 </br>
 
 
-
+<div class="container">
 <v-dialog v-model="dialog" max-width="600px">
       
       <v-card  max-width="600px">
@@ -182,6 +182,7 @@
     </template>
   </v-data-table>
 </div>           
+</div>
 </div>
 </template>
 

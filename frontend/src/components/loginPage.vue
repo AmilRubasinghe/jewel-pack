@@ -102,6 +102,7 @@ import Store from '../store.js'
                     
                     this.alert=response.data.message;
                     let $token=response.data.token;
+                    console.log($token);
                     this.$store.dispatch("setUser",null);
                      if($token){
                         localStorage.setItem('token',$token);

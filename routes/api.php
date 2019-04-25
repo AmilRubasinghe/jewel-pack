@@ -44,24 +44,40 @@ Route::post('/register',[
     Route::post('refresh', 'UserController@refresh');
     Route::post('register','UserController@registerUser');
     Route::post('guard','UserController@guard');
+    Route::post('users','UserController@getUsers');
 
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
     
 
 //userModuleProtectedRoutes
-    Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {
+        
         Route::post('logout', 'UserController@logoutUser');
         Route::post('me', 'UserController@me');
-        Route::post('salesReport', 'salesReport@getReport');
         
         
     });
 
 
+    Route::group(['middleware' => 'jwt.verify:admin'], function() {
+        
+        Route::post('editUser', 'UserController@editUser');
+        Route::post('salesReport', 'salesReport@getReport');
+        
+        
+    });
     
 //SlideshowModuleRoutes
-Route::get('getImages', 'SlideshowController@getImages');
+
+
+Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {
+        
+    
 Route::post('storeImage', 'SlideshowController@storeImage');
 Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
 Route::post ( 'deleteSlideshow/{id}', 'SlideshowController@deleteItem' );
+    
+    
+});
+Route::get('getImages', 'SlideshowController@getImages');
