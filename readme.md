@@ -1,4 +1,4 @@
-<h5>Setup Backend</h5>
+<h3>Setup Backend</h3>
 <h5>composer install</h5>
 <h5>php artisan key:generate</h5>
 <h5>cp .env.example .env</h5>
