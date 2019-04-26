@@ -1,3 +1,8 @@
+<h3>Setup Backend</h3>
+composer install
+php artisan key:generate
+cp .env.example .env
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
