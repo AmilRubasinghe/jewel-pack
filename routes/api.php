@@ -41,10 +41,11 @@ Route::post('/register',[
 
 //userModuleRoutes
     Route::post('login', 'UserController@loginUser');
-    Route::post('refresh', 'UserController@refresh');
     Route::post('register','UserController@registerUser');
-    Route::post('guard','UserController@guard');
     
+    
+    Route::post('guard','UserController@guard');
+    Route::post('refresh', 'UserController@refresh');
 
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
