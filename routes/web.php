@@ -10,11 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
-
+*/
 Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
 /*
 Route::post('register',['uses'=>'UserController@registerUser',
