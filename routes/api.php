@@ -33,11 +33,6 @@ Route::group([
     
 
 });
-/*
-Route::post('/register',[
-    'uses'=>'UserController@registerUser'
-
-]);*/
 
 //userModuleRoutes
     Route::post('login', 'UserController@loginUser');
