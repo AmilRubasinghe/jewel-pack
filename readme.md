@@ -1,7 +1,7 @@
 <h3>Setup Backend</h3>
-composer install
-php artisan key:generate
-cp .env.example .env
+<h4>composer install</h4>
+<h4>php artisan key:generate</h4>
+<h4>cp .env.example .env</h4>
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
