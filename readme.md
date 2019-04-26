@@ -3,6 +3,9 @@
 <h4>php artisan key:generate</h4>
 <h4>cp .env.example .env</h4>
 
+<h3>Setup Frontend</h3>
+npm install vue-template-compiler@2.6.10
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
