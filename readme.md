@@ -1,10 +1,11 @@
-<h3>Setup Backend</h3>
-<h4>composer install</h4>
-<h4>php artisan key:generate</h4>
-<h4>cp .env.example .env</h4>
-
+<h5>Setup Backend</h5>
+<h5>composer install</h5>
+<h5>php artisan key:generate</h5>
+<h5>cp .env.example .env</h5>
+</br>
 <h3>Setup Frontend</h3>
-npm install vue-template-compiler@2.6.10
+<h5>npm update --save</h5>
+<h5>npm install vue-template-compiler@2.6.10</h5>
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
