@@ -6,6 +6,7 @@
 <h3>Setup Frontend</h3>
 <h5>npm update --save</h5>
 <h5>npm install vue-template-compiler@2.6.10</h5>
+<hr>
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
