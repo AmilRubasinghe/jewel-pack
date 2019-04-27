@@ -1,10 +1,11 @@
 <template>
   
   <v-app>
+
      
     <v-toolbar app prominent>
       
-
+<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           {{ appTitle }}
@@ -40,15 +41,18 @@
         </v-btn>
 
 
-<v-menu offset-y>
+<v-menu offset-y  open-on-hover>
       <template v-slot:activator="{ on }">
         <v-btn
-          flat          
+          flat
+               
           v-on="on"
         >
          <v-icon left dark>{{ 'reorder' }}</v-icon>
           categories
+          <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
         </v-btn>
+         
       </template>
       <v-list>
         <v-list-tile
@@ -110,6 +114,26 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+
+    
+    <v-navigation-drawer v-model="drawer"
+      fixed
+      app
+      floating
+      dark
+      >
+    <v-list>
+      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in items" :key="item.title" :to="{path: '/admin/' + item.path}">
+        <v-list-tile-action>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      
+    </v-list>
+  </v-navigation-drawer>
     
     <v-content>
       <router-view></router-view>
@@ -135,8 +159,17 @@ export default {
   
   data(){
     return {
+       items: [
+          { title: 'Dashboard', icon: 'dashboard' ,path:'' },
+          { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
+          { title: 'Orders', icon: 'library_books' , path:'orders'},
+          { title: 'Products', icon: 'business_center' , path:'products'},
+          { title: 'Category', icon: 'reorder' , path:'category'},
+          { title: 'Reports', icon: 'file_copy' , path:'reports'},
+          { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
+        ],
       appTitle: 'JewelPack',
-      sidebar: false,
+      drawer: null,
       token:'',
       
       
