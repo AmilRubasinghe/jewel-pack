@@ -1,8 +1,9 @@
 <template>
 <div>
-<navDrawer></navDrawer>
+<navDrawer v-model="drawer"></navDrawer>
 </br>
 
+<v-btn outline color="blue"  @click="drawer = true">Drawer</v-btn>
 
 <div class="container">
 <v-dialog v-model="dialog" max-width="600px">
@@ -123,7 +124,10 @@
           <v-icon large color="blue">add_box</v-icon>
           Add Image
       </v-btn>
-      </v-btn>
+
+      <v-btn fab dark color="blue" @click="getSlideshow">
+      <v-icon dark >refresh</v-icon>
+    </v-btn>
     </v-toolbar>
 <v-data-table
     v-model="selected"
@@ -192,6 +196,7 @@ import navDrawer from '../admin/navDrawer.vue';
   export default {      
     data(){
         return{
+          drawer:false,
             dialog: false,
             showModal:false,
              editedIndex: -1,
