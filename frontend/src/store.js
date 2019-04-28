@@ -2,31 +2,39 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
         loader:false,
-        loggedIn: true,
         user:null
     },
 
     getters : {
-        loggedIn: state => {
-            return state.loggedIn
-           },
         loader: state => {
             return state.loader
             
         },
         user: state => {
-            return state.user
+            if(state.user){
+                return state.user
+            }else{
+                state.user=null
+                return false;
+            }
+            
             
         },
+
         role: state => {
+            
             if(state.user){
-                return state.user.role
-            }else{
+                return state.user.role;
+            }
+                
+            else{
+                
                 return false;
             }
             
@@ -45,7 +53,7 @@ export default new Vuex.Store({
             
             
         },
-        idAdminEditor: state => {
+        isAdminEditor: state => {
             if(state.user){
             if((state.user.role="admin")||(state.user.role="editor")){
                 return true

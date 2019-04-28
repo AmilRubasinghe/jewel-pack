@@ -38,7 +38,7 @@ import Store from '../store.js'
             if(Store.getters.user){
                 this.user=Store.getters.user;
             }else{
-                logout;
+                this.logout();
             }
             
             
@@ -49,25 +49,24 @@ import Store from '../store.js'
              },*/
 
         methods:{
-            logout(){
+             logout(){
+            let $Token=localStorage.getItem('token');
+           /* console.log(Token);*/
+            
+        // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+         axios.post('http://localhost:8000/api/logout?token='+$Token)
+            .then(response => {
+                localStorage.removeItem('token');
                 let $Token=localStorage.getItem('token');
-               /* console.log(Token);*/
-                
-   // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
-             axios.post('http://localhost:8000/api/logout?token='+$Token)
-                .then(response => {
-                    localStorage.removeItem('token');
-                    let $Token=localStorage.getItem('token');
-                    if(!$Token){
-                        this.$router.push('/loginPage');
-                    }
-                })
-                .catch(error => {
-                    console.log(error.response);
-                    console.log("ERROR");
-                    
-                })
-
+                if(!$Token){
+                     this.$store.commit("setUser",null);
+                    this.$router.push('/loginPage');
+                }
+            })
+            .catch(error => {
+                console.log(error.response);
+                console.log("ERROR");
+            })
         },
 
         me(){

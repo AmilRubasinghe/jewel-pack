@@ -86,8 +86,7 @@
             {{ item.title }}
         </v-btn>
         <v-btn
-        
-            v-if="role=='admin'"
+          v-if="role=='admin'"
           flat
           v-for="item in adminItems"
           :key="item.title"
@@ -96,8 +95,7 @@
           {{  item.title }}
         </v-btn>
         <v-btn
-        
-            v-if="role=='editor'"
+          v-if="role=='editor'"
           flat
           v-for="item in editorItems"
           :key="item.title"
@@ -116,14 +114,16 @@
     </v-toolbar>
 
     
-    <v-navigation-drawer v-model="drawer"
+    <v-navigation-drawer 
+      v-model="drawer"
       fixed
       app
       floating
       dark
       >
-    <v-list>
-      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in items" :key="item.title" :to="{path: '/admin/' + item.path}">
+
+      <v-list>
+      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: '/admin/' + item.path}">
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
@@ -133,6 +133,23 @@
       </v-list-tile>
       
     </v-list>
+
+
+    <v-list v-if="role=='admin'">
+      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in adminDrawItems" :key="item.title" :to="{path: '/admin/' + item.path}">
+        <v-list-tile-action>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      
+    </v-list>
+
+
+
+    
   </v-navigation-drawer>
     
     <v-content>
@@ -159,7 +176,7 @@ export default {
   
   data(){
     return {
-       items: [
+       adminDrawItems: [
           { title: 'Dashboard', icon: 'dashboard' ,path:'' },
           { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
           { title: 'Orders', icon: 'library_books' , path:'orders'},
@@ -168,6 +185,15 @@ export default {
           { title: 'Reports', icon: 'file_copy' , path:'reports'},
           { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
         ],
+        /*userDrawItems: [
+          { title: 'Dashboard', icon: 'dashboard' ,path:'' },
+          { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
+          { title: 'Orders', icon: 'library_books' , path:'orders'},
+          { title: 'Products', icon: 'business_center' , path:'products'},
+          { title: 'Category', icon: 'reorder' , path:'category'},
+          { title: 'Reports', icon: 'file_copy' , path:'reports'},
+          { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
+        ],*/
       appTitle: 'JewelPack',
       drawer: null,
       token:'',
@@ -246,18 +272,23 @@ export default {
 
     
      computed: {
-            ...mapState([
+           /* ...mapState([
             'user',
-            ]),
+            ]),*/
 
             ...mapGetters([
                 'role',
+                'user',
             ])
     // Other properties
   },
  
   mounted(){
       this.catItems();
+      console.log(Store.getters.user);
+      console.log(Store.getters.role);
+      console.log(localStorage.getItem('token'));
+      
   },
 
   /*
