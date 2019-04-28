@@ -1,3 +1,13 @@
+<h3>Setup Backend</h3>
+<h5>composer install</h5>
+<h5>php artisan key:generate</h5>
+<h5>cp .env.example .env</h5>
+</br>
+<h3>Setup Frontend</h3>
+<h5>npm update --save</h5>
+<h5>npm install vue-template-compiler@2.6.10</h5>
+<hr>
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
