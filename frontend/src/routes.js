@@ -71,7 +71,7 @@ if(to.meta.requireAuth){
             next();    
         }else{
             
-            next('./home');    
+            next('home');    
         }
     }
     }else{

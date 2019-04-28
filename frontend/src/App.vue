@@ -66,6 +66,7 @@ import axios from 'axios'
              console.log("Token Expired");
               localStorage.removeItem('token');
               Store.commit("setUser",null);
+              Store.state.user=null;
               this.$router.push('/loginPage');
            }
         return response;
