@@ -93,7 +93,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -264,11 +264,13 @@ import navDrawer from '../admin/navDrawer.vue';
             const formData = new FormData();
             formData.append('file',this.file,this.file.name);
 
+                let $Token=localStorage.getItem('token');
+
                   axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs', formData)
                   .then(response => {
                       console.log(response)
                     console.log(response.data.image) 
-                                axios.post('http://localhost:8000/api/storeImage',response.data)
+                                axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
                                 .then(response => {
                                     this.dialog = false;
                                     this.file="";
@@ -337,9 +339,9 @@ import navDrawer from '../admin/navDrawer.vue';
             
             var result = confirm("Want to delete?");
             if (result) {
-                //Logic to delete the item
-                console.log(item.imageID)
-                axios.post('http://localhost:8000/api/deleteSlideshow/'+item.imageID)
+              let $Token=localStorage.getItem('token');
+                //console.log(item.imageID)
+                axios.post('http://localhost:8000/api/deleteSlideshow/'+item.imageID+'?token='+$Token)
                     .then(response => {
                         /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
@@ -349,15 +351,15 @@ import navDrawer from '../admin/navDrawer.vue';
                     });
             }
         },
-          save(){
+          editSave(){
 
-
+              let $Token=localStorage.getItem('token');
                 if (this.editedIndex > -1) {
                     Object.assign(this.slideshowItems[this.editedIndex], this.editedItem)
                     console.log("*******************");
                     console.log(this.editedItem);
 
-                    axios.post('http://localhost:8000/api/edititems/'+this.editedItem.imageID,this.editedItem)
+                    axios.post('http://localhost:8000/api/edititems/'+this.editedItem.imageID+'?token='+$Token,this.editedItem)
                     .then(response => {
                         this.showModal=false
                         this.getSlideshow();
