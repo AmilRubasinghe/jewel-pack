@@ -351,7 +351,8 @@ import navDrawer from '../admin/navDrawer.vue';
                     });
             }
         },
-          editSave(){
+
+        editSave(){
 
               let $Token=localStorage.getItem('token');
                 if (this.editedIndex > -1) {

@@ -20,7 +20,7 @@
         
      
 
-         <v-btn fab dark color="blue" @click="download">
+         <v-btn fab dark color="blue" @click="down">
       <v-icon dark>save_alt</v-icon>
     </v-btn>
 
@@ -187,6 +187,13 @@ import autoTable from 'jspdf-autotable'
             doc.addImage(img,'JPEG',20,20);
             doc.save("sample.pdf");
           });
+    },
+
+    down(){
+      let pdfName = 'test'; 
+      var doc = new jsPDF();
+      doc.text('this.name', 10, 10);
+      doc.save(pdfName + '.pdf');
     },
 
     download() {
