@@ -123,7 +123,7 @@
       >
 
       <v-list>
-      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: '/admin/' + item.path}">
+      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: item.path}">
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
