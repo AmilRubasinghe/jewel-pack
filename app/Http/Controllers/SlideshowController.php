@@ -33,7 +33,7 @@ class SlideshowController extends Controller
     $table->save();
 
 
-    return response()->json(['message'=>"Image uploaded succesfully !"]);
+    return response()->json(['message'=>$table,'message'=>"Image uploaded succesfully !"]);
 
         
         
