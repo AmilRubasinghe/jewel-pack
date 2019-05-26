@@ -20,7 +20,7 @@ c<template>
   </br>
    
    
-   <!--<v-parallax
+   <v-parallax
     
     src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/43828367_2274666422779256_8541436203545657344_o.jpg?_nc_cat=106&_nc_ht=scontent.fcmb4-1.fna&oh=14481e0b61a94c7b067ceb4003cfdea2&oe=5D05A9F1&dl=1"
   >
@@ -32,7 +32,7 @@ c<template>
     >
       <h1 class="display-2 font-weight-thin mb-3" >JewelPack</h1>
     </v-layout>
-  </v-parallax>-->
+  </v-parallax>
 
        <!--slide end-->
 
