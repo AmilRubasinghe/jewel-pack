@@ -62,7 +62,7 @@
 
 
 
- <v-dialog v-model="showModal" max-width="500px">
+ <v-dialog v-model="showModal">
         <v-card>
           <v-card-title>
             <span class="headline">Edit Item</span>
@@ -123,6 +123,10 @@
       <v-btn   @click="dialog = true">
           <v-icon large color="blue">add_box</v-icon>
           Add Image
+      </v-btn>
+
+      <v-btn fab dark color="blue" @click="getSlideshow">
+      <v-icon dark >add_box</v-icon>
       </v-btn>
 
       <v-btn fab dark color="blue" @click="getSlideshow">
