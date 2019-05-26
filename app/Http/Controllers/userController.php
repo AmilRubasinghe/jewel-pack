@@ -53,7 +53,7 @@ class userController extends Controller
         $table->save();
 
 
-        $thisUser=User::findOrFail($table->id);
+        $thisUser=User::findOrFail($table->ID);
         
         try {
             $this->sendEmail($thisUser);
