@@ -20,7 +20,7 @@
         
      
 
-         <v-btn fab dark color="blue" @click="down">
+         <v-btn fab dark color="blue" @click="download">
       <v-icon dark>save_alt</v-icon>
     </v-btn>
 
