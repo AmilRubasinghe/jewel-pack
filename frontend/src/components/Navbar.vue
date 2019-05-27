@@ -3,7 +3,7 @@
   <v-app>
 
      
-    <v-toolbar app prominent scroll-off-screen>
+    <v-toolbar app prominent scroll-off-screen color="#FFFFFF"> 
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
