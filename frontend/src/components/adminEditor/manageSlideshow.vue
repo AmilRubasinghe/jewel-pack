@@ -1,9 +1,9 @@
 <template>
-<div>
+<div >
 <navDrawer v-model="drawer"></navDrawer>
 </br>
 
-<div class="container">
+<div class="container" v-bind:style="{ background: '#B0BEC5'}">
 <v-dialog v-model="dialog" max-width="600px">
       
       <v-card  max-width="600px">
@@ -183,6 +183,7 @@
       </tr>
             
     </template>
+    
   </v-data-table>
 </div>           
 </div>
