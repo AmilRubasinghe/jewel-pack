@@ -2,8 +2,8 @@
     
 
 <div>
-
-  <div class="container">
+</br>
+  <div class="container" v-bind:style="{ background: '#B0BEC5'}">
        <v-card>
          
          

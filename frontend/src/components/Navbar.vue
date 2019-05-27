@@ -121,6 +121,12 @@
       floating
       dark
       >
+  <div class="darken-overlay">
+      <v-img 
+      src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"  
+      height="100%"
+      :gradient=" linear-gradient"
+      >
 
       <v-list>
       <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: item.path}">
@@ -134,7 +140,7 @@
       
     </v-list>
 
-
+<v-divider></v-divider>
     <v-list v-if="role=='admin'">
       <v-list-tile  @click.stop="drawer = !drawer" v-for="item in adminDrawItems" :key="item.title" :to="{path: '/admin/' + item.path}">
         <v-list-tile-action>
@@ -143,12 +149,13 @@
         <v-list-tile-content>
           <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
+        
       </v-list-tile>
-      
     </v-list>
 
 
-
+      </v-img>
+      </div>
     
   </v-navigation-drawer>
     
@@ -197,6 +204,7 @@ export default {
       appTitle: 'JewelPack',
       drawer: null,
       token:'',
+      
       
       
       menuItems: [
@@ -297,3 +305,12 @@ export default {
   }*/
 };
 </script>
+
+<style>
+.darken-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+</style>
