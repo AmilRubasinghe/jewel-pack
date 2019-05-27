@@ -121,7 +121,7 @@
       floating
       dark
       >
-  <div class="darken-overlay">
+ 
       <v-img 
       src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"  
       height="100%"
@@ -155,7 +155,7 @@
 
 
       </v-img>
-      </div>
+
     
   </v-navigation-drawer>
     
@@ -306,11 +306,3 @@ export default {
 };
 </script>
 
-<style>
-.darken-overlay {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-</style>
