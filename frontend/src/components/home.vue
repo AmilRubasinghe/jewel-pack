@@ -30,7 +30,7 @@ c<template>
       justify-center
       color="blue"
     >
-      <h1 class="display-2 font-weight-thin mb-3" >JewelPack</h1>
+      <h1 style="color:#B388FF;" class="display-4 font-weight-thin mb-3" color="black"  >JewelPack</h1>
     </v-layout>
   </v-parallax>
 
