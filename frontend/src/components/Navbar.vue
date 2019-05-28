@@ -125,7 +125,6 @@
       <v-img 
       src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"  
       height="100%"
-      :gradient=" linear-gradient"
       >
 
       <v-list>
