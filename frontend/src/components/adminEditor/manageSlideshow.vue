@@ -120,6 +120,13 @@
       <v-spacer></v-spacer>
       
 
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
       <v-btn fab dark color="blue"  @click="dialog = true">
       <v-icon dark >add</v-icon>
       </v-btn>

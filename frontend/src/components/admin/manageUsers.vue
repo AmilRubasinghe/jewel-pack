@@ -4,7 +4,7 @@
 </br>
 
 
-<div class="container">
+<div class="container" v-bind:style="{ background: '#B0BEC5'}">
 <v-dialog v-model="dialog" max-width="600px">
       
       <v-card  max-width="600px">
@@ -117,6 +117,15 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>{{table_title}}</v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+
       <v-btn v-if="!deletedUsers" @click="getDeletedUsers">
           <v-icon large color="blue">delete_sweep</v-icon>
           Deleted Users
@@ -127,7 +136,9 @@
           Active Users
       </v-btn>
       
+      
     </v-toolbar>
+    
 <v-data-table
     v-model="selected"
     :headers="headers"
