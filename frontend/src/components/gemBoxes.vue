@@ -22,7 +22,7 @@
               </v-img>
               <v-card-title>
                 <div class="mx-5">
-                  <span class="title blue--text">{{products[i].Size}}</span>
+                  <span class="title blue--text">{{products[i].Size}}&nbsp{{products[i].Colour}}&nbsp Colour Box</span>
                   <br>
                   <v-rating
                     readonly
