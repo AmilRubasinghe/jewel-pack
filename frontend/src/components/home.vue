@@ -44,13 +44,32 @@ c<template>
       
       <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Box name">
     </div>
-    <div class="col-auto">
+    <!--<div class="col-auto">
     
       <div class="input-group mb-2">
        
         <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Colour">
       </div>
-    </div>
+    </div>-->
+
+ 
+
+       
+
+      <v-flex xs12 sm4>
+        <p>Segmented</p>
+
+        <v-overflow-btn
+          :items="dropdown_icon"
+          label="Segmented Btn"
+          segmented
+          target="#dropdown-example"
+        ></v-overflow-btn>
+      </v-flex>
+
+    
+
+
         <div class="col-auto">
       
       <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Size">
