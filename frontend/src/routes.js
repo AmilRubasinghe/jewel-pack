@@ -15,6 +15,7 @@ import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
 import gemBoxes from  './components/gemBoxes'
+import jewelleryBoxs from  './components/jewelleryBoxs'
 import Store from './store.js'
 import { mapState } from 'vuex'
 
@@ -48,6 +49,7 @@ const router = new VueRouter({
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
         {path:"/gemBox",component:gemBoxes},
+        {path:"/jewelleryBox",component:jewelleryBoxs},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/products",component:manageProducts,meta:{requireAuth:true,roles: ['admin']}},
