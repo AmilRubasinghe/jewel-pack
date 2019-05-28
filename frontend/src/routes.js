@@ -91,13 +91,15 @@ if(to.meta.requireAuth){
 
 
 /*
- router.afterEach(( to, from ) => {
-     console.log("GA ran");
-    ga('set', 'page', to.path);
-    ga('send', 'pageview');
-  });
-*/
+const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  )
 
+  */
 router.onReady(() => {
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

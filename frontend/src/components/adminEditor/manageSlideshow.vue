@@ -1,11 +1,9 @@
 <template>
-<div>
+<div >
 <navDrawer v-model="drawer"></navDrawer>
 </br>
 
-<v-btn outline color="blue"  @click="drawer = true">Drawer</v-btn>
-
-<div class="container">
+<div class="container" v-bind:style="{ background: '#B0BEC5'}">
 <v-dialog v-model="dialog" max-width="600px">
       
       <v-card  max-width="600px">
@@ -16,7 +14,7 @@
           
 
          <v-layout align-center justify-center>
-                        <v-card color="blue" @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
+                        <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
                             
                         <form enctype="multipart/form-data">
                         <div class="text-xs-center">
@@ -30,8 +28,8 @@
                                     @change="selectFile"
                                     style="display:none"
                                     >
-                                    <v-icon outline large dark>cloud_upload</v-icon>
-                                    <h4>choose a file...</h4>
+                                    <v-icon outline large>cloud_upload</v-icon>
+                                    <h4>Upload photo</h4>
                                     <span v-if="file" class="file-name">{{file.name}}</span>
                             </label>
 
@@ -62,7 +60,7 @@
 
 
 
- <v-dialog v-model="showModal" max-width="500px">
+ <v-dialog v-model="showModal">
         <v-card>
           <v-card-title>
             <span class="headline">Edit Item</span>
@@ -120,9 +118,10 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>Slideshow Images</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn   @click="dialog = true">
-          <v-icon large color="blue">add_box</v-icon>
-          Add Image
+      
+
+      <v-btn fab dark color="blue"  @click="dialog = true">
+      <v-icon dark >add</v-icon>
       </v-btn>
 
       <v-btn fab dark color="blue" @click="getSlideshow">
@@ -184,6 +183,7 @@
       </tr>
             
     </template>
+    
   </v-data-table>
 </div>           
 </div>

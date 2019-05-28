@@ -3,7 +3,7 @@
   <v-app>
 
      
-    <v-toolbar app prominent>
+    <v-toolbar app prominent scroll-off-screen color="#FFFFFF"> 
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
@@ -121,6 +121,12 @@
       floating
       dark
       >
+ 
+      <v-img 
+      src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"  
+      height="100%"
+      :gradient=" linear-gradient"
+      >
 
       <v-list>
       <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: item.path}">
@@ -134,7 +140,7 @@
       
     </v-list>
 
-
+<v-divider></v-divider>
     <v-list v-if="role=='admin'">
       <v-list-tile  @click.stop="drawer = !drawer" v-for="item in adminDrawItems" :key="item.title" :to="{path: '/admin/' + item.path}">
         <v-list-tile-action>
@@ -143,11 +149,12 @@
         <v-list-tile-content>
           <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
+        
       </v-list-tile>
-      
     </v-list>
 
 
+      </v-img>
 
     
   </v-navigation-drawer>
@@ -197,6 +204,7 @@ export default {
       appTitle: 'JewelPack',
       drawer: null,
       token:'',
+      
       
       
       menuItems: [
@@ -297,3 +305,4 @@ export default {
   }*/
 };
 </script>
+
