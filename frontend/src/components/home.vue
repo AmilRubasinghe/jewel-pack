@@ -60,7 +60,7 @@ c<template>
         <p>Segmented</p>
 
         <v-overflow-btn
-          :items="dropdown_icon"
+          
           label="Segmented Btn"
           segmented
           target="#dropdown-example"
