@@ -2,7 +2,7 @@
 
 <div class="container box">
 
-<form class="form-signin">
+<form class="form-signin" align="center">
             <h1 align="center">Profile</h1>
             <h3>ID : {{ user.ID }}</h3>
             <h3>Name : {{ user.firstName }} {{ user.lastName }}</h3>
@@ -70,11 +70,9 @@ import Store from '../store.js'
         },
 
         me(){
-                let $Token=localStorage.getItem('token');
-                //console.log($store.getters.isLoggedIn);
-             
-                
-            //this.$http.post('http://localhost:8000/api/me?token='+$Token)
+
+            let $Token=localStorage.getItem('token');
+
             axios.post('http://localhost:8000/api/me?token='+$Token
                 , {
 
@@ -97,6 +95,7 @@ import Store from '../store.js'
                 })
 
         }
+
         }
     }
 </script>

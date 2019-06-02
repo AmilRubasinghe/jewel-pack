@@ -201,7 +201,7 @@ export default {
           { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
         ],*/
       appTitle: 'JewelPack',
-      drawer: null,
+      drawer: false,
       token:'',
       
       
@@ -296,12 +296,7 @@ export default {
       console.log(Store.getters.role);
       console.log(localStorage.getItem('token'));
       
-  },
-
-  /*
-  beforeUpdate(){
-      this.token=localStorage.getItem('token');
-  }*/
+  }
 };
 </script>
 
