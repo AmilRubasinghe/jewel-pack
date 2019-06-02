@@ -14,6 +14,8 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
+import gemBoxes from  './components/gemBoxes'
+import jewelleryBoxs from  './components/jewelleryBoxs'
 import Store from './store.js'
 import { mapState } from 'vuex'
 
@@ -46,6 +48,8 @@ const router = new VueRouter({
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
+        {path:"/gemBox",component:gemBoxes},
+        {path:"/jewelleryBox",component:jewelleryBoxs},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/products",component:manageProducts,meta:{requireAuth:true,roles: ['admin']}},
@@ -83,7 +87,39 @@ if(to.meta.requireAuth){
     next();  
    
  }
- )
+ );
+
+
+/*
+const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+  )
+
+  */
+router.onReady(() => {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script',`https://www.google-analytics.com/analytics.js`,'ga')
+  
+    ga('create', 'UA-139706203-1','auto')
+    
+    // Prevent any hits from being sent to Google Analytics
+  /*  if (isLocalhost) {
+      ga('set', 'sendHitTask', null)
+    }
+  */
+    router.afterEach((to, from) => {
+      ga('set', 'page', to.fullPath)
+      ga('send', 'pageview')
+    })
+  })
+
+
 
 export  default router
 /*

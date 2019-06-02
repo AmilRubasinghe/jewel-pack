@@ -1,6 +1,6 @@
 <template>
-    <navDrawer></navDrawer>
-  
+    <p>Admin panel Shortcuts</p>
+
 </template>
 <script>
 import navDrawer from './navDrawer.vue';

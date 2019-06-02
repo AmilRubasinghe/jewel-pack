@@ -44,6 +44,8 @@ Route::group([
 
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
+
+    Route::get('product', 'ProductController@getProduct');
     
 
 //userModuleProtectedRoutes

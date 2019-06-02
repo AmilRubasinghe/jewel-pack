@@ -49,4 +49,5 @@
 
 <script>
 import Store from '../store.js'
+
 </script>

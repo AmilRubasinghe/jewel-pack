@@ -2,6 +2,29 @@
     
 
 <div>
+</br>
+  <div class="container" v-bind:style="{ background: '#B0BEC5'}">
+       <v-card>
+         
+         
+<v-card-title>
+      <h3>Category</h3>
+      
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+        
+  
+
+      <v-btn fab dark color="blue" @click="catItems">
+      <v-icon dark >refresh</v-icon>
+    </v-btn>
+    </v-card-title>
 <v-data-table
     v-model="selected"
     :headers="headers"
@@ -42,6 +65,8 @@
             
     </template>
   </v-data-table>
+       </v-card>
+  </div>
 </div>           
 </template>
 
