@@ -47,133 +47,146 @@
       </v-container>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" persistent max-width="1200px">
+        <v-dialog v-model="dialog" max-width="1200px">
           <v-card v-if="selectedItem">
-           
             <v-card-text>
               <v-container grid-list-md>
-                <div class="card">
-                  <div class="container-fliud">
-                    <div class="wrapper row">
-                      <div class="preview col-md-6">
-                        <div class="preview-pic tab-content">
-                          <div class="tab-pane active" id="pic-1">
-                            <img
-                              src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                            >
-                          </div>
-                          <div class="tab-pane" id="pic-2">
-                            <img
-                              src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                            >
-                          </div>
-                          <div class="tab-pane" id="pic-3">
-                            <img
-                              src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                            >
-                          </div>
-                          <div class="tab-pane" id="pic-4">
-                            <img
-                              src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                            >
-                          </div>
-                        </div>
-                        <ul class="preview-thumbnail nav nav-tabs">
-                          <li class="active">
-                            <a data-target="#pic-1" data-toggle="tab">
-                              <img
-                                src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                              >
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-2" data-toggle="tab">
-                              <img
-                                src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                              >
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-3" data-toggle="tab">
-                              <img
-                                src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                              >
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-4" data-toggle="tab">
-                              <img
-                                src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                              >
-                            </a>
-                          </li>
-                          <li>
-                            <a data-target="#pic-5" data-toggle="tab">
-                              <img
-                                src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t31.0-8/11082394_1621552601423978_714322575191341730_o.jpg?_nc_cat=109&_nc_ht=scontent.fcmb4-1.fna&oh=b486cb956bd83984c231d40ccda45316&oe=5CDD36C4"
-                              >
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="details col-md-6">
-                        <h3 class="product-title">{{selectedItem.Size}} &nbsp; Black Gold Line Box</h3>
-                        <div class="rating">
-                          <div class="stars">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                          </div>
-                          <span class="review-no">41 reviews</span>
-                        </div>
-                        <p class="product-description">1 x 1 inches (2.5 x 2.5 cm)</p>
-                        <h4 class="price">
-                          current price:
-                          <span>$180</span>
-                        </h4>
-                        <p class="vote">
-                          <strong>91%</strong> of buyers enjoyed this product!
-                          <strong>(87 votes)</strong>
-                        </p>
-                        <h5 class="sizes">
-                          sizes:
-                          <span class="size" data-toggle="tooltip" title="small">s</span>
-                          <span class="size" data-toggle="tooltip" title="medium">m</span>
-                          <span class="size" data-toggle="tooltip" title="large">l</span>
-                          <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-                        </h5>
-                        <h5 class="colors">
-                          colors:
-                          <span
-                            class="color orange not-available"
-                            data-toggle="tooltip"
-                            title="Not In store"
-                          ></span>
-                          <span class="color green"></span>
-                          <span class="color blue"></span>
-                        </h5>
-                        <div class="action">
-                          <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                          <button class="like btn btn-default" type="button">
-                            Add Review
-                            <span class="fa fa-heart"></span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </v-container>
-              <small>*indicates required field</small>
-            </v-card-text>
+                <!--................................-->
+                <v-layout row wrap>
+                  <v-flex xs12 md6>
+                    <v-hover>
+                     <v-card
+      slot-scope="{ hover }"
+      class="mx-auto"
+      color="grey lighten-4"
+      max-width="600"
+    >
+      <v-img
+        :aspect-ratio="4/3"
+        :src="selectedItem.Image"
+      >
+        <v-expand-transition>
+          <div
+            v-if="hover"
+            class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+            style="height: 50%;"
+          >
+            $14.99
+          </div>
+        </v-expand-transition>
+      </v-img>
+       </v-card>
+  </v-hover>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
+                    <!--<v-card-text class="text-xs-center">
+          <h6 class="category text-gray font-weight-thin mb-3">CEO / CO-FOUNDER</h6>
+
+          <h4 class="card-title font-weight-light">Alec Thompson</h4>
+
+          <p
+            class="card-description font-weight-light"
+          >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+
+          <v-btn color="success" round class="font-weight-light">Follow</v-btn>
+                    </v-card-text>-->
+                  </v-flex>
+
+                  <v-flex xs12 md6>
+                    <h3
+                      class="card-title font-weight-light"
+                      
+                    >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
+                    <p
+                      class="card-description font-weight-light"
+                    >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+
+     <v-hover>
+    <v-card>
+   <!--   slot-scope="{ hover }"
+      class="mx-auto"
+      color="grey lighten-4"
+      max-width="600"
+    >
+       <v-img
+        :aspect-ratio="16/9"
+        src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
+      >
+        <v-expand-transition>
+          <div
+            v-if="hover"
+            class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+            style="height: 100%;"
+          >
+            $14.99
+          </div>
+        </v-expand-transition>
+      </v-img>--->
+      <v-card-text
+        class="pt-4"
+        style="position: relative;"
+      >
+        <v-btn
+          absolute
+          color="orange"
+          class="white--text"
+          fab
+          large
+          right
+          top
+        >
+          <v-icon>shopping_cart</v-icon>
+        </v-btn>
+        <div class="font-weight-light grey--text title mb-2">For the perfect meal</div>
+        <h3 class="display-1 font-weight-light orange--text mb-2">QW cooking utensils</h3>
+        <div class="font-weight-light title mb-2">
+          Our Vintage kitchen utensils delight any chef.<br>
+          Made of bamboo by hand
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-hover>
+                    <!-- <form>
+          <v-text-field
+            v-validate="'required|max:10'"
+            :counter="10"
+            :error-messages="errors.collect('name')"
+            label="Name"
+            data-vv-name="name"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-validate="'required|email'"
+            :error-messages="errors.collect('email')"
+            label="E-mail"
+            data-vv-name="email"
+            required
+          ></v-text-field>
+
+          <v-select
+            v-validate="'required'"
+            :error-messages="errors.collect('select')"
+            label="Select"
+            data-vv-name="select"
+            required
+          ></v-select>
+
+           <v-card-actions>
+             
               <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
               <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
             </v-card-actions>
+                    </form>-->
+                    <v-card-actions>
+                      <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                      <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+                    </v-card-actions>
+                  </v-flex>
+                </v-layout>
+
+                <!--..............................-->
+              </v-container>
+            </v-card-text>
           </v-card>
         </v-dialog>
       </v-layout>
@@ -228,6 +241,14 @@ export default {
 
 
 <style>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .5;
+  position: absolute;
+  width: 100%;
+}
 </style>
 
 
