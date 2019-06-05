@@ -3,9 +3,9 @@
 <template>
 
 
- 
 
- <v-container grid-list-md text-xs-center>
+
+<v-container grid-list-md text-xs-center>
 
     <v-layout row wrap>
 
@@ -55,7 +55,7 @@
 
           </v-card-text>
 
-       
+    
 
     
 
@@ -210,7 +210,87 @@ created: function () {
 methods:{
  
 
+<script>
+import axios from 'axios'
+import Store from '../store.js'
+
+    export default {
+        data() {
+            return {
+                user:[]
+            }
+        },
+
+        
+
+        created: function () {
+           this.me();
+            // this.user=response.data.user;
+            
+            if(Store.getters.user){
+                this.user=Store.getters.user;
+            }else{
+                this.logout();
+            }
+            
+            
+         },
+
+        /* beforeCreate() {
+             this.me();
+             },*/
+
+        methods:{
+             logout(){
+            let $Token=localStorage.getItem('token');
+           /* console.log(Token);*/
+            
+        // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+         axios.post('http://localhost:8000/api/logout?token='+$Token)
+            .then(response => {
+                localStorage.removeItem('token');
+                let $Token=localStorage.getItem('token');
+                if(!$Token){
+                     this.$store.commit("setUser",null);
+                    this.$router.push('/loginPage');
+                }
+            })
+            .catch(error => {
+                console.log(error.response);
+                console.log("ERROR");
+            })
+        },
+
         me(){
+
+            let $Token=localStorage.getItem('token');
+
+            axios.post('http://localhost:8000/api/me?token='+$Token
+                , {
+
+            })
+                .then(response => {
+                    
+                    if(!$Token){
+                        this.$router.push('/loginPage');
+                    }else{
+                        this.user=response.data.user;
+                         Store.dispatch("setUser",this.user);
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response);
+                    console.log("ERROR");
+                    this.$store.commit("setUser",null);
+                    this.$router.push('/loginPage');
+                    this.logout();
+                })
+
+        }
+
+        }
+    }
+</script>
 
             let $Token=localStorage.getItem('token');
 
@@ -266,5 +346,3 @@ methods:{
 }
 
 </script>
-
- 
