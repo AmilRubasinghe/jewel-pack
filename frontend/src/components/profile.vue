@@ -29,7 +29,7 @@
 
             class="mx-auto d-block"
 
-            size="150"
+            size="250"
 
           >
 
@@ -51,15 +51,7 @@
 
             <p class="card-description font-weight-light">Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
 
-            <v-btn
-
-              color="success"
-
-              round
-
-              class="font-weight-light"
-
-            >Follow</v-btn>
+           s
 
           </v-card-text>
 
@@ -83,57 +75,80 @@
 
   <form>
 
-    <v-text-field
+    <v-flex xs3 >
+          <v-text-field
+            label="Full Name"
+           
+            readonly
+           
+          ></v-text-field>
+        </v-flex>
 
-      v-validate="'required|max:10'"
+    <v-flex xs6 >
+          <v-text-field
+            v-model="fullname"
+           
+            readonly
+           
+          ></v-text-field>
+        </v-flex>
 
-      :counter="10"
+        <v-flex xs12 sm6>
+          <v-text-field
+            v-model="user.email"
+           
+            readonly
+      
+          ></v-text-field>
+        </v-flex>
 
-      :error-messages="errors.collect('name')"
 
-      label="Name"
+<v-dialog v-model="dialog">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Edit User</span>
+          </v-card-title>
 
-      data-vv-name="name"
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                                  
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="user.firstName" label="First Name" ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="user.lastName" label="Last Name" ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="user.contactNo" label="Contact No" ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="user.email" label="Email" ></v-text-field>
+                </v-flex>
+                
+              </v-layout>
+            </v-container>
+          </v-card-text>
 
-      required
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat >Cancel</v-btn>
+            <v-btn color="blue darken-1" flat >Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-    ></v-text-field>
 
-    <v-text-field
+    
 
-      v-validate="'required|email'"
-
-      :error-messages="errors.collect('email')"
-
-      label="E-mail"
-
-      data-vv-name="email"
-
-      required
-
-    ></v-text-field>
-
-    <v-select
-
-      v-validate="'required'"
-
-      :error-messages="errors.collect('select')"
-
-      label="Select"
-
-      data-vv-name="select"
-
-      required
-
-    ></v-select>
 
    
 
  
 
-    <v-btn>submit</v-btn>
+    <v-btn @click="dialog=true" >Update</v-btn>
 
-    <v-btn>clear</v-btn>
+  
 
   </form>
 
@@ -145,6 +160,54 @@
 
 </template>
 
+ 
+
+<script>
+import axios from 'axios'
+
+import Store from '../store.js'
+
+export default {
+
+data(){
+  return{
+  user:[],
+  dialog: false,
+  }
+},
+
+computed: {
+    fullname: function(){
+        return this.user.firstName + ' ' + this.user.lastName;
+    }
+  },
+
+
+created: function () {
+
+           this.me();
+
+            // this.user=response.data.user;
+
+           
+
+            if(Store.getters.user){
+
+                this.user=Store.getters.user;
+
+            }else{
+
+                this.logout();
+
+            }
+
+           
+
+            
+
+         },
+  
+methods:{
  
 
 <script>
@@ -229,10 +292,57 @@ import Store from '../store.js'
     }
 </script>
 
-export default {
+            let $Token=localStorage.getItem('token');
+
+ 
+
+            axios.post('http://localhost:8000/api/me?token='+$Token
+
+                , {
+
+ 
+
+            })
+
+                .then(response => {
+
+                   
+
+                    if(!$Token){
+
+                        this.$router.push('/loginPage');
+
+                    }else{
+
+                        this.user=response.data.user;
+                        console.log(this.user);
+                         Store.dispatch("setUser",this.user);
+
+                    }
+
+                })
+
+                .catch(error => {
+
+                    console.log(error.response);
+
+                    console.log("ERROR");
+
+                    this.$store.commit("setUser",null);
+
+                    this.$router.push('/loginPage');
+
+                    this.logout();
+
+                })
+
+ 
+
+        },
 
   //
 
+}
 }
 
 </script>
