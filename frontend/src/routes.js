@@ -16,6 +16,7 @@ import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
 import gemBoxes from  './components/gemBoxes'
 import jewelleryBoxs from  './components/jewelleryBoxs'
+
 import Store from './store.js'
 import { mapState } from 'vuex'
 
