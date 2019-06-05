@@ -1,12 +1,7 @@
  
 
 <template>
-
-
-
-
-<v-container grid-list-md text-xs-center>
-
+  <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
 
    
@@ -155,9 +150,7 @@
 </v-flex>
 
     </v-layout>
-
   </v-container>
-
 </template>
 
  
@@ -208,54 +201,49 @@ created: function () {
          },
   
 
-        methods:{
-             logout(){
-            let $Token=localStorage.getItem('token');
-           /* console.log(Token);*/
-            
-        // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
-         axios.post('http://localhost:8000/api/logout?token='+$Token)
-            .then(response => {
-                localStorage.removeItem('token');
-                let $Token=localStorage.getItem('token');
-                if(!$Token){
-                     this.$store.commit("setUser",null);
-                    this.$router.push('/loginPage');
-                }
-            })
-            .catch(error => {
-                console.log(error.response);
-                console.log("ERROR");
-            })
-        },
+  methods: {
+    logout() {
+      let $Token = localStorage.getItem("token");
+      /* console.log(Token);*/
 
-        me(){
+      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+      axios
+        .post("http://localhost:8000/api/logout?token=" + $Token)
+        .then(response => {
+          localStorage.removeItem("token");
+          let $Token = localStorage.getItem("token");
+          if (!$Token) {
+            this.$store.commit("setUser", null);
+            this.$router.push("/loginPage");
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
 
-            let $Token=localStorage.getItem('token');
+    me() {
+      let $Token = localStorage.getItem("token");
 
-            axios.post('http://localhost:8000/api/me?token='+$Token
-                , {
-
-            })
-                .then(response => {
-                    
-                    if(!$Token){
-                        this.$router.push('/loginPage');
-                    }else{
-                        this.user=response.data.user;
-                         Store.dispatch("setUser",this.user);
-                    }
-                })
-                .catch(error => {
-                    console.log(error.response);
-                    console.log("ERROR");
-                    this.$store.commit("setUser",null);
-                    this.$router.push('/loginPage');
-                    this.logout();
-                })
-
-        }
-
-        }
-    }
+      axios
+        .post("http://localhost:8000/api/me?token=" + $Token, {})
+        .then(response => {
+          if (!$Token) {
+            this.$router.push("/loginPage");
+          } else {
+            this.user = response.data.user;
+            Store.dispatch("setUser", this.user);
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+          this.$store.commit("setUser", null);
+          this.$router.push("/loginPage");
+          this.logout();
+        });
+    },
+  }
+}
 </script>
