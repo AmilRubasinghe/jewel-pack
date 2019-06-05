@@ -207,38 +207,6 @@ created: function () {
 
          },
   
-methods:{
- 
-
-<script>
-import axios from 'axios'
-import Store from '../store.js'
-
-    export default {
-        data() {
-            return {
-                user:[]
-            }
-        },
-
-        
-
-        created: function () {
-           this.me();
-            // this.user=response.data.user;
-            
-            if(Store.getters.user){
-                this.user=Store.getters.user;
-            }else{
-                this.logout();
-            }
-            
-            
-         },
-
-        /* beforeCreate() {
-             this.me();
-             },*/
 
         methods:{
              logout(){
@@ -290,59 +258,4 @@ import Store from '../store.js'
 
         }
     }
-</script>
-
-            let $Token=localStorage.getItem('token');
-
- 
-
-            axios.post('http://localhost:8000/api/me?token='+$Token
-
-                , {
-
- 
-
-            })
-
-                .then(response => {
-
-                   
-
-                    if(!$Token){
-
-                        this.$router.push('/loginPage');
-
-                    }else{
-
-                        this.user=response.data.user;
-                        console.log(this.user);
-                         Store.dispatch("setUser",this.user);
-
-                    }
-
-                })
-
-                .catch(error => {
-
-                    console.log(error.response);
-
-                    console.log("ERROR");
-
-                    this.$store.commit("setUser",null);
-
-                    this.$router.push('/loginPage');
-
-                    this.logout();
-
-                })
-
- 
-
-        },
-
-  //
-
-}
-}
-
 </script>
