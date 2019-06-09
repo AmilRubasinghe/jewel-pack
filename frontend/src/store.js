@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         loader:false,
-        user:null
+        user:null,
+        
     },
 
     getters : {
@@ -79,7 +80,8 @@ export default new Vuex.Store({
 
         setUser(state,payload){
             state.user=payload;
-        }
+        },
+
     },
 
     actions: {
@@ -88,11 +90,15 @@ export default new Vuex.Store({
         },
         setUser(context,payload){
             context.commit('setUser', payload)
-        }
+        },
+        addItemToCart({ commit }, productItems){
+              commit('ADD_TO_CART',productItems.PID);
+          }
         
       },
 
       plugins: [createPersistedState()]
 
+    
 
 });
