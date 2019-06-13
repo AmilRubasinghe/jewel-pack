@@ -240,7 +240,7 @@ export default {
 </script>
 
 
-<<<<<<< HEAD
+
 <style>
 .v-card--reveal {
   align-items: center;
