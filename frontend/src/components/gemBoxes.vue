@@ -253,6 +253,7 @@ export default {
   width: 100%;
 }
 
+
 .layout.row.wrap.justify-space-between {
   margin-left: -60px;
   margin-right: -60px;
