@@ -4,12 +4,6 @@
 
     <v-layout row wrap>
 
- 
-
-  
-
- 
-
 
  
 
