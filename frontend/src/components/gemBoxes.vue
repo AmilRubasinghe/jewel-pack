@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-container grid-list-md text-xs-center>
+      <v-container grid-list-sm text-xs-center>
         <v-layout row wrap justify-space-between>
           <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
             <br>
-            <v-card light ripple>
+            <v-card light ripple align="center" @click="productPreview(products[i])">
               <v-img contain class="white--text" align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
@@ -21,6 +21,7 @@
                     class="title blue--text"
                   >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
                   <br>
+
                   <v-rating readonly small dense background-color="orange" color="orange"></v-rating>
                   <span class="title">
                     <v-btn large color="info">{{products[i].Price}}</v-btn>
@@ -50,136 +51,112 @@
         <v-dialog v-model="dialog" max-width="1200px">
           <v-card v-if="selectedItem">
             <v-card-text>
+              <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
+                <span aria-hidden="true">×</span>
+              </button>
               <v-container grid-list-md>
                 <!--................................-->
                 <v-layout row wrap>
                   <v-flex xs12 md6>
                     <v-hover>
-                     <v-card
-      slot-scope="{ hover }"
-      class="mx-auto"
-      color="grey lighten-4"
-      max-width="600"
-    >
-      <v-img
-        :aspect-ratio="4/3"
-        :src="selectedItem.Image"
-      >
-        <v-expand-transition>
-          <div
-            v-if="hover"
-            class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-            style="height: 50%;"
-          >
-            $14.99
-          </div>
-        </v-expand-transition>
-      </v-img>
-       </v-card>
-  </v-hover>
-
-                    <!--<v-card-text class="text-xs-center">
-          <h6 class="category text-gray font-weight-thin mb-3">CEO / CO-FOUNDER</h6>
-
-          <h4 class="card-title font-weight-light">Alec Thompson</h4>
-
-          <p
-            class="card-description font-weight-light"
-          >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
-
-          <v-btn color="success" round class="font-weight-light">Follow</v-btn>
-                    </v-card-text>-->
+                      <v-card
+                        slot-scope="{ hover }"
+                        class="mx-auto"
+                        color="grey lighten-4"
+                        max-width="600"
+                      >
+                        <v-img :aspect-ratio="4/3" :src="selectedItem.Image">
+                          <v-expand-transition>
+                            <div
+                              v-if="hover"
+                              class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
+                              style="height: 75%;"
+                            >$ {{selectedItem.Price}}</div>
+                          </v-expand-transition>
+                        </v-img>
+                      </v-card>
+                    </v-hover>
                   </v-flex>
 
                   <v-flex xs12 md6>
                     <h3
-                      class="card-title font-weight-light"
-                      
+                      class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
                     <p
                       class="card-description font-weight-light"
                     >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+                    <v-divider></v-divider>
+                    <v-hover></v-hover>
 
-     <v-hover>
-    <v-card>
-   <!--   slot-scope="{ hover }"
-      class="mx-auto"
-      color="grey lighten-4"
-      max-width="600"
-    >
-       <v-img
-        :aspect-ratio="16/9"
-        src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
-      >
-        <v-expand-transition>
-          <div
-            v-if="hover"
-            class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
-            style="height: 100%;"
-          >
-            $14.99
-          </div>
-        </v-expand-transition>
-      </v-img>--->
-      <v-card-text
-        class="pt-4"
-        style="position: relative;"
-      >
-        <v-btn
-          absolute
-          color="orange"
-          class="white--text"
-          fab
-          large
-          right
-          top
-        >
-          <v-icon>shopping_cart</v-icon>
-        </v-btn>
-        <div class="font-weight-light grey--text title mb-2">For the perfect meal</div>
-        <h3 class="display-1 font-weight-light orange--text mb-2">QW cooking utensils</h3>
-        <div class="font-weight-light title mb-2">
-          Our Vintage kitchen utensils delight any chef.<br>
-          Made of bamboo by hand
-        </div>
-      </v-card-text>
-    </v-card>
-  </v-hover>
-                    <!-- <form>
-          <v-text-field
-            v-validate="'required|max:10'"
-            :counter="10"
-            :error-messages="errors.collect('name')"
-            label="Name"
-            data-vv-name="name"
-            required
-          ></v-text-field>
+                    <table class="a-lineitem">
+                      <tbody>
+                        <tr>
+                          <td
+                            class="a-color-secondary a-size-base a-text-right a-nowrap padding:10px"
+                          >List Price:</td>
+                          <td class="a-span12 a-color-secondary a-size-base">
+                            <span
+                              class="priceBlockStrikePriceString a-text-strike"
+                            >$ {{selectedItem.Price}}</span>
+                            <span id="listPriceLegalMessage"></span>
+                          </td>
+                        </tr>
+                        <tr id="priceblock_dealprice_row">
+                          <td
+                            id="priceblock_dealprice_lbl"
+                            class="a-color-secondary a-size-base a-text-right a-nowrap"
+                          >With Deal:</td>
+                          <td class="a-span12">
+                            <span
+                              id="priceblock_dealprice"
+                              class="a-size-medium a-color-price priceBlockDealPriceString"
+                            >$56.99</span>
+                            <span id="dealprice_shippingmessage" class="a-size-medium">
+                              <span id="price-shipping-message" class="a-size-base a-color-base"></span>
+                            </span>
+                          </td>
+                        </tr>
 
-          <v-text-field
-            v-validate="'required|email'"
-            :error-messages="errors.collect('email')"
-            label="E-mail"
-            data-vv-name="email"
-            required
-          ></v-text-field>
+                        <tr id="quantity_row">
+                          <td
+                            id="quantity_lbl"
+                            class="a-color-secondary a-size-base a-text-right a-nowrap"
+                          >Quantity:</td>
+                          <td class="a-span12">
+                            <span id="quantity" class="a-size-medium a-color-quantity">
+                              <div class="minusplusnumber">
+                                <div class="mpbtn minus" v-on:click="decrement()">-</div>
+                                <div id="field_container">
+                                  <input
+                                    @change="valid()"
+                                    type="number"
+                                    v-model="value"
+                                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                  >
+                                </div>
+                                <div class="mpbtn plus" v-on:click="increment()">+</div>
+                              </div>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-          <v-select
-            v-validate="'required'"
-            :error-messages="errors.collect('select')"
-            label="Select"
-            data-vv-name="select"
-            required
-          ></v-select>
+                    <div class="text-xs- mt-5">
+                      <v-rating
+                        v-model="rating"
+                        color="yellow darken-3"
+                        background-color="grey darken-1"
+                        empty-icon="$vuetify.icons.ratingFull"
+                        half-increments
+                        hover
+                      ></v-rating>
+                    </div>
 
-           <v-card-actions>
-             
-              <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
-            </v-card-actions>
-                    </form>-->
+                    <v-divider></v-divider>
+
                     <v-card-actions>
-                      <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                      <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+                      <v-btn color="warning" dark outline round>Add to cart</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -202,9 +179,14 @@ import axios from "axios";
 export default {
   data() {
     return {
+      page: 1,
       dialog: false,
       products: [],
-      selectedItem: null
+      selectedItem: null,
+      value: 1,
+      max: 5,
+
+      newValue: 0
     };
   },
 
@@ -234,11 +216,31 @@ export default {
     productPreview(item) {
       this.selectedItem = item;
       this.dialog = true;
+    },
+
+    increment() {
+      if (this.value >= this.max) {
+        alert("Available only " + this.max + " units");
+      } else {
+        this.value++;
+      }
+    },
+    decrement() {
+      if (this.value === 1) {
+        alert("Negative quantity not allowed");
+      } else {
+        this.value--;
+      }
+    },
+
+    valid() {
+      if (this.value >= this.max) {
+        this.value = this.max;
+      }
     }
   }
 };
 </script>
-
 
 
 <style>
@@ -246,12 +248,59 @@ export default {
   align-items: center;
   bottom: 0;
   justify-content: center;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   width: 100%;
 }
+
+.layout.row.wrap.justify-space-between {
+  margin-left: -60px;
+  margin-right: -60px;
+}
+
+.container.grid-list-md .layout .flex {
+  padding: 10px;
+}
+
+.minusplusnumber {
+  border: 1px solid silver;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  user-select: none;
+}
+.minusplusnumber div {
+  display: inline-block;
+}
+.minusplusnumber #field_container input {
+  width: 50px;
+  text-align: center;
+  font-size: 15px;
+  padding: 3px;
+  border: none;
+}
+.minusplusnumber .mpbtn {
+  padding: 3px 10px 3px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.minusplusnumber .mpbtn:hover {
+  background-color: #ddd;
+}
+.minusplusnumber .mpbtn:active {
+  background-color: #c5c5c5;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.mt-5 {
+  margin-top: 20px !important;
+}
 </style>
-=======
->>>>>>> 4157615e19a397edde3b01e5cf199850502cebe0
-
-
