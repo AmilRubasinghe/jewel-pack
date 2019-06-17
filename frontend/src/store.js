@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
+import { totalmem } from 'os';
 
 
 Vue.use(Vuex);
@@ -9,6 +10,7 @@ export default new Vuex.Store({
     state: {
         loader:false,
         user:null,
+        Items:[],
         
     },
 
@@ -66,8 +68,34 @@ export default new Vuex.Store({
         }
             
         },
-      },
 
+        cartItemList:state => {
+            state.cartView.Items;
+        },
+
+        cartItems: state => {
+            let Items = state.cartView.Items;
+            let cart = [];
+
+            Items.forEach((item,index) => {
+                let found = state.products.Items.find(
+                    (selectedItem) => item.id == selectedItem.PID
+                );
+                cart.push({
+                    ...found,
+                    quantity: item.quantity,
+                });
+            });
+            return cart;
+        },
+
+        cartItemCount: state => {
+            return cartItems(state).reduce((totalmem,current) => {
+                   return total+current['quantity']},0);
+            },
+        
+      },
+    
     mutations:{
 
         LOADER(state,payload){
@@ -82,6 +110,23 @@ export default new Vuex.Store({
             state.user=payload;
         },
 
+        ADD_TO_CART(state,ProductId){
+            const found = state.Items.find(selectedItem => selectedItem.PID == ProductId);
+            if(found){
+                found.quantity++;
+            }
+            else{
+                state.Items.push({
+                    id:ProductId,
+                    quantity:1,
+                });
+            }
+        },
+
+        REMOVE_FROM_CART(state,removeProduct){
+
+        },
+
     },
 
     actions: {
@@ -91,9 +136,13 @@ export default new Vuex.Store({
         setUser(context,payload){
             context.commit('setUser', payload)
         },
-        addItemToCart({ commit }, productItems){
-              commit('ADD_TO_CART',productItems.PID);
-          }
+        addItemToCart({ commit },selectedItem){
+              commit('ADD_TO_CART',selectedItem.PID);
+          },
+        
+        removeItemFromCart({comit},selectedItem){
+            comit('REMOVE_FROM_CART',selectedItem)
+        }
         
       },
 
