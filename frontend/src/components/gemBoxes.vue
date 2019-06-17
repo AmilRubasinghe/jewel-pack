@@ -144,7 +144,7 @@
 
                     <div class="text-xs- mt-5">
                       <v-rating
-                        v-model="rating"
+                      
                         color="yellow darken-3"
                         background-color="grey darken-1"
                         empty-icon="$vuetify.icons.ratingFull"
@@ -156,7 +156,7 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round>Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -175,6 +175,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue'
 
 export default {
   data() {
@@ -237,7 +238,24 @@ export default {
       if (this.value >= this.max) {
         this.value = this.max;
       }
+    },
+
+
+
+    addToCart(selectedItem,value){
+       // console.log(selectedItem);
+      Vue.set(selectedItem, 'qty', value);
+      
+        this.$store.commit('addToCart', selectedItem);
+        this.dialog=false;
+        value=1;
+
+   // console.log(value);
+    
+        //console.log(window.localStorage.getItem('cart'));
+        //console.log(window.localStorage.getItem('cartCount'));
     }
+
   }
 };
 </script>
