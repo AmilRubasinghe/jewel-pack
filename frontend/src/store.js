@@ -103,7 +103,7 @@ export default new Vuex.Store({
             //let found = state.cart.find(product => product.PID == item.PID); Short form of above function
 
         //console.log("++++++");
-
+        state.cartCount+=item.qty;
         
             if (found) {
                 console.log(found);         
@@ -112,11 +112,12 @@ export default new Vuex.Store({
             } else {
                              
 //                Vue.set(item, 'qty', noItems);
+
                 Vue.set(item, 'totalPrice', item.Price*item.qty);
                 state.cart.push(item);
             }
         
-            state.cartCount+=item.qty;
+           // state.cartCount+=item.qty;
             this.commit('saveCart');
             console.log(state.cart);   
         },
