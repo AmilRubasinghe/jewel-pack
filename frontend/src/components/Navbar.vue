@@ -51,10 +51,9 @@
       <template v-slot:badge>
         <span>{{cartCount}}</span>
       </template>
-      <v-icon left dark>shopping_cart</v-icon>
+      <v-icon left dark color="black">shopping_cart</v-icon>
     </v-badge>
-
-          Cart
+        Cart
         </v-btn>
 
 <v-menu offset-y  open-on-hover>
