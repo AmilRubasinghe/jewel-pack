@@ -40,6 +40,21 @@
           {{ item.title }}
         </v-btn>
 
+      
+   
+
+<v-btn
+          flat
+          to="/cart">
+          
+               <v-badge left color="red">
+      <template v-slot:badge>
+        <span>{{cartCount}}</span>
+      </template>
+      <v-icon left dark color="black">shopping_cart</v-icon>
+    </v-badge>
+        Cart
+        </v-btn>
 
 <v-menu offset-y  open-on-hover>
       <template v-slot:activator="{ on }">
@@ -208,9 +223,7 @@ export default {
       
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
-         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
-     //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
+        //  { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
      ],
      userItems: [
           { title: 'Sign Up', path: '/registerPage', icon: 'face'},
@@ -286,6 +299,8 @@ export default {
             ...mapGetters([
                 'role',
                 'user',
+                'cartCount',
+                'cart'
             ])
     // Other properties
   },
