@@ -9,17 +9,144 @@
       
       <v-card  max-width="600px">
         <v-card-title>
-          <span class="headline">Upload File</span>
+          <span class="headline">Upload Form</span>
         </v-card-title>
         <v-card-text>
           
 
-         <v-layout align-center justify-center>
-                        <v-card color="blue" ripple hover height="100" width="300"  max-width="600px">
-                            
-                    <p>Add User</p>
-                        </v-card>
-            </v-layout>
+     
+    <form>
+       
+<v-layout row wrap>
+    
+      <v-flex xs12 sm6 md3 order-md4 order-sm2>
+        <v-card dark tile flat color="red darken-2">
+          <v-card-text>#1</v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 sm6 md3 order-md3 order-sm1>
+        <v-card dark tile flat color="deep-orange lighten-1">
+          <v-card-text>#2</v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 sm6 md3 order-md2 order-sm4>
+        <v-card dark tile flat color="deep-orange darken-3">
+          <v-card-text>#3</v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 sm6 md3 order-md1 order-sm3>
+        <v-card dark tile flat color="deep-orange">
+          <v-card-text>#4</v-card-text>
+        </v-card>
+      </v-flex>
+       
+    </v-layout>
+
+ 
+
+
+     <v-layout row wrap>
+       <v-container>
+ <v-flex
+        xs12 sm5 md3
+      >
+      <v-select
+      v-model="size"
+      v-validate="'required'"
+      :items="size"
+      :error-messages="errors.collect('size')"
+      label="Size"
+      data-vv-name="Size"
+      required
+    ></v-select>
+      </v-flex>
+   <!-- <v-text-field
+      v-model="imageUrl"
+      v-validate="'required'"
+     
+      :error-messages="errors.collect('imageUrl')"
+      label="Image URL"
+      data-vv-name="image URL"
+      required
+    >
+    </v-text-field>-->
+
+  <v-flex
+        xs12 sm5 md5 offset-xs0 offset-lg2
+      >
+    <v-select
+      v-model="colour"
+      v-validate="'required'"
+      :items="colours"
+      :error-messages="errors.collect('colour')"
+      label="Colour"
+      data-vv-name="Colour"
+      required
+    ></v-select>
+    </v-flex>
+    </v-container>
+     </v-layout>
+
+       <v-select
+      v-model="select"
+      v-validate="'required'"
+      :items="items"
+      :error-messages="errors.collect('select')"
+      label="Select"
+      data-vv-name="select"
+      required
+    ></v-select>
+    <v-layout row wrap>
+ <v-flex
+        xs12 sm5 md3
+      >
+    <v-text-field
+      v-model="quntity"
+      v-validate="'required'"
+     
+      :error-messages="errors.collect('quntity')"
+      label="Quntity"
+      data-vv-name="Quntity"
+      required
+    >
+    </v-text-field>
+ </v-flex>
+
+  <v-flex
+        xs12 sm5 md5 offset-xs0 offset-lg2
+      >
+    <v-text-field
+      v-model="quntity"
+      v-validate="'required'"
+     
+      :error-messages="errors.collect('quntity')"
+      label="Quntity"
+      data-vv-name="Quntity"
+      required
+    >
+    </v-text-field>
+ </v-flex>
+    </v-layout>
+
+
+    <v-checkbox
+      v-model="border"
+      v-validate="'required'"
+      :error-messages="errors.collect('checkbox')"
+      value="1"
+      label="Is border"
+      data-vv-name="checkbox"
+      type="checkbox"
+      required
+    ></v-checkbox>
+
+   
+  
+  </form>
+    
+ 
+                   
+             
             
             
             
@@ -30,6 +157,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn @click="clear">clear</v-btn>
           <v-btn outline color="blue"  @click="dialog = false">Close</v-btn>
            <v-btn outline color="blue" >Save</v-btn>
         </v-card-actions>
@@ -125,15 +253,23 @@
             single-line
             hide-details
           ></v-text-field>
+           <v-btn fab dark color="blue"  @click="dialog = true">
+      <v-icon dark >add</v-icon>
+      </v-btn>
+    
+        
+      <v-btn fab dark color="blue" @click="getSlideshow">
+      <v-icon dark >refresh</v-icon>
+    </v-btn>
 
       <v-btn v-if="!deletedUsers" @click="getDeletedUsers">
           <v-icon large color="blue">delete_sweep</v-icon>
-          Deleted Users
+          Deleted item
       </v-btn>
 
       <v-btn v-if="deletedUsers" @click="getUsers">
           <v-icon large color="blue">playlist_add_check</v-icon>
-          Active Users
+          Active Item
       </v-btn>
       
       
@@ -237,7 +373,20 @@ import navDrawer from '../admin/navDrawer.vue';
                 ext: '',
                 deleteURL: '',
             },
+
+            size: [
+        '2x2',
+        '3x3',
+        '4x4',
+        '5x5'
+      ],
             
+             colours: [
+        'White',
+        'Black',
+       
+      ],
+
             roles:['user','admin','editor'],
             emailVerifyItems:[1,0],
 
