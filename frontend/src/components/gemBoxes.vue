@@ -187,7 +187,6 @@ export default {
       selectedItem: null,
       value: 1,
       max: 5,
-      x:0,
       newValue: 0
     };
   },
@@ -236,9 +235,7 @@ export default {
     },
 
     addToCart(selectedItem){
-       this.$store.dispatch('addItemToCart',selectedItem);
-       x++;
-       return x;
+       this.$store.commit('addToCart', selectedItem);
     },
 
     valid() {

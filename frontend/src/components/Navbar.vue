@@ -213,7 +213,7 @@ export default {
       
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Cart', path: '/cart',badge:"0", icon: 'shopping_cart' },
+          { title: 'Cart', path: '/cartView',badge:"0", icon: 'shopping_cart' },
          // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
      //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
      ],

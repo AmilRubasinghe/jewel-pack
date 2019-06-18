@@ -17,7 +17,7 @@ c<template>
       :src="item.image"
     ></v-carousel-item>
   </v-carousel>
-  </br>
+  <br>
    
    
    <v-parallax
@@ -177,7 +177,7 @@ c<template>
              <div class="product-item">
              <a href="#">
             <div class="gallery_product-1">
-                <img src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/10672245_1621555038090401_2447821253654883999_n.jpg?_nc_cat=111&_nc_ht=scontent.fcmb3-1.fna&oh=26e3f7f5918b452aee8c161d9a1a197b&oe=5D7179EA" class="img-responsive"width="600" height="400">
+                <img src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/10672245_1621555038090401_2447821253654883999_n.jpg?_nc_cat=111&_nc_ht=scontent.fcmb3-1.fna&oh=26e3f7f5918b452aee8c161d9a1a197b&oe=5D7179EA" class="img-responsive" width="600" height="400">
             </div>
            <!-- <span class="effect"></span>
             <div class="post-content">
