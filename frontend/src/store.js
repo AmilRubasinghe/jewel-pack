@@ -75,6 +75,16 @@ export default new Vuex.Store({
         }
             
         },
+<<<<<<< HEAD
+=======
+
+
+        cartCount:state => {
+            return state.cartCount
+            
+        },
+      },
+>>>>>>> a8d069eba4564d311729a865990611642e0422dc
 
              
       },
