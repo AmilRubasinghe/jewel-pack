@@ -1,11 +1,11 @@
 <template>
 <div>
-<navDrawer></navDrawer>
-</br>
-
-
-<div class="container" v-bind:style="{ background: '#B0BEC5'}">
-<v-dialog v-model="dialog" max-width="600px">
+<adminPanel></adminPanel>
+   <v-progress-circular
+      :size="70"
+      :width="7"
+      color="purple"
+      indeterminate
       
       <v-card  max-width="600px">
         <v-card-title>
@@ -351,12 +351,6 @@
 </template>
 
 
-
-
-
-
-
-
 <script>
 import axios from 'axios'
 import navDrawer from '../admin/navDrawer.vue';
@@ -430,155 +424,7 @@ import navDrawer from '../admin/navDrawer.vue';
     },
 
     components:{
-        navDrawer
-    },
-
-    computed: {
-      pages () {
-        if (this.pagination.rowsPerPage == null ||
-          this.pagination.totalItems == null
-        ) return 0
-
-        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-      }
-    },
-
-    methods:{
-
-            getUsers(){
-              this.table_title="Active Users",
-              this.deletedUsers=false;
-              let $Token=localStorage.getItem('token');
-              axios.post('http://localhost:8000/api/users?token='+$Token)
-                  .then(response => {
-                    
-                    
-                      this.users=response.data.users;
-
-                      //console.log(this.slideshowItems);
-
-                      
-                      
-                  })
-                  .catch(error => {
-                      console.log(error.response);
-                      console.log("ERROR");
-                  })
-          },
-
-          getDeletedUsers(){
-            this.table_title="Deleted Users",
-            this.deletedUsers=true;
-            let $Token=localStorage.getItem('token');
-              axios.post('http://localhost:8000/api/deletedUsers?token='+$Token)
-                  .then(response => {
-                    
-                    
-                      this.users=response.data.users;
-
-                      //console.log(this.slideshowItems);
-
-                      
-                      
-                  })
-                  .catch(error => {
-                      console.log(error.response);
-                      console.log("ERROR");
-                  })
-          },
-
-          changeSort (column) {
-                if (this.pagination.sortBy === column) {
-                this.pagination.descending = !this.pagination.descending
-                } else {
-                this.pagination.sortBy = column
-                this.pagination.descending = false
-                }
-          },
-
-
-          close () {
-            this.showModal = false
-            setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-            }, 300)
-        },
-
-        editItem (item) {
-            this.editedIndex = this.users.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            console.log(this.editedItem);
-            this.showModal = true
-        },
-
-        deleteItem (item) {
-            
-            var result = confirm("Want to delete "+item.firstName+"?");
-            if (result) {
-                //Logic to delete the item
-                let $Token=localStorage.getItem('token');
-                axios.post('http://localhost:8000/api/deleteUser/'+item.ID+'?token='+$Token)
-                    .then(response => {
-                        /*axios.get(item.deleteURL).then(res=>{
-                            console.log(res);
-                        });*/
-                        this.getUsers();
-                        alert("Succesfully Deleted");
-                    });
-            }
-        },
-
-        restoreItem (item) {
-            
-            var result = confirm("Want to restore "+item.firstName+"?");
-            if (result) {
-                //Logic to delete the item
-                let $Token=localStorage.getItem('token');
-                axios.post('http://localhost:8000/api/restoreUser/'+item.ID+'?token='+$Token)
-                    .then(response => {
-                        /*axios.get(item.deleteURL).then(res=>{
-                            console.log(res);
-                        });*/
-                        this.getDeletedUsers();
-                        alert("Succesfully Restored");
-                    });
-            }
-        },
-          save(){
-
-                let $Token=localStorage.getItem('token');
-                if (this.editedIndex > -1) {
-                    Object.assign(this.users[this.editedIndex], this.editedItem)
-                    console.log("*******************");
-                    console.log(this.editedItem);
-
-                    axios.post('http://localhost:8000/api/editUser/?token='+$Token,this.editedItem)
-                    
-                    .then(response => {
-                        this.showModal=false
-                        this.getUsers();
-                        console.log("Succesfully Edited");
-                    });
-
-                 } else {
-                    this.users.push(this.editedItem)
-                 }
-                    this.close()
-            
-            },
-
-
-          
-          },
-  
-
-  
-  }
+    'adminPanel':adminPanel
+    }
+}
 </script>
-
-
-
-
-
-
