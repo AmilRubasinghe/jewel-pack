@@ -252,7 +252,7 @@ export default {
       
         this.$store.commit('addToCart', selectedItem);
         this.dialog=false;
-        value=1;
+        this.value=1;
 
    // console.log(value);
     
