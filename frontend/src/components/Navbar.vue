@@ -36,7 +36,11 @@
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path">
+          <v-badge v-if="item.title=='Cart'" v-model="show" left>
+            <template v-slot:badge><span>{{item.badge}}</span></template></v-badge>
+           
           <v-icon left dark>{{ item.icon }}</v-icon>
+           
           {{ item.title }}
         </v-btn>
 
@@ -75,6 +79,7 @@
             :to="item.path">
             <v-icon left dark>{{ item.icon }}</v-icon>
             {{ item.title }}
+            
         </v-btn>
         <v-btn
             v-if="user"
@@ -208,7 +213,7 @@ export default {
       
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
+          { title: 'Cart', path: '/cart',badge:"0", icon: 'shopping_cart' },
          // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
      //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
      ],

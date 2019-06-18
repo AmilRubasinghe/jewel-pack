@@ -156,7 +156,7 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round @click.native="addToCart(selectedItem)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round   @click.native="addToCart(selectedItem)">Add to cart</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -185,7 +185,7 @@ export default {
       selectedItem: null,
       value: 1,
       max: 5,
-
+      x:0,
       newValue: 0
     };
   },
@@ -235,6 +235,8 @@ export default {
 
     addToCart(selectedItem){
        this.$store.dispatch('addItemToCart',selectedItem);
+       x++;
+       return x;
     },
 
     valid() {
