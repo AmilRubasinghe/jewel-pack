@@ -73,6 +73,12 @@ export default new Vuex.Store({
         }
             
         },
+
+
+        cartCount:state => {
+            return state.cartCount
+            
+        },
       },
 
     mutations:{
