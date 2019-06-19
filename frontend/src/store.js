@@ -120,7 +120,7 @@ export default new Vuex.Store({
                              
 //                Vue.set(item, 'qty', noItems);
 
-                Vue.set(item, 'totalPrice', item.Price*item.qty);
+                Vue.set(item, 'totalPrice', (item.Price*item.qty));
                 state.cart.push(item);
             }
             state.cartCount++;

@@ -1,6 +1,7 @@
 <template>
 <v-container>
- <h4 class="display-1" text-color="blue">Check-out</h4>
+  <br><br>
+ <h4 class="display-1" text-color="blue" align="center">Check-out</h4>
 
   <v-stepper v-model="e6" vertical>
     <v-stepper-step :complete="e6 > 1" step="1">

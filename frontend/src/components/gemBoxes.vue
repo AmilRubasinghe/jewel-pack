@@ -156,7 +156,6 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round   @click.native="addToCart(selectedItem)">Add to cart</v-btn>
                       <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
                     </v-card-actions>
                   </v-flex>
@@ -185,7 +184,7 @@ export default {
       dialog: false,
       products: [],
       selectedItem: null,
-      value: 1,
+      value: 0,
       max: 5,
       newValue: 0
     };
