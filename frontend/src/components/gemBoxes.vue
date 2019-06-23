@@ -184,7 +184,7 @@ export default {
       dialog: false,
       products: [],
       selectedItem: null,
-      value: 0,
+      value: 1,
       max: 5,
       newValue: 0
     };
