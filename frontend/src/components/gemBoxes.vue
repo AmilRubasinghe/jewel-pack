@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire"> 
       <v-container grid-list-sm text-xs-center>
         <v-layout row wrap justify-space-between>
           <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">

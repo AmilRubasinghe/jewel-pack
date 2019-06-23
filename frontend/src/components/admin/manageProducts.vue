@@ -1,6 +1,6 @@
 <template>
 <div>
-<adminPanel></adminPanel>
+
    <v-progress-circular
       :size="70"
       :width="7"
@@ -18,11 +18,11 @@
 
 
 <script>
-import adminPanel from './adminPanel'
+
 export default {
 
     components:{
-    'adminPanel':adminPanel
+    
     }
 }
 </script>
