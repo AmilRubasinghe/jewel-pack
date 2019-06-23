@@ -17,7 +17,7 @@ c<template>
       :src="item.image"
     ></v-carousel-item>
   </v-carousel>
-  </br>
+  <br>
    
    
    <v-parallax

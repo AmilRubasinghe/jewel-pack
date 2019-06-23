@@ -186,7 +186,6 @@ export default {
       selectedItem: null,
       value: 1,
       max: 5,
-
       newValue: 0
     };
   },
@@ -234,6 +233,10 @@ export default {
       }
     },
 
+    addToCart(selectedItem){
+       this.$store.commit('addToCart', selectedItem);
+    },
+
     valid() {
       if (this.value >= this.max) {
         this.value = this.max;
@@ -270,6 +273,7 @@ export default {
   position: absolute;
   width: 100%;
 }
+</style>
 
 
 .layout.row.wrap.justify-space-between {

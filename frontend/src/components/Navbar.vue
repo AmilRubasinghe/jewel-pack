@@ -36,16 +36,18 @@
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path">
+          
           <v-icon left dark>{{ item.icon }}</v-icon>
+           
           {{ item.title }}
         </v-btn>
 
       
    
 
-<v-btn
+       <v-btn
           flat
-          to="/cart">
+          to="/cartView">
           
                <v-badge left color="red">
       <template v-slot:badge>
@@ -90,6 +92,7 @@
             :to="item.path">
             <v-icon left dark>{{ item.icon }}</v-icon>
             {{ item.title }}
+            
         </v-btn>
         <v-btn
             v-if="user"
@@ -223,7 +226,9 @@ export default {
       
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
-        //  { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
+          //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
+         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
+     //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
      ],
      userItems: [
           { title: 'Sign Up', path: '/registerPage', icon: 'face'},

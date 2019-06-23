@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
+import { totalmem } from 'os';
 
 
 Vue.use(Vuex);
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     state: {
         loader:false,
         user:null,
+        
         
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
@@ -73,14 +75,13 @@ export default new Vuex.Store({
         }
             
         },
-
-
         cartCount:state => {
-            return state.cartCount
+            return state.cartCount ;
             
         },
+             
       },
-
+    
     mutations:{
 
         LOADER(state,payload){
@@ -119,10 +120,10 @@ export default new Vuex.Store({
                              
 //                Vue.set(item, 'qty', noItems);
 
-                Vue.set(item, 'totalPrice', item.Price*item.qty);
+                Vue.set(item, 'totalPrice', (item.Price*item.qty));
                 state.cart.push(item);
             }
-        
+            state.cartCount++;
            // state.cartCount+=item.qty;
             this.commit('saveCart');
             console.log(state.cart);   
@@ -153,11 +154,12 @@ export default new Vuex.Store({
         },
         setUser(context,payload){
             context.commit('setUser', payload)
-        }
+        },   
         
       },
 
       plugins: [createPersistedState()]
 
+    
 
 });
