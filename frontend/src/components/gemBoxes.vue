@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire"> 
       <v-container grid-list-sm text-xs-center>
         <v-layout row wrap justify-space-between>
           <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
@@ -157,6 +157,7 @@
 
                     <v-card-actions>
                       <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -324,6 +325,20 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mt-5 {
   margin-top: 20px !important;
+}
+
+
+
+
+
+
+
+  td { 
+    width:130px; 
+    height:40px; 
+    text-align:center; 
+    padding:5px
+  
 }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <br><br>
         <div class="display-1" align="center">Your Cart</div>
         <br><br>
