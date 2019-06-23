@@ -157,6 +157,7 @@
 
                     <v-card-actions>
                       <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -321,5 +322,19 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mt-5 {
   margin-top: 20px !important;
+}
+
+
+
+
+
+
+
+  td { 
+    width:130px; 
+    height:40px; 
+    text-align:center; 
+    padding:5px
+  
 }
 </style>

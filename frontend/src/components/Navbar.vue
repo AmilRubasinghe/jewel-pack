@@ -1,6 +1,6 @@
 <template>
   
-  <v-app>
+  <v-app id="inspire">
 
      
     <v-toolbar app prominent scroll-off-screen color="#FFFFFF"> 
