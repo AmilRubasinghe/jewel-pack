@@ -273,7 +273,6 @@ export default {
   position: absolute;
   width: 100%;
 }
-</style>
 
 
 .layout.row.wrap.justify-space-between {
@@ -327,3 +326,4 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 20px !important;
 }
 </style>
+
