@@ -123,7 +123,7 @@ export default new Vuex.Store({
                 Vue.set(item, 'totalPrice', (item.Price*item.qty));
                 state.cart.push(item);
             }
-            state.cartCount++;
+            //state.cartCount++;
            // state.cartCount+=item.qty;
             this.commit('saveCart');
             console.log(state.cart);   
