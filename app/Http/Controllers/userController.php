@@ -278,7 +278,8 @@ public function logoutUser(Request $request){
         $thisUser->emailStatus = $request->input('emailStatus');
 
         $thisUser->save();
-        return $thisUser;
+        //return $thisUser;
+        return response()->json(['user' => $thisUser,'message' => "Succesfully Edited"]);
     }
 
 

@@ -110,7 +110,23 @@
 
 
 
-
+ <v-snackbar
+      v-model="snackbar"
+      
+      
+      multi-line
+      
+      timeout:6000
+      top
+      
+      auto-height
+      
+    >
+      {{message}}
+      
+      <v-icon color="red" @click="snackbar = false">close</v-icon>
+        
+    </v-snackbar>
 
 <div>
     
@@ -219,6 +235,9 @@ import navDrawer from '../admin/navDrawer.vue';
   export default {      
     data(){
         return{
+          snackbar:false,
+          message:'',
+
             dialog: false,
             showModal:false,
              editedIndex: -1,
@@ -400,8 +419,11 @@ import navDrawer from '../admin/navDrawer.vue';
                     
                     .then(response => {
                         this.showModal=false
+                        this.snackbar=true
+                        this.message=response.data.message;
+
                         this.getUsers();
-                        console.log("Succesfully Edited");
+                        //console.log("Succesfully Edited");
                     });
 
                  } else {
