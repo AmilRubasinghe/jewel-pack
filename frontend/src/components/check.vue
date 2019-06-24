@@ -1,8 +1,8 @@
 <template>
 <v-container>
-  <br><br>
+  <br>
  <h4 class="display-1" text-color="blue" align="center">Check-out</h4>
-
+<br>
   <v-stepper v-model="e6" vertical>
     <v-stepper-step :complete="e6 > 1" step="1">
       Customer
@@ -95,8 +95,9 @@
 
     <v-stepper-step :complete="e6 > 3" step="3">Payment</v-stepper-step>
         
-    <v-stepper-content step="3">
-      <template>     
+    <v-stepper-content step="3" @click="chekout()">
+      <template> 
+
       <v-btn color="primary">Place order</v-btn>
       <v-btn flat @click.native="e6=2">Previous</v-btn>
       <v-btn flat>Cancel</v-btn>
@@ -113,6 +114,12 @@
       return {
         e6: 1
       }
+    },
+
+    methods:{
+         checkout(){
+           //this.$store.commit('checkout');
+         }
     }
   }
 </script>

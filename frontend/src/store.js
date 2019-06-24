@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
 import { totalmem } from 'os';
-
+//import axios from axios;
 
 Vue.use(Vuex);
 
@@ -19,6 +19,7 @@ export default new Vuex.Store({
         
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
+        
     },
 
     getters : {
@@ -134,7 +135,7 @@ export default new Vuex.Store({
         
             if (index > -1) {
                 let product = state.cart[index];
-                state.cartCount -= product.quantity;
+                state.cartCount -= product.qty;
         
                 state.cart.splice(index, 1);
             }
@@ -145,6 +146,7 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
         }
+
 
     },
 

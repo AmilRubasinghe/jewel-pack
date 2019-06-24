@@ -233,8 +233,8 @@ export default {
       }
     },
 
-    addToCart(selectedItem){
-       this.$store.commit('addToCart', selectedItem);
+    addToCart(selectedItem,value){
+       this.$store.commit('addToCart', selectedItem,value);
     },
 
     valid() {
