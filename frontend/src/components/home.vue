@@ -21,7 +21,7 @@ c<template>
    
   
 
- 
+ <div  data-aos="fade-right">
     <v-layout row wrap>
       <v-flex xs6>
         
@@ -48,15 +48,16 @@ c<template>
           justify-center
           color="blue"
         >
-          <h3 style="color:#BF360C;" class="display-3 font-weight-thin mb-1"   >Great for </h3>
-          <h3 style="color:#BF360C;" class="display-3 font-weight-thin mb-1"   >storage or display</h3>
-          <h4 style="color:#BF360C;" class="display-2 font-weight-thin mb-1"  >of</h4>
-          <h3 style="color:#BF360C;" class="display-3 font-weight-thin mb-1"   >Jewellary & Gems</h3>
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1 "   >Great for </h3>
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1"   >storage or display</h3>
+          <h4 style="color:#BF360C;" class="display-2 font-weight-400 font-italic mb-1"  >of</h4>
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1"   >Jewellary & Gems</h3>
         </v-layout>
         
         
       </v-flex>
     </v-layout>
+ </div>
       
        <!--slide end-->
 
@@ -286,12 +287,61 @@ c<template>
 
       </div>
    
+
+   <div  data-aos="fade-left">
+
+     
+ 
+    <v-layout row wrap>
+      
+      <v-flex xs6 >
+        
+        <v-layout
+          align-center
+          column
+          justify-center
+          color="blue"
+        >
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1"   >Great for </h3>
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1"   >storage or display</h3>
+          <h4 style="color:#BF360C;" class="display-2 font-weight-400 font-italic mb-1"  >of</h4>
+          <h3 style="color:#BF360C;" class="display-3 font-weight-400 font-italic mb-1"   >Jewellary & Gems</h3>
+        </v-layout>
+        
+        
+      </v-flex>
+
+      <v-flex xs6>
+        
+          <v-parallax
+        
+        src="https://i.vgy.me/Ti6jIj.jpg"
+      >
+        <v-layout
+          align-center
+          column
+          justify-center
+          color="blue"
+        >
+          <h1 style="color:#FFFFFF; align:center;" class="display-4 font-weight-thin mb-3"  >JewelPack</h1>
+        </v-layout>
+      </v-parallax>
+        
+      </v-flex>
+    </v-layout>
+   </div>
+
+
     </div>
 </template>
 
 <script>
 
 import axios from 'axios'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+
 
 
  export default {
@@ -324,6 +374,12 @@ import axios from 'axios'
 
     mounted(){
       this.getSlideshow();
+      AOS.init(
+        {
+        duration: 3000
+        }
+      );
+
     }
   }
   
