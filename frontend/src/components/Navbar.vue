@@ -1,14 +1,16 @@
 <template>
   
-  <v-app>
+  <v-app id="inspire">
 
      
-    <v-toolbar app prominent scroll-off-screen color="#FFFFFF"> 
+    <v-toolbar app prominent scroll-off-screen color:transparent> 
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          {{ appTitle }}
+         <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <span class="font-weight-light">Jewel</span>
+          <span>Pack</span>
         </router-link>
       </v-toolbar-title>
       <v-divider
@@ -36,10 +38,27 @@
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path">
+          
           <v-icon left dark>{{ item.icon }}</v-icon>
+           
           {{ item.title }}
         </v-btn>
 
+      
+   
+
+       <v-btn
+          flat
+          to="/cartView">
+          
+               <v-badge left color="red">
+      <template v-slot:badge>
+        <span>{{cartCount}}</span>
+      </template>
+      <v-icon left dark color="black">shopping_cart</v-icon>
+    </v-badge>
+        Cart
+        </v-btn>
 
 <v-menu offset-y  open-on-hover>
       <template v-slot:activator="{ on }">
@@ -75,6 +94,7 @@
             :to="item.path">
             <v-icon left dark>{{ item.icon }}</v-icon>
             {{ item.title }}
+            
         </v-btn>
         <v-btn
             v-if="user"
@@ -208,7 +228,7 @@ export default {
       
       menuItems: [
           { title: 'Home', path: '/home', icon: 'home' },
-          { title: 'Cart', path: '/cart', icon: 'shopping_cart' },
+          //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
          // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
      //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
      ],
@@ -286,6 +306,8 @@ export default {
             ...mapGetters([
                 'role',
                 'user',
+                'cartCount',
+                'cart'
             ])
     // Other properties
   },
@@ -299,4 +321,3 @@ export default {
   }
 };
 </script>
-

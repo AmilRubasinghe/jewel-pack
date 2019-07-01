@@ -7,7 +7,7 @@
 import navDrawer from './navDrawer.vue';
   export default {      
     components:{
-            navDrawer
+            navDrawer,
         },
   }
 </script>
