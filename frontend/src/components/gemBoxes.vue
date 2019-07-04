@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire"> 
       <v-container grid-list-sm text-xs-center>
         <v-layout row wrap justify-space-between>
           <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
@@ -144,7 +144,7 @@
 
                     <div class="text-xs- mt-5">
                       <v-rating
-                        v-model="rating"
+                      
                         color="yellow darken-3"
                         background-color="grey darken-1"
                         empty-icon="$vuetify.icons.ratingFull"
@@ -156,7 +156,8 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round>Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -175,6 +176,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue'
 
 export default {
   data() {
@@ -185,7 +187,6 @@ export default {
       selectedItem: null,
       value: 1,
       max: 5,
-
       newValue: 0
     };
   },
@@ -233,11 +234,32 @@ export default {
       }
     },
 
+    addToCart(selectedItem){
+       this.$store.commit('addToCart', selectedItem);
+    },
+
     valid() {
       if (this.value >= this.max) {
         this.value = this.max;
       }
+    },
+
+
+
+    addToCart(selectedItem,value){
+       // console.log(selectedItem);
+      Vue.set(selectedItem, 'qty', value);
+      
+        this.$store.commit('addToCart', selectedItem);
+        this.dialog=false;
+        this.value=1;
+
+   // console.log(value);
+    
+        //console.log(window.localStorage.getItem('cart'));
+        //console.log(window.localStorage.getItem('cartCount'));
     }
+
   }
 };
 </script>
@@ -304,4 +326,19 @@ input[type="number"]::-webkit-outer-spin-button {
 .mt-5 {
   margin-top: 20px !important;
 }
+
+
+
+
+
+
+
+  td { 
+    width:130px; 
+    height:40px; 
+    text-align:center; 
+    padding:5px
+  
+}
 </style>
+
