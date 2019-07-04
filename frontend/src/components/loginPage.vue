@@ -10,7 +10,8 @@
     <div class="container box" >
 
   
-        <alert v-if="alert" v-bind:message="alert" />
+       <alert v-if="alert" v-bind:message="alert" />
+      
         <form class="form-signin" @submit.prevent='loginUser'>
             <h1 align="center">Sign In</h1>
             <div class="form-group form-group-lg">
@@ -27,7 +28,7 @@
                 </div>
             </div>
 
-            </br>
+            <br>
 
 
             <div class="form-group form-group-lg">
