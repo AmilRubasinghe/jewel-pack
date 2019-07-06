@@ -96,9 +96,10 @@
     <v-stepper-step :complete="e6 > 3" step="3">Payment</v-stepper-step>
         
     <v-stepper-content step="3" @click="chekout()">
+          
       <template> 
-
-      <v-btn color="primary">Place order</v-btn>
+      
+      <v-btn color="primary" href="/cart_totals">Place order</v-btn>
       <v-btn flat @click.native="e6=2">Previous</v-btn>
       <v-btn flat>Cancel</v-btn>
       </template>
@@ -109,7 +110,12 @@
 
 
 <script>
+ //import cart_totals from './components/cart_totals.vue'
+
   export default {
+    components:{
+          //'cart-totals':cart_totals
+    },
     data () {
       return {
         e6: 1
@@ -118,8 +124,9 @@
 
     methods:{
          checkout(){
-           //this.$store.commit('checkout');
+           
          }
     }
+   
   }
 </script>

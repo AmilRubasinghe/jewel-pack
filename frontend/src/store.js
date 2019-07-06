@@ -145,7 +145,8 @@ export default new Vuex.Store({
         saveCart(state) {
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
-        }
+        },
+    
 
 
     },

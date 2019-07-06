@@ -7,7 +7,7 @@
             <v-list two-line>
                 <template v-for="(item,index) in $store.state.cart">
 
-                    <v-list-tile avatar :key="item.Size" v-on:click="Preview(item)">
+                    <v-list-tile avatar :key="item.Size" >
                     <v-list-tile-avatar>
                         <img   :src="item.Image">
                     </v-list-tile-avatar>
@@ -20,18 +20,27 @@
                         {{ item.Price}} $
                     </v-list-tile-sub-title>
                     </v-list-tile-content>
-                    <v-list-tile>
-                        {{item.Price}}$
-                    </v-list-tile>
+                    
 
                     <v-list-tile-action>
-                        <v-text-field lable="Quantity" reverse :value="item.qty"></v-text-field>
+                        <v-text-field
+                        
+                        :value="item.qty"
+                         reverse>
+                    </v-text-field>
+                        
                     </v-list-tile-action>
                     <v-list-tile>
                         {{item.qty * item.Price}}$
                     </v-list-tile>
                     
-
+                    <v-list-tile-action>
+                        <v-btn icon ripple @click.native="refreahItem(item,value)">
+                        <v-icon color="green" >
+                        cached
+                        </v-icon>
+                        </v-btn>
+                    </v-list-tile-action>
                     <v-list-tile-action>
                         <v-btn icon ripple @click.native="removeItem(item)">
                         <v-icon color="red-lighten-1" >
@@ -69,7 +78,10 @@ export default {
     data(){
         return{
              Check:false,
+             //value:"item.qty",
+             value:'',
         }
+       
        
     },
 
@@ -94,6 +106,11 @@ export default {
         removeItem(item){
             this.$store.commit('removeFromCart',item);
         },
+
+        refreshItem(item,value){
+            Vue.set(item, 'qty', value);
+            this.$store.commit('addToCart',item);
+        }
 
     }
 
