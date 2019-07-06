@@ -3,12 +3,14 @@
   <v-app id="inspire">
 
      
-    <v-toolbar app prominent scroll-off-screen color="#FFFFFF"> 
+    <v-toolbar app prominent scroll-off-screen color:transparent> 
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          {{ appTitle }}
+         <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <span class="font-weight-light">Jewel</span>
+          <span>Pack</span>
         </router-link>
       </v-toolbar-title>
       <v-divider
