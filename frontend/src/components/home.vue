@@ -189,7 +189,7 @@ c<template>
          <h3 class="popular">POPULAR  C O L O U R   BOX</h3>
      </div>
 
-     <p> Here are som of recomended boxes of the year</p>
+     <p> Here are some of recomended boxes of the year</p>
 
 
      </div>

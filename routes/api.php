@@ -37,6 +37,8 @@ Route::group([
 //userModuleRoutes
     Route::post('login', 'UserController@loginUser');
     Route::post('register','UserController@registerUser');
+    Route::post('resendvEmail','UserController@resendvEmail');
+    
     
     
     Route::post('guard','UserController@guard');

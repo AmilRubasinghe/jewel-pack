@@ -57,15 +57,43 @@ class userController extends Controller
         
         try {
             $this->sendEmail($thisUser);
-            return response()->json(['message'=>"You would have received a verification email with link. Please click it !"]);
+            return response()->json(['snack'=>"Didn't you receive the verification email?",'message' => "You would have received a verification email with link. Please click it !"]);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['message' => 'Something went wrong while sending verification email','vEmail'], 201);
+        }
+
+			
+			
+    }
+    
+
+    public function resendvEmail(Request $request){
+
+      
+        $thisUser= User::where('email', '=', $request->input('email'))->firstOrFail();
+        
+      
+        
+        if(!$thisUser){
+            return response()->json(['message' => 'Something went wrong while sending verification email','vEmail'], 201);
+        }
+
+        $thisUser->verifyToken=Str::random(40);
+        $thisUser->save();
+
+        try {
+            Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));
+            return response()->json(['snack'=>"Didn't you receive the verification email?",'message' => "You would have received a verification email with link. Please click it !"]);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(['message' => 'Something went wrong while sending verification email'], 201);
         }
 
-			
-			
-	}
+       
+
+
+    }
 
     public function sendEmail($thisUser){
 
@@ -103,7 +131,7 @@ class userController extends Controller
         
 
         if(!$user->emailStatus){
-            return response()->json(['message' => 'Email not verified. Please verify email first !'], 200);
+            return response()->json(['message' => 'Email not verified. Please verify email first !','snack'=>"Didn't you receive the verification email?",], 200);
         }
 
         if($user->isDeleted){

@@ -228,6 +228,7 @@ export default {
         { text: 'Category Name', value: 'CName' },
         { text: 'Icon Code', value: 'icon' },
         { text: 'Image', value: 'Image' },
+        { text: 'Action', value: 'action' },
       ],
         }
      
