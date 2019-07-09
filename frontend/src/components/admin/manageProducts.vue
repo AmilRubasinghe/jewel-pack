@@ -157,9 +157,7 @@
                     v-model="editedItem.Size"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.Image" label="Image URL"></v-text-field>
-                </v-flex>
+                
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.Quantity" label="Quantity" disabled></v-text-field>
 
@@ -182,6 +180,52 @@
                   <v-text-field v-model="editedItem.unitWeight" label="unit Weight"></v-text-field>
                 </v-flex>
               </v-layout>
+
+
+
+              <v-flex xs12 sm6 offset-sm4>
+                  
+                  
+                      
+                         <v-img height="165" width="350"  max-width="260px" :src="editedItem.Image"></v-img>      
+                        
+                          
+                        
+                        <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="70" width="260"  max-width="600px">
+                          
+                        <form enctype="multipart/form-data">
+                        <div class="text-xs-center">
+                            
+                        
+
+                            <label class="button"  >
+                                    <input 
+                                    type="file"
+                                    ref="file"
+                                    @change="selectFile"
+                                    style="display:none"
+                                    >
+                                    <v-icon outline large>cloud_upload</v-icon>
+                                    <h4>Upload photo</h4>
+                                    <span v-if="file" class="file-name">{{file.name}}</span>
+                            </label>
+
+
+
+                        
+                        </div>
+                        
+                        </form>
+                        </v-card>
+                        
+                       </v-flex> 
+                        
+            
+
+
+                        
+                        
+                
             </v-container>
           </v-card-text>
 
@@ -206,19 +250,19 @@
             hide-details
           ></v-text-field>
   
-          <v-btn fab dark color="blue" @click="openDialogProduct">
-            <v-icon dark>add</v-icon>
+          <v-btn  fab dark  color="blue" @click="openDialogProduct">
+            <v-icon  dark>add</v-icon>
           </v-btn>
 
-          <v-btn fab dark color="blue" @click=" productItems ">
-            <v-icon dark>refresh</v-icon>
+          <v-btn  fab dark color="blue" @click=" productItems ">
+            <v-icon medium dark>refresh</v-icon>
           </v-btn>
 
-         <!-- <v-btn v-if="!deletedUsers" >
+        <!--  <v-btn v-if="!deletedItem" >
             <v-icon large color="blue">delete_sweep</v-icon>Deleted item
           </v-btn>
 
-          <v-btn v-if="deletedUsers" >
+          <v-btn v-if="deletedItem" >
             <v-icon large color="blue">playlist_add_check</v-icon>Active Item
           </v-btn>-->
         </v-toolbar>
@@ -269,13 +313,13 @@
                   @click="editItem(props.item)"
                 >edit</v-icon>
                <!-- <v-icon
-                  v-if="!deletedUsers"
+                  v-if="!deletedItem"
                   color="red"
                   medium
                   @click="deleteItem(props.item)"
                 >delete</v-icon>
                 <v-icon
-                  v-if="deletedUsers"
+                  v-if="deletedItem"
                   color="green"
                   medium
                   @click="restoreItem(props.item)"
@@ -400,7 +444,8 @@ export default {
     addProduct(){
 
 
-       
+               this.table_title="Active Product",
+              this.deletedItem=false;
 
               let $Token=localStorage.getItem('token');
 
@@ -412,7 +457,11 @@ export default {
                         this.dialog=false;
                         this.productItems();
                         console.log("Product Succesfully Added");
-                    });
+                    })
+                     .catch(error => {
+                      console.log(error.response);
+                      console.log("ERROR");
+                  })
 
                  
 
@@ -454,19 +503,17 @@ export default {
       }, 300);
     },
 
-    save(){
-
-    },
+   
     
 
-    editItem(item) {
+  editItem(item) {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       console.log(this.editedItem);
       this.showModal = true;
     },
 
-  /*  deleteItem(item) {
+    /*  deleteItem(item) {
       var result = confirm("Want to delete " + item.firstName + "?");
       if (result) {
         //Logic to delete the item
@@ -536,13 +583,81 @@ export default {
         this.dialog= true
 
 
-   } 
-    
-       
+   },
+
+    save(){
+
+    },
+
+  /* editItem(item){
+      var result = confirm("Want to delete "+item.firstName+"?");
+            if (result) {
+                //Logic to delete the item
+                let $Token=localStorage.getItem('token');
+                axios.post('http://localhost:8000/api/deleteUser/'+item.ID+'?token='+$Token)
+                    .then(response => {
+                        /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });
+                        this.getUsers();
+                        alert("Succesfully Deleted");
+                    });
+            }
+
+   },*/
+
+   deleteItem(item){
+
+   },
+   restoreItem(item){
+
+   },
+
+   selectFile(event){
+            this.file= this.$refs.file.files[0];
+        },
+
+        sendFile(){
+            const formData = new FormData();
+            formData.append('file',this.file,this.file.name);
+
+                let $Token=localStorage.getItem('token');
+
+                  axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs', formData)
+                  .then(response => {
+                      console.log(response)
+                    console.log(response.data.image) 
+                                axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
+                                .then(response => {
+                                    this.dialog = false;
+                                    this.file="";
+                                    this.getSlideshow();
+                                    alert("Succesfully Saved");
+                                        
+                                        
+                                    })
+                                .catch(error => {
+                                        console.log(error.response);
+                                        console.log("Failed Save img url");
+                                })                 
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        console.log("Upload Failed");
+                    })
+                            
+                    },
+
   }
 };
 
 </script>
+<style>
+.v-responsive {
+   
+    margin-bottom: 7px;
+}
+</style>
 
 
 

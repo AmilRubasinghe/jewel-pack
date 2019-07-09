@@ -51,11 +51,13 @@
           flat
           to="/cartView">
           
-               <v-badge left color="red">
-      <template v-slot:badge>
+               <v-badge right color="red">
+     
+     <template v-slot:badge>
         <span>{{cartCount}}</span>
       </template>
       <v-icon left dark color="black">shopping_cart</v-icon>
+       
     </v-badge>
         Cart
         </v-btn>
@@ -323,3 +325,11 @@ export default {
   }
 };
 </script>
+<style>
+.v-badge__badge {
+   
+    right: -0.1px;
+}
+   
+</style>
+
