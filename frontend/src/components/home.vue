@@ -1,6 +1,8 @@
 c<template>
     <div>
-  
+  <v-card flat height="100" color=transparent></v-card>
+
+
   <v-carousel
     delimiter-icon="stop"
     interval="3000"
@@ -20,7 +22,11 @@ c<template>
    
   
 
- <div  data-aos="fade-right">
+
+      
+
+
+ 
     <v-layout row wrap>
       <v-flex xs6>
         
@@ -56,7 +62,7 @@ c<template>
         
       </v-flex>
     </v-layout>
- </div>
+ 
       
        <!--slide end-->
 
@@ -287,7 +293,7 @@ c<template>
       </div>
    
 
-   <div  data-aos="fade-left">
+   
 
      
  
@@ -328,7 +334,64 @@ c<template>
         
       </v-flex>
     </v-layout>
-   </div>
+
+   
+
+
+
+
+
+   
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      
+      
+   <v-flex  xs4 data-aos="fade-right" >
+        <v-card color=transparent  width=200 height=200 flat>
+           <v-layout
+          align-center
+          column
+          justify-center
+          
+        >
+          
+          <div  class="display-3 mb-1"  >
+            
+            <i class="fab fa-cc-visa fa-3x" style="color:#212121;"></i>
+            
+            
+            
+          </div>
+          
+        </v-layout>
+         
+        </v-card>
+      </v-flex>
+      
+
+  <v-flex  xs4 data-aos="fade-right" data-aos-delay="1500">
+        <v-card color=transparent  width=200 height=200 flat>
+          <div  class="display-3 mb-1"  >
+                  
+                  <i class="fab fa-cc-mastercard fa-3x " style="color:#212121;"></i>
+                </div>
+        </v-card>
+      </v-flex>
+
+
+        <v-flex  xs4 data-aos="fade-right" data-aos-delay="3000">
+        <v-card color=transparent  width=200 height=200 flat>
+
+          <div  class="display-3 mb-1"  >
+          <i class="fab fa-cc-amex  fa-3x" style="color:#212121;"></i>
+          </div>
+        </v-card>
+      </v-flex>
+
+
+      </v-layout>
+      </v-container>
+
 
 
     </div>
@@ -375,7 +438,7 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
       this.getSlideshow();
       AOS.init(
         {
-        duration: 3000
+        duration: 2000
         }
       );
 
@@ -431,6 +494,10 @@ img.img-responsive {
 
 h3.newest {
     padding: 25px;
+}
+
+.fa-cc-visa {
+ color: #bd081c;  
 }
 
    
