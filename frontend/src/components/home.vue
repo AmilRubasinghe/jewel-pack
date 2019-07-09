@@ -3,10 +3,9 @@ c<template>
   
   <v-carousel
     delimiter-icon="stop"
-    prev-icon="arrow_back_ios"
-    next-icon="arrow_forward_ios"
     interval="3000"
-    height="700"
+    height="875"
+    hide-controls
     
     
     
@@ -190,7 +189,7 @@ c<template>
          <h3 class="popular">POPULAR  C O L O U R   BOX</h3>
      </div>
 
-     <p> Here are som of recomended boxes of the year</p>
+     <p> Here are some of recomended boxes of the year</p>
 
 
      </div>
@@ -202,7 +201,7 @@ c<template>
              <div class="product-item">
              <a href="#">
             <div class="gallery_product-1">
-                <img src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/10672245_1621555038090401_2447821253654883999_n.jpg?_nc_cat=111&_nc_ht=scontent.fcmb3-1.fna&oh=26e3f7f5918b452aee8c161d9a1a197b&oe=5D7179EA" class="img-responsive"width="600" height="400">
+                <img src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/10672245_1621555038090401_2447821253654883999_n.jpg?_nc_cat=111&_nc_ht=scontent.fcmb3-1.fna&oh=26e3f7f5918b452aee8c161d9a1a197b&oe=5D7179EA" class="img-responsive" width="600" height="400">
             </div>
            <!-- <span class="effect"></span>
             <div class="post-content">
