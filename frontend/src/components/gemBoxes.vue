@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <v-app id="inspire"> 
+       <v-card class="cardmargin" >
       <v-container grid-list-sm text-xs-center>
+        
         <v-layout row wrap justify-space-between>
           <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
             <br>
@@ -45,7 +47,9 @@
             </v-card>
           </v-flex>
         </v-layout>
+      
       </v-container>
+        </v-card>
 
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="1200px">
@@ -144,7 +148,7 @@
 
                     <div class="text-xs- mt-5">
                       <v-rating
-                        v-model="rating"
+                      
                         color="yellow darken-3"
                         background-color="grey darken-1"
                         empty-icon="$vuetify.icons.ratingFull"
@@ -176,6 +180,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue'
 
 export default {
   data() {
@@ -241,7 +246,24 @@ export default {
       if (this.value >= this.max) {
         this.value = this.max;
       }
+    },
+
+
+
+    addToCart(selectedItem,value){
+       // console.log(selectedItem);
+      Vue.set(selectedItem, 'qty', value);
+      
+        this.$store.commit('addToCart', selectedItem);
+        this.dialog=false;
+        this.value=1;
+
+   // console.log(value);
+    
+        //console.log(window.localStorage.getItem('cart'));
+        //console.log(window.localStorage.getItem('cartCount'));
     }
+
   }
 };
 </script>
@@ -322,5 +344,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding:5px
   
 }
+.cardmargin.v-card.v-sheet.theme--light {
+    margin: 90px;
+}
 </style>
-
