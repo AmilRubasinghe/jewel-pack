@@ -47,6 +47,12 @@ function signout(){
 
 const router = new VueRouter({
     mode:'history',
+
+    scrollBehavior() {
+      return { x: 0, y: 0 };
+    },
+
+    
     routes:[
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
@@ -124,6 +130,8 @@ router.onReady(() => {
       ga('send', 'pageview')
     })
   })
+
+  
 
 
 
