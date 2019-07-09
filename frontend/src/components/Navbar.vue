@@ -3,7 +3,7 @@
   <v-app id="inspire">
 
      
-    <v-toolbar app prominent scroll-off-screen color:transparent> 
+    <v-toolbar app flat prominent color=transparent> 
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
@@ -59,6 +59,8 @@
     </v-badge>
         Cart
         </v-btn>
+
+        
 
 <v-menu offset-y  open-on-hover>
       <template v-slot:activator="{ on }">
