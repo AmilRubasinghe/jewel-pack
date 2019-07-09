@@ -14,7 +14,7 @@
 
 import axios from 'axios'
   import Navbar from './components/Navbar.vue'
-  import Home from './components/Home.vue'
+  import Home from './components/home.vue'
   import Loader from './components/loader'
   import adminPanel from './components/admin/adminPanel'
   import manageProducts from './components/admin/manageProducts'

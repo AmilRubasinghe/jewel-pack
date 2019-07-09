@@ -3,10 +3,9 @@ c<template>
   
   <v-carousel
     delimiter-icon="stop"
-    prev-icon="arrow_back_ios"
-    next-icon="arrow_forward_ios"
     interval="3000"
-    height="700"
+    height="875"
+    hide-controls
     
     
     
@@ -190,7 +189,7 @@ c<template>
          <h3 class="popular">POPULAR  C O L O U R   BOX</h3>
      </div>
 
-     <p> Here are som of recomended boxes of the year</p>
+     <p> Here are some of recomended boxes of the year</p>
 
 
      </div>

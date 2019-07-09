@@ -11,6 +11,32 @@
 
   
        <alert v-if="alert" v-bind:message="alert" />
+
+          <v-snackbar
+      v-model="snackActive"
+      bottom
+      center
+      multi-line
+    :timeout='0'
+    
+    >
+      {{ snack }}
+      <v-btn
+        flat
+        color="red"
+        @click="resendEmail"
+      >
+         Resend 
+      </v-btn>
+      <v-btn
+        flat
+        color="red"
+        @click="snackActive=!snackActive"
+      >
+         Close 
+      </v-btn>
+    </v-snackbar>
+
       
         <form class="form-signin" @submit.prevent='loginUser'>
             <h1 align="center">Sign In</h1>
@@ -80,7 +106,14 @@ import Store from '../store.js'
                     email: "",
                     password: ""
                 },
+
+                user: {
+                    email: "",
+                },
+
                 alert:'',
+                snack:'',
+                snackActive:false,
             }
         },
 
@@ -91,8 +124,36 @@ import Store from '../store.js'
             if(this.$route.query.alert){
                     this.alert=this.$route.query.alert;
             }
+             if(this.$route.query.snack){
+                 this.snackActive=true,
+                    this.snack=this.$route.query.snack;
+            }
         },
         methods:{
+
+            resendEmail(){
+                this.user.email=Store.getters.vEmail;
+                axios.post('http://localhost:8000/api/resendvEmail',this.user
+                , {
+
+            })
+            .then( (response) => {
+                    if(response.data.alert){
+                        this.alert=response.data.message;
+                    }
+                    if(response.data.snack){
+                        this.snackActive=true,
+                        this.snack=response.data.snack;
+                    }
+                     
+            })
+            .catch( (error) => {
+                console.log(error.response);
+                    console.log("ERROR");
+            });
+        },
+           
+
              loginUser(){
                 
                 axios.post('http://localhost:8000/api/login',this.login
@@ -101,16 +162,24 @@ import Store from '../store.js'
             })
             .then( (response) => {
                     
+                    
                     this.alert=response.data.message;
+                    
+                    
+                   this.snackActive=true;
+                    this.snack=response.data.snack;
+                    
                     let $token=response.data.token;
-                    console.log($token);
+                    
+                    
                     this.$store.dispatch("setUser",null);
                      if($token){
+                         console.log($token);
                         localStorage.setItem('token',$token);
-                        console.log(response.data.role);
+                        //console.log(response.data.role);
                        
                        this.$store.dispatch("setUser",response.data.user);
-                       console.log("User");
+                      // console.log("User");
                      //  console.log(this.$store.state.user);
                       // console.log(Store.getters.role);
                         if(response.data.role=='admin'){
