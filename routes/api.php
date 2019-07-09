@@ -23,7 +23,6 @@ Route::post('/login',[
 
 
 Route::group([
-
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
     'prefix' => 'auth'
@@ -81,6 +80,9 @@ Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {
 Route::post('storeImage', 'SlideshowController@storeImage');
 Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
 Route::post ( 'deleteSlideshow/{id}', 'SlideshowController@deleteItem' );
+
+
+Route::post('addProduct','ProductController@addProduct');
     
     
 });
