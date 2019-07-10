@@ -12,21 +12,21 @@
   },
   "dependencies": {
     "aos": "^3.0.0-beta.6",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.12",
-    "html2canvas": "^1.0.0-rc.1",
+    "bootstrap-vue": "^2.0.0-rc.26",
+    "html2canvas": "^1.0.0-rc.3",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.1.1",
-    "vee-validate": "^2.1.7",
+    "vee-validate": "^2.2.12",
     "vue": "^2.6.6",
     "vue-axios": "^2.1.4",
     "vue-resource": "^1.5.1",
     "vue-responsive": "^1.1.0",
-    "vue-router": "^3.0.2",
+    "vue-router": "^3.0.7",
     "vuelidate": "^0.7.4",
-    "vuetify": "^1.5.8",
-    "vuex": "^3.1.0",
+    "vuetify": "^1.5.16",
+    "vuex": "^3.1.1",
     "vuex-persistedstate": "^2.5.4",
     "wow.js": "^1.2.2"
   },
@@ -46,6 +46,6 @@
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.11.5"
   }
 }

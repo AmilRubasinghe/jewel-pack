@@ -22,15 +22,11 @@ c<template>
    
   
 
-<<<<<<< HEAD
- <div  data-aos="fade-right">
-=======
 
       
 
 
  
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
     <v-layout row wrap>
       <v-flex xs6>
         
@@ -66,11 +62,7 @@ c<template>
         
       </v-flex>
     </v-layout>
-<<<<<<< HEAD
- </div>
-=======
  
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
       
        <!--slide end-->
 
@@ -301,11 +293,7 @@ c<template>
       </div>
    
 
-<<<<<<< HEAD
-   <div  data-aos="fade-left">
-=======
    
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
 
      
  
@@ -346,9 +334,6 @@ c<template>
         
       </v-flex>
     </v-layout>
-<<<<<<< HEAD
-   </div>
-=======
 
    
 
@@ -407,7 +392,6 @@ c<template>
       </v-layout>
       </v-container>
 
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
 
 
     </div>
@@ -454,11 +438,7 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
       this.getSlideshow();
       AOS.init(
         {
-<<<<<<< HEAD
-        duration: 3000
-=======
         duration: 2000
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
         }
       );
 

@@ -3,11 +3,7 @@
   <v-app id="inspire">
 
      
-<<<<<<< HEAD
-    <v-toolbar app prominent scroll-off-screen color:transparent> 
-=======
     <v-toolbar app flat prominent color=transparent> 
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
       
 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
