@@ -17,6 +17,7 @@ import manageCategory from './components/adminEditor/manageCategory'
 import gemBoxes from  './components/gemBoxes'
 import jewelleryBoxs from  './components/jewelleryBoxs'
 import check from  './components/check'
+import checkForm from  './components/checkForm'
 import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
 
@@ -57,6 +58,7 @@ const router = new VueRouter({
         {path:"/gemBox",component:gemBoxes},
         {path:"/jewelleryBox",component:jewelleryBoxs},
         {path:"/check",component:check},
+        {path:"/check_test",component:check_test},
         {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},

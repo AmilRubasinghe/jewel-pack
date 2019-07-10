@@ -46,7 +46,13 @@ Route::group([
     Route::get('category', 'CategoryController@getItem');
 
     Route::get('product', 'ProductController@getProduct');
-    
+
+
+//Checkout
+
+Route::post('checkDetails','OrderController@saveOrder');
+
+Route::post('checkout','checkoutController@store');
 
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {

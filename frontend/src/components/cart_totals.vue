@@ -4,6 +4,7 @@
     <v-app id="inspire">
     <v-container fluid grid-list-md>
         <h3>Your Bill</h3>
+  
     <table class="datatable table">
       <tbody>
         <tr>
@@ -11,8 +12,7 @@
           <td class="text-xs-right">{{getName}}</td>
           <td class="text-xs-right">
               <v-flex xs14 sm5>
-            <v-btn flat icon color="black">
-              <v-icon>edit</v-icon>
+            <v-btn flat  color="blue">Edit
             </v-btn>
             </v-flex>
           </td>
@@ -22,8 +22,8 @@
           <td class="text-xs-right"> <br> {{ item_count }} </td>
           <td class="text-xs-right">
              <v-flex xs14 sm5>
-            <v-btn flat icon color="black">
-              <v-icon>edit</v-icon>
+            <v-btn flat  color="blue" href="/cartView">
+              Edit
             </v-btn>
             </v-flex>
           </td>
@@ -57,9 +57,10 @@
 
       </tbody>
     </table>
-    <v-btn color="success" href="https://sandbox.payhere.lk/pay/checkout">Pay Now</v-btn>
+    <v-btn color="success" @click.native.prevent="paynow">Pay Now</v-btn>
    
     <v-btn flat href="/home">Cancel</v-btn>
+
     </v-container>
     </v-app>
   </div><!-- .table__overflow -->
@@ -67,7 +68,18 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
+    
+    data(){
+       return{
+         checkout:{
+           subtotal:"1000"
+         }
+       }
+    },
+
     editedIndex: -1,
     computed:{
         items(){return this.$store.state.cart},
@@ -91,9 +103,25 @@ export default {
 
     },
 
-    editItems(){
-        
+    methods:{
+         paynow(){
+            if (!this.errors.any()) {
+                axios.post('http://localhost:8000/api/checkout',this.checkout
+                , {
+
+            }).then(response=>{
+                console.log(response.data.message);
+                    
+                     
+                })
+                .catch(error=>{
+                    console.log(error.response);
+                    console.log("ERROR");
+                })
+            }
+
     }
+}
 }
 </script>
 
