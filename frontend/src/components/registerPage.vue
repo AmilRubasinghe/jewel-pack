@@ -3,6 +3,11 @@
     <div>
     <div class="container box">
         <alert v-if="alert" v-bind:message="alert" />
+        
+        
+     
+
+
    <form @submit.prevent='registerUser'>
 
 
@@ -67,6 +72,7 @@
 <script>
 import alert from './alert.vue';
 import axios from 'axios';
+import Store from '../store.js';
 
 export default{
     data(){
@@ -88,13 +94,15 @@ export default{
         registerUser(){
 
             this.$validator.validateAll()
+            
+             Store.commit("setEmailToVerify",this.register.email);
             if (!this.errors.any()) {
                 axios.post('http://localhost:8000/api/register',this.register
                 , {
 
             }).then(response=>{
                 //console.log(response.data.message);
-                     this.$router.push({path:'/loginPage',query:{alert:response.data.message}});
+                     this.$router.push({path:'/loginPage',query:{alert:response.data.message,snack:response.data.snack}});
                      
                 })
                 .catch(error=>{

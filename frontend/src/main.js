@@ -21,6 +21,11 @@ Vue.use(Vuetify)
 
 
 
+import responsive from 'vue-responsive'
+Vue.use(responsive)
+
+
+
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 

@@ -1,12 +1,13 @@
 c<template>
     <div>
-  
+  <v-card flat height="100" color=transparent></v-card>
+
+
   <v-carousel
     delimiter-icon="stop"
-    prev-icon="arrow_back_ios"
-    next-icon="arrow_forward_ios"
     interval="3000"
-    height="700"
+    height="875"
+    hide-controls
     
     
     
@@ -21,7 +22,15 @@ c<template>
    
   
 
+<<<<<<< HEAD
  <div  data-aos="fade-right">
+=======
+
+      
+
+
+ 
+>>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
     <v-layout row wrap>
       <v-flex xs6>
         
@@ -57,7 +66,11 @@ c<template>
         
       </v-flex>
     </v-layout>
+<<<<<<< HEAD
  </div>
+=======
+ 
+>>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
       
        <!--slide end-->
 
@@ -190,7 +203,7 @@ c<template>
          <h3 class="popular">POPULAR  C O L O U R   BOX</h3>
      </div>
 
-     <p> Here are som of recomended boxes of the year</p>
+     <p> Here are some of recomended boxes of the year</p>
 
 
      </div>
@@ -288,7 +301,11 @@ c<template>
       </div>
    
 
+<<<<<<< HEAD
    <div  data-aos="fade-left">
+=======
+   
+>>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
 
      
  
@@ -329,7 +346,68 @@ c<template>
         
       </v-flex>
     </v-layout>
+<<<<<<< HEAD
    </div>
+=======
+
+   
+
+
+
+
+
+   
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      
+      
+   <v-flex  xs4 data-aos="fade-right" >
+        <v-card color=transparent  width=200 height=200 flat>
+           <v-layout
+          align-center
+          column
+          justify-center
+          
+        >
+          
+          <div  class="display-3 mb-1"  >
+            
+            <i class="fab fa-cc-visa fa-3x" style="color:#212121;"></i>
+            
+            
+            
+          </div>
+          
+        </v-layout>
+         
+        </v-card>
+      </v-flex>
+      
+
+  <v-flex  xs4 data-aos="fade-right" data-aos-delay="1500">
+        <v-card color=transparent  width=200 height=200 flat>
+          <div  class="display-3 mb-1"  >
+                  
+                  <i class="fab fa-cc-mastercard fa-3x " style="color:#212121;"></i>
+                </div>
+        </v-card>
+      </v-flex>
+
+
+        <v-flex  xs4 data-aos="fade-right" data-aos-delay="3000">
+        <v-card color=transparent  width=200 height=200 flat>
+
+          <div  class="display-3 mb-1"  >
+          <i class="fab fa-cc-amex  fa-3x" style="color:#212121;"></i>
+          </div>
+        </v-card>
+      </v-flex>
+
+
+      </v-layout>
+      </v-container>
+
+>>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
 
 
     </div>
@@ -376,7 +454,11 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
       this.getSlideshow();
       AOS.init(
         {
+<<<<<<< HEAD
         duration: 3000
+=======
+        duration: 2000
+>>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
         }
       );
 
@@ -432,6 +514,10 @@ img.img-responsive {
 
 h3.newest {
     padding: 25px;
+}
+
+.fa-cc-visa {
+ color: #bd081c;  
 }
 
    

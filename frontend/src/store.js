@@ -15,6 +15,7 @@ export default new Vuex.Store({
     state: {
         loader:false,
         user:null,
+        tempEmailToVerify:null,
         
         
         cart: cart ? JSON.parse(cart) : [],
@@ -80,6 +81,16 @@ export default new Vuex.Store({
             return state.cartCount ;
             
         },
+
+        vEmail:state => {
+            if(state.tempEmailToVerify){
+                return state.tempEmailToVerify ;
+            }
+            else{
+                return false;
+            }
+            
+        },
              
       },
     
@@ -95,6 +106,9 @@ export default new Vuex.Store({
 
         setUser(state,payload){
             state.user=payload;
+        },
+        setEmailToVerify(state,payload){
+            state.tempEmailToVerify=payload;
         },
 
 
@@ -157,7 +171,11 @@ export default new Vuex.Store({
         },
         setUser(context,payload){
             context.commit('setUser', payload)
-        },   
+        }, 
+        
+        setEmailToVerify(context,payload){
+            context.commit('setEmailToVerify', payload)
+        },
         
       },
 
