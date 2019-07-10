@@ -1,15 +1,10 @@
 <template>
 
-  <v-container grid-list-md text-xs-center>
+<v-layout row wrap align-center justify-center>
+<v-card class="card-5" width="90%">
+  <v-container grid-list-md text-xs-center >
 
-    <v-layout row wrap>
-
- 
-
-  
-
- 
-
+    <v-layout row wrap >
 
  
 
@@ -41,13 +36,13 @@
 
  
 
-            class="mx-auto d-block"
+            class="mx-auto d-block card-5"
 
  
 
             size="250"
 
- 
+            
 
           >
 
@@ -374,6 +369,8 @@
 
     </v-layout>
   </v-container>
+  </v-card>
+  </v-layout>
 </template>
 
  
@@ -562,5 +559,13 @@ created: function () {
 }
 
 </script>
+
+
+<style>
+.card-5 {
+  
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+</style>
 
  

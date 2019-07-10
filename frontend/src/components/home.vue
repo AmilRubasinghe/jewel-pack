@@ -1,6 +1,10 @@
 c<template>
     <div>
-  <v-card flat height="100" color=transparent></v-card>
+      
+      <v-card flat height="100" color=transparent></v-card>
+<v-layout align-center justify-center>
+<v-card class="card-5"  width=90%>
+  
 
 
   <v-carousel
@@ -8,6 +12,7 @@ c<template>
     interval="3000"
     height="875"
     hide-controls
+    max-width=90%
     
     
     
@@ -23,11 +28,8 @@ c<template>
   
 
 
-      
-
-
  
-    <v-layout row wrap>
+    <v-layout row wrap align-center justify-center>
       <v-flex xs6>
         
           <v-parallax
@@ -369,7 +371,7 @@ c<template>
       </v-flex>
       
 
-  <v-flex  xs4 data-aos="fade-right" data-aos-delay="1500">
+  <v-flex  xs4 data-aos="fade-right" data-aos-delay="700">
         <v-card color=transparent  width=200 height=200 flat>
           <div  class="display-3 mb-1"  >
                   
@@ -379,7 +381,7 @@ c<template>
       </v-flex>
 
 
-        <v-flex  xs4 data-aos="fade-right" data-aos-delay="3000">
+        <v-flex  xs4 data-aos="fade-right" data-aos-delay="1400">
         <v-card color=transparent  width=200 height=200 flat>
 
           <div  class="display-3 mb-1"  >
@@ -393,7 +395,9 @@ c<template>
       </v-container>
 
 
-
+</v-card>
+</v-layout>
+<br>
     </div>
 </template>
 
@@ -409,6 +413,7 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
  export default {
     data () {
       return {
+
 
         slideshowItems:[],
       }
@@ -502,4 +507,8 @@ h3.newest {
 
    
 
+.card-5 {
+  
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
 </style>

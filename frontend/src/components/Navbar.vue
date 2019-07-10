@@ -1,219 +1,316 @@
 <template>
-  
   <v-app id="inspire">
-
-     
-    <v-toolbar app flat prominent color=transparent> 
-      
-<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar app flat prominent height="80" scroll-off-screen>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-         <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
         </router-link>
       </v-toolbar-title>
-      <v-divider
-      class="mx-3"
-      inset
-      vertical
-    ></v-divider>
-    
+      <v-divider class="mx-3" inset vertical></v-divider>
 
-
-      
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-
-
         <v-flex xs12 sm6 md3>
-          <v-text-field
-            label="Search"
-          ></v-text-field>
+          <v-text-field label="Search" v-model.number="keywords" v-debounce="delay"></v-text-field>
         </v-flex>
-        
-      <v-btn icon  @click.native.stop="modalModel=true"><v-icon>search</v-icon></v-btn>
-        <v-btn
-          flat
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.path">
-          
+
+        <v-btn icon @click.native.stop="modalModel=true">
+          <v-icon>search</v-icon>
+        </v-btn>
+        <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
-           
           {{ item.title }}
         </v-btn>
 
-      
-   
-
-       <v-btn
-          flat
-          to="/cartView">
-          
-               <v-badge left color="red">
-      <template v-slot:badge>
-        <span>{{cartCount}}</span>
-      </template>
-      <v-icon left dark color="black">shopping_cart</v-icon>
-    </v-badge>
-        Cart
+        <v-btn flat to="/cartView">
+          <v-badge left color="red">
+            <template v-slot:badge>
+              <span>{{cartCount}}</span>
+            </template>
+            <v-icon left dark color="black">shopping_cart</v-icon>
+          </v-badge>Cart
         </v-btn>
 
-        
+        <v-menu offset-y open-on-hover>
+          <template v-slot:activator="{ on }">
+            <v-btn flat v-on="on">
+              <v-icon left dark>{{ 'reorder' }}</v-icon>categories
+              <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="item.path">
+              <v-icon left>{{ item.icon }}</v-icon>
+              <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
 
-<v-menu offset-y  open-on-hover>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          flat
-               
-          v-on="on"
-        >
-         <v-icon left dark>{{ 'reorder' }}</v-icon>
-          categories
-          <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
+        <v-btn v-if="!user" flat v-for="item in userItems" :key="item.title" :to="item.path">
+          <v-icon left dark>{{ item.icon }}</v-icon>
+
+          {{ item.title }}
         </v-btn>
-         
-      </template>
-      <v-list>
-        <v-list-tile
-          v-for="item in categoryItems" :key="item.CID"
-          :to="item.path"
-        >
-        <v-icon left>{{ item.icon }}</v-icon>
-          <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
-
-
-
-        <v-btn
-            v-if="!user"
-            flat
-            v-for="item in userItems"
-            :key="item.title"
-            :to="item.path">
-            <v-icon left dark>{{ item.icon }}</v-icon>
-            {{ item.title }}
-            
-        </v-btn>
-        <v-btn
-            v-if="user"
-            flat
-            v-for="item in regItems"
-            :key="item.title"
-            :to="item.path">
-            <v-icon left dark>{{ item.icon }}</v-icon>
-            {{ item.title }}
+        <v-btn v-if="user" flat v-for="item in regItems" :key="item.title" :to="item.path">
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
         </v-btn>
         <v-btn
           v-if="role=='admin'"
           flat
           v-for="item in adminItems"
           :key="item.title"
-          :to="item.path">
-          <v-icon left dark>{{ item.icon  }}</v-icon>
-          {{  item.title }}
+          :to="item.path"
+        >
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
         </v-btn>
         <v-btn
           v-if="role=='editor'"
           flat
           v-for="item in editorItems"
           :key="item.title"
-          :to="item.path">
-          <v-icon left dark>{{ item.icon  }}</v-icon>
-          {{  item.title }}
+          :to="item.path"
+        >
+          <v-icon left dark>{{ item.icon }}</v-icon>
+          {{ item.title }}
         </v-btn>
-        <v-btn
-            v-if="user"
-          flat
-          @click="logout">
-          <v-icon left dark>{{ 'exit_to_app' }}</v-icon>
-          {{ 'Logout' }}
+        <v-btn v-if="user" flat @click="logout">
+          <v-icon left dark>{{ 'exit_to_app' }}</v-icon>Logout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
-    
-    <v-navigation-drawer 
-      v-model="drawer"
-      fixed
-      app
-      floating
-      dark
+    <v-toolbar app flat prominent class="hidden-md-and-up">
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <span class="font-weight-light">Jewel</span>
+          <span>Pack</span>
+        </router-link>
+      </v-toolbar-title>
+      <v-divider class="mx-3" inset vertical></v-divider>
+
+      <v-spacer></v-spacer>
+
+      <v-dialog
+        v-model="mobileDrawer"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
       >
- 
-      <v-img 
-      src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"  
-      height="100%"
+        <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+        <v-card>
+          <v-toolbar  flat prominent height="80" scroll-off-screen>
+             <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <span class="font-weight-light">Jewel</span>
+          <span>Pack</span>
+        </router-link>
+      </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click.native="mobileDrawer = !mobileDrawer">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-toolbar>
+
+          <v-list>
+            <v-list-tile>
+              <v-flex xs12 sm6 md3>
+                <v-text-field label="Search" v-model.number="keywords" v-debounce="delay"></v-text-field>
+              </v-flex>
+
+              <v-btn icon @click.native.stop="modalModel=true">
+                <v-icon>search</v-icon>
+              </v-btn>
+            </v-list-tile>
+
+            <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.path">
+              >
+              <v-list-tile-action>
+                <v-icon v-if="item.icon">{{item.icon}}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title :title="item.title">{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile to="/cartView">
+              >
+              <v-list-tile-action>
+                <v-icon left dark color="black">shopping_cart</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>Cart</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile to="/gemBox">
+              >
+              <v-menu offset-y open-on-hover>
+                <template v-slot:activator="{ on }">
+                  <v-btn flat v-on="on">
+                    <v-icon left dark>{{ 'reorder' }}</v-icon>categories
+                    <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="item.path">
+                    <v-icon left>{{ item.icon }}</v-icon>
+                    <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-list-tile>
+
+            <v-list-tile v-if="!user" v-for="item in userItems" :key="item.title" :to="item.path">
+              >
+              <v-list-tile-action>
+                <v-icon left dark>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile v-if="user" v-for="item in regItems" :key="item.title" :to="item.path">
+              >
+              <v-list-tile-action>
+                <v-icon left>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile
+              v-if="role=='admin'"
+              v-for="item in adminItems"
+              :key="item.title"
+              :to="item.path"
+            >
+              >
+              <v-list-tile-action>
+                <v-icon left>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile
+              v-if="role=='editor'"
+              v-for="item in editorItems"
+              :key="item.title"
+              :to="item.path"
+            >
+              >
+              <v-list-tile-action>
+                <v-icon left>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+           
+
+            <v-list-tile v-if="user" @click="logout">
+              >
+              <v-list-tile-action>
+                <v-icon left>{{ 'exit_to_app' }}</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>Logout</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-dialog>
+    </v-toolbar>
+
+    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark>
+      <v-img
+        src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
+        height="100%"
       >
+        <v-list>
+          <v-list-tile
+            @click.stop="drawer = !drawer"
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="{path: item.path}"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
 
-      <v-list>
-      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in menuItems" :key="item.title" :to="{path: item.path}">
-        <v-list-tile-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      
-    </v-list>
-
-<v-divider></v-divider>
-    <v-list v-if="role=='admin'">
-      <v-list-tile  @click.stop="drawer = !drawer" v-for="item in adminDrawItems" :key="item.title" :to="{path: '/admin/' + item.path}">
-        <v-list-tile-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-        </v-list-tile-content>
-        
-      </v-list-tile>
-    </v-list>
-
-
+        <v-divider></v-divider>
+        <v-list v-if="role=='admin'">
+          <v-list-tile
+            @click.stop="drawer = !drawer"
+            v-for="item in adminDrawItems"
+            :key="item.title"
+            :to="{path: '/admin/' + item.path}"
+          >
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-img>
+    </v-navigation-drawer>
 
-    
-  </v-navigation-drawer>
-    
     <v-content>
       <router-view></router-view>
-      
     </v-content>
-
- 
-    
   </v-app>
-
 </template>
 
 <script>
 //import HelloWorld from "./components/HelloWorld";
-import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
-import axios from 'axios'
-import Store from '../store.js'
-import footers from './footers.vue'
+import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import axios from "axios";
+import Store from "../store.js";
+import footers from "./footers.vue";
+
+import debounce from "v-debounce";
+
 export default {
   name: "App",
 
-  
-  data(){
+  data() {
     return {
-       adminDrawItems: [
-          { title: 'Dashboard', icon: 'dashboard' ,path:'' },
-          { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
-          { title: 'Orders', icon: 'library_books' , path:'orders'},
-          { title: 'Products', icon: 'business_center' , path:'products'},
-          { title: 'Category', icon: 'reorder' , path:'category'},
-          { title: 'Reports', icon: 'file_copy' , path:'reports'},
-          { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
-        ],
-        /*userDrawItems: [
+      delay: 1000,
+      adminDrawItems: [
+        { title: "Dashboard", icon: "dashboard", path: "" },
+        { title: "Users", icon: "supervised_user_circle", path: "users" },
+        { title: "Orders", icon: "library_books", path: "orders" },
+        { title: "Products", icon: "business_center", path: "products" },
+        { title: "Category", icon: "reorder", path: "category" },
+        { title: "Reports", icon: "file_copy", path: "reports" },
+        { title: "Slide Show", icon: "photo_library", path: "slideshow" }
+      ],
+      /*userDrawItems: [
           { title: 'Dashboard', icon: 'dashboard' ,path:'' },
           { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
           { title: 'Orders', icon: 'library_books' , path:'orders'},
@@ -222,104 +319,107 @@ export default {
           { title: 'Reports', icon: 'file_copy' , path:'reports'},
           { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
         ],*/
-      appTitle: 'JewelPack',
+      appTitle: "JewelPack",
       drawer: false,
-      token:'',
-      
-      
-      
-      menuItems: [
-          { title: 'Home', path: '/home', icon: 'home' },
-          //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
-         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
-     //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
-     ],
-     userItems: [
-          { title: 'Sign Up', path: '/registerPage', icon: 'face'},
-          { title: 'Sign In', path: '/loginPage', icon: 'lock_open' },
-     ],
-     regItems: [
-          { title: 'Profile', path: '/profile', icon: 'face'},
-           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
-     ],
-     adminItems: [
-          { title: 'Dashboard', path: '/admin', icon: 'dashboard'},
-           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
-     ],
-     editorItems: [
-          { title: 'Dashboard', path: '/editor', icon: 'dashboard'},
-           // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
-     ],
+      mobileDrawer: false,
+      token: "",
 
-     categoryItems: [],
-     
+      keywords: null,
+      filterKey: "",
+
+      menuItems: [
+        { title: "Home", path: "/home", icon: "home" }
+        //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
+        // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
+        //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
+      ],
+      userItems: [
+        { title: "Sign Up", path: "/registerPage", icon: "face" },
+        { title: "Sign In", path: "/loginPage", icon: "lock_open" }
+      ],
+      regItems: [
+        { title: "Profile", path: "/profile", icon: "face" }
+        // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+      ],
+      adminItems: [
+        { title: "Dashboard", path: "/admin", icon: "dashboard" }
+        // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+      ],
+      editorItems: [
+        { title: "Dashboard", path: "/editor", icon: "dashboard" }
+        // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
+      ],
+
+      categoryItems: []
+    };
+  },
+
+  components: {
+    footers: footers
+  },
+
+  methods: {
+    logout() {
+      let $Token = localStorage.getItem("token");
+      /* console.log(Token);*/
+
+      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+      axios
+        .post("http://localhost:8000/api/logout?token=" + $Token)
+        .then(response => {
+          localStorage.removeItem("token");
+          let $Token = localStorage.getItem("token");
+          if (!$Token) {
+            this.$store.commit("setUser", null);
+            this.$router.push("/loginPage");
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
+    catItems() {
+      axios
+        .get("http://localhost:8000/api/category")
+        .then(response => {
+          this.categoryItems = response.data.catItems;
+
+          //console.log(this.categoryItems);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
     }
   },
 
-  components:{
-    'footers':footers,
+  watch: {
+    keywords(after, before) {
+      console.log(this.keywords);
+    }
   },
-    methods:{
-    logout(){
-            let $Token=localStorage.getItem('token');
-           /* console.log(Token);*/
-            
-        // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
-         axios.post('http://localhost:8000/api/logout?token='+$Token)
-            .then(response => {
-                localStorage.removeItem('token');
-                let $Token=localStorage.getItem('token');
-                if(!$Token){
-                     this.$store.commit("setUser",null);
-                    this.$router.push('/loginPage');
-                }
-            })
-            .catch(error => {
-                console.log(error.response);
-                console.log("ERROR");
-            })
-        },
 
-
-        catItems(){
-              axios.get('http://localhost:8000/api/category')
-                  .then(response => {
-                    
-                    
-                      this.categoryItems=response.data.catItems;
-
-                      //console.log(this.categoryItems);
-                      
-                      
-                  })
-                  .catch(error => {
-                      console.log(error.response);
-                      console.log("ERROR");
-                  })
-          },
-    },
-
-    
-     computed: {
-           /* ...mapState([
+  computed: {
+    /* ...mapState([
             'user',
             ]),*/
 
-            ...mapGetters([
-                'role',
-                'user',
-                'cartCount',
-                'cart'
-            ])
+    ...mapGetters(["role", "user", "cartCount", "cart"])
+
     // Other properties
   },
- 
-  mounted(){
-      this.catItems();
-      console.log(Store.getters.user);
-      console.log(Store.getters.role);
-      console.log(localStorage.getItem('token'));
-      
+
+  mounted() {
+    this.catItems();
+    console.log(Store.getters.user);
+    console.log(Store.getters.role);
+    console.log(localStorage.getItem("token"));
+  },
+
+  directives: {
+    debounce
   }
 };
 </script>
