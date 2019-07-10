@@ -18,7 +18,8 @@
                 </v-container>
               </v-img>
               <v-card-title>
-                <div class="mx-5">
+              
+                  <v-flex xs12 sm5 md5>
                   <span
                     class="title blue--text"
                   >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
@@ -31,7 +32,7 @@
                   <del class>
                     <v-btn disabled>$50</v-btn>
                   </del>
-                </div>
+                </v-flex >
               </v-card-title>
               <v-card-actions>
                 <v-btn

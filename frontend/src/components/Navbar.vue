@@ -25,14 +25,25 @@
           {{ item.title }}
         </v-btn>
 
-        <v-btn flat to="/cartView">
-          <v-badge left color="red">
-            <template v-slot:badge>
-              <span>{{cartCount}}</span>
-            </template>
-            <v-icon left dark color="black">shopping_cart</v-icon>
-          </v-badge>Cart
+      
+   
+
+       <v-btn
+          flat
+          to="/cartView">
+          
+               <v-badge right color="red">
+     
+     <template v-slot:badge>
+        <span>{{cartCount}}</span>
+      </template>
+      <v-icon left dark color="black">shopping_cart</v-icon>
+       
+    </v-badge>
+        Cart
         </v-btn>
+
+        
 
         <v-menu offset-y open-on-hover>
           <template v-slot:activator="{ on }">
@@ -423,3 +434,11 @@ export default {
   }
 };
 </script>
+<style>
+.v-badge__badge {
+   
+    right: -0.1px;
+}
+   
+</style>
+
