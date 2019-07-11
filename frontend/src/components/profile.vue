@@ -143,7 +143,8 @@
             label="Full Name"
 
             readonly
-
+            
+            clearable
           
 
           ></v-text-field>
