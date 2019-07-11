@@ -524,7 +524,7 @@ export default {
 
       productItems() {
       axios
-        .get("http://localhost:8000/api/product")
+        .get("http://localhost:8000/api/products")
         .then(response => {
           this.products = response.data.product;
 
