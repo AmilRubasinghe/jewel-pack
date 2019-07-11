@@ -494,4 +494,8 @@ h3.newest {
 .card-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
+
+.v-card v-card--flat v-sheet theme--light transparent.style {
+    height: 0px;
+}
 </style>
