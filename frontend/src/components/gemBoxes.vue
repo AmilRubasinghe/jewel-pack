@@ -29,7 +29,7 @@
                     class="title --text"
                   ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}White&nbsp; Colour Box</h2></span>
                  
-                   <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
+                   <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
                           <h4>SALE!</h4>
                        </v-chip>
                   
@@ -42,7 +42,7 @@
                        </v-chip>
                   </del>&nbsp;
                   <span class="title">
-                      <v-chip label color="white" text-color="grey darken-4">
+                      <v-chip label color="white" text-color="brown darken-3">
                           <h4>$ {{products[i].Price}}</h4>
                        </v-chip>
                    
@@ -55,7 +55,7 @@
                   large
                   round
                   depressed
-                  color="brown lighten-3"
+                  color="brown lighten-4"
                   outline-color="dark"
                   class="mx-auto"
                   @click="productPreview(products[i])"
