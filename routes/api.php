@@ -48,7 +48,9 @@ Route::group([
 
     Route::get('products', 'ProductController@getAllProduct');
     Route::get('product/{cid}', 'ProductController@getProduct');
-    
+
+
+    Route::post('coupons','CouponController@getCoupon');
 
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {
