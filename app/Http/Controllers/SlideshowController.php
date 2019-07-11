@@ -49,7 +49,8 @@ public function editItem(Request $request, $imageId){
     $thisImage->image = $request->input('image');
     $thisImage->deleteURL = $request->input('deleteURL');
     $thisImage->save();
-    return $thisImage;
+    
+    return response()->json(['editedImage'=>$thisImage,'message'=>"Product edited succesfully !"]);
 }
 
 
