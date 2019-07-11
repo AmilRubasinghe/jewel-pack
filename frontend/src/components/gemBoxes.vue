@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <v-app id="inspire"> 
-       <v-card class="cardmargin" >
+       
       <v-container grid-list-sm text-xs-center>
         
         <v-layout row wrap justify-space-between>
-          <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
+          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
             <br>
-            <v-card light ripple align="center" @click="productPreview(products[i])">
+            <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
               <v-img contain class="white--text" align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
@@ -50,11 +50,11 @@
         </v-layout>
       
       </v-container>
-        </v-card>
+        
 
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="1200px">
-          <v-card v-if="selectedItem">
+          <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
                 <span aria-hidden="true">×</span>
@@ -207,7 +207,7 @@ export default {
   methods: {
     productItems() {
       axios
-        .get("http://localhost:8000/api/product")
+        .get("http://localhost:8000/api/product/1")
         .then(response => {
           this.products = response.data.product;
 
@@ -347,5 +347,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .cardmargin.v-card.v-sheet.theme--light {
     margin: 90px;
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 </style>
