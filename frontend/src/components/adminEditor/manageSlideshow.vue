@@ -32,15 +32,13 @@
                                     <h4>Upload photo</h4>
                                     <span v-if="file" class="file-name">{{file.name}}</span>
                             </label>
-
-
-
-                        
                         </div>
                         
                         </form>
                         </v-card>
             </v-layout>
+
+            
             
             
             

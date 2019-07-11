@@ -109,6 +109,8 @@
                                    
                             </label>
                             	</v-flex>-->
+      <!--
+
                             <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<img :src="imageUrl" height="150" v-if="imageUrl"/>
 					<v-text-field label="Upload Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
@@ -120,7 +122,33 @@
 						@change="onFilePicked"
 					>
 				</v-flex>
-			
+			-->
+
+              <v-layout align-center justify-center>
+                        <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
+                            
+                        <form enctype="multipart/form-data">
+                        <div class="text-xs-center">
+                            
+                        
+<label class="button"  >
+                                    <input 
+                                    type="file"
+                                    ref="file"
+                                    @change="selectFile"
+                                    style="display:none"
+                                    >
+                                    <v-icon outline large>cloud_upload</v-icon>
+                                    <h4>Upload photo</h4>
+                                    <span v-if="file" class="file-name">{{file.name}}</span>
+                            </label>
+                        </div>
+                        
+                        </form>
+                        </v-card>
+            </v-layout>
+
+
           
               
               
@@ -297,6 +325,7 @@
             <tr :active="props.selected" @click="props.selected = !props.selected">
               <td class="text-xs-center">{{ props.item.PID }}</td>
               <td class="text-xs-center">{{ props.item.Size }}</td>
+              <td class="text-xs-center">{{ props.item.CID }}</td>
               <td class="text-xs-left">{{ props.item.Image}}</td>
                <td class="text-xs-left"><v-img :src="props.item.Image"></v-img></td>
               <td class="text-xs-center">{{ props.item.Quantity}}</td>
@@ -349,7 +378,9 @@ export default {
       editedIndex: -1,
       imageName: '',
 		imageUrl: '',
-		imageFile: '',
+    imageFile: '',
+    
+    file: "",
       
 
         editedItem: {
@@ -374,6 +405,7 @@ export default {
       size:'',
       colour:'',
       border:null,
+      image:'',
 
       },
 
@@ -392,8 +424,6 @@ export default {
         deleteURL: ""
       },
 
-      file: "",
-
       search: "",
       products: [],
       pagination: {
@@ -406,6 +436,7 @@ export default {
       headers: [
         { text: "PID", value: "PID" },
         { text: "Size", value: "Size" },
+        { text: "Cat. ID", value: "CID" },
         { text: "Image", value: "Image" },
         { text: 'Preview', value: 'preview' },
         { text: "Quantity", value: "Quantity" },
@@ -440,6 +471,28 @@ export default {
   },
 
   methods: {
+
+     selectFile(event){
+            this.file= this.$refs.file.files[0];
+
+
+            
+            const formData = new FormData();
+            formData.append('file',this.file,this.file.name);
+
+                let $Token=localStorage.getItem('token');
+
+                  axios.post('https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg', formData)
+                  .then(response => {
+                           this.newProduct.image=response.data.image;
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        console.log("Upload Failed");
+                    })
+                            
+                    
+        },
 
     addProduct(){
 
