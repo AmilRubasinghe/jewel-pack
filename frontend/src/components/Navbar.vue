@@ -94,6 +94,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <v-card flat height="50" color=transparent></v-card>
 
     <v-toolbar app flat prominent class="hidden-md-and-up">
       <v-toolbar-title>

@@ -1,12 +1,14 @@
-c<template>
+<template>
+
     <div>
-      
-      <v-card flat height="100" color=transparent></v-card>
+       
+     
 <v-layout align-center justify-center>
-<v-card class="card-5"  width=90%>
   
 
-
+<v-card class="card-5"  width=100%>
+  
+ 
   <v-carousel
     delimiter-icon="stop"
     interval="3000"
@@ -510,5 +512,9 @@ h3.newest {
 .card-5 {
   
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.v-card v-card--flat v-sheet theme--light transparent.style {
+    height: 0px;
 }
 </style>

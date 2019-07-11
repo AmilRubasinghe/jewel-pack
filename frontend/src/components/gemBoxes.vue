@@ -17,33 +17,49 @@
                   </v-layout>
                 </v-container>
               </v-img>
+
+
+              
+
+
               <v-card-title>
               
-                  <v-flex xs12 sm5 md5>
+                  <v-flex xs9 sm12 offset-sm0>
                   <span
-                    class="title blue--text"
-                  >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
-                  <br>
+                    class="title --text"
+                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}White&nbsp; Colour Box</h2></span>
+                 
+                   <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
+                          <h4>SALE!</h4>
+                       </v-chip>
+                  
 
-                  <v-rating readonly small dense background-color="orange" color="orange"></v-rating>
-                  <span class="title">
-                    <v-btn large color="info">{{products[i].Price}}</v-btn>
-                  </span> &nbsp;
+                  <v-rating readonly small dense background-color="brown" color="brown"></v-rating>
+                  
                   <del class>
-                    <v-btn disabled>$50</v-btn>
-                  </del>
-                </v-flex >
+                   <v-chip label color="white" text-color="brown lighten-3">
+                          <h5>$ 50</h5>
+                       </v-chip>
+                  </del>&nbsp;
+                  <span class="title">
+                      <v-chip label color="white" text-color="grey darken-4">
+                          <h4>$ {{products[i].Price}}</h4>
+                       </v-chip>
+                   
+                  </span> 
+               </v-flex>
               </v-card-title>
-              <v-card-actions>
+              <v-card-actions>&nbsp;
+
                 <v-btn
                   large
                   round
                   depressed
-                  color="#29B6F6"
-                  outline
+                  color="brown lighten-3"
+                  outline-color="dark"
                   class="mx-auto"
                   @click="productPreview(products[i])"
-                >View</v-btn>
+                >Product View</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -330,9 +346,13 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mt-5 {
   margin-top: 20px !important;
+ 
 }
 
-
+.v-rating.v-rating--readonly.v-rating--dense {
+    padding-bottom: 10px;
+     margin-top: 20px !important;
+}
 
 
 
@@ -351,5 +371,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .card-5 {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+h2 {
+    margin-bottom: 20px;
 }
 </style>
