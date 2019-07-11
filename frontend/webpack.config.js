@@ -22,7 +22,7 @@ module.exports = {
         options: {
           loaders: {
           }
-          // other vue-loader options go here
+          
         }
       },
       {
@@ -46,7 +46,7 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    //host: '192.168.1.102',//your ip address
+    //host: '192.168.8.101',//your ip address
     //port: 8080,
 
     
@@ -58,6 +58,7 @@ module.exports = {
   performance: {
     hints: false
   },
+
   devtool: '#eval-source-map'
 }
 

@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-toolbar app flat prominent height="80" scroll-off-screen>
+    <v-toolbar app flat prominent height="80" scroll-off-screen >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -25,25 +25,14 @@
           {{ item.title }}
         </v-btn>
 
-      
-   
-
-       <v-btn
-          flat
-          to="/cartView">
-          
-               <v-badge right color="red">
-     
-     <template v-slot:badge>
-        <span>{{cartCount}}</span>
-      </template>
-      <v-icon left dark color="black">shopping_cart</v-icon>
-       
-    </v-badge>
-        Cart
+        <v-btn flat to="/cartView">
+          <v-badge right color="red">
+            <template v-slot:badge>
+              <span>{{cartCount}}</span>
+            </template>
+            <v-icon left dark color="black">shopping_cart</v-icon>
+          </v-badge>Cart
         </v-btn>
-
-        
 
         <v-menu offset-y open-on-hover>
           <template v-slot:activator="{ on }">
@@ -62,7 +51,6 @@
 
         <v-btn v-if="!user" flat v-for="item in userItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
-
           {{ item.title }}
         </v-btn>
         <v-btn v-if="user" flat v-for="item in regItems" :key="item.title" :to="item.path">
@@ -96,7 +84,10 @@
     </v-toolbar>
     <v-card flat height="50" color=transparent></v-card>
 
-    <v-toolbar app flat prominent class="hidden-md-and-up">
+
+    <v-card flat height="50" color="transparent"></v-card>
+
+    <v-toolbar app flat prominent class="hidden-lg-and-up">
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
@@ -116,14 +107,14 @@
       >
         <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
         <v-card>
-          <v-toolbar  flat prominent height="80" scroll-off-screen>
-             <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-          <span class="font-weight-light">Jewel</span>
-          <span>Pack</span>
-        </router-link>
-      </v-toolbar-title>
+          <v-toolbar flat prominent height="80" scroll-off-screen>
+            <v-toolbar-title>
+              <router-link to="/" tag="span" style="cursor: pointer">
+                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                <span class="font-weight-light">Jewel</span>
+                <span>Pack</span>
+              </router-link>
+            </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="mobileDrawer = !mobileDrawer">
               <v-icon>close</v-icon>
@@ -233,8 +224,6 @@
                 <v-list-tile-title>{{item.title}}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-
-           
 
             <v-list-tile v-if="user" @click="logout">
               >
@@ -437,9 +426,7 @@ export default {
 </script>
 <style>
 .v-badge__badge {
-   
-    right: -0.1px;
+  right: -0.1px;
 }
-   
 </style>
 
