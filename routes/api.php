@@ -46,9 +46,11 @@ Route::group([
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
 
-    Route::get('product', 'ProductController@getAllProduct');
+    Route::get('products', 'ProductController@getAllProduct');
     Route::get('product/{cid}', 'ProductController@getProduct');
-    
+
+
+    Route::post('coupons','CouponController@getCoupon');
 
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {
