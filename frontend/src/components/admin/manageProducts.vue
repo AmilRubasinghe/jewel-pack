@@ -3,18 +3,18 @@
     <navDrawer></navDrawer>
     <br>
 
-    <div class="container" v-bind:style="{ background: '#B0BEC5'}" >
+    <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" width="1200px">
-        <v-card >
+        <v-card>
           <v-card-title>
             <span class="headline">Upload Form</span>
           </v-card-title>
           <v-card-text>
-            <v-container >
+            <v-container>
               <form>
-                <v-layout row wrap >
+                <v-layout row wrap>
                   <v-flex xs12 sm5 md5>
-                      <v-text-field
+                    <v-text-field
                       v-model="newProduct.size"
                       v-validate="'required'"
                       :error-messages="errors.collect('size')"
@@ -22,9 +22,7 @@
                       data-vv-name="Size"
                       required
                     ></v-text-field>
-                   
                   </v-flex>
-      
 
                   <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
                     <v-text-field
@@ -35,11 +33,9 @@
                       data-vv-name="Colour"
                       required
                     ></v-text-field>
-                   
                   </v-flex>
                 </v-layout>
 
-              
                 <v-layout row wrap>
                   <v-flex xs12 sm5 md5>
                     <v-text-field
@@ -54,7 +50,7 @@
 
                   <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
                     <v-text-field
-                    input-type="number"
+                      input-type="number"
                       v-model="newProduct.price"
                       v-validate="'required'"
                       :error-messages="errors.collect('price')"
@@ -65,36 +61,34 @@
                   </v-flex>
                 </v-layout>
 
-              <v-layout row wrap>
-                <v-flex xs12 sm5 md5>
-                <v-checkbox
-                  v-model="newProduct.border"
-                  v-validate="'required'"
-                  :error-messages="errors.collect('checkbox')"
-                  value="1"
-                  label="Is border"
-                  data-vv-name="checkbox"
-                  type="checkbox"
-                  required
-                ></v-checkbox>
+                <v-layout row wrap>
+                  <v-flex xs12 sm5 md5>
+                    <v-checkbox
+                      v-model="newProduct.border"
+                      v-validate="'required'"
+                      :error-messages="errors.collect('checkbox')"
+                      value="1"
+                      label="Is border"
+                      data-vv-name="checkbox"
+                      type="checkbox"
+                      required
+                    ></v-checkbox>
                   </v-flex>
 
                   <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-          <v-text-field
-            label="Details"
-            v-model="Details"
-            v-validate="'required'"
-            :error-messages="errors.collect('text box')"
-            single-line
-            solo
-             required
-          ></v-text-field>
-        </v-flex>
+                    <v-text-field
+                      label="Details"
+                      v-model="Details"
+                      v-validate="'required'"
+                      :error-messages="errors.collect('text box')"
+                      single-line
+                      solo
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
 
-                
-               </v-layout>
-
-             <!--  <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                <!--  <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 				
           <label class="button" label="Select Image" @click='pickFile'  prepend-icon='attach_file' >
 					<input
@@ -108,8 +102,8 @@
                                     <h4>Upload photo</h4>
                                    
                             </label>
-                            	</v-flex>-->
-      <!--
+                </v-flex>-->
+                <!--
 
                             <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<img :src="imageUrl" height="150" v-if="imageUrl"/>
@@ -122,36 +116,31 @@
 						@change="onFilePicked"
 					>
 				</v-flex>
-			-->
+                -->
 
-              <v-layout align-center justify-center>
-                        <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
-                            
-                        <form enctype="multipart/form-data">
-                        <div class="text-xs-center">
-                            
-                        
-<label class="button"  >
-                                    <input 
-                                    type="file"
-                                    ref="file"
-                                    @change="selectFile"
-                                    style="display:none"
-                                    >
-                                    <v-icon outline large>cloud_upload</v-icon>
-                                    <h4>Upload photo</h4>
-                                    <span v-if="file" class="file-name">{{file.name}}</span>
-                            </label>
-                        </div>
-                        
-                        </form>
-                        </v-card>
-            </v-layout>
-
-
-          
-              
-              
+                <v-layout align-center justify-center>
+                  <v-card
+                    flat
+                    color="#B0BEC5"
+                    @click="$refs.file.click()"
+                    ripple
+                    hover
+                    height="100"
+                    width="300"
+                    max-width="600px"
+                  >
+                    <form enctype="multipart/form-data">
+                      <div class="text-xs-center">
+                        <label class="button">
+                          <input type="file" ref="file" @change="selectFile" style="display:none">
+                          <v-icon outline large>cloud_upload</v-icon>
+                          <h4>Upload photo</h4>
+                          <span v-if="file" class="file-name">{{file.name}}</span>
+                        </label>
+                      </div>
+                    </form>
+                  </v-card>
+                </v-layout>
               </form>
             </v-container>
           </v-card-text>
@@ -178,6 +167,17 @@
                 </v-flex>
                 <v-flex xs12 sm6 md4 d-flex>
                   <v-select
+                  label="Category ID"
+                    :items="category"
+                    item-text="text"
+                    item-value="value"
+                    v-model="editedItem.CID"
+                    outline
+                    menu-props
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 md4 d-flex>
+                  <v-select
                     :items="sizes"
                     label="Size"
                     outline
@@ -185,15 +185,13 @@
                     v-model="editedItem.Size"
                   ></v-select>
                 </v-flex>
-                
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.Quantity" label="Quantity" disabled></v-text-field>
 
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.Quantity" label="Quantity"></v-text-field>
                 </v-flex>
-                 
 
                 <v-flex xs12 sm6 md4>
-                     <v-select
+                  <v-select
                     :items="colours"
                     label="Colour"
                     outline
@@ -204,63 +202,43 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.Price" label="Price"></v-text-field>
                 </v-flex>
-               <v-flex xs12 sm6 md4>
+                <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.unitWeight" label="unit Weight"></v-text-field>
                 </v-flex>
               </v-layout>
 
-
-
               <v-flex xs12 sm6 offset-sm4>
-                  
-                  
-                      
-                         <v-img height="165" width="350"  max-width="260px" :src="editedItem.Image"></v-img>      
-                        
-                          
-                        
-                        <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="70" width="260"  max-width="600px">
-                          
-                        <form enctype="multipart/form-data">
-                        <div class="text-xs-center">
-                            
-                        
+                <v-img height="165" width="350" max-width="260px" :src="editedItem.Image"></v-img>
 
-                            <label class="button"  >
-                                    <input 
-                                    type="file"
-                                    ref="file"
-                                    @change="selectFile"
-                                    style="display:none"
-                                    >
-                                    <v-icon outline large>cloud_upload</v-icon>
-                                    <h4>Upload photo</h4>
-                                    <span v-if="file" class="file-name">{{file.name}}</span>
-                            </label>
-
-
-
-                        
-                        </div>
-                        
-                        </form>
-                        </v-card>
-                        
-                       </v-flex> 
-                        
-            
-
-
-                        
-                        
-                
+                <v-card
+                  flat
+                  color="#B0BEC5"
+                  @click="$refs.file.click()"
+                  ripple
+                  hover
+                  height="70"
+                  width="260"
+                  max-width="600px"
+                >
+                  <form enctype="multipart/form-data">
+                    <div class="text-xs-center">
+                      <label class="button">
+                        <input type="file" ref="file" @change="selectFile" style="display:none">
+                        <v-icon outline large>cloud_upload</v-icon>
+                        <h4>Upload photo</h4>
+                        <span v-if="file" class="file-name">{{file.name}}</span>
+                      </label>
+                    </div>
+                  </form>
+                </v-card>
+              </v-flex>
             </v-container>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -277,22 +255,22 @@
             single-line
             hide-details
           ></v-text-field>
-  
-          <v-btn  fab dark  color="blue" @click="openDialogProduct">
-            <v-icon  dark>add</v-icon>
+
+          <v-btn fab dark color="blue" @click="openDialogProduct">
+            <v-icon dark>add</v-icon>
           </v-btn>
 
-          <v-btn  fab dark color="blue" @click=" productItems ">
+          <v-btn fab dark color="blue" @click=" productItems ">
             <v-icon medium dark>refresh</v-icon>
           </v-btn>
 
-        <!--  <v-btn v-if="!deletedItem" >
-            <v-icon large color="blue">delete_sweep</v-icon>Deleted item
+            <v-btn v-if="!deletedItem" @click="getDeletedProducts">
+            <v-icon large color="blue">delete_sweep</v-icon>Deleted products
           </v-btn>
 
-          <v-btn v-if="deletedItem" >
-            <v-icon large color="blue">playlist_add_check</v-icon>Active Item
-          </v-btn>-->
+          <v-btn v-if="deletedItem" @click="productItems">
+            <v-icon large color="blue">playlist_add_check</v-icon>Active products
+          </v-btn>
         </v-toolbar>
 
         <v-data-table
@@ -327,12 +305,13 @@
               <td class="text-xs-center">{{ props.item.Size }}</td>
               <td class="text-xs-center">{{ props.item.CID }}</td>
               <td class="text-xs-left">{{ props.item.Image}}</td>
-               <td class="text-xs-left"><v-img :src="props.item.Image"></v-img></td>
+              <td class="text-xs-left">
+                <v-img :src="props.item.Image"></v-img>
+              </td>
               <td class="text-xs-center">{{ props.item.Quantity}}</td>
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.unitWeight }}</td>
-              
 
               <td class="justify-center layout px-0">
                 <v-icon
@@ -341,7 +320,7 @@
                   class="mr-2"
                   @click="editItem(props.item)"
                 >edit</v-icon>
-               <!-- <v-icon
+                 <v-icon
                   v-if="!deletedItem"
                   color="red"
                   medium
@@ -352,7 +331,7 @@
                   color="green"
                   medium
                   @click="restoreItem(props.item)"
-                >restore_from_trash</v-icon>-->
+                >restore_from_trash</v-icon>
               </td>
             </tr>
           </template>
@@ -376,49 +355,51 @@ export default {
       dialog: false,
       showModal: false,
       editedIndex: -1,
-      imageName: '',
-		imageUrl: '',
-    imageFile: '',
-    
-    file: "",
-      
+      imageName: "",
+      imageUrl: "",
+      imageFile: "",
 
-        editedItem: {
-          imageID: 0,
-          size: 0,
-          image: "",
-          ext: "",
-          deleteURL: "",
-          title: "Image Upload",
-        },
+      file: "",
 
-       quantity:'',
-       Details:'',
-      price:'',
-      size:'',
-      colour:'',
-
-      newProduct:{
-        quantity: '',
-       details:'',
-      price: '',
-      size:'',
-      colour:'',
-      border:null,
-      image:'',
-
+      editedItem: {
+        PID: 0,
+        Size: 0,
+        CID: "",
+        Image: "",
+        Quantity: "",
+        Colour: "",
+        Price: "",
+        unitWeight: ""
       },
 
-      sizes: ["2x2", "3x3", "4x4", "5x5"],
+      quantity: "",
+      Details: "",
+      price: "",
+      size: "",
+      colour: "",
+
+      newProduct: {
+        quantity: "",
+        details: "",
+        price: "",
+        size: "",
+        colour: "",
+        border: null,
+        image: ""
+      },
+
+      sizes: ["1x1", "2x2", "3x3", "4x4", "5x5"],
+
+      category: [
+        { text: "Gem Boxes", value: "1" },
+        { text: "Jewellery Boxes", value: "2" }
+      ],
 
       colours: ["White", "Black"],
 
-      
-      
-
       defaultItem: {
         imageID: 0,
-       // size: 0,
+        // size: 0,
         image: "",
         ext: "",
         deleteURL: ""
@@ -430,7 +411,7 @@ export default {
         sortBy: "PID"
       },
       selected: [],
-     
+      deletedProducts:false,
       table_title: "Product Items",
 
       headers: [
@@ -438,7 +419,7 @@ export default {
         { text: "Size", value: "Size" },
         { text: "Cat. ID", value: "CID" },
         { text: "Image", value: "Image" },
-        { text: 'Preview', value: 'preview' },
+        { text: "Preview", value: "preview" },
         { text: "Quantity", value: "Quantity" },
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
@@ -471,58 +452,53 @@ export default {
   },
 
   methods: {
+    selectFile(event) {
+      this.file = this.$refs.file.files[0];
 
-     selectFile(event){
-            this.file= this.$refs.file.files[0];
+      const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
 
+      let $Token = localStorage.getItem("token");
 
-            
-            const formData = new FormData();
-            formData.append('file',this.file,this.file.name);
-
-                let $Token=localStorage.getItem('token');
-
-                  axios.post('https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg', formData)
-                  .then(response => {
-                           this.newProduct.image=response.data.image;
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        console.log("Upload Failed");
-                    })
-                            
-                    
-        },
-
-    addProduct(){
-
-
-               this.table_title="Active Product",
-              this.deletedItem=false;
-
-              let $Token=localStorage.getItem('token');
-
-
-              
-                
-                    axios.post('http://localhost:8000/api/addProduct?token='+$Token,this.newProduct)
-                    .then(response => {
-                        this.dialog=false;
-                        this.productItems();
-                        console.log("Product Succesfully Added");
-                    })
-                     .catch(error => {
-                      console.log(error.response);
-                      console.log("ERROR");
-                  })
-
-                 
-
+      axios
+        .post(
+          "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
+          formData
+        )
+        .then(response => {
+          this.newProduct.image = response.data.image;
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("Upload Failed");
+        });
     },
-    
 
+    addProduct() {
+      
 
-      productItems() {
+      let $Token = localStorage.getItem("token");
+
+      axios
+        .post(
+          "http://localhost:8000/api/addProduct?token=" + $Token,
+          this.newProduct
+        )
+        .then(response => {
+          this.dialog = false;
+          this.productItems();
+          console.log("Product Succesfully Added");
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
+    productItems() {
+      this.table_title="Active Products",
+      this.deletedItem=false;
+      
       axios
         .get("http://localhost:8000/api/products")
         .then(response => {
@@ -534,10 +510,29 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
-    
     },
 
-  
+
+    getDeletedProducts(){
+            this.table_title="Deleted Products",
+            this.deletedItem=true;
+            let $Token=localStorage.getItem('token');
+              axios.post('http://localhost:8000/api/deletedProducts?token='+$Token)
+                  .then(response => {
+                    
+                    
+                      this.products=response.data.product;
+
+                      //console.log(this.slideshowItems);
+
+                      
+                      
+                  })
+                  .catch(error => {
+                      console.log(error.response);
+                      console.log("ERROR");
+                  })
+          },
 
     changeSort(column) {
       if (this.pagination.sortBy === column) {
@@ -556,159 +551,136 @@ export default {
       }, 300);
     },
 
-   
-    
+    clear() {
+      this.newProduct.size = "";
+      this.newProduct.colour = "";
+      this.newProduct.quantity = "";
+      this.newProduct.price = "";
+      this.newProduct.border = false;
+      this.Details = "";
+    },
 
-  editItem(item) {
+  
+    openDialogProduct() {
+      this.newProduct.size = "";
+      this.newProduct.colour = "";
+      this.newProduct.quantity = "";
+      this.newProduct.price = "";
+      this.newProduct.border = false;
+      this.Details = "";
+      this.dialog = true;
+    },
+
+    editSave() {
+
+       let $Token=localStorage.getItem('token');
+                if (this.editedIndex > -1) {
+                    Object.assign(this.products[this.editedIndex], this.editedItem)
+                    
+                    
+
+                    axios.post('http://localhost:8000/api/editProduct/'+this.editedItem.PID+'?token='+$Token,this.editedItem)
+                    .then(response => {
+                        this.showModal=false
+                        this.productItems();
+                        console.log("Succesfully Edited");
+                    });
+
+                 } else {
+                    this.products.push(this.editedItem)
+                 }
+                    this.close()
+
+    },
+
+    editItem(item) {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       console.log(this.editedItem);
       this.showModal = true;
     },
 
-    /*  deleteItem(item) {
-      var result = confirm("Want to delete " + item.firstName + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            "http://localhost:8000/api/deleteUser/" +
-              item.ID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
-                            console.log(res);
-                        });
-            this.getUsers();
-            alert("Succesfully Deleted");
-          });
-      }
-    },*/
-
     
-    
-      clear () {
-        this.newProduct.size= ''
-        this.newProduct.colour =''
-        this.newProduct.quantity = ''
-         this.newProduct.price= ''
-        this.newProduct.border= false
-        this.Details=''
-      
-      },
 
- pickFile () {
-            this.$refs.image.click ()
-        },
-		
-		onFilePicked (e) {
-			const files = e.target.files
-			if(files[0] !== undefined) {
-				this.imageName = files[0].name
-				if(this.imageName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-					this.imageUrl = fr.result
-					this.imageFile = files[0] // this is an image file that can be sent to server...
-        })
-        
-
-			} else {
-				this.imageName = ''
-				this.imageFile = ''
-				this.imageUrl = ''
-			}
-    },
-    
-   openDialogProduct(){
-     this.newProduct.size= ''
-        this.newProduct.colour =''
-        this.newProduct.quantity = ''
-         this.newProduct.price= ''
-        this.newProduct.border= false
-        this.Details=''
-        this.dialog= true
-
-
-   },
-
-    save(){
-
-    },
-
-  /* editItem(item){
-      var result = confirm("Want to delete "+item.firstName+"?");
+          deleteItem (item) {
+            
+            var result = confirm("Want to delete product"+item.PID+"?");
             if (result) {
                 //Logic to delete the item
                 let $Token=localStorage.getItem('token');
-                axios.post('http://localhost:8000/api/deleteUser/'+item.ID+'?token='+$Token)
+                axios.post('http://localhost:8000/api/deleteProduct/'+item.PID+'?token='+$Token)
                     .then(response => {
                         /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
-                        });
-                        this.getUsers();
-                        alert("Succesfully Deleted");
+                        });*/
+                        this.productItems();
+                        alert("Product succesfully Deleted");
                     });
             }
-
-   },*/
-
-   deleteItem(item){
-
-   },
-   restoreItem(item){
-
-   },
-
-   selectFile(event){
-            this.file= this.$refs.file.files[0];
         },
 
-        sendFile(){
-            const formData = new FormData();
-            formData.append('file',this.file,this.file.name);
 
+    restoreItem(item) {
+      var result = confirm("Want to restore "+item.PID+"?");
+            if (result) {
+                //Logic to delete the item
                 let $Token=localStorage.getItem('token');
+                axios.post('http://localhost:8000/api/restoreProduct/'+item.PID+'?token='+$Token)
+                    .then(response => {
+                        /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+                        this.productItems();
+                        alert("Succesfully Restored");
+                    });
+            }
+    },
 
-                  axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs', formData)
-                  .then(response => {
-                      console.log(response)
-                    console.log(response.data.image) 
-                                axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
-                                .then(response => {
-                                    this.dialog = false;
-                                    this.file="";
-                                    this.getSlideshow();
-                                    alert("Succesfully Saved");
-                                        
-                                        
-                                    })
-                                .catch(error => {
-                                        console.log(error.response);
-                                        console.log("Failed Save img url");
-                                })                 
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        console.log("Upload Failed");
-                    })
-                            
-                    },
+    selectFile(event) {
+      this.file = this.$refs.file.files[0];
+    },
 
+    sendFile() {
+      const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      let $Token = localStorage.getItem("token");
+
+      axios
+        .post(
+          "https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs",
+          formData
+        )
+        .then(response => {
+          console.log(response);
+          console.log(response.data.image);
+          axios
+            .post(
+              "http://localhost:8000/api/storeImage" + "?token=" + $Token,
+              response.data
+            )
+            .then(response => {
+              this.dialog = false;
+              this.file = "";
+              this.getSlideshow();
+              alert("Succesfully Saved");
+            })
+            .catch(error => {
+              console.log(error.response);
+              console.log("Failed Save img url");
+            });
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("Upload Failed");
+        });
+    }
   }
 };
-
 </script>
 <style>
 .v-responsive {
-   
-    margin-bottom: 7px;
+  margin-bottom: 7px;
 }
 </style>
 

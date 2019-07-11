@@ -85,7 +85,12 @@ Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
 Route::post ( 'deleteSlideshow/{id}', 'SlideshowController@deleteItem' );
 
 
+
 Route::post('addProduct','ProductController@addProduct');
+Route::post('editProduct/{id}','ProductController@editProduct');
+Route::post('deletedProducts','ProductController@getDeletedProducts');
+Route::post ( 'deleteProduct/{id}', 'ProductController@deleteProduct' );
+Route::post('restoreProduct/{id}', 'ProductController@restoreProduct');
     
     
 });
