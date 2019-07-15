@@ -82,6 +82,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <v-card flat height="50" color=transparent></v-card>
 
 
     <v-card flat height="50" color="transparent"></v-card>
