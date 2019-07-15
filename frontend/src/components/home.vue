@@ -437,7 +437,9 @@ export default {
   mounted() {
     this.getSlideshow();
     AOS.init({
-      duration: 2000
+      duration: 2000,
+      once: true,
+      
     });
   }
 };

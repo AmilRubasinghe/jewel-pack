@@ -239,11 +239,8 @@
       </v-dialog>
     </v-toolbar>
 
-    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark>
-      <v-img
-        src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
-        height="100%"
-      >
+    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark color="transparent">
+      
         <v-list>
           <v-list-tile
             @click.stop="drawer = !drawer"

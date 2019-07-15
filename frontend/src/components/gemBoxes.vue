@@ -135,7 +135,7 @@
                                   <input
                                     @change="valid()"
                                     type="number"
-                                    v-model="value"
+                                    v-model.number="value"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                                   >
                                 </div>
