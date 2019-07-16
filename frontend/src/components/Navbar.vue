@@ -82,7 +82,6 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-card flat height="50" color=transparent></v-card>
 
 
     <v-card flat height="50" color="transparent"></v-card>
@@ -240,11 +239,12 @@
       </v-dialog>
     </v-toolbar>
 
-    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark>
+    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark color="transparent">
       <v-img
         src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
         height="100%"
       >
+
         <v-list>
           <v-list-tile
             @click.stop="drawer = !drawer"

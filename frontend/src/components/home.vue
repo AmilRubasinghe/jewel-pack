@@ -9,7 +9,7 @@
           hide-controls
           max-width="90%"
         >
-          <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.image"></v-carousel-item>
+          <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
         </v-carousel>
         <br>
 
@@ -437,7 +437,9 @@ export default {
   mounted() {
     this.getSlideshow();
     AOS.init({
-      duration: 2000
+      duration: 2000,
+      once: true,
+      
     });
   }
 };

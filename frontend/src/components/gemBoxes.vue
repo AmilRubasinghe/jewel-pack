@@ -27,7 +27,7 @@
                   <v-flex xs9 sm12 offset-sm0>
                   <span
                     class="title --text"
-                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}White&nbsp; Colour Box</h2></span>
+                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
                    <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
                           <h4>SALE!</h4>
@@ -38,12 +38,12 @@
                   
                   <del class>
                    <v-chip label color="white" text-color="brown lighten-3">
-                          <h5>$ 50</h5>
+                          <h5>$50</h5>
                        </v-chip>
                   </del>&nbsp;
                   <span class="title">
                       <v-chip label color="white" text-color="grey darken-4">
-                          <h4>$ {{products[i].Price}}</h4>
+                          <h4>${{products[i].Price}}</h4>
                        </v-chip>
                    
                   </span> 
@@ -151,7 +151,7 @@
                                   <input
                                     @change="valid()"
                                     type="number"
-                                    v-model="value"
+                                    v-model.number="value"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                                   >
                                 </div>
