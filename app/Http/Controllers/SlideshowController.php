@@ -22,13 +22,20 @@ class SlideshowController extends Controller
     
 
 	public function storeImage(Request $request){
+        $image = $request->file('file');
+        $filename = time().'-'.$image->getClientOriginalName();
+        $image->storeAs('public/slideshow',$filename);
+
+
+
+
 
         $table = new slideshow;
-        $table->timestamps = false;
-        $table->ext = $request->input('ext');
-        $table->size = $request->input('size');
-        $table->image = $request->input('image');
-        $table->deleteURL = $request->input('delete');
+        $table->name = $filename;
+        $table->path = url('/').'/storage/slideshow/'.$filename;
+        
+
+        
 
     $table->save();
 
@@ -43,19 +50,20 @@ class SlideshowController extends Controller
 public function editItem(Request $request, $imageId){
     $thisImage=slideshow::findOrFail($imageId);
     //$thisImage =slideshow::where('imageId', $imageId)->first();
-    $thisImage->timestamps = false;
-    $thisImage->ext = $request->input('ext');
-    $thisImage->size = $request->input('size');
-    $thisImage->image = $request->input('image');
-    $thisImage->deleteURL = $request->input('deleteURL');
+    
+    $thisImage->path = $request->input('path');
+    $thisImage->name = $request->input('name');
     $thisImage->save();
     
     return response()->json(['editedImage'=>$thisImage,'message'=>"Product edited succesfully !"]);
 }
 
 
-public function deleteItem($imageId) {
-    $table = slideshow::findOrFail($imageId)->delete ();
+public function deleteItem(Request $request) {
+    $table = slideshow::findOrFail( $request->input('imageID'))->delete();
+    \Storage::delete('public/slideshow/'.$request->input('name'));
+    
+    return response()->json(['message'=>"Photo deleted succesfully !"]);
 }
 
 

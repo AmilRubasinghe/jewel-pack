@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 
 Vue.use(VueRouter);
+import test from  './components/test.vue'
+
 import loginPage from  './components/loginPage.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
@@ -54,6 +56,7 @@ const router = new VueRouter({
 
     
     routes:[
+      {path:"/test",component:test},
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
