@@ -43,6 +43,13 @@ class ProductController extends Controller
 
 
     public function addProduct(Request $request){
+    //  return $request->input('data');
+      //return $request->input('size');
+
+      $image = $request->file('file');
+      $filename = time().'-'.$image->getClientOriginalName();
+       $image->storeAs('public/product',$filename);
+
 
       $table = new product;
       
@@ -50,7 +57,8 @@ class ProductController extends Controller
       $table->Colour = $request->input('colour');
       $table->Quantity = $request->input('quantity');
       $table->Price = $request->input('price');
-      $table->Image = $request->input('image');
+      $table->Image = url('/').'/storage/product/'.$filename;
+      $table->ImageName = $filename;
 
       $table->save();
 
@@ -59,6 +67,21 @@ class ProductController extends Controller
 
       
       
+}
+
+
+public function storeImage(Request $request){
+  $image = $request->file('file');
+  $filename = time().'-'.$image->getClientOriginalName();
+  $image->storeAs('public/product',$filename);
+
+  $table = new slideshow;
+  $table->name = $filename;
+  $table->path = url('/').'/storage/slideshow/'.$filename;
+
+$table->save();
+return response()->json(['message'=>$table,'message'=>"Image uploaded succesfully !"]);      
+  
 }
 
 

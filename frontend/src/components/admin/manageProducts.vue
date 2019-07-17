@@ -411,7 +411,7 @@ export default {
         sortBy: "PID"
       },
       selected: [],
-      deletedProducts:false,
+      deletedItem:false,
       table_title: "Product Items",
 
       headers: [
@@ -455,11 +455,9 @@ export default {
     selectFile(event) {
       this.file = this.$refs.file.files[0];
 
-      const formData = new FormData();
-      formData.append("file", this.file, this.file.name);
-
+      
       let $Token = localStorage.getItem("token");
-
+/*
       axios
         .post(
           "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
@@ -471,18 +469,30 @@ export default {
         .catch(error => {
           console.log(error.response);
           console.log("Upload Failed");
-        });
+        });*/
     },
 
     addProduct() {
       
+const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      formData.append("quantity",this.newProduct.quantity);
+      formData.append("details",this.newProduct.details);
+      formData.append("price",this.newProduct.price);
+      formData.append("size",this.newProduct.size);
+      formData.append("border",this.newProduct.border);
+      formData.append("colour",this.newProduct.colour);
+
+     // this.newProduct.image = formData;
+    
 
       let $Token = localStorage.getItem("token");
 
       axios
         .post(
           "http://localhost:8000/api/addProduct?token=" + $Token,
-          this.newProduct
+          formData
         )
         .then(response => {
           this.dialog = false;

@@ -26,23 +26,12 @@ class SlideshowController extends Controller
         $filename = time().'-'.$image->getClientOriginalName();
         $image->storeAs('public/slideshow',$filename);
 
-
-
-
-
         $table = new slideshow;
         $table->name = $filename;
         $table->path = url('/').'/storage/slideshow/'.$filename;
-        
-
-        
 
     $table->save();
-
-
-    return response()->json(['message'=>$table,'message'=>"Image uploaded succesfully !"]);
-
-        
+    return response()->json(['message'=>$table,'message'=>"Image uploaded succesfully !"]);      
         
 }
 
