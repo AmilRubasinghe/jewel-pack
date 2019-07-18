@@ -16,8 +16,8 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
-import gemBoxes from  './components/gemBoxes'
-import jewelleryBoxs from  './components/jewelleryBoxs'
+
+import products from  './components/products'
 import check from  './components/check'
 import cartView from  './components/cartView'
 
@@ -47,12 +47,18 @@ function signout(){
 }
 
 
+
+
 const router = new VueRouter({
     mode:'history',
 
     scrollBehavior() {
       return { x: 0, y: 0 };
     },
+
+  
+
+    
 
     
     routes:[
@@ -61,8 +67,7 @@ const router = new VueRouter({
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
-        {path:"/gemBox",component:gemBoxes},
-        {path:"/jewelleryBox",component:jewelleryBoxs},
+        {path:"/category/:id",component:products},
         {path:"/check",component:check},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},

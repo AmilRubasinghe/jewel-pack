@@ -32,9 +32,25 @@ class ProductController extends Controller
 
    // $product=product::all();
    
-    $product = product::where('CID', '=', $cid)->get();
+    $product = product::where([
+      ['CID', '=', $cid],
+      ['isDeleted', '=', 0],
+      
+      ])->get();
     return response()->json(['product'=>$product],200);
   }
+
+
+  public function search(Request $request){
+
+    $query = $request->input('keywords');
+    $products = product::where('Size','LIKE','%'.$query.'%')->orWhere('Colour','LIKE','%'.$query.'%')->get();
+    if(count($products) > 0)
+        return response()->json(['products'=>$products],200);
+    else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+ 
+ 
+}
 
 
     
@@ -70,19 +86,6 @@ class ProductController extends Controller
 }
 
 
-public function storeImage(Request $request){
-  $image = $request->file('file');
-  $filename = time().'-'.$image->getClientOriginalName();
-  $image->storeAs('public/product',$filename);
-
-  $table = new slideshow;
-  $table->name = $filename;
-  $table->path = url('/').'/storage/slideshow/'.$filename;
-
-$table->save();
-return response()->json(['message'=>$table,'message'=>"Image uploaded succesfully !"]);      
-  
-}
 
 
 public function editProduct(Request $request, $productId){

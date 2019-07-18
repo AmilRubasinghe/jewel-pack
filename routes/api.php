@@ -37,7 +37,7 @@ Route::group([
     Route::post('login', 'UserController@loginUser');
     Route::post('register','UserController@registerUser');
     Route::post('resendvEmail','UserController@resendvEmail');
-    
+    Route::post('search','ProductController@search');
     
     
     Route::post('guard','UserController@guard');
@@ -47,7 +47,8 @@ Route::group([
     Route::get('category', 'CategoryController@getItem');
 
     Route::get('products', 'ProductController@getAllProduct');
-    Route::get('product/{cid}', 'ProductController@getProduct');
+  //  Route::get('product/{cid}', 'ProductController@getProduct');
+    Route::get('category/{cid}', 'ProductController@getProduct');
 
 
     Route::post('coupons','CouponController@getCoupon');
@@ -86,6 +87,7 @@ Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {
 Route::post('storeImage', 'SlideshowController@storeImage');
 Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
 Route::post ( 'deleteSlideshow', 'SlideshowController@deleteItem' );
+
 
 
 

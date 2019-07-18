@@ -217,13 +217,14 @@ export default {
   // }),
 
   mounted() {
-    this.productItems();
+    this.productItems(this.$route.path);
+    console.log(this.$route.path);
   },
 
   methods: {
-    productItems() {
+    productItems($path) {
       axios
-        .get("http://localhost:8000/api/product/1")
+        .get("http://localhost:8000/api"+$path)
         .then(response => {
           this.products = response.data.product;
 

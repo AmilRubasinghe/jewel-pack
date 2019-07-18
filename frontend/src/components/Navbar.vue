@@ -1,10 +1,10 @@
 <template>
-  <v-app id="inspire">
-    <v-toolbar app flat prominent height="80" scroll-off-screen >
+  <div id="inspire">
+    <v-toolbar app flat prominent height="80" scroll-off-screen>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
         </router-link>
@@ -14,10 +14,10 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-flex xs12 sm6 md3>
-          <v-text-field label="Search" v-model.number="keywords" v-debounce="delay"></v-text-field>
+          <v-text-field type="search" label="Search" v-model="keywords" v-debounce="delay"></v-text-field>
         </v-flex>
 
-        <v-btn icon @click.native.stop="modalModel=true">
+        <v-btn icon @click="search">
           <v-icon>search</v-icon>
         </v-btn>
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -42,7 +42,7 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="item.path">
+            <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="'category/'+item.CID ">
               <v-icon left>{{ item.icon }}</v-icon>
               <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
             </v-list-tile>
@@ -83,13 +83,12 @@
       </v-toolbar-items>
     </v-toolbar>
 
-
     <v-card flat height="50" color="transparent"></v-card>
 
     <v-toolbar app flat prominent class="hidden-lg-and-up">
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
         </router-link>
@@ -109,7 +108,7 @@
           <v-toolbar flat prominent height="80" scroll-off-screen>
             <v-toolbar-title>
               <router-link to="/" tag="span" style="cursor: pointer">
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
                 <span class="font-weight-light">Jewel</span>
                 <span>Pack</span>
               </router-link>
@@ -162,7 +161,7 @@
                   </v-btn>
                 </template>
                 <v-list>
-                  <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="item.path">
+                  <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="cPath(item.CID)">
                     <v-icon left>{{ item.icon }}</v-icon>
                     <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
                   </v-list-tile>
@@ -239,12 +238,20 @@
       </v-dialog>
     </v-toolbar>
 
-    <v-navigation-drawer v-if="role=='admin'" v-model="drawer" fixed app floating dark color="transparent">
+    <v-navigation-drawer
+      v-if="role=='admin'"
+      v-model="drawer"
+      fixed
+      app
+      floating
+      disable-route-watcher
+      temporary
+      class="drawer card-5"
+    >
       <v-img
-        src="https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
+        src="hhttps://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
         height="100%"
       >
-
         <v-list>
           <v-list-tile
             @click.stop="drawer = !drawer"
@@ -252,10 +259,10 @@
             :key="item.title"
             :to="{path: item.path}"
           >
-            <v-list-tile-action>
+            <v-list-tile-action align-center justify-center>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
+            <v-list-tile-content align-center justify-center>
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -279,11 +286,7 @@
         </v-list>
       </v-img>
     </v-navigation-drawer>
-
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -301,7 +304,8 @@ export default {
 
   data() {
     return {
-      delay: 1000,
+      transitionName: "slide-left",
+      delay: 800,
       adminDrawItems: [
         { title: "Dashboard", icon: "dashboard", path: "" },
         { title: "Users", icon: "supervised_user_circle", path: "users" },
@@ -359,7 +363,31 @@ export default {
     footers: footers
   },
 
+  beforeRouteUpdate(to, from, next) {
+    const toDepth = to.path.split("/").length;
+    const fromDepth = from.path.split("/").length;
+    this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+    next();
+  },
+
   methods: {
+    cPath($id) {
+      var $path="category/" + $id;
+      return $path;
+    },
+
+    search() {
+      const formData = new FormData();
+      formData.append("keywords", this.keywords);
+
+      axios
+        .post("http://localhost:8000/api/search", formData)
+        .then(response => {})
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
     logout() {
       let $Token = localStorage.getItem("token");
       /* console.log(Token);*/
@@ -394,6 +422,7 @@ export default {
           console.log("ERROR");
         });
     }
+    
   },
 
   watch: {
@@ -427,6 +456,20 @@ export default {
 <style>
 .v-badge__badge {
   right: -0.1px;
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.drawer {
+  opacity: 0.7;
+  filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.drawer:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 </style>
 
