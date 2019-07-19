@@ -53,7 +53,11 @@ Route::group([
 
 Route::post('checkDetails','OrderController@saveOrder');
 
-Route::post('checkout','checkoutController@store');
+//payment
+
+Route::post('checkoutDetails','PaymentController@store');
+
+
 
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {

@@ -64,7 +64,7 @@ const router = new VueRouter({
         {path:"/gemBox",component:gemBoxes},
         {path:"/jewelleryBox",component:jewelleryBoxs},
         {path:"/check",component:check},
-        {path:"/check_test",component:check_test},
+        {path:"/checkForm",component:checkForm},
         {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},

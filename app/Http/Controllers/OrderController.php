@@ -10,9 +10,7 @@ use App\order;
 class OrderController extends Controller
 {
     //
-
     
-
     
 	public function saveOrder(Request $request){
 
@@ -52,8 +50,10 @@ class OrderController extends Controller
 
 
     return response()->json(['order'=>$table,'message'=>"Order placed succesfully !"]);
+       
+    }
 
-        
-        
-}
+    public function sendOrder(){
+    
+    }
 }

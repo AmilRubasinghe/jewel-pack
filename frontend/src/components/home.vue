@@ -1,4 +1,4 @@
-c<template>
+<template>
     <div>
   <v-card flat height="100" color=transparent></v-card>
 
@@ -453,7 +453,7 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 .search {
     padding: 40px;
      color: #d1c0e1;
-   /* padding color: #8e85c0;*/
+    /*padding color:#8e85c0;*/
     /*border:1px solid;*/
     background-color: #e2e1ed;
     

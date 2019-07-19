@@ -9,7 +9,7 @@
       <tbody>
         <tr>
           <td><br>Name:</td>
-          <td class="text-xs-right">{{getName}}</td>
+          <td class="text-xs-right">{{name}}</td>
           <td class="text-xs-right">
               <v-flex xs14 sm5>
             <v-btn flat  color="blue">Edit
@@ -17,6 +17,18 @@
             </v-flex>
           </td>
         </tr>
+
+        <tr>
+          <td><br>Address:</td>
+          <td class="text-xs-right"></td>
+          <td class="text-xs-right">
+              <v-flex xs14 sm5>
+            <v-btn flat  color="blue">Edit
+            </v-btn>
+            </v-flex>
+          </td>
+        </tr>
+
         <tr>
           <td><br>Number of items :</td>
           <td class="text-xs-right"> <br> {{ item_count }} </td>
@@ -31,7 +43,7 @@
         </tr>
         <tr>
           <td>Subtotal:</td>
-          <td class="text-xs-right">{{ subtotal | money }}</td>
+          <td class="text-xs-right">{{ subtotal}}</td>
           <td>
              <v-flex xs14 sm5>
             </v-flex>
@@ -40,7 +52,7 @@
         
         <tr>
           <td>Discount:</td>
-          <td class="text-xs-right">{{ Promotions }}</td>
+          <td class="text-xs-right"></td>
           <td>
              <v-flex xs14 sm5>
             </v-flex>
@@ -76,7 +88,8 @@ export default {
        return{
          checkout:{
            subtotal:"1000"
-         }
+         },
+         
        }
     },
 
@@ -99,7 +112,12 @@ export default {
          // grand+=subtotal-promotions;
           //return grand.toFixed(2);
         },
-        getName(){return }
+
+        name(){
+         // return this.$store.state.name;
+          console.log(this.$store.state.name);
+         }
+        
 
     },
 

@@ -111,12 +111,13 @@ import axios from 'axios';
     data () {
       return {
         checkDetails:{
-          email:"",
+            email:"",
             firstname:"",
             lastname:"",
             phone:"",
             postalcode:"",
             address:""
+            
         },
 
        
@@ -128,6 +129,17 @@ import axios from 'axios';
            alert
     },
 
+    computed:{
+       firstname:{
+         get: function(){
+					return this.$store.state.name;
+        },
+        set: function(newName){
+            this.$store.dispatch('addName',newName);
+          }
+       }
+    },
+
     methods:{
          checkout(){
            
@@ -136,6 +148,7 @@ import axios from 'axios';
           saveData(){
 
             this.$validator.validateAll()
+
             if (!this.errors.any()) {
                 axios.post('http://localhost:8000/api/checkDetails',this.checkDetails
                 , {
