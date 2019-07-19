@@ -3,7 +3,7 @@
     
 
     <v-carousel
-          delimiter-icon="stop"
+          delimiter-icon="fa-minus"
           interval="3000"
           height="875"
           hide-controls
@@ -13,13 +13,10 @@
         </v-carousel>
         <br>
 
-
-    <v-layout align-center justify-center>
-      <v-card class="card-5" width="90%">
         
-        <v-layout row wrap align-center justify-center>
+        <v-layout row wrap align-center justify-center justify-space-between>
           <v-flex xs6>
-            <v-parallax src="https://i.vgy.me/Ti6jIj.jpg">
+            <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
               <v-layout align-center column justify-center color="blue">
                 <h1
                   style="color:#FFFFFF; align:center;"
@@ -360,7 +357,7 @@
           </v-flex>
 
           <v-flex xs6>
-            <v-parallax src="https://i.vgy.me/Ti6jIj.jpg">
+            <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
               <v-layout align-center column justify-center color="blue">
                 <h1
                   style="color:#FFFFFF; align:center;"
@@ -400,8 +397,6 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </v-card>
-    </v-layout>
     <br>
   </div>
 </template>
@@ -499,5 +494,14 @@ h3.newest {
 
 .v-card v-card--flat v-sheet theme--light transparent.style {
     height: 0px;
+}
+
+ .row-full{
+ width: 100vw;
+ position: relative;
+ margin-left: -50vw;
+ height: 100px;
+ margin-top: 100px;
+ 
 }
 </style>

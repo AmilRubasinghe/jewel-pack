@@ -14,7 +14,7 @@
                   <v-hover>
                     <v-card
                       class="clickable"
-                      :to="card.path"
+                      :to="'admin/'+card.path"
                       slot-scope="{ hover }"
                       :class="`elevation-${hover ? 12 : 2}`"
                     >
@@ -46,7 +46,7 @@ export default {
           "https://images.unsplash.com/photo-1526656001029-20a71b17f7ba?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=sear-greyson-671095-unsplash.jpg",
         flex: 4,
         class: "headline black--text",
-        path: "/admin/users"
+        path: "users"
       },
       {
         title: "Orders Managment",
@@ -54,7 +54,7 @@ export default {
           "https://images.unsplash.com/photo-1509315703195-529879416a7d?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=micheile-henderson-429781-unsplash.jpg",
         flex: 4,
         class: "headline black--text",
-        path: "/admin/orders"
+        path: "orders"
       },
       {
         title: "Products Managment",
@@ -62,7 +62,7 @@ export default {
           "https://images.unsplash.com/photo-1465820909510-5aa8bb14978f?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=clem-onojeghuo-101915-unsplash.jpg",
         flex: 4,
         class: "headline black--text",
-        path: "/admin/products"
+        path: "products"
       },
       {
         title: "Category Managment",
@@ -70,7 +70,7 @@ export default {
           "https://images.unsplash.com/photo-1465820909510-5aa8bb14978f?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=clem-onojeghuo-101915-unsplash.jpg",
         flex: 4,
         class: "headline black--text",
-        path: "/admin/category"
+        path: "category"
       }
     ]
   }),

@@ -1,94 +1,105 @@
 <template>
   <div>
     <navDrawer></navDrawer>
-    <br>
+    <br />
 
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-      <v-dialog v-model="dialog" width="1200px">
+      <v-dialog v-model="dialog">
         <v-card>
           <v-card-title>
             <span class="headline">Upload Form</span>
           </v-card-title>
           <v-card-text>
-            <v-container>
-              <form>
-                <v-layout row wrap>
-                  <v-flex xs12 sm5 md5>
-                    <v-text-field
-                      v-model="newProduct.size"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('size')"
-                      label="Size"
-                      data-vv-name="Size"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+            <v-container grid-list-md>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field
+                    v-model="newProduct.size"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('size')"
+                    label="Size"
+                    data-vv-name="Size"
+                    required
+                  ></v-text-field>
+                </v-flex>
 
-                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-                    <v-text-field
-                      v-model="newProduct.colour"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('colour')"
-                      label="Colour"
-                      data-vv-name="Colour"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
+                <v-flex xs12 sm6 md4 d-flex>
+                  <v-select
+                    label="Category"
+                    :items="category"
+                    item-text="CName"
+                    item-value="CID"
+                    v-model="newProduct.cid"
+                    outline
+                    menu-props
+                  ></v-select>
+                </v-flex>
 
-                <v-layout row wrap>
-                  <v-flex xs12 sm5 md5>
-                    <v-text-field
-                      v-model="newProduct.quantity"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('quantity')"
-                      label="Quantity"
-                      data-vv-name="Quantity"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+                <v-flex xs12 sm6 md4 offset-xs0 offset-lg2>
+                  <v-text-field
+                    v-model="newProduct.colour"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('colour')"
+                    label="Colour"
+                    data-vv-name="Colour"
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
 
-                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-                    <v-text-field
-                      input-type="number"
-                      v-model="newProduct.price"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('price')"
-                      label="Price"
-                      data-vv-name="Price"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field
+                    v-model="newProduct.quantity"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('quantity')"
+                    label="Quantity"
+                    data-vv-name="Quantity"
+                    required
+                  ></v-text-field>
+                </v-flex>
 
-                <v-layout row wrap>
-                  <v-flex xs12 sm5 md5>
-                    <v-checkbox
-                      v-model="newProduct.border"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('checkbox')"
-                      value="1"
-                      label="Is border"
-                      data-vv-name="checkbox"
-                      type="checkbox"
-                      required
-                    ></v-checkbox>
-                  </v-flex>
+                <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
+                  <v-text-field
+                    input-type="number"
+                    v-model="newProduct.price"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('price')"
+                    label="Price"
+                    data-vv-name="Price"
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
 
-                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-                    <v-text-field
-                      label="Details"
-                      v-model="Details"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('text box')"
-                      single-line
-                      solo
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
+              <v-layout row wrap>
+                <v-flex xs12 sm5 md5>
+                  <v-checkbox
+                    v-model="newProduct.border"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('checkbox')"
+                    value="1"
+                    label="Is border"
+                    data-vv-name="checkbox"
+                    type="checkbox"
+                    required
+                  ></v-checkbox>
+                </v-flex>
 
-                <!--  <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
+                  <v-text-field
+                    label="Details"
+                    v-model="Details"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('text box')"
+                    single-line
+                    solo
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+
+              <!--  <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 				
           <label class="button" label="Select Image" @click='pickFile'  prepend-icon='attach_file' >
 					<input
@@ -102,8 +113,8 @@
                                     <h4>Upload photo</h4>
                                    
                             </label>
-                </v-flex>-->
-                <!--
+              </v-flex>-->
+              <!--
 
                             <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<img :src="imageUrl" height="150" v-if="imageUrl"/>
@@ -116,32 +127,31 @@
 						@change="onFilePicked"
 					>
 				</v-flex>
-                -->
+              -->
 
-                <v-layout align-center justify-center>
-                  <v-card
-                    flat
-                    color="#B0BEC5"
-                    @click="$refs.file.click()"
-                    ripple
-                    hover
-                    height="100"
-                    width="300"
-                    max-width="600px"
-                  >
-                    <form enctype="multipart/form-data">
-                      <div class="text-xs-center">
-                        <label class="button">
-                          <input type="file" ref="file" @change="selectFile" style="display:none">
-                          <v-icon outline large>cloud_upload</v-icon>
-                          <h4>Upload photo</h4>
-                          <span v-if="file" class="file-name">{{file.name}}</span>
-                        </label>
-                      </div>
-                    </form>
-                  </v-card>
-                </v-layout>
-              </form>
+              <v-layout align-center justify-center>
+                <v-card
+                  flat
+                  color="#B0BEC5"
+                  @click="$refs.file.click()"
+                  ripple
+                  hover
+                  height="100"
+                  width="300"
+                  max-width="600px"
+                >
+                  <form enctype="multipart/form-data">
+                    <div class="text-xs-center">
+                      <label class="button">
+                        <input type="file" ref="file" @change="selectFile" style="display:none" />
+                        <v-icon outline large>cloud_upload</v-icon>
+                        <h4>Upload photo</h4>
+                        <span v-if="file" class="file-name">{{file.name}}</span>
+                      </label>
+                    </div>
+                  </form>
+                </v-card>
+              </v-layout>
             </v-container>
           </v-card-text>
           <v-card-actions>
@@ -167,10 +177,10 @@
                 </v-flex>
                 <v-flex xs12 sm6 md4 d-flex>
                   <v-select
-                  label="Category ID"
+                    label="Category ID"
                     :items="category"
-                    item-text="text"
-                    item-value="value"
+                    item-text="CName"
+                    item-value="CID"
                     v-model="editedItem.CID"
                     outline
                     menu-props
@@ -223,7 +233,7 @@
                   <form enctype="multipart/form-data">
                     <div class="text-xs-center">
                       <label class="button">
-                        <input type="file" ref="file" @change="selectFile" style="display:none">
+                        <input type="file" ref="file" @change="selectFile" style="display:none" />
                         <v-icon outline large>cloud_upload</v-icon>
                         <h4>Upload photo</h4>
                         <span v-if="file" class="file-name">{{file.name}}</span>
@@ -264,7 +274,7 @@
             <v-icon medium dark>refresh</v-icon>
           </v-btn>
 
-            <v-btn v-if="!deletedItem" @click="getDeletedProducts">
+          <v-btn v-if="!deletedItem" @click="getDeletedProducts">
             <v-icon large color="blue">delete_sweep</v-icon>Deleted products
           </v-btn>
 
@@ -320,7 +330,7 @@
                   class="mr-2"
                   @click="editItem(props.item)"
                 >edit</v-icon>
-                 <v-icon
+                <v-icon
                   v-if="!deletedItem"
                   color="red"
                   medium
@@ -385,15 +395,13 @@ export default {
         size: "",
         colour: "",
         border: null,
-        image: ""
+        image: "",
+        cid: ""
       },
 
       sizes: ["1x1", "2x2", "3x3", "4x4", "5x5"],
 
-      category: [
-        { text: "Gem Boxes", value: "1" },
-        { text: "Jewellery Boxes", value: "2" }
-      ],
+      category: [],
 
       colours: ["White", "Black"],
 
@@ -411,7 +419,7 @@ export default {
         sortBy: "PID"
       },
       selected: [],
-      deletedItem:false,
+      deletedItem: false,
       table_title: "Product Items",
 
       headers: [
@@ -431,6 +439,7 @@ export default {
 
   mounted() {
     this.productItems();
+    this.catItems();
   },
 
   components: {
@@ -452,12 +461,25 @@ export default {
   },
 
   methods: {
+    catItems() {
+      axios
+        .get("http://localhost:8000/api/category")
+        .then(response => {
+          response.data.catItems.forEach(element => {
+            this.category.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
     selectFile(event) {
       this.file = this.$refs.file.files[0];
 
-      
       let $Token = localStorage.getItem("token");
-/*
+      /*
       axios
         .post(
           "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
@@ -473,27 +495,23 @@ export default {
     },
 
     addProduct() {
-      
-const formData = new FormData();
+      const formData = new FormData();
       formData.append("file", this.file, this.file.name);
 
-      formData.append("quantity",this.newProduct.quantity);
-      formData.append("details",this.newProduct.details);
-      formData.append("price",this.newProduct.price);
-      formData.append("size",this.newProduct.size);
-      formData.append("border",this.newProduct.border);
-      formData.append("colour",this.newProduct.colour);
+      formData.append("quantity", this.newProduct.quantity);
+      formData.append("details", this.newProduct.details);
+      formData.append("price", this.newProduct.price);
+      formData.append("size", this.newProduct.size);
+      formData.append("border", this.newProduct.border);
+      formData.append("colour", this.newProduct.colour);
+      formData.append("cid", this.newProduct.cid);
 
-     // this.newProduct.image = formData;
-    
+      // this.newProduct.image = formData;
 
       let $Token = localStorage.getItem("token");
 
       axios
-        .post(
-          "http://localhost:8000/api/addProduct?token=" + $Token,
-          formData
-        )
+        .post("http://localhost:8000/api/addProduct?token=" + $Token, formData)
         .then(response => {
           this.dialog = false;
           this.productItems();
@@ -506,9 +524,8 @@ const formData = new FormData();
     },
 
     productItems() {
-      this.table_title="Active Products",
-      this.deletedItem=false;
-      
+      (this.table_title = "Active Products"), (this.deletedItem = false);
+
       axios
         .get("http://localhost:8000/api/products")
         .then(response => {
@@ -522,27 +539,21 @@ const formData = new FormData();
         });
     },
 
+    getDeletedProducts() {
+      (this.table_title = "Deleted Products"), (this.deletedItem = true);
+      let $Token = localStorage.getItem("token");
+      axios
+        .post("http://localhost:8000/api/deletedProducts?token=" + $Token)
+        .then(response => {
+          this.products = response.data.product;
 
-    getDeletedProducts(){
-            this.table_title="Deleted Products",
-            this.deletedItem=true;
-            let $Token=localStorage.getItem('token');
-              axios.post('http://localhost:8000/api/deletedProducts?token='+$Token)
-                  .then(response => {
-                    
-                    
-                      this.products=response.data.product;
-
-                      //console.log(this.slideshowItems);
-
-                      
-                      
-                  })
-                  .catch(error => {
-                      console.log(error.response);
-                      console.log("ERROR");
-                  })
-          },
+          //console.log(this.slideshowItems);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
 
     changeSort(column) {
       if (this.pagination.sortBy === column) {
@@ -570,7 +581,6 @@ const formData = new FormData();
       this.Details = "";
     },
 
-  
     openDialogProduct() {
       this.newProduct.size = "";
       this.newProduct.colour = "";
@@ -582,25 +592,27 @@ const formData = new FormData();
     },
 
     editSave() {
+      let $Token = localStorage.getItem("token");
+      if (this.editedIndex > -1) {
+        Object.assign(this.products[this.editedIndex], this.editedItem);
 
-       let $Token=localStorage.getItem('token');
-                if (this.editedIndex > -1) {
-                    Object.assign(this.products[this.editedIndex], this.editedItem)
-                    
-                    
-
-                    axios.post('http://localhost:8000/api/editProduct/'+this.editedItem.PID+'?token='+$Token,this.editedItem)
-                    .then(response => {
-                        this.showModal=false
-                        this.productItems();
-                        console.log("Succesfully Edited");
-                    });
-
-                 } else {
-                    this.products.push(this.editedItem)
-                 }
-                    this.close()
-
+        axios
+          .post(
+            "http://localhost:8000/api/editProduct/" +
+              this.editedItem.PID +
+              "?token=" +
+              $Token,
+            this.editedItem
+          )
+          .then(response => {
+            this.showModal = false;
+            this.productItems();
+            console.log("Succesfully Edited");
+          });
+      } else {
+        this.products.push(this.editedItem);
+      }
+      this.close();
     },
 
     editItem(item) {
@@ -610,40 +622,48 @@ const formData = new FormData();
       this.showModal = true;
     },
 
-    
-
-          deleteItem (item) {
-            
-            var result = confirm("Want to delete product"+item.PID+"?");
-            if (result) {
-                //Logic to delete the item
-                let $Token=localStorage.getItem('token');
-                axios.post('http://localhost:8000/api/deleteProduct/'+item.PID+'?token='+$Token)
-                    .then(response => {
-                        /*axios.get(item.deleteURL).then(res=>{
+    deleteItem(item) {
+      var result = confirm("Want to delete product" + item.PID + "?");
+      if (result) {
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            "http://localhost:8000/api/deleteProduct/" +
+              item.PID +
+              "?token=" +
+              $Token
+          )
+          .then(response => {
+            /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-                        this.productItems();
-                        alert("Product succesfully Deleted");
-                    });
-            }
-        },
-
+            this.productItems();
+            alert("Product succesfully Deleted");
+          });
+      }
+    },
 
     restoreItem(item) {
-      var result = confirm("Want to restore "+item.PID+"?");
-            if (result) {
-                //Logic to delete the item
-                let $Token=localStorage.getItem('token');
-                axios.post('http://localhost:8000/api/restoreProduct/'+item.PID+'?token='+$Token)
-                    .then(response => {
-                        /*axios.get(item.deleteURL).then(res=>{
+      var result = confirm("Want to restore " + item.PID + "?");
+      if (result) {
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            "http://localhost:8000/api/restoreProduct/" +
+              item.PID +
+              "?token=" +
+              $Token
+          )
+          .then(response => {
+            /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-                        this.productItems();
-                        alert("Succesfully Restored");
-                    });
-            }
+            this.productItems();
+            alert("Succesfully Restored");
+          });
+      }
     },
 
     selectFile(event) {
