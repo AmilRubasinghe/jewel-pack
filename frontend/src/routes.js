@@ -62,7 +62,7 @@ const router = new VueRouter({
 
     
     routes:[
-      {path:"/test",component:test},
+      
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
@@ -78,6 +78,7 @@ const router = new VueRouter({
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"*",component:test},
     ],
 
 

@@ -70,6 +70,7 @@ class ProductController extends Controller
       $table = new product;
       
       $table->Size = $request->input('size');
+      $table->CID = $request->input('cid');
       $table->Colour = $request->input('colour');
       $table->Quantity = $request->input('quantity');
       $table->Price = $request->input('price');

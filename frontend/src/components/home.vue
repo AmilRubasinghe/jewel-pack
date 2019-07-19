@@ -14,7 +14,7 @@
         <br>
 
         
-        <v-layout row wrap align-center justify-center>
+        <v-layout row wrap align-center justify-center justify-space-between>
           <v-flex xs6>
             <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
               <v-layout align-center column justify-center color="blue">

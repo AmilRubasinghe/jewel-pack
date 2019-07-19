@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-flex xs12 sm6 md3>
-          <v-text-field type="search" label="Search" v-model="keywords" v-debounce="delay"></v-text-field>
+          <v-text-field type="search" label="Search" @change="debounceInput"></v-text-field>
         </v-flex>
 
         <v-btn icon @click="search">
@@ -42,7 +42,8 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="'category/'+item.CID ">
+            
+            <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="({ path: `/category/${item.CID}` }) ">
               <v-icon left>{{ item.icon }}</v-icon>
               <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
             </v-list-tile>
@@ -122,7 +123,7 @@
           <v-list>
             <v-list-tile>
               <v-flex xs12 sm6 md3>
-                <v-text-field label="Search" v-model.number="keywords" v-debounce="delay"></v-text-field>
+                <v-text-field label="Search" v-model.number="term" v-debounce="delay"></v-text-field>
               </v-flex>
 
               <v-btn icon @click.native.stop="modalModel=true">
@@ -248,10 +249,8 @@
       temporary
       class="drawer card-5"
     >
-      <v-img
-        src="hhttps://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg"
-        height="100%"
-      >
+
+    
         <v-list>
           <v-list-tile
             @click.stop="drawer = !drawer"
@@ -296,7 +295,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import Store from "../store.js";
 import footers from "./footers.vue";
-
+import _ from 'lodash';
 import debounce from "v-debounce";
 
 export default {
@@ -304,8 +303,9 @@ export default {
 
   data() {
     return {
+      userId : '123',
       transitionName: "slide-left",
-      delay: 800,
+      delay: 1000,
       adminDrawItems: [
         { title: "Dashboard", icon: "dashboard", path: "" },
         { title: "Users", icon: "supervised_user_circle", path: "users" },
@@ -329,7 +329,8 @@ export default {
       mobileDrawer: false,
       token: "",
 
-      keywords: null,
+      term: '',
+      //debounceInput: null,
       filterKey: "",
 
       menuItems: [
@@ -371,6 +372,13 @@ export default {
   },
 
   methods: {
+
+    debounceInput: _.debounce(function (e) {
+    this.filterKey = e.target.value;
+    console.log(e.target.value);
+    console.log(this.filterKey);
+  }, 500),
+
     cPath($id) {
       var $path="category/" + $id;
       return $path;
@@ -421,13 +429,18 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
-    }
+    },
+
     
   },
 
   watch: {
-    keywords(after, before) {
-      console.log(this.keywords);
+    
+
+    filterKey () {
+      // Do something with search term after it debounced
+     // this.debounceInput();
+      console.log(this.filterKey)
     }
   },
 
@@ -443,9 +456,13 @@ export default {
 
   mounted() {
     this.catItems();
-    console.log(Store.getters.user);
-    console.log(Store.getters.role);
-    console.log(localStorage.getItem("token"));
+
+    this.debounceInput = _.debounce(function(){}, 1000);
+  },
+
+  beforeRouteUpdate (to, from, next) {
+    console.log("befRo")
+    this.catItems();
   },
 
   directives: {
