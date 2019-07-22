@@ -81,7 +81,7 @@ export default {
   methods: {
     productItems() {
       axios
-        .get("http://localhost:8000/api/product")
+        .get("http://localhost:8000/api/product/2")
         .then(response => {
           this.products = response.data.product;
 

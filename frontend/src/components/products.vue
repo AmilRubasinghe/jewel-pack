@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <v-app id="inspire"> 
-       <v-card class="cardmargin" >
+       
       <v-container grid-list-sm text-xs-center>
         
         <v-layout row wrap justify-space-between>
-          <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
+          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
             <br>
-            <v-card light ripple align="center" @click="productPreview(products[i])">
+            <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
               <v-img contain class="white--text" align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
@@ -17,44 +17,60 @@
                   </v-layout>
                 </v-container>
               </v-img>
+
+
+              
+
+
               <v-card-title>
               
-                  <v-flex xs12 sm5 md5>
+                  <v-flex xs9 sm12 offset-sm0>
                   <span
-                    class="title blue--text"
-                  >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
-                  <br>
+                    class="title --text"
+                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
+                 
+                   <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
+                          <h4>SALE!</h4>
+                       </v-chip>
+                  
 
-                  <v-rating readonly small dense background-color="orange" color="orange"></v-rating>
-                  <span class="title">
-                    <v-btn large color="info">{{products[i].Price}}</v-btn>
-                  </span> &nbsp;
+                  <v-rating readonly small dense background-color="brown" color="brown"></v-rating>
+                  
                   <del class>
-                    <v-btn disabled>$50</v-btn>
-                  </del>
-                </v-flex >
+                   <v-chip label color="white" text-color="brown lighten-3">
+                          <h5>$50</h5>
+                       </v-chip>
+                  </del>&nbsp;
+                  <span class="title">
+                      <v-chip label color="white" text-color="grey darken-4">
+                          <h4>${{products[i].Price}}</h4>
+                       </v-chip>
+                   
+                  </span> 
+               </v-flex>
               </v-card-title>
-              <v-card-actions>
+              <v-card-actions>&nbsp;
+
                 <v-btn
                   large
                   round
                   depressed
-                  color="#29B6F6"
-                  outline
+                  color="brown lighten-3"
+                  outline-color="dark"
                   class="mx-auto"
                   @click="productPreview(products[i])"
-                >View</v-btn>
+                >Product View</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
       
       </v-container>
-        </v-card>
+        
 
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="1200px">
-          <v-card v-if="selectedItem">
+          <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
                 <span aria-hidden="true">×</span>
@@ -135,7 +151,7 @@
                                   <input
                                     @change="valid()"
                                     type="number"
-                                    v-model="value"
+                                    v-model.number="value"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                                   >
                                 </div>
@@ -201,13 +217,14 @@ export default {
   // }),
 
   mounted() {
-    this.productItems();
+    this.productItems(this.$route.path);
+    console.log(this.$route.path);
   },
 
   methods: {
-    productItems() {
+    productItems($path) {
       axios
-        .get("http://localhost:8000/api/product")
+        .get("http://localhost:8000/api"+$path)
         .then(response => {
           this.products = response.data.product;
 
@@ -330,9 +347,13 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mt-5 {
   margin-top: 20px !important;
+ 
 }
 
-
+.v-rating.v-rating--readonly.v-rating--dense {
+    padding-bottom: 10px;
+     margin-top: 20px !important;
+}
 
 
 
@@ -347,5 +368,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .cardmargin.v-card.v-sheet.theme--light {
     margin: 90px;
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+h2 {
+    margin-bottom: 20px;
 }
 </style>
