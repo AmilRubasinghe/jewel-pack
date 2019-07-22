@@ -1,5 +1,14 @@
 <template>
-  <div>
+    <div>
+  <v-card flat height="100" color=transparent></v-card>
+
+
+  <v-carousel
+    delimiter-icon="stop"
+    interval="3000"
+    height="875"
+    hide-controls
+    
     
 
     <v-carousel
@@ -442,11 +451,12 @@ export default {
 
 <style>
 .search {
-  padding: 40px;
-  color: #d1c0e1;
-  paddingcolor: #8e85c0;
-  /*border:1px solid;*/
-  background-color: #e2e1ed;
+    padding: 40px;
+     color: #d1c0e1;
+    /*padding color:#8e85c0;*/
+    /*border:1px solid;*/
+    background-color: #e2e1ed;
+    
 }
 
 h3 {

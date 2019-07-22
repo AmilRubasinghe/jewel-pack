@@ -12,10 +12,12 @@
             label="Search"
             outline
             v-model="keywords"
+            color=#E65100
+            placeholder="Find your box using color,size"    
           ></v-text-field>
           </v-flex>
            <v-btn icon @click="search" large>
-          <v-icon large>search</v-icon>
+          <v-icon large color=#E65100>search</v-icon>
         </v-btn>
         </v-layout>
         </v-container>
@@ -379,7 +381,7 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
+ 
   margin: 0;
 }
 
