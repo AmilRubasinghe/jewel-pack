@@ -18,7 +18,7 @@
   
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn icon @click.native="searchDialog = false">
+              <v-btn icon @click.native="searchDialog=!searchDialog" large>
               <v-icon>close</v-icon>
             </v-btn>
             </v-toolbar-items>
@@ -51,7 +51,7 @@
       <v-toolbar-items class="hidden-xs-only">
         
 
-        <v-btn icon @click="searchDialog=true">
+        <v-btn icon @click="searchDialog=true" large>
           <v-icon>search</v-icon>
         </v-btn>
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">

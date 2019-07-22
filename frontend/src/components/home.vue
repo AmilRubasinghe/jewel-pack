@@ -1,22 +1,11 @@
 <template>
     <div>
-  <v-card flat height="100" color=transparent></v-card>
-
-
+  
   <v-carousel
     delimiter-icon="stop"
     interval="3000"
     height="875"
     hide-controls
-    
-    
-
-    <v-carousel
-          delimiter-icon="fa-minus"
-          interval="3000"
-          height="875"
-          hide-controls
-          max-width="90%"
         >
           <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
         </v-carousel>
