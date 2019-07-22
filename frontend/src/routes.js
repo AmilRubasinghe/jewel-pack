@@ -19,7 +19,10 @@ import manageCategory from './components/adminEditor/manageCategory'
 
 import products from  './components/products'
 import check from  './components/check'
+import checkForm from  './components/checkForm'
+import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
+
 
 
 import Store from './store.js'
@@ -69,6 +72,8 @@ const router = new VueRouter({
         {path:"/home",component:home},
         {path:"/category/:id",component:products},
         {path:"/check",component:check},
+        {path:"/checkForm",component:checkForm},
+        {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},

@@ -256,8 +256,8 @@ export default {
       }
     },
 
-    addToCart(selectedItem){
-       this.$store.commit('addToCart', selectedItem);
+    addToCart(selectedItem,value){
+       this.$store.commit('addToCart', selectedItem,value);
     },
 
     valid() {
@@ -341,7 +341,7 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
+ 
   margin: 0;
 }
 

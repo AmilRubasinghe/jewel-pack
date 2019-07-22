@@ -46,13 +46,16 @@ Route::group([
 //NavbarCategoryRoutes
     Route::get('category', 'CategoryController@getItem');
 
-    Route::get('products', 'ProductController@getAllProduct');
-  //  Route::get('product/{cid}', 'ProductController@getProduct');
-    Route::get('category/{cid}', 'ProductController@getProduct');
+    Route::get('product', 'ProductController@getProduct');
 
 
-    Route::post('coupons','CouponController@getCoupon');
+//Checkout
 
+Route::post('checkDetails','OrderController@saveOrder');
+
+//payment
+
+Route::post('checkoutDetails','PaymentController@store');
 
 
 
