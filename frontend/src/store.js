@@ -16,6 +16,7 @@ export default new Vuex.Store({
         loader:false,
         user:null,
         tempEmailToVerify:null,
+        category:[],
         
         
         cart: cart ? JSON.parse(cart) : [],
@@ -32,6 +33,17 @@ export default new Vuex.Store({
                 return state.user
             }else{
                 state.user=null
+                return false;
+            }
+            
+            
+        },
+
+        getCategory: state => {
+            if(state.category){
+                return state.category
+            }else{
+                state.category=null
                 return false;
             }
             
@@ -109,6 +121,9 @@ export default new Vuex.Store({
         setEmailToVerify(state,payload){
             state.tempEmailToVerify=payload;
         },
+        setCategory(state,payload){
+            state.category=payload;
+        },
 
 
 
@@ -172,6 +187,10 @@ export default new Vuex.Store({
         
         setEmailToVerify(context,payload){
             context.commit('setEmailToVerify', payload)
+        },
+
+        category(context,payload){
+            context.commit('setCategory', payload)
         },
         
       },
