@@ -338,11 +338,6 @@
 
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3641d58ab9d88420a4f9c2bf55c38cedc35a135c
 <script>
 import axios from "axios";
 import navDrawer from "../admin/navDrawer.vue";
