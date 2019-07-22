@@ -206,8 +206,8 @@ export default {
       dialog: false,
       products: [],
       selectedItem: null,
-      value: 1,
-      max: 5,
+      value: 100,
+      max: 500,
       newValue: 0
     };
   },
@@ -244,14 +244,14 @@ export default {
       if (this.value >= this.max) {
         alert("Available only " + this.max + " units");
       } else {
-        this.value++;
+        this.value=this.value+100;
       }
     },
     decrement() {
-      if (this.value === 1) {
+      if (this.value === 0) {
         alert("Negative quantity not allowed");
       } else {
-        this.value--;
+        this.value=this.value-100;
       }
     },
 
