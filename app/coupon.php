@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class product extends Model
+class coupon extends Model
 {
-    
-    protected $primaryKey = 'PID';
+    protected $primaryKey = 'couponID';
 }

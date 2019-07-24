@@ -1,11 +1,18 @@
 <template>
 <div id="app">
+  <v-app>
 <navbar></navbar>
+ <v-content>
+      
+      <router-view :key="$route.fullPath"></router-view>
+      
+    </v-content>
+  
 <footers></footers>
  
 <LOADER></LOADER>
    
-      
+      </v-app>
     
 </div>
 </template>
@@ -96,5 +103,7 @@ import axios from 'axios'
 </script>
 
 <style>
-
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Rye&display=swap');
 </style>

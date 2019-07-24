@@ -1,14 +1,33 @@
 <template>
   <div id="app">
-    <v-app id="inspire"> 
-       <v-card class="cardmargin" >
+    <v-app id="inspire">
       <v-container grid-list-sm text-xs-center>
+        <h1 class="custom-font1">{{pageTitle}}</h1>
+
+
+        <v-container v-if="searchMode">
+<v-layout row wrap align-center justify-center>
+         <v-flex xs10 sm10 md9 lg8>
+          <v-text-field
+            label="Search"
+            outline
+            v-model="keywords"
+            color=#E65100
+            placeholder="Find your box using color,size"    
+          ></v-text-field>
+          </v-flex>
+           <v-btn icon @click="search" large>
+          <v-icon large color=#E65100>search</v-icon>
+        </v-btn>
+        </v-layout>
+        </v-container>
+
         
         <v-layout row wrap justify-space-between>
-          <v-flex v-for="(item, i) in products" :key="i" xs4 class="pr-2">
-            <br>
-            <v-card light ripple align="center" @click="productPreview(products[i])">
-              <v-img contain class="white--text" align="center" :src="products[i].Image">
+          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
+            <br />
+            <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
+              <v-img contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
                     <v-flex xs12 align-end flexbox>
@@ -17,44 +36,51 @@
                   </v-layout>
                 </v-container>
               </v-img>
-              <v-card-title>
-              
-                  <v-flex xs12 sm5 md5>
-                  <span
-                    class="title blue--text"
-                  >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
-                  <br>
 
-                  <v-rating readonly small dense background-color="orange" color="orange"></v-rating>
-                  <span class="title">
-                    <v-btn large color="info">{{products[i].Price}}</v-btn>
-                  </span> &nbsp;
+              <v-card-title>
+                <v-flex xs9 sm12 offset-sm0>
+                  <span class="title --text">
+                    <h2 class="product-description">{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
+                  </span>
+
+                  <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
+                    <h4>SALE!</h4>
+                  </v-chip>
+
+                  <v-rating readonly small dense background-color="brown" color="brown"></v-rating>
+
                   <del class>
-                    <v-btn disabled>$50</v-btn>
-                  </del>
-                </v-flex >
+                    <v-chip label color="white" text-color="brown lighten-3">
+                      <h5>$50</h5>
+                    </v-chip>
+                  </del>&nbsp;
+                  <span class="title">
+                    <v-chip label color="white" text-color="grey darken-4">
+                      <h4>${{products[i].Price}}</h4>
+                    </v-chip>
+                  </span>
+                </v-flex>
               </v-card-title>
               <v-card-actions>
+                &nbsp;
                 <v-btn
                   large
                   round
                   depressed
-                  color="#29B6F6"
-                  outline
+                  color="brown lighten-3"
+                  outline-color="dark"
                   class="mx-auto"
                   @click="productPreview(products[i])"
-                >View</v-btn>
+                >Product View</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
-      
       </v-container>
-        </v-card>
 
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="1200px">
-          <v-card v-if="selectedItem">
+          <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
                 <span aria-hidden="true">×</span>
@@ -135,9 +161,9 @@
                                   <input
                                     @change="valid()"
                                     type="number"
-                                    v-model="value"
+                                    v-model.number="value"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                                  >
+                                  />
                                 </div>
                                 <div class="mpbtn plus" v-on:click="increment()">+</div>
                               </div>
@@ -149,7 +175,6 @@
 
                     <div class="text-xs- mt-5">
                       <v-rating
-                      
                         color="yellow darken-3"
                         background-color="grey darken-1"
                         empty-icon="$vuetify.icons.ratingFull"
@@ -161,7 +186,13 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn
+                        color="warning"
+                        dark
+                        outline
+                        round
+                        @click="addToCart(selectedItem,value)"
+                      >Add to cart</v-btn>
                       <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
                     </v-card-actions>
                   </v-flex>
@@ -181,18 +212,21 @@
 
 <script>
 import axios from "axios";
-import Vue from 'vue'
+import Vue from "vue";
 
 export default {
+  props: ["pageTitle", "products","searchMode"],
   data() {
     return {
+      
       page: 1,
       dialog: false,
       products: [],
       selectedItem: null,
       value: 1,
       max: 5,
-      newValue: 0
+      newValue: 0,
+      keywords:"",
     };
   },
 
@@ -201,17 +235,44 @@ export default {
   // }),
 
   mounted() {
-    this.productItems();
+    this.productItems(this.$route.path);
+  },
+
+  computed: {
   },
 
   methods: {
-    productItems() {
+
+    search() {
+      
+      const formData = new FormData();
+      formData.append("keywords", this.keywords);
+
       axios
-        .get("http://localhost:8000/api/product")
+        .post("http://localhost:8000/api/search", formData)
+        .then(response => {
+          this.products=response.data.products;
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
+    productItems($path) {
+      axios
+        .get("http://localhost:8000/api" + $path)
         .then(response => {
           this.products = response.data.product;
 
-          console.log(this.products);
+
+this.pageTitle = this.$store.getters.getCategory.find(
+            element => element.CID === this.products[0].CID
+          ).CName;
+
+          
+
+          //   console.log(this.products);
         })
         .catch(error => {
           console.log(error.response);
@@ -239,8 +300,8 @@ export default {
       }
     },
 
-    addToCart(selectedItem,value){
-       this.$store.commit('addToCart', selectedItem,value);
+    addToCart(selectedItem) {
+      this.$store.commit("addToCart", selectedItem);
     },
 
     valid() {
@@ -249,22 +310,19 @@ export default {
       }
     },
 
+    addToCart(selectedItem, value) {
+      // console.log(selectedItem);
+      Vue.set(selectedItem, "qty", value);
 
+      this.$store.commit("addToCart", selectedItem);
+      this.dialog = false;
+      this.value = 1;
 
-    addToCart(selectedItem,value){
-       // console.log(selectedItem);
-      Vue.set(selectedItem, 'qty', value);
-      
-        this.$store.commit('addToCart', selectedItem);
-        this.dialog=false;
-        this.value=1;
+      // console.log(value);
 
-   // console.log(value);
-    
-        //console.log(window.localStorage.getItem('cart'));
-        //console.log(window.localStorage.getItem('cartCount'));
+      //console.log(window.localStorage.getItem('cart'));
+      //console.log(window.localStorage.getItem('cartCount'));
     }
-
   }
 };
 </script>
@@ -279,7 +337,6 @@ export default {
   position: absolute;
   width: 100%;
 }
-
 
 .layout.row.wrap.justify-space-between {
   margin-left: -60px;
@@ -332,20 +389,47 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 20px !important;
 }
 
+.v-rating.v-rating--readonly.v-rating--dense {
+  padding-bottom: 10px;
+  margin-top: 20px !important;
+}
 
-
-
-
-
-
-  td { 
-    width:130px; 
-    height:40px; 
-    text-align:center; 
-    padding:5px
-  
+td {
+  width: 130px;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
 }
 .cardmargin.v-card.v-sheet.theme--light {
-    margin: 90px;
+  margin: 90px;
 }
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+h2 {
+  margin-bottom: 20px;
+}
+
+.custom-font1{
+  font-family: 'Dancing Script', cursive;
+  font-size: 6em;
+  color:#FFA000;
+}
+
+.custom-font3{
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5em;
+  color:rgba(129, 91, 24, 0.788);
+}
+
+
+.product-description{
+  font-family: 'Rye', cursive;
+  font-size: 2em;
+  color:rgba(129, 91, 24, 0.788);
+}
+
+
+
 </style>
