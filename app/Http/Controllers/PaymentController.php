@@ -46,9 +46,9 @@ class PaymentController extends Controller
         
        
         
-        $url="https://sandbox.payhere.lk/pay/checkout";
+        //$url="https://sandbox.payhere.lk/pay/checkout";
 
-        $method = 'POST';
+        //$method = 'POST';
         
         $data = array([
                 "merchant_id"=> $merchant_id,
@@ -59,18 +59,19 @@ class PaymentController extends Controller
                 "status_code" => $status_code,
                 "md5sig" => $md5sig
         ]);
+        return response()->json(['message'=>$data]);
     
         $data_string = json_encode($data);
 
-        $ch = curl_init($url); 
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST,$method);
+        $ch = curl_init('https://sandbox.payhere.lk/pay/checkout'); 
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST,'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = curl_exec($ch); 
         curl_close($ch);
-        //print_r($result);
-
+       
+     return response()->json(['message'=>$result]);
       
     }
 
