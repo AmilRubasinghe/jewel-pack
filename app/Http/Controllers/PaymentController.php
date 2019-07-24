@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use App\payment;
 use Illuminate\Http\Request;
 
@@ -17,6 +20,13 @@ class PaymentController extends Controller
         //
     }
 
+
+    public function checkoutNotify(Request $request)
+    {
+        //Function to handle the callback of payHere
+        //Required information should be save using $request
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +37,7 @@ class PaymentController extends Controller
        
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,6 +46,9 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+
+        
+       
         
         $merchant_id = $request->input('merchant_id');
         $order_id = $request->input('order_id');

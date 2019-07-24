@@ -15,7 +15,7 @@
         <v-layout row wrap align-center justify-center justify-space-between>
           <v-flex xs8>
             <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
-              <v-layout align-center column justify-center color="blue">
+              <v-layout align-center column justify-center>
                 <h1
                   style="align:center;"
                   class="custom-font3 "
@@ -335,36 +335,16 @@
         <!-- ..............Jewellery display.............................-->
         <div class="container"></div>
 
-        <v-layout row wrap>
-          <v-flex xs6>
-            <v-layout align-center column justify-center color="blue">
-              <h3
-                style="color:#BF360C;"
-                class="display-3 font-weight-400 font-italic mb-1"
-              >Great for</h3>
-              <h3
-                style="color:#BF360C;"
-                class="display-3 font-weight-400 font-italic mb-1"
-              >storage or display</h3>
-              <h4 style="color:#BF360C;" class="display-2 font-weight-400 font-italic mb-1">of</h4>
-              <h3
-                style="color:#BF360C;"
-                class="display-3 font-weight-400 font-italic mb-1"
-              >Jewellary & Gems</h3>
-            </v-layout>
-          </v-flex>
-
-          <v-flex xs6>
-            <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
+       
+            <v-parallax src="http://localhost:8000/storage/slideshow/1563280490-11071592_1621554201423818_8781376146243943971_o.jpg">
               <v-layout align-center column justify-center color="blue">
                 <h1
-                  style="color:#FFFFFF; align:center;"
-                  class="display-4 font-weight-thin mb-3"
+                  style="align:center;"
+                  class="custom-font3 "
                 >JewelPack</h1>
               </v-layout>
             </v-parallax>
-          </v-flex>
-        </v-layout>
+          
 
         <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
