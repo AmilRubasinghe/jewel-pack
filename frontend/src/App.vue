@@ -1,11 +1,18 @@
 <template>
 <div id="app">
+  <v-app>
 <navbar></navbar>
+ <v-content>
+      
+      <router-view :key="$route.fullPath"></router-view>
+      
+    </v-content>
+  
 <footers></footers>
  
 <LOADER></LOADER>
    
-      
+      </v-app>
     
 </div>
 </template>

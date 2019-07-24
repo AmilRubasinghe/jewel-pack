@@ -27,7 +27,7 @@
                   <v-flex xs9 sm12 offset-sm0>
                   <span
                     class="title --text"
-                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}White&nbsp; Colour Box</h2></span>
+                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
                    <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
                           <h4>SALE!</h4>
@@ -38,7 +38,7 @@
                   
                   <del class>
                    <v-chip label color="white" text-color="brown lighten-3">
-                          <h5>$ 50</h5>
+                          <h5>$50</h5>
                        </v-chip>
                   </del>&nbsp;
                   <span class="title">
@@ -86,7 +86,7 @@
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/3" :src="selectedItem.Image">
+                        <v-img :aspect-ratio="4/4" :src="selectedItem.Image">
                           <v-expand-transition>
                             <div
                               v-if="hover"
@@ -137,6 +137,27 @@
                             </span>
                           </td>
                         </tr>
+                          <tr id="priceblock_dealquantity_row">
+                          <td
+                            id="priceblock_dealquantity_lbl"
+                            class="a-color-secondary a-size-base a-text-right a-nowrap"
+                          >Lot Size:</td>
+                          <td class="a-span12">
+                             <v-flex xs12 sm12 md11 d-flex offset-xs0 offset-lg1 >
+                  <v-select
+                    label="Sizes"
+                    :items="sizes"
+                    item-text="SName"
+                    item-value="CID"
+                    
+                    v-model.number="size"
+                   
+                   
+                  ></v-select>
+                </v-flex>
+                            
+                          </td>
+                        </tr>
 
                         <tr id="quantity_row">
                           <td
@@ -151,7 +172,7 @@
                                   <input
                                     @change="valid()"
                                     type="number"
-                                    v-model="value"
+                                    v-model.number="value"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                                   >
                                 </div>
@@ -177,8 +198,8 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round @click="addToCart(selectedItem,value)">Add to cart</v-btn>
-                      <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
+                      <v-btn color="warning" dark outline round  @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round >Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -206,9 +227,14 @@ export default {
       dialog: false,
       products: [],
       selectedItem: null,
-      value: 100,
+      value: 0,
       max: 500,
-      newValue: 0
+      min:0,
+      newValue: 0,
+      size: 0,
+      
+
+      sizes: ["25", "50", "100", "150", "200"],
     };
   },
 
@@ -217,13 +243,14 @@ export default {
   // }),
 
   mounted() {
-    this.productItems();
+    this.productItems(this.$route.path);
+    console.log(this.$route.path);
   },
 
   methods: {
-    productItems() {
+    productItems($path) {
       axios
-        .get("http://localhost:8000/api/product/1")
+        .get("http://localhost:8000/api"+$path)
         .then(response => {
           this.products = response.data.product;
 
@@ -237,21 +264,26 @@ export default {
 
     productPreview(item) {
       this.selectedItem = item;
+      this.size = 0;
+      this.value=0;
+      
       this.dialog = true;
     },
 
     increment() {
       if (this.value >= this.max) {
         alert("Available only " + this.max + " units");
+        this.value=this.max;
       } else {
-        this.value=this.value+100;
+        this.value=this.value+this.size;
       }
     },
     decrement() {
-      if (this.value === 0) {
+      if (this.value <= this.min) {
         alert("Negative quantity not allowed");
+         this.value=this.min;
       } else {
-        this.value=this.value-100;
+        this.value=this.value-this.size;
       }
     },
 
@@ -262,6 +294,9 @@ export default {
     valid() {
       if (this.value >= this.max) {
         this.value = this.max;
+      }
+      else if (this.value <= this.min) {
+        this.value = this.min;
       }
     },
 
@@ -374,5 +409,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 h2 {
     margin-bottom: 20px;
+}
+.flex.xs12.sm12.md11.d-flex.offset-xs0.offset-lg1 {
+    margin: 0px;
+    padding: 0px;
 }
 </style>

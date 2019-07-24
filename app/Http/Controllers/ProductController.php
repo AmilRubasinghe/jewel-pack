@@ -32,9 +32,25 @@ class ProductController extends Controller
 
    // $product=product::all();
    
-    $product = product::where('CID', '=', $cid)->get();
+    $product = product::where([
+      ['CID', '=', $cid],
+      ['isDeleted', '=', 0],
+      
+      ])->get();
     return response()->json(['product'=>$product],200);
   }
+
+
+  public function search(Request $request){
+
+    $query = $request->input('keywords');
+    $products = product::where('Size','LIKE','%'.$query.'%')->orWhere('Colour','LIKE','%'.$query.'%')->get();
+    if(count($products) > 0)
+        return response()->json(['products'=>$products],200);
+    else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+ 
+ 
+}
 
 
     
@@ -43,14 +59,23 @@ class ProductController extends Controller
 
 
     public function addProduct(Request $request){
+    //  return $request->input('data');
+      //return $request->input('size');
+
+      $image = $request->file('file');
+      $filename = time().'-'.$image->getClientOriginalName();
+       $image->storeAs('public/product',$filename);
+
 
       $table = new product;
       
       $table->Size = $request->input('size');
+      $table->CID = $request->input('cid');
       $table->Colour = $request->input('colour');
       $table->Quantity = $request->input('quantity');
       $table->Price = $request->input('price');
-      $table->Image = $request->input('image');
+      $table->Image = url('/').'/storage/product/'.$filename;
+      $table->ImageName = $filename;
 
       $table->save();
 
@@ -60,6 +85,8 @@ class ProductController extends Controller
       
       
 }
+
+
 
 
 public function editProduct(Request $request, $productId){

@@ -37,7 +37,7 @@ Route::group([
     Route::post('login', 'UserController@loginUser');
     Route::post('register','UserController@registerUser');
     Route::post('resendvEmail','UserController@resendvEmail');
-    
+    Route::post('search','ProductController@search');
     
     
     Route::post('guard','UserController@guard');
@@ -47,10 +47,14 @@ Route::group([
     Route::get('category', 'CategoryController@getItem');
 
     Route::get('products', 'ProductController@getAllProduct');
-    Route::get('product/{cid}', 'ProductController@getProduct');
+  //  Route::get('product/{cid}', 'ProductController@getProduct');
+    Route::get('category/{cid}', 'ProductController@getProduct');
 
 
     Route::post('coupons','CouponController@getCoupon');
+
+
+
 
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {
@@ -82,7 +86,8 @@ Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {
     
 Route::post('storeImage', 'SlideshowController@storeImage');
 Route::post ( 'edititems/{id}', 'SlideshowController@editItem' );
-Route::post ( 'deleteSlideshow/{id}', 'SlideshowController@deleteItem' );
+Route::post ( 'deleteSlideshow', 'SlideshowController@deleteItem' );
+
 
 
 
@@ -91,7 +96,9 @@ Route::post('editProduct/{id}','ProductController@editProduct');
 Route::post('deletedProducts','ProductController@getDeletedProducts');
 Route::post ( 'deleteProduct/{id}', 'ProductController@deleteProduct' );
 Route::post('restoreProduct/{id}', 'ProductController@restoreProduct');
-    
-    
+
+
+Route::post('upload/product','uploadController@storeProduct');
+Route::post('upload/profile','uploadController@storeProfile'); 
 });
 Route::get('getImages', 'SlideshowController@getImages');
