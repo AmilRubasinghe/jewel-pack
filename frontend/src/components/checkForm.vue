@@ -31,12 +31,13 @@
 <script>
 import axios from 'axios';
 import checkVue from './check.vue';
+
 //import checkFormVue from './checkForm.vue';
 export default {
     data(){
         return{
          checkoutDetails:{ 
-            name:"Ridmi Dissanayake",
+            name:"",
             email:"ridmianjula@gmail.com",
             address:"Galle road,Colombo.",  
             merchant_id:"1212709",
