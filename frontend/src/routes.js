@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 
 Vue.use(VueRouter);
+import test from  './components/test.vue'
+
 import loginPage from  './components/loginPage.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
@@ -14,10 +16,13 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
-import gemBoxes from  './components/gemBoxes'
-import jewelleryBoxs from  './components/jewelleryBoxs'
+
+import products from  './components/products'
 import check from  './components/check'
+import checkForm from  './components/checkForm'
+import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
+
 
 
 import Store from './store.js'
@@ -45,6 +50,8 @@ function signout(){
 }
 
 
+
+
 const router = new VueRouter({
     mode:'history',
 
@@ -52,15 +59,21 @@ const router = new VueRouter({
       return { x: 0, y: 0 };
     },
 
+  
+
+    
+
     
     routes:[
+      
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/home",component:home},
-        {path:"/gemBox",component:gemBoxes},
-        {path:"/jewelleryBox",component:jewelleryBoxs},
+        {path:"/category/:id",component:products},
         {path:"/check",component:check},
+        {path:"/checkForm",component:checkForm},
+        {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
@@ -70,6 +83,7 @@ const router = new VueRouter({
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"*",component:test},
     ],
 
 

@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class slideshow extends Model
+class order extends Model
 {
-  protected $primaryKey = 'imageID';  
     //
+    protected $primaryKey = 'OID';
 }

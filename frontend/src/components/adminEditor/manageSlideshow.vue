@@ -32,15 +32,13 @@
                                     <h4>Upload photo</h4>
                                     <span v-if="file" class="file-name">{{file.name}}</span>
                             </label>
-
-
-
-                        
                         </div>
                         
                         </form>
                         </v-card>
             </v-layout>
+
+            
             
             
             
@@ -72,17 +70,11 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.imageID" label="Image ID" disabled></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.size" label="Image Size (Bytes)" ></v-text-field>
+                <v-flex xs12 sm12 md12>
+                  <v-text-field v-model="editedItem.path" label="Image URL"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.image" label="Image URL"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.ext" label="Extention"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.deleteURL" label="Delete URL"></v-text-field>
+                <v-flex xs12 sm12 md12>
+                  <v-text-field v-model="editedItem.name" label="File Name"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -167,9 +159,9 @@
     <template v-slot:items="props">
       <tr :active="props.selected" @click="props.selected = !props.selected">
         <td class="text-xs-left">{{ props.item.imageID }}</td>
-        <td class="text-xs-left">{{ props.item.size }}</td>
-        <td class="text-xs-left">{{ props.item.image }}</td>
-        <td class="text-xs-left"><v-img :src="props.item.image"></v-img></td>
+        <td class="text-xs-left">{{ props.item.name }}</td>
+        <td class="text-xs-left">{{ props.item.path }}</td>
+        <td class="text-xs-left"><v-img :src="props.item.path"></v-img></td>
         <td class="justify-center layout px-0">
           <v-icon
           color="deep-purple darken-1"
@@ -209,17 +201,15 @@ import navDrawer from '../admin/navDrawer.vue';
              editedIndex: -1,
             editedItem: {
                 imageID: 0,
-                size: 0,
-                image: '',
-                ext: '',
-                deleteURL: ''
+                path: '',
+                name: ''
             },
             defaultItem: {
                 imageID: 0,
-                size: 0,
-                image: '',
-                ext: '',
-                deleteURL: ''
+
+                path: '',
+
+                name: ''
             },
 
             
@@ -234,8 +224,8 @@ import navDrawer from '../admin/navDrawer.vue';
 
          headers: [
         { text: 'Image ID', value: 'imageID' },
-        { text: 'Image Size (Bytes)', value: 'size' },
-        { text: 'Image URL', value: 'image' },
+        { text: 'File Name', value: 'name' },
+        { text: 'Image URL', value: 'path' },
         { text: 'Preview', value: 'preview' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
@@ -265,20 +255,46 @@ import navDrawer from '../admin/navDrawer.vue';
     methods:{
         selectFile(event){
             this.file= this.$refs.file.files[0];
+            console.log(this.file.name);
         },
+
+        upload() {
+       let formData = new FormData();
+
+            /*
+                Add the form data we need to submit
+            */
+            formData.append('file', this.file);
+
+        /*
+          Make the request to the POST /single-file URL
+        */
+            axios.post( 'http://localhost:8000/api/upload/slideshow',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(function(){
+          console.log('UPLOAD SUCCESS!!');
+        })
+        .catch(function(){
+          console.log('UPLOAD FAILURE!!');
+        });
+    },
 
         sendFile(){
             const formData = new FormData();
             formData.append('file',this.file,this.file.name);
+            console.log("****");
 
                 let $Token=localStorage.getItem('token');
-
-                  axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs', formData)
+axios.post( 'http://localhost:8000/api/storeImage'+'?token='+$Token,
+// axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
+     // axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs',
+                   formData)
                   .then(response => {
-                      console.log(response)
-                    console.log(response.data.image) 
-                                axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
-                                .then(response => {
                                     this.dialog = false;
                                     this.file="";
                                     this.getSlideshow();
@@ -290,11 +306,7 @@ import navDrawer from '../admin/navDrawer.vue';
                                         console.log(error.response);
                                         console.log("Failed Save img url");
                                 })                 
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        console.log("Upload Failed");
-                    })
+                    
                             
                     },
                   
@@ -348,7 +360,7 @@ import navDrawer from '../admin/navDrawer.vue';
             if (result) {
               let $Token=localStorage.getItem('token');
                 //console.log(item.imageID)
-                axios.post('http://localhost:8000/api/deleteSlideshow/'+item.imageID+'?token='+$Token)
+                axios.post('http://localhost:8000/api/deleteSlideshow/?token='+$Token,item)
                     .then(response => {
                         /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);

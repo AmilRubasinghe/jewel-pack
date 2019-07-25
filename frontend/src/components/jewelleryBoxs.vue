@@ -22,7 +22,7 @@
               </v-img>
               <v-card-title>
                 <div class="mx-5">
-                  <span class="title blue--text">{{products[i].Size}}&nbsp{{products[i].Colour}}&nbsp Colour Box</span>
+                  <span class="title blue--text">{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp; Colour Box</span>
                   <br>
                   <v-rating
                     readonly
@@ -34,7 +34,7 @@
                   ></v-rating> 
                   <span class="title">
                     <v-btn large color="info">{{products[i].Price}}</v-btn>
-                  </span> &nbsp
+                  </span> &nbsp;
                   <del class>
                     <v-btn disabled>$50</v-btn>
                   </del>
@@ -81,7 +81,7 @@ export default {
   methods: {
     productItems() {
       axios
-        .get("http://localhost:8000/api/product")
+        .get("http://localhost:8000/api/product/2")
         .then(response => {
           this.products = response.data.product;
 
