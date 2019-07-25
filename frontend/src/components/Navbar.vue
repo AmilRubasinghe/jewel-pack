@@ -157,7 +157,7 @@
           <v-list>
             <v-list-tile>
               <v-flex xs12 sm6 md3>
-                <v-text-field label="Search" v-model.number="term" v-debounce="delay"></v-text-field>
+                <v-text-field label="Search" v-model.number="term" ></v-text-field>
               </v-flex>
 
               <v-btn icon @click.native.stop="modalModel=true">
