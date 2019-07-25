@@ -373,7 +373,7 @@ import navDrawer from '../admin/navDrawer.vue';
             console.log(this.editedItem);
             this.showModal = true
         },
-
+ 
         deleteItem (item) {
             
             var result = confirm("Want to delete "+item.firstName+"?");

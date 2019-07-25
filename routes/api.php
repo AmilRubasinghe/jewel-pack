@@ -47,6 +47,13 @@ Route::group([
     Route::get('category', 'CategoryController@getItem');
 
     Route::get('product', 'ProductController@getProduct');
+
+
+
+
+
+    Route::post('coupon','CouponController@getCoupon');
+
     
 
 //userModuleProtectedRoutes
@@ -70,6 +77,8 @@ Route::group([
         
         
     });
+
+    
     
 //SlideshowModuleRoutes
 
