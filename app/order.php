@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class order extends Model
 {
-    protected $primaryKey = 'CID';
+    //
+    protected $primaryKey = 'OID';
 }

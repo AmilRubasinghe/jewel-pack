@@ -1,5 +1,41 @@
 <template>
   <div id="inspire">
+    
+    <v-layout row justify-center>
+
+      <v-dialog v-model="searchDialog" fullscreen transition="dialog-bottom-transition" >
+        
+        <v-card class="search-dialog">
+          <v-toolbar flat prominent height="80">
+            <v-layout justify-right>
+              <v-toolbar-title>
+                <span class="font-weight-light">Jewel</span>
+          <span>Pack</span>
+              </v-toolbar-title>
+              </v-layout>
+            
+            
+  
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+              <v-btn icon @click.native="searchDialog=!searchDialog" large>
+              <v-icon>close</v-icon>
+            </v-btn>
+            </v-toolbar-items>
+          </v-toolbar>
+         
+ 
+        <products pageTitle="Search Box" searchMode='true' class="search-dialog"></products>
+        
+
+
+
+        </v-card>
+      </v-dialog>
+    </v-layout>
+
+
+
     <v-toolbar app flat prominent height="80" scroll-off-screen>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
@@ -13,11 +49,9 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-flex xs12 sm6 md3>
-          <v-text-field type="search" label="Search" @change="debounceInput"></v-text-field>
-        </v-flex>
+        
 
-        <v-btn icon @click="search">
+        <v-btn icon @click="searchDialog=true" large>
           <v-icon>search</v-icon>
         </v-btn>
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -123,7 +157,7 @@
           <v-list>
             <v-list-tile>
               <v-flex xs12 sm6 md3>
-                <v-text-field label="Search" v-model.number="term" v-debounce="delay"></v-text-field>
+                <v-text-field label="Search" v-model.number="term" ></v-text-field>
               </v-flex>
 
               <v-btn icon @click.native.stop="modalModel=true">
@@ -250,7 +284,7 @@
       class="drawer card-5"
     >
 
-    
+
         <v-list>
           <v-list-tile
             @click.stop="drawer = !drawer"
@@ -258,10 +292,10 @@
             :key="item.title"
             :to="{path: item.path}"
           >
-            <v-list-tile-action align-center justify-center>
+            <v-list-tile-action >
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content align-center justify-center>
+            <v-list-tile-content >
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -283,7 +317,7 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-img>
+      
     </v-navigation-drawer>
   </div>
 </template>
@@ -294,16 +328,21 @@ import { mapState } from "vuex";
 import { mapGetters } from "vuex";
 import axios from "axios";
 import Store from "../store.js";
+import products from "./products.vue";
+import test from "./test";
 import footers from "./footers.vue";
 import _ from 'lodash';
 import debounce from "v-debounce";
 
 export default {
   name: "App",
+  components: {
+    
+    'products':products,
+  },
 
   data() {
     return {
-      userId : '123',
       transitionName: "slide-left",
       delay: 1000,
       adminDrawItems: [
@@ -326,13 +365,17 @@ export default {
           { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
         ],*/
       appTitle: "JewelPack",
+      searchDialog:false,
       drawer: false,
+      
       mobileDrawer: false,
       token: "",
 
       term: '',
+      results:[],
       //debounceInput: null,
       filterKey: "",
+      
 
       menuItems: [
         { title: "Home", path: "/home", icon: "home" }
@@ -361,9 +404,7 @@ export default {
     };
   },
 
-  components: {
-    footers: footers
-  },
+  
 
   beforeRouteUpdate(to, from, next) {
     const toDepth = to.path.split("/").length;
@@ -383,19 +424,6 @@ export default {
     cPath($id) {
       var $path="category/" + $id;
       return $path;
-    },
-
-    search() {
-      const formData = new FormData();
-      formData.append("keywords", this.keywords);
-
-      axios
-        .post("http://localhost:8000/api/search", formData)
-        .then(response => {})
-        .catch(error => {
-          console.log(error.response);
-          console.log("ERROR");
-        });
     },
     logout() {
       let $Token = localStorage.getItem("token");
@@ -423,7 +451,7 @@ export default {
         .get("http://localhost:8000/api/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
-
+          this.$store.commit("setCategory", this.categoryItems);
           //console.log(this.categoryItems);
         })
         .catch(error => {
@@ -487,6 +515,11 @@ export default {
 
 .drawer:hover {
   opacity: 0.9;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+.search-dialog {
+  opacity: 1;
   filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 </style>
