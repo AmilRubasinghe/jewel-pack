@@ -38,14 +38,16 @@
               </v-img>
 
               <v-card-title>
-                <v-flex xs9 sm12 offset-sm0>
-                  <span class="title --text">
-                    <h2 class="product-description">{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
-                  </span>
-
-                  <v-chip label color="brown lighten-1" text-color="brown lighten-1" outline>
-                    <h4>SALE!</h4>
-                  </v-chip>
+              
+                  <v-flex xs9 sm12 offset-sm0>
+                  <span
+                    class="title --text"
+                  ><h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
+                 
+                   <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
+                          <h4>SALE!</h4>
+                       </v-chip>
+                  
 
                   <v-rating readonly small dense background-color="brown" color="brown"></v-rating>
 
@@ -55,11 +57,12 @@
                     </v-chip>
                   </del>&nbsp;
                   <span class="title">
-                    <v-chip label color="white" text-color="grey darken-4">
-                      <h4>${{products[i].Price}}</h4>
-                    </v-chip>
-                  </span>
-                </v-flex>
+                      <v-chip label color="white" text-color="brown darken-3">
+                          <h4>$ {{products[i].Price}}</h4>
+                       </v-chip>
+                   
+                  </span> 
+               </v-flex>
               </v-card-title>
               <v-card-actions>
                 &nbsp;
@@ -67,7 +70,7 @@
                   large
                   round
                   depressed
-                  color="brown lighten-3"
+                  color="brown lighten-4"
                   outline-color="dark"
                   class="mx-auto"
                   @click="productPreview(products[i])"
@@ -96,7 +99,7 @@
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/3" :src="selectedItem.Image">
+                        <v-img :aspect-ratio="4/4" :src="selectedItem.Image">
                           <v-expand-transition>
                             <div
                               v-if="hover"
@@ -147,6 +150,27 @@
                             </span>
                           </td>
                         </tr>
+                          <tr id="priceblock_dealquantity_row">
+                          <td
+                            id="priceblock_dealquantity_lbl"
+                            class="a-color-secondary a-size-base a-text-right a-nowrap"
+                          >Lot Size:</td>
+                          <td class="a-span12">
+                             <v-flex xs12 sm12 md11 d-flex offset-xs0 offset-lg1 >
+                  <v-select
+                    label="Sizes"
+                    :items="sizes"
+                    item-text="SName"
+                    item-value="CID"
+                    
+                    v-model.number="size"
+                   
+                   
+                  ></v-select>
+                </v-flex>
+                            
+                          </td>
+                        </tr>
 
                         <tr id="quantity_row">
                           <td
@@ -186,14 +210,8 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn
-                        color="warning"
-                        dark
-                        outline
-                        round
-                        @click="addToCart(selectedItem,value)"
-                      >Add to cart</v-btn>
-                      <v-btn color="warning" dark outline round @click="dialog=false">Close</v-btn>
+                      <v-btn color="warning" dark outline round  @click="addToCart(selectedItem,value)">Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round >Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -282,21 +300,26 @@ this.pageTitle = this.$store.getters.getCategory.find(
 
     productPreview(item) {
       this.selectedItem = item;
+      this.size = 0;
+      this.value=0;
+      
       this.dialog = true;
     },
 
     increment() {
       if (this.value >= this.max) {
         alert("Available only " + this.max + " units");
+        this.value=this.max;
       } else {
-        this.value++;
+        this.value=this.value+this.size;
       }
     },
     decrement() {
-      if (this.value === 1) {
+      if (this.value <= this.min) {
         alert("Negative quantity not allowed");
+         this.value=this.min;
       } else {
-        this.value--;
+        this.value=this.value-this.size;
       }
     },
 
@@ -307,6 +330,9 @@ this.pageTitle = this.$store.getters.getCategory.find(
     valid() {
       if (this.value >= this.max) {
         this.value = this.max;
+      }
+      else if (this.value <= this.min) {
+        this.value = this.min;
       }
     },
 

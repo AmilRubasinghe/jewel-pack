@@ -352,7 +352,8 @@ export default {
         { title: "Products", icon: "business_center", path: "products" },
         { title: "Category", icon: "reorder", path: "category" },
         { title: "Reports", icon: "file_copy", path: "reports" },
-        { title: "Slide Show", icon: "photo_library", path: "slideshow" }
+        { title: "Slide Show", icon: "photo_library", path: "slideshow" },
+        { title: "LotQuantity", icon: "add_to_photos", path: "lotQuantity" },
       ],
       /*userDrawItems: [
           { title: 'Dashboard', icon: 'dashboard' ,path:'' },
