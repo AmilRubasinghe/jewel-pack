@@ -22,21 +22,7 @@ s
             </v-card-text>
           </v-flex>
 
-          <v-flex xs12 md3>
-            <form>
-              <v-flex md7 xs6 sm2>
-                <v-text-field label="Full Name" readonly></v-text-field>
-              </v-flex>
-
-              <v-flex md7 xs6 sm2>
-                <v-text-field label="Email" readonly></v-text-field>
-              </v-flex>
-
-              <v-flex md7 xs6 sm2>
-                <v-text-field label="Contact No" readonly></v-text-field>
-              </v-flex>
-
-              <v-dialog v-model="dialog">
+          <v-dialog v-model="dialog">
                 <v-card>
                   <v-card-title>
                     <span class="headline">Edit User</span>
@@ -74,21 +60,41 @@ s
                 </v-card>
               </v-dialog>
 
+          <v-flex md4 xs6 sm6>
+            
+              <v-flex md7 xs6 sm6 lg6>
+                <v-text-field label="Full Name" readonly></v-text-field>
+              </v-flex>
+
+              <v-flex md7 xs6 sm6>
+                <v-text-field label="Email" readonly></v-text-field>
+              </v-flex>
+
+              <v-flex md7 xs6 sm6>
+                <v-text-field label="Contact No" readonly></v-text-field>
+              </v-flex>
+
+<v-container>
+<v-layout align-center justify-center>
+  
               <v-btn @click="dialog=true">Update</v-btn>
-            </form>
+              
+              </v-layout>
+              </v-container>
+            
           </v-flex>
 
-          <v-flex xs12 md5>
+          <v-flex xs6 sm6 md4>
             <form>
-              <v-flex md10>
+              <v-flex >
                 <v-text-field v-model="fullname" readonly></v-text-field>
               </v-flex>
 
-              <v-flex md10>
+              <v-flex >
                 <v-text-field v-model="user.email" readonly></v-text-field>
               </v-flex>
 
-              <v-flex md10>
+              <v-flex >
                 <v-text-field v-model="user.contactNo" readonly></v-text-field>
               </v-flex>
             </form>

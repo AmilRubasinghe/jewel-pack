@@ -106,4 +106,5 @@ import axios from 'axios'
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap');
 </style>
