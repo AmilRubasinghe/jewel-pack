@@ -32,7 +32,7 @@
           <v-dialog v-model="dialog">
             <v-card>
               <v-card-title>
-                <span class="headline">Edit User</span>
+                <span class="headline">Edit Userr</span>
               </v-card-title>
 
               <v-card-text>
