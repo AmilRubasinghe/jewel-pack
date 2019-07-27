@@ -1,6 +1,7 @@
 <template>
     <div>
         <v-container>
+            <notification v-if="notify"  :message="notify" :type="status"></notification>
         <form>
             <h1>What's your email?</h1>
             <v-text-field
@@ -21,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import notification from "./notification.vue";
 
 export default {
 
@@ -30,11 +32,18 @@ export default {
             User:{
             email:'',
         },
+        notify:'',
+        status:'',
         }
         
     },
+
+    components: {
+    notification
+  },
     methods:{
         sendPasswordResetLink(){
+            this.notify='',
             this.$validator.validateAll();
 
             axios
@@ -44,9 +53,13 @@ export default {
           )
 
           .then(response => {
+              this.notify=response.data.data;
+              this.status=2;
               
           })
           .catch(error => {
+              this.notify=error.response.data.error;
+              this.status=0;
           console.log(error.response);
           console.log("ERROR");
         });;

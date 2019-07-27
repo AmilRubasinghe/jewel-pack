@@ -1,5 +1,6 @@
 <template>
   <div id="inspire">
+    
     <v-layout row justify-center>
       <v-dialog v-model="searchDialog" fullscreen transition="dialog-bottom-transition">
         <v-card class="search-dialog">
@@ -260,159 +261,7 @@
 
     
 
-    <!-- <v-toolbar app flat prominent class="hidden-lg-and-up">
-      <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-          <span class="font-weight-light">Jewel</span>
-          <span>Pack</span>
-        </router-link>
-      </v-toolbar-title>
-      <v-divider class="mx-3" inset vertical></v-divider>
-
-      <v-spacer></v-spacer>
-
-      <v-dialog
-        v-model="mobileDrawer"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-      >
-        <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-        <v-card>
-          <v-toolbar flat prominent height="80" scroll-off-screen>
-            <v-toolbar-title>
-              <router-link to="/" tag="span" style="cursor: pointer">
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-                <span class="font-weight-light">Jewel</span>
-                <span>Pack</span>
-              </router-link>
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon @click.native="mobileDrawer = !mobileDrawer">
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-toolbar>
-
-          <v-list>
-            <v-list-tile>
-              <v-flex xs12 sm6 md3>
-                <v-text-field label="Search" v-model.number="term" ></v-text-field>
-              </v-flex>
-
-              <v-btn icon @click.native.stop="modalModel=true">
-                <v-icon>search</v-icon>
-              </v-btn>
-            </v-list-tile>
-
-            <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.path">
-              >
-              <v-list-tile-action>
-                <v-icon v-if="item.icon">{{item.icon}}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title :title="item.title">{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile to="/cartView">
-              >
-              <v-list-tile-action>
-                <v-icon left dark color="black">shopping_cart</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>Cart</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile to="/gemBox">
-              >
-              <v-menu offset-y open-on-hover>
-                <template v-slot:activator="{ on }">
-                  <v-btn flat v-on="on">
-                    <v-icon left dark>{{ 'reorder' }}</v-icon>categories
-                    <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-tile v-for="item in categoryItems" :key="item.CID" :to="cPath(item.CID)">
-                    <v-icon left>{{ item.icon }}</v-icon>
-                    <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </v-list-tile>
-
-            <v-list-tile v-if="!user" v-for="item in userItems" :key="item.title" :to="item.path">
-              >
-              <v-list-tile-action>
-                <v-icon left dark>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.title}}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile v-if="user" v-for="item in regItems" :key="item.title" :to="item.path">
-              >
-              <v-list-tile-action>
-                <v-icon left>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.title}}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile
-              v-if="role=='admin'"
-              v-for="item in adminItems"
-              :key="item.title"
-              :to="item.path"
-            >
-              >
-              <v-list-tile-action>
-                <v-icon left>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.title}}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile
-              v-if="role=='editor'"
-              v-for="item in editorItems"
-              :key="item.title"
-              :to="item.path"
-            >
-              >
-              <v-list-tile-action>
-                <v-icon left>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.title}}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile v-if="user" @click="logout">
-              >
-              <v-list-tile-action>
-                <v-icon left>{{ 'exit_to_app' }}</v-icon>
-              </v-list-tile-action>
-
-              <v-list-tile-content>
-                <v-list-tile-title>Logout</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-card>
-      </v-dialog>
-    </v-toolbar>
-    -->
+   
 
     <v-navigation-drawer
       v-if="role=='admin'"
@@ -489,15 +338,6 @@ export default {
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" }
       ],
-      /*userDrawItems: [
-          { title: 'Dashboard', icon: 'dashboard' ,path:'' },
-          { title: 'Users', icon: 'supervised_user_circle' ,path:'users' },
-          { title: 'Orders', icon: 'library_books' , path:'orders'},
-          { title: 'Products', icon: 'business_center' , path:'products'},
-          { title: 'Category', icon: 'reorder' , path:'category'},
-          { title: 'Reports', icon: 'file_copy' , path:'reports'},
-          { title: 'Slide Show', icon: 'photo_library' , path:'slideshow'},
-        ],*/
       appTitle: "JewelPack",
       searchDialog: false,
       drawer: false,
@@ -598,6 +438,7 @@ export default {
 
   mounted() {
     this.catItems();
+    
 
     
   },

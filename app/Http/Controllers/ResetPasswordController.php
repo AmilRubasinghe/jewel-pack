@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
 
     public function failedResponse(){
         return response()->json([
-            'error' => 'Email does\'t found'
+            'error' => 'Email doesn\'t found'
         ],Response::HTTP_NOT_FOUND);
 
     }
@@ -86,14 +86,16 @@ class ResetPasswordController extends Controller
     }
 
     private function tokenNotFoundResponse(){
-        return response()->json(['error'=>'Given token or email does not found',404]);
+        return response()->json([
+            'error' => 'Given token or email does not found'
+        ],Response::HTTP_NOT_FOUND);
     }
 
     private function changePassword($request){
         $user =User::whereEmail($request->email)->first();
         $user->update(['password'=>bcrypt($request->input('password'))]);
         $this->getPasswordResetTableRow($request)->delete();
-        return response()->json(['message'=>'Password Succesfully Changed',200]);
+        return response()->json(['data'=>'Password Succesfully Changed',200]);
 
         
     }
