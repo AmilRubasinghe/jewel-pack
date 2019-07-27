@@ -238,8 +238,6 @@ export default {
     this.productItems(this.$route.path);
   },
 
-  computed: {
-  },
 
   methods: {
 

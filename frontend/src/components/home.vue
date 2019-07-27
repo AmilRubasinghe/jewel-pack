@@ -5,7 +5,7 @@
   <v-carousel
     delimiter-icon="stop"
     interval="3000"
-    height="875"
+    height="860px"
     hide-controls
         >
           <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
@@ -16,13 +16,13 @@
 <v-layout align-center justify-center>
   <v-card width=100% flat>
         <v-flex>
-          <p class="custom-font4"><br>‘The Art of Gifting’<br></p>
-          <p class="custom-font5">Our Group understands that<br> you sell jewellery and not packaging <br>and our goal is <br>to provide you with <br>quality packaging and <br>excellent service.</p>
+          <p data-aos="fade-up" class="custom-font4"><br>‘The Art of Gifting’<br></p>
+          <p data-aos="fade-up" data-aos-delay="250" class="custom-font5">Our Group understands that<br> you sell jewellery and not packaging <br>and our goal is <br>to provide you with <br>quality packaging and <br>excellent service.</p>
 
                 <v-layout align-center justify-center >
                   <v-card color="transparent" flat>
                   <div class="display-3 mb-5">
-                   <i class="far fa-gem" style="color:#212121;"></i>
+                   <i data-aos="zoom-in-up" data-aos-delay="500" class="far fa-gem" style="color:#212121;"></i>
                   </div>
                   <br>
                   </v-card>
@@ -380,6 +380,7 @@ export default {
 </script>
 
 <style>
+
 .search {
     padding: 40px;
      color: #d1c0e1;
