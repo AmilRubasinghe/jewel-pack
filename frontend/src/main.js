@@ -24,6 +24,9 @@ Vue.use(Vuetify)
 import responsive from 'vue-responsive'
 Vue.use(responsive)
 
+import Snotify from 'vue-snotify'; 
+Vue.use(Snotify)
+
 
 
 Vue.use(VeeValidate);
