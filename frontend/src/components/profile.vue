@@ -1,96 +1,108 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs12 md4>
-        <v-avatar slot="offset" class="mx-auto d-block" size="250">
-          <img src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg" />
-        </v-avatar>
+  <v-layout row wrap align-center justify-center>
+    <v-card class="card-5" width="90%">
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs12 md4>
+            <v-avatar slot="offset" class="mx-auto d-block card-5" size="250">
+              <img
+                src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
+              >
+            </v-avatar>
 
-        <v-card-text class="text-xs-center">
-          <h4 class="card-title font-weight-light">{{fullname}}</h4>
-        </v-card-text>
-      </v-flex>
+            <v-card-text class="text-xs-center">
+              <h6 class="category text-gray font-weight-thin mb-3">CEO / CO-FOUNDER</h6>
 
-      <v-flex xs12 md3>
-        <form>
-          <v-flex md7 xs6 sm2>
-            <v-text-field v-model="labelname" readonly></v-text-field>
-          </v-flex>
+              <h4 class="card-title font-weight-light">Alec Thompson</h4>
 
-          <v-flex md7 xs6 sm2>
-            <v-text-field v-model="labelemail" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex md7 xs6 sm2>
-            <v-text-field v-model="labelcontact" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex md7 xs6 sm2>
-            <v-text-field v-model="labelrole" readonly></v-text-field>
+              <p
+                class="card-description font-weight-light"
+              >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+s
+            </v-card-text>
           </v-flex>
 
           <v-dialog v-model="dialog">
-            <v-card>
-              <v-card-title>
-                <span class="headline">Edit Userr</span>
-              </v-card-title>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Edit User</span>
+                  </v-card-title>
 
-              <v-card-text>
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.firstName" label="First Name" />
-                    </v-flex>
+                  <v-card-text>
+                    <v-container grid-list-md>
+                      <v-layout wrap>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field v-model="user.firstName" label="First Name"></v-text-field>
+                        </v-flex>
 
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.lastName" label="Last Name" />
-                    </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field v-model="user.lastName" label="Last Name"></v-text-field>
+                        </v-flex>
 
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.contactNo" label="Contact No" />
-                    </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field v-model="user.contactNo" label="Contact No"></v-text-field>
+                        </v-flex>
 
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.email" label="Email" />
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field v-model="user.email" label="Email"></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-card-text>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
 
-                <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+                    <v-btn color="blue darken-1" flat>Cancel</v-btn>
 
-          <v-btn @click="editItem()">Update</v-btn>
-        </form>
-      </v-flex>
+                    <v-btn color="blue darken-1" flat>Save</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
 
-      <v-flex xs12 md5>
-        <form>
-          <v-flex md10>
-            <v-text-field v-model="fullname" readonly></v-text-field>
+          <v-flex md4 xs6 sm6>
+            
+              <v-flex md7 xs6 sm6 lg6>
+                <v-text-field label="Full Name" readonly></v-text-field>
+              </v-flex>
+
+              <v-flex md7 xs6 sm6>
+                <v-text-field label="Email" readonly></v-text-field>
+              </v-flex>
+
+              <v-flex md7 xs6 sm6>
+                <v-text-field label="Contact No" readonly></v-text-field>
+              </v-flex>
+
+<v-container>
+<v-layout align-center justify-center>
+  
+              <v-btn @click="dialog=true">Update</v-btn>
+              
+              </v-layout>
+              </v-container>
+            
           </v-flex>
 
-          <v-flex md10>
-            <v-text-field v-model="user.email" readonly></v-text-field>
-          </v-flex>
+          <v-flex xs6 sm6 md4>
+            <form>
+              <v-flex >
+                <v-text-field v-model="fullname" readonly></v-text-field>
+              </v-flex>
 
-          <v-flex md10>
-            <v-text-field v-model="user.contactNo" readonly></v-text-field>
-          </v-flex>
+              <v-flex >
+                <v-text-field v-model="user.email" readonly></v-text-field>
+              </v-flex>
 
-          <v-flex md10>
-            <v-text-field v-model="user.role" readonly></v-text-field>
+              <v-flex >
+                <v-text-field v-model="user.contactNo" readonly></v-text-field>
+              </v-flex>
+            </form>
           </v-flex>
-        </form>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        </v-layout>
+      </v-container>
+    </v-card>
+  </v-layout>
 </template>
 
  
@@ -107,19 +119,7 @@ export default {
   data() {
     return {
       user: [],
-      labelname: "Full Name",
-      labelemail: "Email",
-      labelcontact: "Contact No",
-      labelrole: "Role",
 
-      editedItem: {
-        labelname: "",
-        labelemail: "",
-        labelcontact: "",
-        labelrole: ""
-      },
-
-      defaultItem: {},
       dialog: false
     };
   },
@@ -143,43 +143,6 @@ export default {
   },
 
   methods: {
-    editItem() {
-      this.editedItem = Object.assign({}, this.user);
-      console.log(this.editedItem);
-      this.dialog = true;
-    },
-
-    close() {
-      this.dialog = false;
-    },
-
-    save() {
-      let $Token = localStorage.getItem("token");
-    
-        Object.assign(this.user , this.editedItem);
-        console.log("*******************");
-        console.log(this.editedItem);
-
-        axios
-          .post(
-            "http://localhost:8000/api/editUser/?token=" + $Token,
-            this.editedItem
-          )
-
-          .then(response => {
-            this.dialog = false;
-            //this.snackbar = true;
-            this.message = response.data.message;
-
-           // this.getUsers();
-            //console.log("Succesfully Edited");
-          });
-      
-        //this.users.push(this.editedItem);
-      
-      this.close();
-    },
-
     logout() {
       let $Token = localStorage.getItem("token");
 

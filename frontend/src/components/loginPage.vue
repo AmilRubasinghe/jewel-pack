@@ -48,12 +48,11 @@
           >{{ errors.first('password') }}</div>
         </div>
 
-        <div class="form-group form-group-lg">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck1">
-            <label class="form-check-label" for="gridCheck1">Remember Me</label>
-          </div>
-        </div>
+
+        
+        <v-btn small to="request-password-reset" outline color="white">Forget Password?</v-btn>
+        
+
 
         <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
           <v-btn type="submit" round color="blue" outline block>Sign in</v-btn>

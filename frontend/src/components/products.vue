@@ -7,7 +7,7 @@
 
         <v-container v-if="searchMode">
 <v-layout row wrap align-center justify-center>
-         <v-flex xs10 sm10 md9 lg8>
+         <v-flex xs10 sm10 md9 lg8 xl8>
           <v-text-field
             label="Search"
             outline
@@ -256,8 +256,6 @@ export default {
     this.productItems(this.$route.path);
   },
 
-  computed: {
-  },
 
   methods: {
 

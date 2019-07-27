@@ -1,21 +1,43 @@
 <template>
     <div>
   
+  <v-flex xs12 style="width:100%;">
   <v-carousel
     delimiter-icon="stop"
     interval="3000"
-    height="875"
+    height="860px"
     hide-controls
         >
           <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
         </v-carousel>
-        <br>
+        </v-flex>
+        
+
+<v-layout align-center justify-center>
+  <v-card width=100% flat>
+        <v-flex>
+          <p data-aos="fade-up" class="custom-font4"><br>‘The Art of Gifting’<br></p>
+          <p data-aos="fade-up" data-aos-delay="250" class="custom-font5">Our Group understands that<br> you sell jewellery and not packaging <br>and our goal is <br>to provide you with <br>quality packaging and <br>excellent service.</p>
+
+                <v-layout align-center justify-center >
+                  <v-card color="transparent" flat>
+                  <div class="display-3 mb-5">
+                   <i data-aos="zoom-in-up" data-aos-delay="500" class="far fa-gem" style="color:#212121;"></i>
+                  </div>
+                  <br>
+                  </v-card>
+                </v-layout>
+              
+        </v-flex>
+        </v-card>
+        </v-layout>
 
         
         <v-layout row wrap align-center justify-center justify-space-between>
-          <v-flex xs8>
-            <v-parallax src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
+          <v-flex xs12 sm12 md6 lg7>
+            <v-parallax height=600 src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
               <v-layout align-center column justify-center>
+                
                 <h1
                   style="align:center;"
                   class="custom-font3 "
@@ -23,81 +45,20 @@
               </v-layout>
             </v-parallax>
           </v-flex>
-          <v-flex xs4>
-            <v-layout align-center column justify-center color="blue">
-              <h3
-                style="color:#BF360C;"
-                class=" custom-font1"
-              >Great for</h3>
-              <h3
-                style="color:#BF360C;"
-                class="custom-font1"
-              >storage or display</h3>
-              <h4 style="color:#BF360C;" class="custom-font1">of</h4>
-              <h3
-                style="color:#BF360C;"
-                class="custom-font1"
-              >Jewellary & Gems</h3>
+          <v-flex xs12 sm12 md6 lg5>
+            <v-card flat height=600>
+            <v-layout align-center justify-center>
+              <p style="color:#BF360C;" class="custom-font1 ">Great for<br> storage or display <br> of <br>Jewellary & Gems</p>
+              
+              
             </v-layout>
+            </v-card>
           </v-flex>
         </v-layout>
 
         <!--slide end-->
 
-        <div class="search">
-          <div class="container">
-            <form>
-              <div class="form-row align-items-center">
-                <div class="col-auto">
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    id="inlineFormInput"
-                    placeholder="Box name"
-                  >
-                </div>
-                <!--<div class="col-auto">
-    
-      <div class="input-group mb-2">
-       
-        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Colour">
-      </div>
-                </div>-->
-
-                <v-flex xs12 sm4>
-                  <p>Segmented</p>
-
-                  <v-overflow-btn label="Segmented Btn" segmented target="#dropdown-example"></v-overflow-btn>
-                </v-flex>
-
-                <div class="col-auto">
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    id="inlineFormInput"
-                    placeholder="Size"
-                  >
-                </div>
-
-                <div class="col-auto">
-                  <button type="Search" class="btn btn-primary mb-2">Search</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="container">
-          <div>
-            <h3>
-              Find
-              <span>your</span>color
-              <span>Box</span>
-            </h3>
-          </div>
-
-          <p>Stop milions of hadmand and vintage item on the world's most imginative market place</p>
-        </div>
+        
 
         <!-- ..........nav........... -->
         <div class="container">
@@ -358,7 +319,7 @@
               </v-card>
             </v-flex>
 
-            <v-flex xs4 data-aos="fade-right" data-aos-delay="700">
+            <v-flex xs4 data-aos="fade-right" data-aos-delay="500">
               <v-card color="transparent" width="200" height="200" flat>
                 <div class="display-3 mb-1">
                   <i class="fab fa-cc-mastercard fa-3x" style="color:#212121;"></i>
@@ -366,7 +327,7 @@
               </v-card>
             </v-flex>
 
-            <v-flex xs4 data-aos="fade-right" data-aos-delay="1400">
+            <v-flex xs4 data-aos="fade-right" data-aos-delay="1000">
               <v-card color="transparent" width="200" height="200" flat>
                 <div class="display-3 mb-1">
                   <i class="fab fa-cc-amex fa-3x" style="color:#212121;"></i>
@@ -410,7 +371,7 @@ export default {
   mounted() {
     this.getSlideshow();
     AOS.init({
-      duration: 2000,
+      duration: 1000,
       once: true,
       
     });
@@ -419,6 +380,7 @@ export default {
 </script>
 
 <style>
+
 .search {
     padding: 40px;
      color: #d1c0e1;
@@ -486,7 +448,7 @@ h3.newest {
 
 .custom-font1{
   font-family: 'Dancing Script', cursive;
-  font-size: 5em;
+  font-size: 6.3em;
 }
 
 .custom-font2{
@@ -501,5 +463,16 @@ font-family: 'Fredericka the Great', cursive;
   color:#FF6F00;
   
 }
+
+.custom-font4{
+font-family: 'Abril Fatface', cursive;
+  font-size: 5em;
+}
+.custom-font5{
+  font-family: 'Eagle Lake', cursive;
+  font-size: 3em;
+}
+
+
 
 </style>
