@@ -25,14 +25,12 @@
             <v-text-field v-model="labelcontact" readonly></v-text-field>
           </v-flex>
 
-          <v-flex md7 xs6 sm2>
-            <v-text-field v-model="labelrole" readonly></v-text-field>
-          </v-flex>
+          
 
           <v-dialog v-model="dialog">
             <v-card>
               <v-card-title>
-                <span class="headline">Edit Userr</span>
+                <span class="headline">Update Details</span>
               </v-card-title>
 
               <v-card-text>
@@ -84,9 +82,6 @@
             <v-text-field v-model="user.contactNo" readonly></v-text-field>
           </v-flex>
 
-          <v-flex md10>
-            <v-text-field v-model="user.role" readonly></v-text-field>
-          </v-flex>
         </form>
       </v-flex>
     </v-layout>
@@ -110,13 +105,13 @@ export default {
       labelname: "Full Name",
       labelemail: "Email",
       labelcontact: "Contact No",
-      labelrole: "Role",
+      
 
       editedItem: {
         labelname: "",
         labelemail: "",
         labelcontact: "",
-        labelrole: ""
+        
       },
 
       defaultItem: {},

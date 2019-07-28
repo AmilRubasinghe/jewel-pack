@@ -8,6 +8,7 @@ import test from  './components/test.vue'
 import loginPage from  './components/loginPage.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
+import registration2 from  './components/registration2.vue'
 import profile from  './components/profile.vue'
 import adminPanel from './components/admin/adminPanel'
 import manageUsers from './components/admin/manageUsers'
@@ -16,6 +17,9 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
+
+import contactus from'./components/contactus.vue'
+import facebook from'./components/facebook.vue'
 
 import products from  './components/products'
 import check from  './components/check'
@@ -69,6 +73,7 @@ const router = new VueRouter({
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
+        {path:"/registration2",component:registration2},
         {path:"/home",component:home},
         {path:"/category/:id",component:products},
         {path:"/check",component:check},
@@ -84,6 +89,11 @@ const router = new VueRouter({
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"*",component:test},
+        
+        {path:"/contactus",component:contactus},
+        {path:"/facebook",component:facebook},
+
+
     ],
 
 
