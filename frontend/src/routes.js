@@ -6,6 +6,8 @@ Vue.use(VueRouter);
 import test from  './components/test.vue'
 
 import loginPage from  './components/loginPage.vue'
+import reqResetPassword from  './components/request-resetPassword.vue'
+import resResetPassword from  './components/response-resetPassword.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
 import registration2 from  './components/registration2.vue'
@@ -17,10 +19,14 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
+<<<<<<< HEAD
 
 import contactus from'./components/contactus.vue'
 import facebook from'./components/facebook.vue'
 
+=======
+import manageLotQuantity from './components/adminEditor/manageLotQuantity'
+>>>>>>> 1413aead9fde6484ad36772f0cad45757cddb42f
 import products from  './components/products'
 import check from  './components/check'
 import checkForm from  './components/checkForm'
@@ -72,6 +78,8 @@ const router = new VueRouter({
       
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
+        {path:"/response-password-reset",beforeEnter: ShouldSkip,component:resResetPassword},
+        {path:"/request-password-reset",beforeEnter: ShouldSkip,component:reqResetPassword},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
         {path:"/registration2",component:registration2},
         {path:"/home",component:home},
@@ -88,6 +96,7 @@ const router = new VueRouter({
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"*",component:test},
         
         {path:"/contactus",component:contactus},

@@ -3,7 +3,7 @@
   <v-app>
 <navbar></navbar>
  <v-content>
-      
+      <vue-snotify></vue-snotify>
       <router-view :key="$route.fullPath"></router-view>
       
     </v-content>
@@ -52,6 +52,7 @@ import axios from 'axios'
       }
     },
 
+    
     created(){
       
     axios.interceptors.request.use( (config)=> { 
@@ -103,7 +104,9 @@ import axios from 'axios'
 </script>
 
 <style>
+@import "~vue-snotify/styles/material.css";
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap');
 </style>
