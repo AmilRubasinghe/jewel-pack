@@ -3,10 +3,6 @@
     <div>
     <div class="container box">
         <alert v-if="alert" v-bind:message="alert" />
-        
-        
-     
-
 
    <form @submit.prevent='registerUser'>
 
