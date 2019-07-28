@@ -248,9 +248,7 @@ export default {
     };
   },
 
-  //data: () => ({
-  // dialog: false,
-  // }),
+
 
   mounted() {
     this.productItems(this.$route.path);

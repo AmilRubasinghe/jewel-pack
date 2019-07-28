@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  props: ["message","type"],
+  props: ["message", "type"],
   data() {
     return {};
   },
@@ -14,20 +14,20 @@ export default {
 
   methods: {
     show() {
-      if(this.type==0){
-          this.$snotify.error(this.message, "Error", {
-            timeout: 10000,
-            showProgressBar: true,
-            closeOnClick: false,
-            pauseOnHover: true
-          });
-      }else if(this.type==2){
-          this.$snotify.success(this.message, "Done", {
-            timeout: 10000,
-            showProgressBar: true,
-            closeOnClick: false,
-            pauseOnHover: true
-          });
+      if (this.type == 0) {
+        this.$snotify.error(this.message, "Error", {
+          timeout: 10000,
+          showProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true
+        });
+      } else if (this.type == 2) {
+        this.$snotify.success(this.message, "Done", {
+          timeout: 10000,
+          showProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true
+        });
       }
     }
   }
