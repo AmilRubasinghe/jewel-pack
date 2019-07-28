@@ -19,14 +19,9 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
-<<<<<<< HEAD
-
 import contactus from'./components/contactus.vue'
 import facebook from'./components/facebook.vue'
-
-=======
 import manageLotQuantity from './components/adminEditor/manageLotQuantity'
->>>>>>> 1413aead9fde6484ad36772f0cad45757cddb42f
 import products from  './components/products'
 import check from  './components/check'
 import checkForm from  './components/checkForm'
