@@ -4,7 +4,7 @@
     <br />
 
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-      <v-dialog v-model="dialog">
+      <v-dialog v-model="dialog" max-width="1300px">
         <v-card>
           <v-card-title>
             <span class="headline">Upload Form</span>
@@ -23,7 +23,7 @@
                   ></v-text-field>
                 </v-flex>
 
-                <v-flex xs12 sm6 md4 d-flex>
+                <v-flex xs12 sm6 md4 d-flex offset-xs0 offset-lg2>
                   <v-select
                     label="Category"
                     :items="category"
@@ -35,26 +35,16 @@
                   ></v-select>
                 </v-flex>
 
-                <v-flex xs12 sm6 md4 offset-xs0 offset-lg2>
+              </v-layout>
+
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md4 >
                   <v-text-field
                     v-model="newProduct.colour"
                     v-validate="'required'"
                     :error-messages="errors.collect('colour')"
                     label="Colour"
                     data-vv-name="Colour"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field
-                    v-model="newProduct.quantity"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('quantity')"
-                    label="Quantity"
-                    data-vv-name="Quantity"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -68,6 +58,8 @@
                     label="Price"
                     data-vv-name="Price"
                     required
+                     type="number"
+                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -75,24 +67,27 @@
               <v-layout row wrap>
                 <v-flex xs12 sm5 md5>
                   <v-checkbox
+                  
                     v-model="newProduct.border"
                     v-validate="'required'"
                     :error-messages="errors.collect('checkbox')"
                     value="1"
-                    label="Is border"
+                    
+                    label="Gold border" 
                     data-vv-name="checkbox"
                     type="checkbox"
                     required
+                   
                   ></v-checkbox>
                 </v-flex>
 
-                <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
+                <v-flex xs12 sm5 md5 offset-xs0 offset-lg1>
                   <v-text-field
                     label="Details"
-                    v-model="Details"
+                    v-model="newProduct.details"
                     v-validate="'required'"
                     :error-messages="errors.collect('text box')"
-                    single-line
+                  single-line
                     solo
                     required
                   ></v-text-field>
@@ -163,7 +158,7 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="showModal">
+      <v-dialog v-model="showModal" max-width="1300px">
         <v-card>
           <v-card-title>
             <span class="headline">Edit Product</span>
@@ -196,9 +191,7 @@
                   ></v-select>
                 </v-flex>
 
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.Quantity" label="Quantity"></v-text-field>
-                </v-flex>
+            
 
                 <v-flex xs12 sm6 md4>
                   <v-select
@@ -210,15 +203,30 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.Price" label="Price"></v-text-field>
+                  <v-text-field 
+                  v-model="editedItem.Price" 
+                  label="Price" 
+                   type="number"
+                   onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.unitWeight" label="unit Weight"></v-text-field>
                 </v-flex>
+                 <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.details" label="Details"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-checkbox
+                  
+                    v-model="editItem.border"
+                    label="Gold border" 
+                  ></v-checkbox>
+                </v-flex>
               </v-layout>
 
               <v-flex xs12 sm6 offset-sm4>
-                <v-img height="165" width="350" max-width="260px" :src="editedItem.Image"></v-img>
+                <v-img height="155" width="350" max-width="260px" :src="editedItem.Image"></v-img>
 
                 <v-card
                   flat
@@ -252,6 +260,65 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <!--new quantity view----->
+
+      <v-layout row justify-center>
+       <v-dialog v-model="showQuantity" max-width="1200px">
+        <v-card  class="card-5"   >
+          <v-card-title>
+            <span class="headline">Add Quantity</span>
+          </v-card-title>
+
+          <v-card-text>
+            <v-container grid-list-md>
+
+                <v-layout row wrap>
+                <v-flex xs12 sm6 md4 >
+                  <v-text-field
+                  
+                    v-model="newLotQuantity.lot"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('lot')"
+                    label="Lot"
+                    data-vv-name="lot"
+                    required
+                     type="number"
+                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
+                  <v-text-field
+                    v-model="newLotQuantity.quantity"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('quatity')"
+                    label="Quantity"
+                    data-vv-name="quantity"
+                    required
+                     type="number"
+                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+
+                  <v-flex xs12 sm5 md2 offset-xs0 offset-lg4>
+                <v-text-field v-model="lotQuantity" label="Total Quntity" readonly></v-text-field>
+              </v-flex>
+              
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="clearQuntity">clear</v-btn>
+            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+            <v-btn color="blue darken-1" flat @click="SaveQuntity">Add to Lot</v-btn>
+             <v-btn color="blue darken-1" flat @click="DeleteQuntity">Delete to Lot</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      </v-layout>
 
       <div>
         <v-toolbar flat color="white">
@@ -322,8 +389,17 @@
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.unitWeight }}</td>
-
+               <td class="text-xs-left">{{ props.item.Details }}</td>
+                <td class="text-xs-center">{{ props.item.Border }}</td>
+            
               <td class="justify-center layout px-0">
+                 <v-icon
+                  color="blue-grey lighten-1"
+                  medium
+                  class="mr-2"
+                  @click="AddQuantity"
+                >add_box</v-icon>
+
                 <v-icon
                   color="deep-purple darken-1"
                   medium
@@ -362,8 +438,9 @@ import navDrawer from "../admin/navDrawer.vue";
 export default {
   data() {
     return {
-      dialog: false,
+      dialog:false,
       showModal: false,
+      showQuantity:false,
       editedIndex: -1,
       imageName: "",
       imageUrl: "",
@@ -379,14 +456,20 @@ export default {
         Quantity: "",
         Colour: "",
         Price: "",
-        unitWeight: ""
+        unitWeight: "",
+        details: "",
+        border: null,
+
       },
 
       quantity: "",
-      Details: "",
+      details: "",
       price: "",
       size: "",
       colour: "",
+      lot: "",
+
+
 
       newProduct: {
         quantity: "",
@@ -397,6 +480,11 @@ export default {
         border: null,
         image: "",
         cid: ""
+      },
+
+      newLotQuantity:{
+        lot: "",
+        quantity: "",
       },
 
       sizes: ["1x1", "2x2", "3x3", "4x4", "5x5"],
@@ -432,6 +520,8 @@ export default {
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
         { text: "unitWeight", value: "unitWeight" },
+         { text: "Details", value: "details" },
+         { text: "Border", value: "border" },
         { text: "Action", value: "action" }
       ]
     };
@@ -457,7 +547,12 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
-    }
+    },
+      
+    lotQuantity: function() {
+      return this.newLotQuantity.lot*this.newLotQuantity.quantity;
+    
+  },
   },
 
   methods: {
@@ -566,9 +661,11 @@ export default {
 
     close() {
       this.showModal = false;
+       this.showQuantity=false;
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
+       
       }, 300);
     },
 
@@ -578,7 +675,12 @@ export default {
       this.newProduct.quantity = "";
       this.newProduct.price = "";
       this.newProduct.border = false;
-      this.Details = "";
+      this.newProduct.details = "";
+    },
+
+    clearQuntity(){
+      this.newLotQuantity.lot= "";
+      this.newLotQuantity.quantity= "";
     },
 
     openDialogProduct() {
@@ -587,7 +689,7 @@ export default {
       this.newProduct.quantity = "";
       this.newProduct.price = "";
       this.newProduct.border = false;
-      this.Details = "";
+      this.newProduct.details = "";
       this.dialog = true;
     },
 
@@ -670,11 +772,19 @@ export default {
       this.file = this.$refs.file.files[0];
     },
 
+
+    AddQuantity(){
+      this.clearQuntity();
+      this.showQuantity = true;
+    },
+
     sendFile() {
       const formData = new FormData();
       formData.append("file", this.file, this.file.name);
 
       let $Token = localStorage.getItem("token");
+
+
 
       axios
         .post(
@@ -704,7 +814,19 @@ export default {
           console.log(error.response);
           console.log("Upload Failed");
         });
-    }
+    },
+    DeleteQuntity(){
+
+
+    },
+
+    SaveQuntity(){
+
+
+    },
+
+
+
   }
 };
 </script>
@@ -712,11 +834,9 @@ export default {
 .v-responsive {
   margin-bottom: 7px;
 }
+
+
+
 </style>
-
-
-
-
-
 
 
