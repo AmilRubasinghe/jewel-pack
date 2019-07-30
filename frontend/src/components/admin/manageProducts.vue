@@ -219,7 +219,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-checkbox
                   
-                    v-model="editItem.border"
+                    v-model="editedItem.border"
                     label="Gold border" 
                   ></v-checkbox>
                 </v-flex>
@@ -632,6 +632,7 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
+        
     },
 
     getDeletedProducts() {
