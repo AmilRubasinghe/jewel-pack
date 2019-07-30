@@ -67,10 +67,26 @@ export default {
       {
         title: "Category Managment",
         src:
-          "https://images.unsplash.com/photo-1465820909510-5aa8bb14978f?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=clem-onojeghuo-101915-unsplash.jpg",
+          "http://localhost:8000/storage/admin_panel/category.jpeg",
         flex: 4,
         class: "headline black--text",
         path: "category"
+      },
+      {
+        title: "Reports Managment",
+        src:
+          "http://localhost:8000/storage/admin_panel/reports.jpg",
+        flex: 4,
+        class: "headline black--text",
+        path: "reports"
+      },
+      {
+        title: "Slideshow Managment",
+        src:
+          "http://localhost:8000/storage/admin_panel/slideshow.jpeg",
+        flex: 4,
+        class: "headline black--text",
+        path: "slideshow"
       }
     ]
   }),
