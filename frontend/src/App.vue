@@ -3,7 +3,7 @@
   <v-app>
 <navbar></navbar>
  <v-content>
-      <vue-snotify></vue-snotify>
+      
       <router-view :key="$route.fullPath"></router-view>
       
     </v-content>

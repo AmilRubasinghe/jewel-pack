@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
+  //baseUrl: process.env.NODE_ENV === 'production' ? '/prodserver1/' : '',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),

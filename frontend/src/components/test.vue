@@ -1,57 +1,102 @@
 <template>
   <div>
-    <h1>Testing</h1>
-<br>
-    <form enctype="multipart/form-data">
-      <input type="file" ref="file" @change="handleFileUpload"/>
-      <v-btn @click="upload" dark>Upload</v-btn>
-    </form>
+    <div id="my-signin2"></div>
 
-    <v-img src="http://localhost:8000/storage/opJR9nPs8TGtMRIyfJG0H0B8xkt4nOPxMbjZ1KDO.jpeg"></v-img>
+    
+    <v-btn @click="signOut">Sign Out</v-btn>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
-    return {
-      file: ''
-    };
+    return {};
+  },
+
+  created() {},
+  mounted() {
+    this.init();
+    this.renderButton();
   },
 
   methods: {
-    upload() {
-       let formData = new FormData();
-
-            /*
-                Add the form data we need to submit
-            */
-            formData.append('file', this.file);
-
-        /*
-          Make the request to the POST /single-file URL
-        */
-            axios.post( 'http://localhost:8000/api/upload',
-                formData,
-                {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-              }
-            ).then(function(){
-          console.log('SUCCESS!!');
-        })
-        .catch(function(){
-          console.log('FAILURE!!');
-        });
+    init() {
+      gapi.load("auth2", function() {
+        /* Ready. Make a call to gapi.auth2.init or some other API */
+      });
     },
 
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+    onSuccess(googleUser) {
+      console.log(googleUser.getAuthResponse().id_token);
+      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+
+      let $token = googleUser.getAuthResponse().id_token;
+      axios
+        .post("http://localhost:8000/api/tokensignin", {
+          token: $token
+        })
+        .then(response => {
+          this.alert = response.data.message;
+
+          this.snackActive = true;
+          this.snack = response.data.snack;
+
+          let $token = response.data.token;
+
+          this.$store.dispatch("setUser", null);
+          if ($token) {
+            console.log($token);
+            localStorage.setItem("token", $token);
+            //console.log(response.data.role);
+
+            this.$store.dispatch("setUser", response.data.user);
+            // console.log("User");
+            //  console.log(this.$store.state.user);
+            // console.log(Store.getters.role);
+            if (response.data.role == "admin") {
+              this.$router.push("/admin");
+            } else {
+              this.$router.push("/profile");
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+    onFailure(error) {
+      console.log(error);
+    },
+
+    init() {
+      gapi.load("auth2", function() {
+        /* Ready. Make a call to gapi.auth2.init or some other API */
+      });
+    },
+
+    renderButton() {
+      gapi.signin2.render("my-signin2", {
+        scope: "profile email",
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: "dark",
+        onsuccess: this.onSuccess,
+        onfailure: this.onFailure
+      });
+    },
+
+    
+
+  
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+      });
     }
   }
 };
 </script>
-

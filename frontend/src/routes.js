@@ -33,8 +33,13 @@ import cartView from  './components/cartView'
 import Store from './store.js'
 import { mapState } from 'vuex'
 
+
+
 function guard(to, from, next){
-    if(localStorage.getItem('token')) {
+  
+    if(localStorage.getItem('token')||auth2.isSignedIn.get() == true) {
+      console.log('++++++++');
+      console.log(auth2.isSignedIn.get());
         // or however you store your logged in state
         next(); // allow to enter route
     } else{
@@ -109,7 +114,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 //console.log(Store.getters.role);
 if(to.meta.requireAuth){
+  
     if(localStorage.getItem('token')){
+    
+      
         if(to.meta.roles){
         if (to.meta.roles.includes(Store.getters.role)) {
             next();    

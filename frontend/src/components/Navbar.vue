@@ -272,6 +272,8 @@
       disable-route-watcher
       temporary
       class="drawer card-5"
+      width=350
+
     >
       <v-list>
         <v-list-tile
