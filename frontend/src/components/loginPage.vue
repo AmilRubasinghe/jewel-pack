@@ -51,7 +51,7 @@
 
         
         <v-btn small to="request-password-reset" outline color="white">Forget Password?</v-btn>
-        
+        <v-btn @click="route">Routee</v-btn>
 
 
         <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
@@ -105,10 +105,13 @@ export default {
     }
   },
   methods: {
+    route() {
+     console.log(this.$baseUrl);
+    },
     resendEmail() {
       this.user.email = Store.getters.vEmail;
       axios
-        .post("http://localhost:8000/api/resendvEmail", this.user, {})
+        .post(this.$baseUrl+"/resendvEmail", this.user, {})
         .then(response => {
           if (response.data.alert) {
             this.alert = response.data.message;
@@ -125,7 +128,7 @@ export default {
 
     loginUser() {
       axios
-        .post("http://localhost:8000/api/login", this.login, {})
+        .post(this.$baseUrl+"/login", this.login, {})
         .then(response => {
           this.alert = response.data.message;
 
