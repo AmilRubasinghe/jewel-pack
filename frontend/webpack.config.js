@@ -3,9 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   //baseUrl: process.env.NODE_ENV === 'production' ? '/prodserver1/' : '',
+  
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './dist/'),
     publicPath: '/dist/',
     filename: 'build.js'
   },
@@ -64,6 +65,7 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
+  
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
@@ -82,4 +84,5 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   ])
+  
 }

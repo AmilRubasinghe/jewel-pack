@@ -355,7 +355,7 @@ export default {
   methods: {
     getSlideshow() {
       axios
-        .get("http://localhost:8000/api/getImages")
+        .get(this.$baseUrl+"/getImages")
         .then(response => {
           this.slideshowItems = response.data.images;
 

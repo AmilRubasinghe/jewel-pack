@@ -416,7 +416,7 @@ export default {
 
     catItems() {
       axios
-        .get("http://localhost:8000/api/category")
+        .get("http://jewelpack.tk/api/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
           this.$store.commit("setCategory", this.categoryItems);

@@ -2,7 +2,7 @@
   <div>
     <div id="my-signin2"></div>
 
-    
+    <v-btn @click="route">Route</v-btn>
     <v-btn @click="signOut">Sign Out</v-btn>
   </div>
 </template>
@@ -18,9 +18,16 @@ export default {
   mounted() {
     this.init();
     this.renderButton();
+    
+    
   },
 
   methods: {
+
+
+    route() {
+     console.log(this.$route.path);
+    },
     init() {
       gapi.load("auth2", function() {
         /* Ready. Make a call to gapi.auth2.init or some other API */

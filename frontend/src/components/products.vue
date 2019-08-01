@@ -266,7 +266,7 @@ export default {
       formData.append("keywords", this.keywords);
 
       axios
-        .post("http://localhost:8000/api/search", formData)
+        .post(this.$baseUrl+"/api/search", formData)
         .then(response => {
           this.products=response.data.products;
         })
@@ -278,7 +278,7 @@ export default {
 
     productItems($path) {
       axios
-        .get("http://localhost:8000/api" + $path)
+        .get(this.$baseUrl+$path)
         .then(response => {
           this.products = response.data.product;
 
