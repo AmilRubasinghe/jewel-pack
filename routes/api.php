@@ -128,5 +128,7 @@ Route::post('restoreCategory/{id}', 'CategoryController@restoreCategory');
 
 Route::get('deletedCategory','CategoryController@getDeletedCat');
 
+Route::post('addProductLot','ProductlotController@addProductlot');
+
 });
 Route::get('getImages', 'SlideshowController@getImages');

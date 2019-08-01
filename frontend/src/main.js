@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VeeValidate from 'vee-validate'
 import store from './store';
 
+
 //import axios from 'axios'
 //Vue.use(axios);
 

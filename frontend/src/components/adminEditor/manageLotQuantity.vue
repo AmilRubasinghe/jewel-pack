@@ -1,43 +1,53 @@
 <template>
   <div>
     <br>
-    <div class="container 1" v-bind:style="{ background: '#B0BEC5'}">
-      <v-dialog width="1187px" v-model="dialog" >
-        <v-card>
-          <v-card-title>
-            <span class="headline">Upload LotQuantity</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container 2>
-              <form>
-               
-                  <v-flex xs8 sm3 md4>
-                    <v-text-field
+     <div class="container 1" v-bind:style="{ background: '#B0BEC5'}">
+     <v-dialog v-model="dialog" max-width=700>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Upload LotQuantity</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container grid-list-md text-md-center fluid fill-height>
+                  <v-layout column>
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field  
                       v-model="newItem.LotValue"
                       v-validate="'required'"
                       :error-messages="errors.collect('LotValue')"
                       label="Lot Value"
                       data-vv-name="LotValue"
-                      required
-                      
-                    ></v-text-field>
-                  </v-flex>
+                      type="number"
+                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                      required/>
+                    </v-flex>
+        
+                  </v-layout>
+                </v-container>
+              </v-card-text>
 
-                  
+              <v-card-actions>
+                <v-spacer></v-spacer>
+<v-container grid-list-md text-md-center fluid fill-height>
+      <v-layout row wrap>
+        <v-flex d-flex>
+          <v-btn color="primary" @click="clear">clear</v-btn>
+         
+        </v-flex>
+
+        <v-flex d-flex>
+          <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+        </v-flex>
+          <v-flex d-flex>
+          <v-btn outline color="blue" @click="Save">Save</v-btn>
+        </v-flex>
+        </v-layout>
+        </v-container>
                
-              </form>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="clear">clear</v-btn>
-            <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue" @click="Save">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
       <v-card>
         <v-card-title>
@@ -90,10 +100,8 @@
           </template>
           <template v-slot:items="props">
             <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td class="text-xs-left">{{ props.item.lid }}</td>
-              <td class="text-xs-left">{{ props.item.lotquantity }}</td>
-            
-              
+              <td class="text-xs-center">{{ props.item.lid }}</td>
+              <td class="text-xs-center">{{ props.item.lotquantity }}</td>
               <td class="justify-center layout px-0">
                
                 <v-icon
@@ -121,14 +129,7 @@ export default {
     return {
       dialog: false,
    
-      editedIndex: -1,
-      editedItem: {
-        LID:0,
-        LotValue: "",
-        
-
-        
-      },
+    
       search: "",
 
       newItem:{
@@ -257,9 +258,7 @@ export default {
     },
      clear() {
       this.newItem.LotValue = "";
-     
-
-      this.$validator.reset();
+    
     },
   }
 };

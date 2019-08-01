@@ -48,18 +48,6 @@ class CategoryController extends Controller
     }
 
 
-    public function editCat(Request $request, $CID){
-        $thisCategory=category::findOrFail($CID);
-        //$thisImage =slideshow::where('imageId', $imageId)->first();
-        
-        
-        $thisCategory->CName = $request->input('CName');
-        $thisCategory->icon = $request->input('icon');
-      
-        $thisCategory->save();
-        
-        return response()->json(['editedCategory'=>$thisCategory,'message'=>"Category edited succesfully !"]);
-      }
 
       
 

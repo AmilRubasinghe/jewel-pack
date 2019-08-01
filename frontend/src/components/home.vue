@@ -351,7 +351,7 @@
                          class="card category card-5"
                         color="grey lighten-4"
                         width="300"
-                        height="363"
+                        height="393"
                         
                       >
                         <v-img :aspect-ratio="3.8/4.2" :src="item.image">
