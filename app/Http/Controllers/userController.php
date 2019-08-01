@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -13,7 +16,6 @@ use App\Mail\verifyEmail;
 use phpDocumentor\Reflection\Types\Null_;
 use JWTAuth;
 use App\Http\Controllers\Controller;
-use DB;
 
 class userController extends Controller
 {
@@ -66,7 +68,7 @@ class userController extends Controller
 			
 			
     }
-    
+
 
     public function resendvEmail(Request $request){
 

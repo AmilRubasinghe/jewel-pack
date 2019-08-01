@@ -1,11 +1,11 @@
 <template>
   <div>
-    <br>
+    <br />
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" width="1200px">
         <v-card>
           <v-card-title>
-            <span class="headline">Upload Category</span>
+            <span class="headline">Add category</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -13,10 +13,10 @@
                 <v-layout row wrap>
                   <v-flex xs12 sm5 md5>
                     <v-text-field
-                      v-model="CategoryName"
+                      v-model="newCategory.CName"
                       v-validate="'required'"
                       :error-messages="errors.collect('CategoryName')"
-                      label="CategoryName"
+                      label="Category Name"
                       data-vv-name="CategoryName"
                       required
                     ></v-text-field>
@@ -24,10 +24,11 @@
 
                   <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
                     <v-text-field
-                      v-model="IconCode"
+                      v-model="newCategory.icon"
                       v-validate="'required'"
                       :error-messages="errors.collect('IconCode')"
                       label="IconCode"
+                      placeholder="Leave blank for default icon"
                       data-vv-name="IconCode"
                       required
                     ></v-text-field>
@@ -40,7 +41,7 @@
             <v-spacer></v-spacer>
             <v-btn @click="clear">clear</v-btn>
             <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue">Save</v-btn>
+            <v-btn outline color="blue" @click="addCat">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -71,7 +72,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -97,12 +98,12 @@
             <v-icon dark>refresh</v-icon>
           </v-btn>
 
-          <v-btn v-if="!deletedUsers" @click="getDeletedUsers">
+          <v-btn v-if="!deleted" @click="getDeletedCat">
             <v-icon large color="blue">delete_sweep</v-icon>Deleted Category
           </v-btn>
 
-          <v-btn v-if="deletedUsers" @click="getUsers">
-            <v-icon large color="blue">playlist_add_check</v-icon>Active Item
+          <v-btn v-if="deleted" @click="catItems">
+            <v-icon large color="blue">playlist_add_check</v-icon>Available Category
           </v-btn>
         </v-card-title>
         <v-data-table
@@ -144,14 +145,9 @@
                   class="mr-2"
                   @click="editItem(props.item)"
                 >edit</v-icon>
+                <v-icon v-if="!deleted" color="red" medium @click="deleteItem(props.item)">delete</v-icon>
                 <v-icon
-                  v-if="!deletedUsers"
-                  color="red"
-                  medium
-                  @click="deleteItem(props.item)"
-                >delete</v-icon>
-                <v-icon
-                  v-if="deletedUsers"
+                  v-if="deleted"
                   color="green"
                   medium
                   @click="restoreItem(props.item)"
@@ -174,15 +170,18 @@ export default {
     return {
       dialog: false,
       showModal: false,
+      deleted: false,
       editedIndex: -1,
       editedItem: {
         icon: "",
-        CName: "",
-        deleteURL: ""
+        CName: ""
+      },
+
+      newCategory: {
+        icon: "",
+        CName: ""
       },
       search: "",
-      CategoryName: "",
-      IconCode: "",
 
       reports: [],
       pagination: {
@@ -216,8 +215,40 @@ export default {
     },
 
     catItems() {
+      this.deleted=false;
       axios
         .get("http://localhost:8000/api/category")
+        .then(response => {
+          this.categoryItems = response.data.catItems;
+
+          //console.log(this.categoryItems);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
+    addCat() {
+      let $Token = localStorage.getItem("token");
+      axios
+        .post(
+          "http://localhost:8000/api/addCat?token=" + $Token,
+          this.newCategory
+        )
+        .then(response => {
+          this.catItems();
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+    getDeletedCat() {
+      this.deleted=true;
+      let $Token = localStorage.getItem("token");
+      axios
+        .get("http://localhost:8000/api/deletedCategory?token="+$Token)
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -249,6 +280,74 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       }, 300);
+    },
+
+    editSave() {
+      let $Token = localStorage.getItem("token");
+      if (this.editedIndex > -1) {
+        Object.assign(this.categoryItems[this.editedIndex], this.editedItem);
+
+        axios
+          .post(
+            "http://localhost:8000/api/editCat/" +
+              this.editedItem.CID +
+              "?token=" +
+              $Token,
+            this.editedItem
+          )
+          .then(response => {
+            this.showModal = false;
+            this.catItems();
+            console.log("Succesfully Edited");
+          });
+      } else {
+        this.categoryItems.push(this.editedItem);
+      }
+      this.close();
+    },
+
+    restoreItem(item) {
+      var result = confirm("Want to restore " + item.CID + "?");
+      if (result) {
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            "http://localhost:8000/api/restoreCategory/" +
+              item.CID +
+              "?token=" +
+              $Token
+          )
+          .then(response => {
+            /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+            this.catItems();
+            alert("Succesfully Restored");
+          });
+      }
+    },
+
+    deleteItem(item) {
+      var result = confirm("Want to delete Category" + item.CID + "?");
+      if (result) {
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            "http://localhost:8000/api/deleteCategory/" +
+              item.CID +
+              "?token=" +
+              $Token
+          )
+          .then(response => {
+            /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+            this.catItems();
+            alert("Category succesfully Deleted");
+          });
+      }
     }
   }
 };

@@ -7,7 +7,7 @@
 
         <v-container v-if="searchMode">
 <v-layout row wrap align-center justify-center>
-         <v-flex xs10 sm10 md9 lg8>
+         <v-flex xs10 sm10 md9 lg8 xl8>
           <v-text-field
             label="Search"
             outline
@@ -27,7 +27,7 @@
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
             <br />
             <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
-              <v-img contain align="center" :src="products[i].Image">
+              <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
                     <v-flex xs12 align-end flexbox>
@@ -252,16 +252,12 @@ export default {
     };
   },
 
-  //data: () => ({
-  // dialog: false,
-  // }),
+
 
   mounted() {
     this.productItems(this.$route.path);
   },
 
-  computed: {
-  },
 
   methods: {
 
@@ -456,4 +452,14 @@ h2 {
     margin: 0px;
     padding: 0px;
 }
+
+
+.product-description{
+  font-family: 'Rye', cursive;
+  font-size: 2em;
+  color:rgba(129, 91, 24, 0.788);
+}
+
+
+
 </style>
