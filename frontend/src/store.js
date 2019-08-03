@@ -20,8 +20,6 @@ export default new Vuex.Store({
         category:[],
         
         
-        name:"ridmi",
-       
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
         

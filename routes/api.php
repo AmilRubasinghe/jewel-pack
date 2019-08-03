@@ -37,6 +37,8 @@ Route::get('pay', 'PaymentController@payHerePost');
 
 //userModuleRoutes
     Route::post('login', 'UserController@loginUser');
+    Route::post('tokensignin', 'GTokenController@verify');
+
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ResetPasswordController@process');
 
