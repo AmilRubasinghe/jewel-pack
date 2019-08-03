@@ -229,7 +229,7 @@ export default {
       (this.table_title = "Active Users"), (this.deletedUsers = false);
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/users?token=" + $Token)
+        .get(this.$baseUrl+"/users?token=" + $Token)
         .then(response => {
           this.users = response.data.users;
         })
@@ -243,7 +243,7 @@ export default {
       (this.table_title = "Deleted Users"), (this.deletedUsers = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/deletedUsers?token=" + $Token)
+        .post(this.$baseUrl+"/deletedUsers?token=" + $Token)
         .then(response => {
           this.users = response.data.users;
 
@@ -286,7 +286,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteUser/" +
+            this.$baseUrl+"/deleteUser/" +
               item.ID +
               "?token=" +
               $Token
@@ -308,7 +308,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreUser/" +
+            this.$baseUrl+"/restoreUser/" +
               item.ID +
               "?token=" +
               $Token
@@ -331,7 +331,7 @@ export default {
 
         axios
           .post(
-            "http://localhost:8000/api/editUser/?token=" + $Token,
+            this.$baseUrl+"/editUser/?token=" + $Token,
             this.editedItem
           )
 

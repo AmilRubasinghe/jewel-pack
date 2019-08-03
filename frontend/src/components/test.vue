@@ -40,7 +40,7 @@ export default {
 
       let $token = googleUser.getAuthResponse().id_token;
       axios
-        .post("http://localhost:8000/api/tokensignin", {
+        .post(this.$baseUrl+"/tokensignin", {
           token: $token
         })
         .then(response => {

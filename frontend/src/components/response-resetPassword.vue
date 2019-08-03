@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-            <notification v-if="notify"  :message="notify" :type="status"></notification>
+      <notification v-if="notify" :message="notify" :type="status"></notification>
 
       <form>
         <h1>Reset Password</h1>
@@ -55,12 +55,12 @@ export default {
         password_confirmation: "",
         resetToken: ""
       },
-      notify:'',
-      status:'',
+      notify: "",
+      status: ""
     };
   },
 
-    components: {
+  components: {
     notification
   },
   methods: {
@@ -69,20 +69,22 @@ export default {
     },
     reset() {
       this.$validator.validateAll();
-this.notify='',
-      axios
-        .post("http://localhost:8000/api/resetPassword/", this.newData)
+      (this.notify = ""),
+        axios
+          .post(this.$baseUrl + "/resetPassword/", this.newData)
 
-        .then(response => {
-           this.$router.push({path:'/loginPage',query:{notify:response.data.data,status:2}});
-        })
-        .catch(error => {
-            
-              this.notify=error.response.data.error;
-              this.status=0;
-          console.log(error.response);
-          console.log("ERROR");
-        });
+          .then(response => {
+            this.$router.push({
+              path: "/loginPage",
+              query: { notify: response.data.data, status: 2 }
+            });
+          })
+          .catch(error => {
+            this.notify = error.response.data.error;
+            this.status = 0;
+            console.log(error.response);
+            console.log("ERROR");
+          });
     }
   }
 };

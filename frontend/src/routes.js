@@ -97,6 +97,7 @@ const router = new VueRouter({
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/test",component:test},
         {path:"*",component:home},
         
         {path:"/contactus",component:contactus},

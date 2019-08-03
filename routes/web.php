@@ -26,13 +26,13 @@ Route::post('register',['uses'=>'UserController@registerUser',
 
 /*Route::post('login',['uses'=>'UserController@loginUser',
 	'as' => 'login']);*/ 
-
+/*
 Route::get('logged', ['uses'=>'UserController@getLogged',
 	'as'=>'logged'])->middleware('auth');
 
 Route::get('logout',['uses'=>'UserController@logoutUser',
 	'as' => 'logout']);
-
+*/
 Route::get('verifyEmailFirst',['uses'=>'UserController@verifyEmailFirst',
     'as' => 'verifyEmail']);
 

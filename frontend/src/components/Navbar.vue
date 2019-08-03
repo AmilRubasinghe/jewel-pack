@@ -399,7 +399,7 @@ export default {
 
       // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
       axios
-        .post("http://localhost:8000/api/logout?token=" + $Token)
+        .post(this.$baseUrl+"/logout?token=" + $Token)
         .then(response => {
           localStorage.removeItem("token");
           let $Token = localStorage.getItem("token");
@@ -416,7 +416,7 @@ export default {
 
     catItems() {
       axios
-        .get("http://jewelpack.tk/api/category")
+        .get(this.$baseUrl+"/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
           this.$store.commit("setCategory", this.categoryItems);

@@ -34,11 +34,10 @@
                     menu-props
                   ></v-select>
                 </v-flex>
-
               </v-layout>
 
               <v-layout row wrap>
-                <v-flex xs12 sm6 md4 >
+                <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="newProduct.colour"
                     v-validate="'required'"
@@ -58,8 +57,8 @@
                     label="Price"
                     data-vv-name="Price"
                     required
-                     type="number"
-                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                    type="number"
+                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -67,17 +66,14 @@
               <v-layout row wrap>
                 <v-flex xs12 sm5 md5>
                   <v-checkbox
-                  
                     v-model="newProduct.border"
                     v-validate="'required'"
                     :error-messages="errors.collect('checkbox')"
                     value="1"
-                    
-                    label="Gold border" 
+                    label="Gold border"
                     data-vv-name="checkbox"
                     type="checkbox"
                     required
-                   
                   ></v-checkbox>
                 </v-flex>
 
@@ -87,7 +83,7 @@
                     v-model="newProduct.details"
                     v-validate="'required'"
                     :error-messages="errors.collect('text box')"
-                  single-line
+                    single-line
                     solo
                     required
                   ></v-text-field>
@@ -191,8 +187,6 @@
                   ></v-select>
                 </v-flex>
 
-            
-
                 <v-flex xs12 sm6 md4>
                   <v-select
                     :items="colours"
@@ -203,25 +197,21 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field 
-                  v-model="editedItem.Price" 
-                  label="Price" 
-                   type="number"
-                   onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                  <v-text-field
+                    v-model="editedItem.Price"
+                    label="Price"
+                    type="number"
+                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.unitWeight" label="unit Weight"></v-text-field>
                 </v-flex>
-                 <v-flex xs12 sm6 md4>
+                <v-flex xs12 sm6 md4>
                   <v-text-field v-model="editedItem.details" label="Details"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-checkbox
-                  
-                    v-model="editItem.border"
-                    label="Gold border" 
-                  ></v-checkbox>
+                  <v-checkbox v-model="editItem.border" label="Gold border"></v-checkbox>
                 </v-flex>
               </v-layout>
 
@@ -264,60 +254,57 @@
       <!--new quantity view----->
 
       <v-layout row justify-center>
-       <v-dialog v-model="showQuantity" max-width="1200px">
-        <v-card  class="card-5"   >
-          <v-card-title>
-            <span class="headline">Add Quantity</span>
-          </v-card-title>
+        <v-dialog v-model="showQuantity" max-width="1200px">
+          <v-card class="card-5">
+            <v-card-title>
+              <span class="headline">Add Quantity</span>
+            </v-card-title>
 
-          <v-card-text>
-            <v-container grid-list-md>
-
+            <v-card-text>
+              <v-container grid-list-md>
                 <v-layout row wrap>
-                <v-flex xs12 sm6 md4 >
-                  <v-text-field
-                  
-                    v-model="newLotQuantity.lot"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('lot')"
-                    label="Lot"
-                    data-vv-name="lot"
-                    required
-                     type="number"
-                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                  ></v-text-field>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field
+                      v-model="newLotQuantity.lot"
+                      v-validate="'required'"
+                      :error-messages="errors.collect('lot')"
+                      label="Lot"
+                      data-vv-name="lot"
+                      required
+                      type="number"
+                      onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
+                    <v-text-field
+                      v-model="newLotQuantity.quantity"
+                      v-validate="'required'"
+                      :error-messages="errors.collect('quatity')"
+                      label="Quantity"
+                      data-vv-name="quantity"
+                      required
+                      type="number"
+                      onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-flex xs12 sm5 md2 offset-xs0 offset-lg4>
+                  <v-text-field v-model="lotQuantity" label="Total Quntity" readonly></v-text-field>
                 </v-flex>
+              </v-container>
+            </v-card-text>
 
-                <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-                  <v-text-field
-                    v-model="newLotQuantity.quantity"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('quatity')"
-                    label="Quantity"
-                    data-vv-name="quantity"
-                    required
-                     type="number"
-                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-
-                  <v-flex xs12 sm5 md2 offset-xs0 offset-lg4>
-                <v-text-field v-model="lotQuantity" label="Total Quntity" readonly></v-text-field>
-              </v-flex>
-              
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="clearQuntity">clear</v-btn>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="SaveQuntity">Add to Lot</v-btn>
-             <v-btn color="blue darken-1" flat @click="DeleteQuntity">Delete to Lot</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="clearQuntity">clear</v-btn>
+              <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" flat @click="SaveQuntity">Add to Lot</v-btn>
+              <v-btn color="blue darken-1" flat @click="DeleteQuntity">Delete to Lot</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-layout>
 
       <div>
@@ -389,16 +376,11 @@
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.unitWeight }}</td>
-               <td class="text-xs-left">{{ props.item.Details }}</td>
-                <td class="text-xs-center">{{ props.item.Border }}</td>
-            
+              <td class="text-xs-left">{{ props.item.Details }}</td>
+              <td class="text-xs-center">{{ props.item.Border }}</td>
+
               <td class="justify-center layout px-0">
-                 <v-icon
-                  color="blue-grey lighten-1"
-                  medium
-                  class="mr-2"
-                  @click="AddQuantity"
-                >add_box</v-icon>
+                <v-icon color="blue-grey lighten-1" medium class="mr-2" @click="AddQuantity">add_box</v-icon>
 
                 <v-icon
                   color="deep-purple darken-1"
@@ -438,9 +420,9 @@ import navDrawer from "../admin/navDrawer.vue";
 export default {
   data() {
     return {
-      dialog:false,
+      dialog: false,
       showModal: false,
-      showQuantity:false,
+      showQuantity: false,
       editedIndex: -1,
       imageName: "",
       imageUrl: "",
@@ -458,8 +440,7 @@ export default {
         Price: "",
         unitWeight: "",
         details: "",
-        border: null,
-
+        border: null
       },
 
       quantity: "",
@@ -468,8 +449,6 @@ export default {
       size: "",
       colour: "",
       lot: "",
-
-
 
       newProduct: {
         quantity: "",
@@ -482,9 +461,9 @@ export default {
         cid: ""
       },
 
-      newLotQuantity:{
+      newLotQuantity: {
         lot: "",
-        quantity: "",
+        quantity: ""
       },
 
       sizes: ["1x1", "2x2", "3x3", "4x4", "5x5"],
@@ -520,8 +499,8 @@ export default {
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
         { text: "unitWeight", value: "unitWeight" },
-         { text: "Details", value: "details" },
-         { text: "Border", value: "border" },
+        { text: "Details", value: "details" },
+        { text: "Border", value: "border" },
         { text: "Action", value: "action" }
       ]
     };
@@ -548,17 +527,16 @@ export default {
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
     },
-      
+
     lotQuantity: function() {
-      return this.newLotQuantity.lot*this.newLotQuantity.quantity;
-    
-  },
+      return this.newLotQuantity.lot * this.newLotQuantity.quantity;
+    }
   },
 
   methods: {
     catItems() {
       axios
-        .get("http://localhost:8000/api/category")
+        .get(this.$baseUrl + "/api/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -572,21 +550,7 @@ export default {
 
     selectFile(event) {
       this.file = this.$refs.file.files[0];
-
       let $Token = localStorage.getItem("token");
-      /*
-      axios
-        .post(
-          "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
-          formData
-        )
-        .then(response => {
-          this.newProduct.image = response.data.image;
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("Upload Failed");
-        });*/
     },
 
     addProduct() {
@@ -606,7 +570,7 @@ export default {
       let $Token = localStorage.getItem("token");
 
       axios
-        .post("http://localhost:8000/api/addProduct?token=" + $Token, formData)
+        .post(this.$baseUrl + "/addProduct?token=" + $Token, formData)
         .then(response => {
           this.dialog = false;
           this.productItems();
@@ -622,7 +586,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get("http://localhost:8000/api/products")
+        .get(this.$baseUrl + "/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -638,7 +602,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -661,11 +625,10 @@ export default {
 
     close() {
       this.showModal = false;
-       this.showQuantity=false;
+      this.showQuantity = false;
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
-       
       }, 300);
     },
 
@@ -678,9 +641,9 @@ export default {
       this.newProduct.details = "";
     },
 
-    clearQuntity(){
-      this.newLotQuantity.lot= "";
-      this.newLotQuantity.quantity= "";
+    clearQuntity() {
+      this.newLotQuantity.lot = "";
+      this.newLotQuantity.quantity = "";
     },
 
     openDialogProduct() {
@@ -700,7 +663,8 @@ export default {
 
         axios
           .post(
-            "http://localhost:8000/api/editProduct/" +
+            this.$baseUrl +
+              "/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -731,10 +695,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -753,10 +714,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -772,8 +730,7 @@ export default {
       this.file = this.$refs.file.files[0];
     },
 
-
-    AddQuantity(){
+    AddQuantity() {
       this.clearQuntity();
       this.showQuantity = true;
     },
@@ -783,8 +740,6 @@ export default {
       formData.append("file", this.file, this.file.name);
 
       let $Token = localStorage.getItem("token");
-
-
 
       axios
         .post(
@@ -796,7 +751,7 @@ export default {
           console.log(response.data.image);
           axios
             .post(
-              "http://localhost:8000/api/storeImage" + "?token=" + $Token,
+              this.$baseUrl + "/storeImage" + "?token=" + $Token,
               response.data
             )
             .then(response => {
@@ -815,18 +770,9 @@ export default {
           console.log("Upload Failed");
         });
     },
-    DeleteQuntity(){
+    DeleteQuntity() {},
 
-
-    },
-
-    SaveQuntity(){
-
-
-    },
-
-
-
+    SaveQuntity() {}
   }
 };
 </script>
@@ -834,9 +780,6 @@ export default {
 .v-responsive {
   margin-bottom: 7px;
 }
-
-
-
 </style>
 
 

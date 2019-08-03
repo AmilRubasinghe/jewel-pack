@@ -52,7 +52,7 @@
                     name="password"
                     prepend-icon="lock"
                     type="password"
-                    v-validate="'required'"
+                    v-validate="'required|min:6'"
                     v-model="register.password"
                     :error-messages="errors.collect('password')"
                   ></v-text-field>
@@ -63,7 +63,7 @@
                     name="password_confirmation"
                     prepend-icon="lock"
                     type="password"
-                    v-validate="'required|confirmed:password'"
+                    v-validate="'required|min:6|confirmed:password'"
                     data-vv-as="confirm password"
                     v-model="register.confirm_password"
                     :error-messages="errors.collect('password_confirmation')"
@@ -112,7 +112,7 @@ export default {
       Store.commit("setEmailToVerify", this.register.email);
       if (!this.errors.any()) {
         axios
-          .post("http://localhost:8000/api/register", this.register, {})
+          .post(this.$baseUrl+"/register", this.register, {})
           .then(response => {
             //console.log(response.data.message);
             this.$router.push({

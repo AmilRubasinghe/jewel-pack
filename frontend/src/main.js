@@ -33,7 +33,7 @@ Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
 
-Vue.prototype.$baseUrl = 'http://localhost:8080/api';
+Vue.prototype.$baseUrl = 'http://localhost:8000/api';
 
 new Vue({
   el: '#app',

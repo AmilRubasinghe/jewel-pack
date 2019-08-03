@@ -266,7 +266,7 @@ export default {
       formData.append("keywords", this.keywords);
 
       axios
-        .post(this.$baseUrl+"/api/search", formData)
+        .get(this.$baseUrl+"/search", formData)
         .then(response => {
           this.products=response.data.products;
         })
@@ -281,15 +281,9 @@ export default {
         .get(this.$baseUrl+$path)
         .then(response => {
           this.products = response.data.product;
-
-
-this.pageTitle = this.$store.getters.getCategory.find(
+          this.pageTitle = this.$store.getters.getCategory.find(
             element => element.CID === this.products[0].CID
           ).CName;
-
-          
-
-          //   console.log(this.products);
         })
         .catch(error => {
           console.log(error.response);

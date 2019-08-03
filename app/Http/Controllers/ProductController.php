@@ -43,7 +43,7 @@ class ProductController extends Controller
 
   public function search(Request $request){
 
-    $query = $request->input('keywords');
+    $query = $request->keywords;
     $products = product::where('Size','LIKE','%'.$query.'%')->orWhere('Colour','LIKE','%'.$query.'%')->get();
     if(count($products) > 0)
         return response()->json(['products'=>$products],200);
