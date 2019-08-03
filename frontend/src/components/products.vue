@@ -27,7 +27,7 @@
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
             <br />
             <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
-              <v-img contain align="center" :src="products[i].Image">
+              <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
                     <v-flex xs12 align-end flexbox>
@@ -98,7 +98,7 @@
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/4" :src="selectedItem.Image">
+                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
                           <v-expand-transition>
                             <div
                               v-if="hover"
@@ -240,11 +240,13 @@ export default {
       dialog: false,
       products: [],
       selectedItem: null,
-      value: 1,
-      max: 5,
+      value: 0,
+      max: 500,
+      min:0,
       newValue: 0,
+size: 0,
       keywords:"",
-
+        
       sizes: ["25","50","100","150","200"],
     };
   },
@@ -446,6 +448,10 @@ h2 {
   font-family: 'Dancing Script', cursive;
   font-size: 2.5em;
   color:rgba(129, 91, 24, 0.788);
+}
+.flex.xs12.sm12.md11.d-flex.offset-xs0.offset-lg1 {
+    margin: 0px;
+    padding: 0px;
 }
 
 

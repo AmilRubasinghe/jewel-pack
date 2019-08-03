@@ -264,34 +264,39 @@
 
         <div class="container">
           <div>
-            <h3 class="newest">N E W E S T B O X</h3>
+            <h3 class="newest">F E A T U R E D B O X</h3>
           </div>
         </div>
+        <v-card flat
+    max-heigt="1200"
+    
+  >
+  <v-layout wrap>
+         <v-flex v-for="(item, i) in items" :key="i" d-flex xs12 sm6 md3   >
+       
+         <v-card
+                        
+                         class="card product "
+                        color="blue-grey lighten-3"
+                        max-width="500"
+                      >
+                      <div class="image-box">
+                        <v-img :aspect-ratio="3/3" :src="item.image">
+                         
+                        </v-img>
+                      </div>  
+                      </v-card>
+                     
+      </v-flex>
+      
 
-        <div class="container">
-          <div class="newest-product">
-            <div class="gallery_product-1">
-              <img
-                src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/10626822_1621556271423611_7736799005497095380_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb3-1.fna&oh=c3981005c98715e35ae5562c8ff04da1&oe=5D6551B9"
-                class="img-responsive"
-              >
-            </div>
 
-            <div class="gallery_product-2">
-              <img
-                src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/11091137_1621552601423978_714322575191341730_n.jpg?_nc_cat=109&_nc_ht=scontent.fcmb3-1.fna&oh=bc689b1be997cb2f901148bcaed2881e&oe=5D68ADDA"
-                class="img-responsive"
-              >
-            </div>
+      
+    </v-layout>
+  </v-card>
 
-            <div class="gallery_product-3">
-              <img
-                src="https://scontent.fcmb3-1.fna.fbcdn.net/v/t1.0-9/21769_1621551491424089_7080591978003687507_n.jpg?_nc_cat=104&_nc_ht=scontent.fcmb3-1.fna&oh=7631784490175ca34439f3123b6b441d&oe=5D66A8DA"
-                class="img-responsive"
-              >
-            </div>
-          </div>
-        </div>
+      
+           
 
         <!-- ..............Jewellery display.............................-->
         <div class="container"></div>
@@ -306,6 +311,76 @@
               </v-layout>
             </v-parallax>
           
+
+        <v-card flat
+    max-heigt="1000"
+    color="brown lighten-5"
+  >
+  
+<v-layout wrap>
+      <v-flex d-flex xs12 sm6 md3>
+         <v-layout wrap>
+          <v-flex d-flex>
+           <h2
+                  style="color:#5D4037; align:center;"
+                  class="display-3 font-weight-regular mb-3"
+                >Shop By Category</h2> 
+               
+                
+          </v-flex>
+          <v-flex d-flex>
+            
+             
+                <h4
+                style="color:#A1887F; align:center;"
+                  class="subtitle-2 font-weight-light mb-1"
+                  
+                >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                  
+                  </h4> 
+               </v-flex>
+              
+        </v-layout>
+       
+    </v-flex>
+
+       <v-flex  v-for="(item, i) in categorys" :key="i" d-flex xs12 sm6 md3>
+       
+         <v-card
+                       
+                         class="card category card-5"
+                        color="grey lighten-4"
+                        width="300"
+                        height="393"
+                        
+                      >
+                        <v-img :aspect-ratio="3.8/4.2" :src="item.image">
+                         
+                        </v-img>
+                         <v-card-text> 
+                            <h4
+                style="color:#8D6E63"
+                  class="ab subtitle-2 headline mb-1"
+                  
+                >{{item.name}}
+                  
+                  </h4> 
+              </v-card-text>
+                      </v-card>
+                     
+      </v-flex>
+      
+     
+     
+      
+      
+    </v-layout>
+       
+    
+  
+  </v-card>
+
+  
 
         <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
@@ -349,7 +424,42 @@ import "aos/dist/aos.css"; // You can also use <link> for styles
 export default {
   data() {
     return {
-      slideshowItems: []
+      slideshowItems: [],
+      items:[
+        
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+        },
+        
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+        },
+         
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+        },
+         {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+        },
+         {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+        }
+      ],
+      categorys:[
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg",
+          name :"Gem boxes"
+        },
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg",
+           name :"Jewellery boxes"
+        },
+        {
+          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg",
+          name :"Gem boxes"
+        },
+      ],
+       
     };
   },
   methods: {
@@ -462,6 +572,59 @@ font-family: 'Fredericka the Great', cursive;
   font-size: 8em;
   color:#FF6F00;
   
+}
+.v-card.v-sheet.theme--light.blue-grey.lighten-4 {
+   padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 60px;
+    padding-top: 60px;
+}
+
+.v-card.v-sheet.theme--light.brown.lighten-5 {
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 60px;
+    padding-top: 60px;
+}
+.card.category.v-card.v-sheet.theme--light {
+    
+    margin-left: 30px;
+}
+h4.ab.subtitle-2.headline.mb-1 {
+    text-align: center;
+}
+.flex.d-flex {
+    margin-bottom: auto;
+}
+.flex.d-flex.xs12.sm6.md3 {
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.image-box .v-image {
+    max-width: 100%;
+    transition: all 0.3s;
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: scale(1);
+}
+
+.image-box:hover .v-image {
+    transform: scale(1.1);
+}
+.image-box {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+   
+}
+.v-card.v-card--flat.v-sheet.theme--light {
+    
+    padding-left: 70px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .custom-font4{
