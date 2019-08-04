@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JewelPack</title>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -12,18 +12,6 @@
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="604126479887-9vpo97k8caubk13hc87m0e5vhngjlrje.apps.googleusercontent.com">
-<script>
-  window.onLoadCallback = function(){
-    gapi.auth2.init({
-        client_id: '604126479887-9vpo97k8caubk13hc87m0e5vhngjlrje.apps.googleusercontent.com'
-      });
-  }
-  </script>
-
-<!--lodash library-->
-<script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
-
-
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -60,6 +48,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-    <script src="/dist/build.js"></script>
+    <script src="./build.js"></script>
   </body>
 </html>

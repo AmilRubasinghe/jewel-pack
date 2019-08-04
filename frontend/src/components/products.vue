@@ -13,7 +13,9 @@
             outline
             v-model="keywords"
             color=#E65100
-            placeholder="Find your box using color,size"    
+            placeholder="Find your box using color,size"
+            autofocus
+            onblur="this.focus()"
           ></v-text-field>
           </v-flex>
            <v-btn icon @click="search" large>
@@ -23,10 +25,10 @@
         </v-container>
 
         
-        <v-layout row wrap justify-space-between>
-          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
+        <v-layout row wrap align-center justify-center>
+          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
             <br />
-            <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
+            <v-card class="card-5" style="cursor: pointer" light ripple align="center" @click="productPreview(products[i])">
               <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
@@ -39,7 +41,7 @@
 
               <v-card-title>
               
-                  <v-flex xs9 sm12 offset-sm0>
+                  <v-flex xs9 sm12 offset-sm0 >
                   <span>
                     <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
@@ -230,6 +232,7 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
+import _ from 'lodash';
 
 export default {
   props: ["pageTitle", "products","searchMode"],
@@ -248,7 +251,16 @@ size: 0,
       keywords:"",
         
       sizes: ["25","50","100","150","200"],
+    debounceKey:'',
+      
     };
+  },
+
+  watch: {
+    // whenever keywords changes, this function will run
+    keywords: function () {
+      this.getResult();
+    }
   },
 
 
@@ -262,13 +274,25 @@ size: 0,
 
   methods: {
 
+    getResult: _.debounce(
+      function () {
+        //console.log(this.keywords);
+        this.search();
+      },
+      // This is the number of milliseconds we wait for the
+      // user to stop typing.
+      1500
+    ),
+
+
+
     search() {
       
       const formData = new FormData();
       formData.append("keywords", this.keywords);
 
       axios
-        .get(this.$baseUrl+"/search", formData)
+        .post(this.$baseUrl+"/search", formData)
         .then(response => {
           this.products=response.data.products;
         })

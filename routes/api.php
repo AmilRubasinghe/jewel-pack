@@ -46,7 +46,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 
     Route::post('register','userController@registerUser');
     Route::post('resendvEmail','userController@resendvEmail');
-    Route::get('search','ProductController@search');
+    Route::post('search','ProductController@search');
     
     
     Route::post('guard','userController@guard');
