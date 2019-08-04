@@ -1,80 +1,53 @@
 <template>
   <div>
     <br>
-    <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-      <v-dialog v-model="dialog" width="1200px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Upload LotQuantity</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <form>
-                <v-layout row wrap>
-                  <v-flex xs12 sm5 md5>
-                    <v-text-field
-                      v-model="LotValue"
+     <div class="container 1" v-bind:style="{ background: '#B0BEC5'}">
+     <v-dialog v-model="dialog" max-width=700>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Upload LotQuantity</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container grid-list-md text-md-center fluid fill-height>
+                  <v-layout column>
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field  
+                      v-model="newItem.LotValue"
                       v-validate="'required'"
                       :error-messages="errors.collect('LotValue')"
                       label="Lot Value"
                       data-vv-name="LotValue"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+                      type="number"
+                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                      required/>
+                    </v-flex>
+        
+                  </v-layout>
+                </v-container>
+              </v-card-text>
 
-                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg1>
-                    <v-text-field
-                      v-model="LotCode"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('LotCode')"
-                      label="LotCode"
-                      data-vv-name="LotCode"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </form>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="clear">clear</v-btn>
-            <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue" @click="Save">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+<v-container grid-list-md text-md-center fluid fill-height>
+      <v-layout row wrap>
+        <v-flex d-flex>
+          <v-btn color="primary" @click="clear">clear</v-btn>
+         
+        </v-flex>
 
-      <v-dialog v-model="showModal">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit LotQuantity</span>
-          </v-card-title>
-
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.LID" label="LID" disabled></v-text-field>
-                </v-flex>
-
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.LotValue" label="Lot Value"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.LotCode" label="LotCode"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+        <v-flex d-flex>
+          <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+        </v-flex>
+          <v-flex d-flex>
+          <v-btn outline color="blue" @click="Save">Save</v-btn>
+        </v-flex>
+        </v-layout>
+        </v-container>
+               
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
       <v-card>
         <v-card-title>
@@ -97,22 +70,16 @@
             <v-icon dark>refresh</v-icon>
           </v-btn>
 
-          <v-btn v-if="!deletedUsers" @click="getDeletedUsers">
-            <v-icon large color="blue">delete_sweep</v-icon>Deleted Lot Item
-          </v-btn>
-
-          <v-btn v-if="deletedUsers" @click="getUsers">
-            <v-icon large color="blue">playlist_add_check</v-icon>Active Lot Item
-          </v-btn>
+         
         </v-card-title>
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="LotItems"
+          :items="LotQuantityItems"
           :search="search"
           :pagination.sync="pagination"
           select-all
-          item-key="LID"
+          item-key="lid"
           class="elevation-1"
         >
           <template v-slot:headers="props">
@@ -133,29 +100,17 @@
           </template>
           <template v-slot:items="props">
             <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td class="text-xs-left">{{ props.item.LID }}</td>
-              <td class="text-xs-left">{{ props.item.LotValue }}</td>
-              <td class="text-xs-left">{{ props.item.icon }}</td>
-              
+              <td class="text-xs-center">{{ props.item.lid }}</td>
+              <td class="text-xs-center">{{ props.item.lotquantity }}</td>
               <td class="justify-center layout px-0">
+               
                 <v-icon
-                  color="deep-purple darken-1"
-                  medium
-                  class="mr-2"
-                  @click="editLotItem(props.item)"
-                >edit</v-icon>
-                <v-icon
-                  v-if="!deletedUsers"
+                 
                   color="red"
                   medium
                   @click="deleteLotItem(props.item)"
                 >delete</v-icon>
-                <v-icon
-                  v-if="deletedUsers"
-                  color="green"
-                  medium
-                  @click="restoreLotItem(props.item)"
-                >restore_from_trash</v-icon>
+                
               </td>
             </tr>
           </template>
@@ -173,29 +128,28 @@ export default {
   data() {
     return {
       dialog: false,
-      showModal: false,
-      editedIndex: -1,
-      editedItem: {
-        LotValue: "",
-        LotCode: "",
-
-        
-      },
+   
+    
       search: "",
-     LotValue: "",
+
+      newItem:{
+        LotValue: "",
+        LID: 0,
+      },
+     
       LotCode: "",
 
     
       pagination: {
-        sortBy: "LID"
+        sortBy: "lid"
       },
       selected: [],
-      LotItems: [],
+      LotQuantityItems: [],
 
       headers: [
-        { text: "Lot ID", value: "LID" },
-        { text: "Lot value", value: "LotValue" },
-        { text: "Lot Code", value: "LotCode" },
+        { text: "Lot ID", value: "lid" },
+        { text: "Lot value", value: "lotquantity" },
+       
       
         { text: "Action", value: "action" }
       ]
@@ -221,9 +175,11 @@ export default {
 
     lotItems() {
       axios
-        .get("http://localhost:8000/api/category")
+        .get("http://localhost:8000/api/getLot")
         .then(response => {
-          this.categoryItems = response.data.catItems;
+          this.LotQuantityItems = response.data.lotItems;
+          
+
 
           //console.log(this.categoryItems);
         })
@@ -235,24 +191,56 @@ export default {
 
    
 
-    editLotItem(item) {
-      this.editedIndex = this.categoryItems.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      console.log(this.editedItem);
-      this.showModal = true;
-    },
+    
 
     deleteLotItem(item){
+      var result = confirm("Want to delete Lot" + item.lid + "?");
+      if (result) {
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            "http://localhost:8000/api/deleteLot/" +
+              item.lid +
+              "?token=" +
+              $Token
+          )
+          .then(response => {
+            /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+             this.lotItems();
+            alert("Lot succesfully Deleted");
+          });
+      }
 
 
     },
 
-    restoreLotItem(){
-
-
-
-    },
+   
     Save(){
+      
+      
+
+      // this.newProduct.image = formData;
+
+       let $Token = localStorage.getItem("token");
+
+      axios
+        .post("http://localhost:8000/api/addlot?token=" + $Token, this.newItem)
+        //console.log("not save")
+        .then(response => {
+          
+          this.dialog = false;
+          this.lotItems();
+          
+          console.log("lotQuantity Succesfully Added");
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    
 
         
     },
@@ -269,10 +257,8 @@ export default {
         this.dialog = true;
     },
      clear() {
-      this.LotValue = "";
-      this.LotCode = "";
-
-      this.$validator.reset();
+      this.newItem.LotValue = "";
+    
     },
   }
 };

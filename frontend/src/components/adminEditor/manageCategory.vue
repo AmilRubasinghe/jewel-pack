@@ -1,81 +1,116 @@
 <template>
   <div>
     <br />
-    <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-      <v-dialog v-model="dialog" width="1200px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add category</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <form>
-                <v-layout row wrap>
-                  <v-flex xs12 sm5 md5>
-                    <v-text-field
+    
+  
+   <div class="container" v-bind:style="{ background: '#B0BEC5'}">
+     <v-dialog v-model="dialog" max-width=700>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Add category</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container grid-list-md text-md-center fluid fill-height>
+                  <v-layout column>
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field  
                       v-model="newCategory.CName"
                       v-validate="'required'"
                       :error-messages="errors.collect('CategoryName')"
                       label="Category Name"
                       data-vv-name="CategoryName"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+                      required />
+                    </v-flex>
 
-                  <v-flex xs12 sm5 md5 offset-xs0 offset-lg2>
-                    <v-text-field
-                      v-model="newCategory.icon"
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field
+                       v-model="newCategory.icon"
                       v-validate="'required'"
                       :error-messages="errors.collect('IconCode')"
                       label="IconCode"
                       placeholder="Leave blank for default icon"
                       data-vv-name="IconCode"
                       required
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </form>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn @click="clear">clear</v-btn>
-            <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue" @click="addCat">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+                      />
+                    </v-flex>
+                    </v-layout>
+                </v-container>
+              </v-card-text>
 
-      <v-dialog v-model="showModal">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit Category</span>
-          </v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+<v-container grid-list-md text-md-center fluid fill-height>
+      <v-layout row wrap>
+        <v-flex d-flex>
+          <v-btn color="primary" @click="clear">clear</v-btn>
+        
+        </v-flex>
 
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.CID" label="CID" disabled></v-text-field>
-                </v-flex>
+        <v-flex d-flex>
+         <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+        </v-flex>
+         <v-flex d-flex>
+          <v-btn outline color="primary" @click="addCat">Save</v-btn>
+        </v-flex>
+        </v-layout>
+        </v-container>
+               
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.CName" label="Category Name"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.icon" label="Icon"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
+   
+      
+      <v-dialog v-model="showModal" max-width=700>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Edit Category</span>
+              </v-card-title>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+              <v-card-text>
+                <v-container grid-list-md text-md-center fluid fill-height>
+                  <v-layout column>
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field v-model="editedItem.CID" label="CID" disabled />
+                    </v-flex>
+
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field v-model="editedItem.CName" label="Category Name" />
+                    </v-flex>
+
+                    <v-flex md3 sm3 lg3 xs3 d-flex>
+                      <v-text-field v-model="editedItem.icon" label="Icon" />
+                    </v-flex>
+
+                  
+                     </v-layout>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+<v-container grid-list-md text-md-center fluid fill-height>
+     
+      <v-layout row wrap>
+        <v-flex d-flex class="button_1">
+         <v-btn outline outline-color="blue darken-1" flat @click="close">Cancel</v-btn>
+        </v-flex>
+
+        <v-flex d-flex class="button_2">
+           <v-btn  outline color="blue darken-1" flat @click="editSave">Save</v-btn>
+        </v-flex>
+        </v-layout>
+       
+        </v-container>
+               
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+
+
+    
 
       <v-card>
         <v-card-title>
@@ -90,7 +125,7 @@
             hide-details
           ></v-text-field>
 
-          <v-btn fab dark color="blue" @click="dialog = true">
+          <v-btn fab dark color="blue" @click="dialogOpen">
             <v-icon dark>add</v-icon>
           </v-btn>
 
@@ -134,10 +169,10 @@
           </template>
           <template v-slot:items="props">
             <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td class="text-xs-left">{{ props.item.CID }}</td>
-              <td class="text-xs-left">{{ props.item.CName }}</td>
-              <td class="text-xs-left">{{ props.item.icon }}</td>
-              <td class="text-xs-left">{{ props.item.Images }}</td>
+              <td class="text-xs-center">{{ props.item.CID }}</td>
+              <td class="text-xs-center">{{ props.item.CName }}</td>
+              <td class="text-xs-center">{{ props.item.icon }}</td>
+              <td class="text-xs-center">{{ props.item.Images }}</td>
               <td class="justify-center layout px-0">
                 <v-icon
                   color="deep-purple darken-1"
@@ -172,10 +207,7 @@ export default {
       showModal: false,
       deleted: false,
       editedIndex: -1,
-      editedItem: {
-        icon: "",
-        CName: ""
-      },
+      editedItem: {},
 
       newCategory: {
         icon: "",
@@ -237,6 +269,7 @@ export default {
           this.newCategory
         )
         .then(response => {
+           this.dialog = false;
           this.catItems();
         })
         .catch(error => {
@@ -261,8 +294,8 @@ export default {
     },
 
     clear() {
-      this.CategoryName = "";
-      this.IconCode = "";
+      this.newCategory.CName = "";
+      this.newCategory.icon = "";
 
       this.$validator.reset();
     },
@@ -348,7 +381,21 @@ export default {
             alert("Category succesfully Deleted");
           });
       }
-    }
+    },
+    dialogOpen(){
+      this.clear();
+    this.dialog = true;
+    },
   }
 };
 </script>
+<style>
+.flex.button_1.d-flex {
+ margin-left: 60px;
+}
+.flex.button_2.d-flex {
+    margin-right: 60px;
+}
+</style>
+
+
