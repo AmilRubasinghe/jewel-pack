@@ -10,37 +10,18 @@
 <script>
 import axios from "axios";
 export default {
-  data() {
-    return {};
-  },
-
-  created() {},
   mounted() {
-    this.init();
     this.renderButton();
-    
-    
   },
 
   methods: {
-
-
-    route() {
-     console.log(this.$route.path);
-    },
-    init() {
-      gapi.load("auth2", function() {
-        /* Ready. Make a call to gapi.auth2.init or some other API */
-      });
-    },
-
     onSuccess(googleUser) {
-      console.log(googleUser.getAuthResponse().id_token);
+      // console.log(googleUser.getAuthResponse().id_token);
       console.log("Logged in as: " + googleUser.getBasicProfile().getName());
 
       let $token = googleUser.getAuthResponse().id_token;
       axios
-        .post("http://localhost:8000/api/tokensignin", {
+        .post(this.$baseUrl + "/tokensignin", {
           token: $token
         })
         .then(response => {
@@ -77,12 +58,6 @@ export default {
       console.log(error);
     },
 
-    init() {
-      gapi.load("auth2", function() {
-        /* Ready. Make a call to gapi.auth2.init or some other API */
-      });
-    },
-
     renderButton() {
       gapi.signin2.render("my-signin2", {
         scope: "profile email",
@@ -95,9 +70,6 @@ export default {
       });
     },
 
-    
-
-  
     signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {

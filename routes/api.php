@@ -36,19 +36,21 @@ Route::group([
 Route::get('pay', 'PaymentController@payHerePost');
 
 //userModuleRoutes
-    Route::post('login', 'UserController@loginUser');
+    Route::post('login', 'userController@loginUser');
     Route::post('tokensignin', 'GTokenController@verify');
+
+
 
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ResetPasswordController@process');
 
-    Route::post('register','UserController@registerUser');
-    Route::post('resendvEmail','UserController@resendvEmail');
+    Route::post('register','userController@registerUser');
+    Route::post('resendvEmail','userController@resendvEmail');
     Route::post('search','ProductController@search');
     
     
-    Route::post('guard','UserController@guard');
-    Route::post('refresh', 'UserController@refresh');
+    Route::post('guard','userController@guard');
+    Route::post('refresh', 'userController@refresh');
 
 //CategoryRoutes
     Route::get('category', 'CategoryController@getItem');
@@ -78,8 +80,8 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
 //userModuleProtectedRoutes
     Route::group(['middleware' => ['jwt.verify:user,editor,admin']], function() {
         
-        Route::post('logout', 'UserController@logoutUser');
-        Route::post('me', 'UserController@me');
+        Route::post('logout', 'userController@logoutUser');
+        Route::post('me', 'userController@me');
         
         
     });
@@ -87,12 +89,12 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
 
     Route::group(['middleware' => 'jwt.verify:admin'], function() {
         
-        Route::post('users','UserController@getUsers');
-        Route::post('deletedUsers','UserController@getDeletedUsers');
-        Route::post('editUser', 'UserController@editUser');
-        Route::post('deleteUser/{id}', 'UserController@deleteUser');
-        Route::post('restoreUser/{id}', 'UserController@restoreUser');
-        Route::post('salesReport', 'salesReport@getReport');
+        Route::get('users','userController@getUsers');
+        Route::post('deletedUsers','userController@getDeletedUsers');
+        Route::post('editUser', 'userController@editUser');
+        Route::post('deleteUser/{id}', 'userController@deleteUser');
+        Route::post('restoreUser/{id}', 'userController@restoreUser');
+        Route::get('salesReport', 'salesReport@getReport');
         
         
     });

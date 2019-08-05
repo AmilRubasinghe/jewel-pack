@@ -35,7 +35,7 @@
         
         <v-layout row wrap align-center justify-center justify-space-between>
           <v-flex xs12 sm12 md6 lg7>
-            <v-parallax height=600 src="http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
+            <v-parallax height=600 src="http://jewelpack.tk/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg">
               <v-layout align-center column justify-center>
                 
                 <h1
@@ -302,7 +302,7 @@
         <div class="container"></div>
 
        
-            <v-parallax src="http://localhost:8000/storage/slideshow/1563280490-11071592_1621554201423818_8781376146243943971_o.jpg">
+            <v-parallax src="http://jewelpack.tk/storage/slideshow/1563280490-11071592_1621554201423818_8781376146243943971_o.jpg">
               <v-layout align-center column justify-center color="blue">
                 <h1
                   style="align:center;"
@@ -465,10 +465,9 @@ export default {
   methods: {
     getSlideshow() {
       axios
-        .get(this.$baseUrl+"/getImages")
+        .get(this.$baseUrl +"/getImages")
         .then(response => {
           this.slideshowItems = response.data.images;
-
           console.log(this.slideshowItems);
         })
         .catch(error => {

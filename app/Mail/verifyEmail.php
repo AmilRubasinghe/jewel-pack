@@ -21,7 +21,6 @@ class verifyEmail extends Mailable
 
     public function __construct(User $user)
     {
-        //
         $this->user = $user;
     }
 
@@ -32,8 +31,12 @@ class verifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.sendView')
+      /*  return $this->view('email.sendView')
             ->from('jewelpacksparta@gmail.com','Jewel Pack')
-            ->subject('Verify Jewel Pack account');
+            ->subject('Verify Jewel Pack account');*/
+
+        return $this->markdown('Email.sendView')
+        ->from('jewelpacksparta@gmail.com','Jewel Pack')
+        ->subject('Verify Jewel Pack account');
     }
 }

@@ -83,17 +83,14 @@
                   <v-layout row wrap>
                  <v-flex md3 sm12 lg3 xs12 d-flex>
                   <v-checkbox
-                  
                     v-model="newProduct.border"
                     v-validate="'required'"
                     :error-messages="errors.collect('checkbox')"
                     value="1"
-                    
-                    label="Gold border" 
+                    label="Gold border"
                     data-vv-name="checkbox"
                     type="checkbox"
                     required
-                   
                   ></v-checkbox>
                 </v-flex>
               <v-flex xs12 sm12 md6 d-flex >
@@ -451,16 +448,11 @@
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.unitWeight }}</td>
-               <td class="text-xs-left">{{ props.item.Details }}</td>
-                <td class="text-xs-center">{{ props.item.Border }}</td>
-            
+              <td class="text-xs-left">{{ props.item.Details }}</td>
+              <td class="text-xs-center">{{ props.item.Border }}</td>
+
               <td class="justify-center layout px-0">
-                 <v-icon
-                  color="blue-grey lighten-1"
-                  medium
-                  class="mr-2"
-                  @click="AddQuantity"
-                >add_box</v-icon>
+                <v-icon color="blue-grey lighten-1" medium class="mr-2" @click="AddQuantity">add_box</v-icon>
 
                 <v-icon
                   color="deep-purple darken-1"
@@ -503,7 +495,7 @@ export default {
       ppp:"sjkbsa",
       dialog:false,
       showModal: false,
-      showQuantity:false,
+      showQuantity: false,
       editedIndex: -1,
       imageName: "",
       imageUrl: "",
@@ -520,8 +512,6 @@ export default {
       colour: "",
       lot: "",
 
-
-
       newProduct: {
         quantity: "",
         details: "",
@@ -533,7 +523,7 @@ export default {
         cid: ""
       },
 
-      newLotQuantity:{
+      newLotQuantity: {
         lot: "",
         quantity: "",
         LotQuantity
@@ -573,8 +563,8 @@ export default {
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
         { text: "unitWeight", value: "unitWeight" },
-         { text: "Details", value: "details" },
-         { text: "Border", value: "border" },
+        { text: "Details", value: "details" },
+        { text: "Border", value: "border" },
         { text: "Action", value: "action" }
       ]
     };
@@ -602,7 +592,7 @@ export default {
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
     },
-      
+
     lotQuantity: function() {
       this.editedIndex = this.lotItem.indexOf(this.newLotQuantity.lot)
             this.editedItem = Object.assign({}, this.newLotQuantity.lot)
@@ -617,7 +607,7 @@ export default {
   methods: {
     catItems() {
       axios
-        .get("http://localhost:8000/api/category")
+        .get(this.$baseUrl + "/api/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -649,21 +639,7 @@ console.log(this.lotItem);
 
     selectFile(event) {
       this.file = this.$refs.file.files[0];
-
       let $Token = localStorage.getItem("token");
-      /*
-      axios
-        .post(
-          "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
-          formData
-        )
-        .then(response => {
-          this.newProduct.image = response.data.image;
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("Upload Failed");
-        });*/
     },
 
     addProduct() {
@@ -683,7 +659,7 @@ console.log(this.lotItem);
       let $Token = localStorage.getItem("token");
 
       axios
-        .post("http://localhost:8000/api/addProduct?token=" + $Token, formData)
+        .post(this.$baseUrl + "/addProduct?token=" + $Token, formData)
         .then(response => {
           this.dialog = false;
           this.productItems();
@@ -699,7 +675,7 @@ console.log(this.lotItem);
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get("http://localhost:8000/api/products")
+        .get(this.$baseUrl + "/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -716,7 +692,7 @@ console.log(this.lotItem);
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -739,11 +715,10 @@ console.log(this.lotItem);
 
     close() {
       this.showModal = false;
-       this.showQuantity=false;
+      this.showQuantity = false;
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
-       
       }, 300);
     },
 
@@ -756,9 +731,9 @@ console.log(this.lotItem);
       this.newProduct.details = "";
     },
 
-    clearQuntity(){
-      this.newLotQuantity.lot= "";
-      this.newLotQuantity.quantity= "";
+    clearQuntity() {
+      this.newLotQuantity.lot = "";
+      this.newLotQuantity.quantity = "";
     },
 
     openDialogProduct() {
@@ -778,7 +753,8 @@ console.log(this.lotItem);
 
         axios
           .post(
-            "http://localhost:8000/api/editProduct/" +
+            this.$baseUrl +
+              "/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -817,10 +793,7 @@ console.log(this.lotItem);
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -839,10 +812,7 @@ console.log(this.lotItem);
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -858,8 +828,7 @@ console.log(this.lotItem);
       this.file = this.$refs.file.files[0];
     },
 
-
-    AddQuantity(){
+    AddQuantity() {
       this.clearQuntity();
       this.showQuantity = true;
     },
@@ -869,8 +838,6 @@ console.log(this.lotItem);
       formData.append("file", this.file, this.file.name);
 
       let $Token = localStorage.getItem("token");
-
-
 
       axios
         .post(
@@ -882,7 +849,7 @@ console.log(this.lotItem);
           console.log(response.data.image);
           axios
             .post(
-              "http://localhost:8000/api/storeImage" + "?token=" + $Token,
+              this.$baseUrl + "/storeImage" + "?token=" + $Token,
               response.data
             )
             .then(response => {
@@ -910,6 +877,7 @@ console.log(this.lotItem);
 
 
 
+    SaveQuntity() {}
   }
 };
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\product;
+use DB;
 
 class ProductController extends Controller
 {
@@ -43,13 +44,63 @@ class ProductController extends Controller
 
   public function search(Request $request){
 
-    $query = $request->input('keywords');
-    $products = product::where('Size','LIKE','%'.$query.'%')->orWhere('Colour','LIKE','%'.$query.'%')->get();
+    $searchQuery = trim($request->keywords);
+    $field = ['Size', 'Colour'];
+    $products=product::where('isDeleted', '=', 0)->
+    where(function ($query) use($searchQuery, $field) {
+      for ($i = 0; $i < count($field); $i++){
+         $query->orWhere($field[$i], 'like',  '%' . $searchQuery .'%');
+      }      
+ })->get();
+
+
+      if(count($products) > 0)
+      return response()->json(['products'=>$products],200);
+  else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+
+
+/*
+    $products = DB::table('products')
+      ->where(
+        function($result) use ($query){
+          $result->where('isDeleted', '=', 0);
+          $result->orWhere('Colour', 'LIKE', '%'.$query.'%');
+          $result->orWhere('Size', 'LIKE', '%'.$query.'%');
+      }
+      )->get();
+      
     if(count($products) > 0)
         return response()->json(['products'=>$products],200);
     else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+
+*/
+
+/*
+    $searchQuery = trim($request->keywords);
+    $requestData = ['Size', 'Colour'];
+     $products = product::where(function($q) use($requestData, $searchQuery) {
+                           foreach ($requestData as $field)
+                              $q->orWhere($field, 'like', "%{$searchQuery}%");
+                   })->get();
  
- 
+                   if(count($products) > 0)
+        return response()->json(['products'=>$products],200);
+    else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+
+ */
+/*$products = product::where('isDeleted', '=', 0)->get();
+$searchQuery = trim($request->keywords);
+$field = ['Size', 'Colour'];
+$products = product::where(function ($query) use($searchQuery, $field) {
+             for ($i = 0; $i < count($field); $i++){
+                $query->orWhere($field[$i], 'like',  '%' . $searchQuery .'%');
+             }      
+        })->get();
+
+        if(count($products) > 0)
+        return response()->json(['products'=>$products],200);
+    else return response()->json(['message'=>"No Products found. Try to search again !"],200);
+    */
 }
 
 
