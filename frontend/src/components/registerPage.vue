@@ -1,144 +1,138 @@
+
+
+
+
 <template>
-<body class="inventory-body">
-    <div>
-    <div class="container box">
-        <alert v-if="alert" v-bind:message="alert" />
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-Top justify-top>
+          <v-flex xs12 sm8 md8>
+            <v-card class="elevation-14">
+              <v-toolbar color="primary" dark flat>
+                <v-toolbar-title>Register</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form @submit.prevent="registerUser">
+                  <v-text-field
+                    label="First Name"
+                    
+                    prepend-icon="person"
+                    type="text"
+                    v-validate="'required'"
+                    v-model="register.firstname"
+                    name="first_name"
+                    data-vv-as="First Name"
+                    :error-messages="errors.collect('first_name')"
+                  ></v-text-field>
+                  <v-text-field
+                    label="Last Name"
+                    name="last_name"
+                    prepend-icon="person"
+                    type="text"
+                    v-validate="'required'"
+                    data-vv-as="Last Name"
+                    v-model="register.lastname"
+                    :error-messages="errors.collect('last_name')"
+                  ></v-text-field>
+                  <v-text-field
+                    label="Email"
+                    name="email"
+                    prepend-icon="email"
+                    type="email"
+                    v-validate="'email|required'"
+                    v-model="register.email"
+                    data-vv-as="Email"
+                     :error-messages="errors.collect('email')"
+                  ></v-text-field>
 
-   <form @submit.prevent='registerUser'>
+                  <v-text-field
+                    ref="password"
+                    label="Password"
+                    name="password"
+                    prepend-icon="lock"
+                    type="password"
+                    v-validate="'required'"
+                    v-model="register.password"
+                    :error-messages="errors.collect('password')"
+                  ></v-text-field>
 
-
-
-        <h1 align="center">Register</h1>
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname" v-validate="'required'" v-model="register.firstname">
-            <div v-show="errors.has('firstname')" class="help block alert alert-danger">
-                    {{ errors.first('firstname') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname" v-validate="'required'" v-model="register.lastname">
-            <div v-show="errors.has('lastname')" class="help block alert alert-danger">
-                    {{ errors.first('lastname') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="email" class="form-control" id="email" placeholder="Email" name="email" v-validate="'required|email'" v-model="register.email">
-            <div v-show="errors.has('email')" class="help block alert alert-danger">
-                    {{ errors.first('email') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="password" class="form-control" id="password" placeholder="password" name="password" v-validate="'required'" v-model="register.password">
-            <div v-show="errors.has('password')" class="help block alert alert-danger">
-                    {{ errors.first('password') }}
-            </div>
-        </div>
-
-
-
-        <div class="form-group form-group-lg">
-            <input type="password" class="form-control" id="confirm_password" placeholder="confirm password" name="confirm_password" v-validate="'required'" v-model="register.confirm_password">
-            <div v-show="errors.has('confirm_password')" class="help block alert alert-danger">
-                    {{ errors.first('confirm_password') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
-            
-            <v-btn type="submit" round color="blue" outline  block>Register</v-btn>
-
-        </div>
-
-    </form>
-    </div>
-    </div>
-    
-    </body>
+                  <v-text-field
+                    id="confirm password"
+                    label="Confirm Password"
+                    name="password_confirmation"
+                    prepend-icon="lock"
+                    type="password"
+                    v-validate="'required|confirmed:password'"
+                    data-vv-as="confirm password"
+                    v-model="register.confirm_password"
+                    :error-messages="errors.collect('password_confirmation')"
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue" @click='registerUser'>Register</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+          <v-flex xs12 sm8 md8>
+            <v-card height="400"></v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
-
-
 <script>
-import alert from './alert.vue';
-import axios from 'axios';
-import Store from '../store.js';
+import alert from "./alert.vue";
+import axios from "axios";
+import Store from "../store.js";
+export default {
+  data() {
+    return {
+      register: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirm_password: ""
+      },
+      alert: ""
+    };
+  },
+  components: {
+    alert
+  },
+  methods: {
+    registerUser() {
+      this.$validator.validateAll();
 
-export default{
-    data(){
-        return{
-            register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                password:"",
-                confirm_password:""
-            },
-             alert:'',
-        }
-    },
-     components:{
-            alert
-        },
-    methods:{
-        registerUser(){
-
-            this.$validator.validateAll()
-            
-             Store.commit("setEmailToVerify",this.register.email);
-            if (!this.errors.any()) {
-                axios.post('http://localhost:8000/api/register',this.register
-                , {
-
-            }).then(response=>{
-                //console.log(response.data.message);
-                     this.$router.push({path:'/loginPage',query:{alert:response.data.message,snack:response.data.snack}});
-                     
-                })
-                .catch(error=>{
-                    console.log(error.response);
-                    console.log("ERROR");
-                })
-            }
-
-           
-        },
+      Store.commit("setEmailToVerify", this.register.email);
+      if (!this.errors.any()) {
+        axios
+          .post("http://localhost:8000/api/register", this.register, {})
+          .then(response => {
+            //console.log(response.data.message);
+            this.$router.push({
+              path: "/loginPage",
+              query: {
+                alert: response.data.message,
+                snack: response.data.snack
+              }
+            });
+          })
+          .catch(error => {
+            console.log(error.response);
+            console.log("ERROR");
+          });
+      }
     }
-
-}
-
+  }
+};
 </script>
 
 
 <style>
-    html, body, app-root {
-     height: 100%;
-     margin: 0;
-     }
- .inventory-body {
-     min-width: 100%;
-     background-image: url("https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg");
-     background-repeat: no-repeat;
-     background-size: 50%;
-     background-position: center;
-     background-size: cover;
-       /*filter: blur(8px);
-  -webkit-filter: blur(8px);*/
-     }
-
-.wrapper {
-  height: 100%; 
-  width: 100%; 
-}
-
-
-
-
-
 </style>

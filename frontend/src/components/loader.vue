@@ -33,21 +33,50 @@
       
     ></v-progress-circular>
     </v-card>
--->
 
-     <v-layout row justify-center>
+      <v-layout row justify-center>
       <v-dialog v-model="$store.getters.loader" persistent fullscreen content-class="loading-dialog" transition=false>
+        
         <v-container fill-height>
           <v-layout row justify-center align-center>
             <v-progress-circular indeterminate :size="100" :width="6" color="deep-purple accent-4"></v-progress-circular>
           </v-layout>
         </v-container>
+        
       </v-dialog>
     </v-layout>
+    
+-->
 
+<div id="app" >
+   <v-layout row justify-center>
+      <v-dialog v-model="$store.getters.loader" persistent fullscreen content-class="loading-dialog" transition=false>
+        
+        <v-container fill-height>
+          <v-layout row justify-center align-center>
+     <breeding-rhombus-spinner
+  :animation-duration="2000"
+  :size="65"
+  color="#ff1d5e"
+/>
+
+      </v-layout>
+        </v-container>
+        
+      </v-dialog>
+    </v-layout>
+  </div>
 </template>
 
 <script>
 import Store from '../store.js'
+ //import 'epic-spinners/dist/lib/epic-spinners.min.css'
+ // import { BreedingRhombusSpinner } from 'epic-spinners/dist/lib/epic-spinners.min.js'
+ import { BreedingRhombusSpinner } from 'epic-spinners'
 
+  export default {
+    components: {
+      'breeding-rhombus-spinner':BreedingRhombusSpinner
+    }
+  }
 </script>
