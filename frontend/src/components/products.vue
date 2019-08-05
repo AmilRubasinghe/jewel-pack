@@ -244,7 +244,7 @@ export default {
       min:0,
       newValue: 0,
       keywords:"",
-
+        
       sizes: ["25","50","100","150","200"],
     };
   },
