@@ -41,7 +41,7 @@
               
                   <v-flex xs9 sm12 offset-sm0>
                   <span>
-                    <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
+                    <h2 text-color="brown darken-3" >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
                    <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
                           <h4>SALE!</h4>
@@ -81,7 +81,6 @@
       </v-container>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -96,7 +95,7 @@
                         slot-scope="{ hover }"
                         class="mx-auto"
                         color="grey lighten-4"
-                        max-width="600"
+                        max-width="550"
                       >
                         <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
                           <v-expand-transition>
@@ -244,7 +243,6 @@ export default {
       max: 500,
       min:0,
       newValue: 0,
-size: 0,
       keywords:"",
         
       sizes: ["25","50","100","150","200"],
