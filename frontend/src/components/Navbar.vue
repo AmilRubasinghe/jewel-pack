@@ -176,7 +176,7 @@
                     <v-list-tile
                       v-for="item in categoryItems"
                       :key="item.CID"
-                      :to="cPath(item.CID)"
+                      :to="({ path: `/category/${item.CID}` }) "
                     >
                       <v-icon left>{{ item.icon }}</v-icon>
                       <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
@@ -184,7 +184,6 @@
                   </v-list>
                 </v-menu>
               </v-list-tile>
-
 
               <v-list-tile v-if="!user" v-for="item in userItems" :key="item.title" :to="item.path">
                 >
@@ -380,15 +379,18 @@ export default {
   },
 
   methods: {
-    cPath($id) {
-      var $path = "category/" + $id;
-      return $path;
-    },
     logout() {
       let $Token = localStorage.getItem("token");
       /* console.log(Token);*/
 
       // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+      window.onLoadCallback = function() {
+        gapi.auth2.init({
+          client_id:
+            "604126479887-9vpo97k8caubk13hc87m0e5vhngjlrje.apps.googleusercontent.com"
+        });
+      };
+
       if (gapi.auth2.getAuthInstance()) {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function() {

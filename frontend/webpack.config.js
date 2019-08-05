@@ -2,14 +2,17 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  
+
+
+
   //baseUrl: process.env.NODE_ENV === 'production' ? '/prodserver1/' : '',
-  
+
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist/'),
     publicPath: '/dist/',
     filename: 'build.js'
+
   },
   module: {
     rules: [
@@ -19,13 +22,13 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      }, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
           }
-          
+
         }
       },
       {
@@ -52,11 +55,11 @@ module.exports = {
     //host: '192.168.8.101',//your ip address
     //port: 8080,
 
-    
+
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    
+
   },
   performance: {
     hints: false
@@ -66,7 +69,6 @@ module.exports = {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
@@ -87,3 +89,4 @@ if (process.env.NODE_ENV === 'production') {
   ])
   
 }
+

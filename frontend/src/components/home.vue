@@ -465,10 +465,9 @@ export default {
   methods: {
     getSlideshow() {
       axios
-        .get(this.$baseUrl+"/getImages")
+        .get(this.$baseUrl +"/getImages")
         .then(response => {
           this.slideshowItems = response.data.images;
-
           console.log(this.slideshowItems);
         })
         .catch(error => {
