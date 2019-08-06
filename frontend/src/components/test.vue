@@ -1,81 +1,39 @@
 <template>
-  <div>
-    <div id="my-signin2"></div>
+  <v-hover>
+    <template v-slot:default="{ hover }">
+      <v-card
+        class="mx-auto"
+        max-width="344"
+      >
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"></v-img>
 
-    <v-btn @click="route">Route</v-btn>
-    <v-btn @click="signOut">Sign Out</v-btn>
-  </div>
+        <v-card-text>
+          <h2 class="title primary--text">Magento Forests</h2>
+          Travel to the best outdoor experience on planet Earth. A vacation you will never forget!
+        </v-card-text>
+
+        <v-card-title>
+          <v-rating
+            :value="4"
+            dense
+            color="orange"
+            background-color="orange"
+            hover
+            class="mr-2"
+          ></v-rating>
+          <span class="primary--text subtitle-2">64 Reviews</span>
+        </v-card-title>
+
+        <v-fade-transition>
+          <v-overlay
+            v-if="hover"
+            absolute
+            color="#036358"
+          >
+            <v-btn>See more info</v-btn>
+          </v-overlay>
+        </v-fade-transition>
+      </v-card>
+    </template>
+  </v-hover>
 </template>
-
-<script>
-import axios from "axios";
-export default {
-  mounted() {
-    this.renderButton();
-  },
-
-  methods: {
-    onSuccess(googleUser) {
-      // console.log(googleUser.getAuthResponse().id_token);
-      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
-
-      let $token = googleUser.getAuthResponse().id_token;
-      axios
-        .post(this.$baseUrl + "/tokensignin", {
-          token: $token
-        })
-        .then(response => {
-          this.alert = response.data.message;
-
-          this.snackActive = true;
-          this.snack = response.data.snack;
-
-          let $token = response.data.token;
-
-          this.$store.dispatch("setUser", null);
-          if ($token) {
-            console.log($token);
-            localStorage.setItem("token", $token);
-            //console.log(response.data.role);
-
-            this.$store.dispatch("setUser", response.data.user);
-            // console.log("User");
-            //  console.log(this.$store.state.user);
-            // console.log(Store.getters.role);
-            if (response.data.role == "admin") {
-              this.$router.push("/admin");
-            } else {
-              this.$router.push("/profile");
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("ERROR");
-        });
-    },
-    onFailure(error) {
-      console.log(error);
-    },
-
-    renderButton() {
-      gapi.signin2.render("my-signin2", {
-        scope: "profile email",
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: "dark",
-        onsuccess: this.onSuccess,
-        onfailure: this.onFailure
-      });
-    },
-
-    signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function() {
-        console.log("User signed out.");
-      });
-    }
-  }
-};
-</script>

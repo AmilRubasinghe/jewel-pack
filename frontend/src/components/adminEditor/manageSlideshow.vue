@@ -1,7 +1,7 @@
 <template>
 <div >
 <navDrawer v-model="drawer"></navDrawer>
-</br>
+<br>
 
 <div class="container" v-bind:style="{ background: '#B0BEC5'}">
 <v-dialog v-model="dialog" max-width="600px">

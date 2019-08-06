@@ -82,14 +82,19 @@
               <v-card-title>
                 <v-flex xs9 sm12 offset-sm0>
                   <span>
-                    <h2 text-color="brown darken-3" >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
+                    <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
                    <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
                           <h4>SALE!</h4>
                        </v-chip>
                   
 
-                  <v-rating readonly small dense background-color="brown" color="brown"></v-rating>
+                  <v-rating readonly 
+                   :value="4"
+                   dense
+           
+                  hover
+                   background-color="brown" color="brown"></v-rating>
 
                   <del class>
                     <v-chip label color="white" text-color="brown lighten-3">
@@ -115,12 +120,14 @@
                   @click="productPreview(products[i])"
                 >Product View</v-btn>
               </v-card-actions>
+              
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
 
       <v-layout row justify-center>
+        <v-dialog v-model="dialog" max-width="1200px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -135,7 +142,7 @@
                         slot-scope="{ hover }"
                         class="mx-auto"
                         color="grey lighten-4"
-                        max-width="550"
+                        max-width="600"
                       >
                         <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
                           <v-expand-transition>
