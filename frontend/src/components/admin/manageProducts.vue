@@ -990,7 +990,7 @@ console.log(this.lotItem);
                       />
                     </v-flex>
 
-                    <v-flex md6 sm12 lg6 xs12 d-flex>
+                    <v-flex md6 sm12 lg6 xs12 d-flex >
                       <v-text-field
                         input-type="number"
                         v-model="newProduct.price"
@@ -1006,7 +1006,7 @@ console.log(this.lotItem);
                   </v-layout>
                 </v-flex>
 
-                <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-flex md8 sm3 lg8 xs3 d-flex>
                   <v-text-field
                     label="Details"
                     v-model="newProduct.details"
@@ -1020,8 +1020,21 @@ console.log(this.lotItem);
 
                 <v-flex d-flex>
                   <v-layout row wrap>
-                    <v-flex md3 sm12 lg3 xs12 d-flex>
-                      <v-checkbox
+                    <v-flex md6 sm12 lg6 xs12 d-flex>
+                     
+                      <v-select
+                        label="Shipping Method"
+                        :items=" ShippingMethodItems"
+                        item-text="shipMethod"
+                        item-value="shipId"
+                        v-model="newProduct.shipMethod"
+                        outline
+                        menu-props
+                      ></v-select>
+                    </v-flex>
+
+                       <v-flex md3 sm12 lg3 xs12 d-flex>
+                       <v-checkbox
                         v-model="newProduct.border"
                         v-validate="'required'"
                         :error-messages="errors.collect('checkbox')"
@@ -1032,7 +1045,12 @@ console.log(this.lotItem);
                         required
                       ></v-checkbox>
                     </v-flex>
-                    <v-flex xs12 sm12 md6 d-flex>
+                  </v-layout> 
+                   </v-flex > 
+
+                    <v-flex d-flex>
+                  <v-layout row wrap justify-center>  
+                    <v-flex xs9 sm9 md4 lg4 d-flex >
                       <v-card
                         flat
                         color="#B0BEC5"
@@ -1040,8 +1058,8 @@ console.log(this.lotItem);
                         ripple
                         hover
                         height="100"
-                        width="300"
-                        max-width="600px"
+                        width="100"
+                        max-width="500px"
                       >
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
@@ -1060,25 +1078,27 @@ console.log(this.lotItem);
                         </form>
                       </v-card>
                     </v-flex>
+                    </v-layout> 
+                   </v-flex > 
+
                   </v-layout>
-                </v-flex>
-              </v-layout>
+               
             </v-container>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-container grid-list-md text-md-center fluid fill-height>
-              <v-layout row wrap class="button_2">
-                <v-flex d-flex>
+              <v-layout row wrap  justify-end>
+                <v-flex  xs4 sm4 md2 lg2 d-flex>
                   <v-btn outline color="primary" @click="clear">clear</v-btn>
                 </v-flex>
 
-                <v-flex d-flex>
+                <v-flex xs4 sm4 md2 lg2 d-flex>
                   <v-btn color="primary" @click="dialog = false">Close</v-btn>
                 </v-flex>
 
-                <v-flex d-flex>
+                <v-flex xs4 sm4 md2 lg2 d-flex>
                   <v-btn color="primary" @click="addProduct">Save</v-btn>
                 </v-flex>
               </v-layout>
@@ -1246,7 +1266,7 @@ console.log(this.lotItem);
                 </v-flex>
                 <v-layout row wrap>
                   <v-flex md4 sm12 lg4 xs12 d-flex offset-md3 offset-xs1 offset-lg3>
-                    <v-text-field v-model="lotQuantity" label="Total Quntity" readonly />
+                    <v-text-field v-model="TotallotQuantity" label="Total Quntity" readonly />
                   </v-flex>
                 </v-layout>
               </v-layout>
@@ -1305,6 +1325,7 @@ console.log(this.lotItem);
             <v-icon large color="blue">playlist_add_check</v-icon>Active products
           </v-btn>
         </v-toolbar>
+        
 
         <v-data-table
           v-model="selected"
@@ -1376,10 +1397,60 @@ console.log(this.lotItem);
                 >restore_from_trash</v-icon>
               </td>
             </tr>
+             
           </template>
+         
         </v-data-table>
+        
       </div>
     </div>
+   
+ 
+  <v-sheet
+    class="mx-auto"
+    elevation="8"
+    max-width="800"
+  >
+    <v-slide-group
+      v-model="model"
+      class="pa-4"
+      multiple
+      show-arrows
+    >
+      <v-slide-item
+        v-for="n in 15"
+        :key="n"
+        v-slot:default="{ active, toggle }"
+      >
+        <v-card
+          :color="active ? 'primary' : 'grey lighten-1'"
+          class="ma-4"
+          height="200"
+          width="100"
+          @click="toggle"
+        >
+          <v-layout
+            align-center
+            fill-height
+            justify-center
+          >
+            <v-scale-transition>
+              <v-icon
+                v-if="active"
+                color="white"
+                size="48"
+                v-text="'mdi-close-circle-outline'"
+              ></v-icon>
+            </v-scale-transition>
+          </v-layout>
+        </v-card>
+      </v-slide-item>
+    </v-slide-group>
+  </v-sheet>
+
+
+    
+
   </div>
 </template>
 
@@ -1403,7 +1474,17 @@ export default {
       imageFile: "",
        LotQuantity: "",
 
+         model: [],
+
       file: "",
+
+         model: null,
+      multiple: false,
+      mandatory: false,
+      showArrows: true,
+      prevIcon: false,
+      nextIcon: false,
+      centerActive: false,
 
 
       editedItem: {
@@ -1434,7 +1515,8 @@ export default {
         colour: "",
         border: null,
         image: "",
-        cid: ""
+        cid: "",
+        method: "",
       },
 
       newLotQuantity: {
@@ -1448,6 +1530,7 @@ export default {
 
       category: [],
       lotItem: [],
+       ShippingMethodItems: [],
 
       colours: ["White", "Black"],
 
@@ -1489,6 +1572,7 @@ export default {
     this.productItems();
     this.catItems();
     this.lotItems();
+    this.methodItems();
   },
 
   components: {
@@ -1508,7 +1592,7 @@ export default {
       );
     },
 
-    lotQuantity: function() {
+    TotallotQuantity: function() {
       if (this.newLotQuantity.lot) {
         let obj = this.lotItem.find(
           item => item.lid === this.newLotQuantity.lot
@@ -1546,6 +1630,23 @@ export default {
           });
 
           console.log(this.lotItem);
+
+          //console.log(this.categoryItems);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+
+    
+   methodItems() {
+      axios
+        .get("http://localhost:8000/api/getMethod")
+        .then(response => {
+          this.ShippingMethodItems = response.data.methodItems;
+          
+
 
           //console.log(this.categoryItems);
         })
@@ -1660,6 +1761,7 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
+      this.newProduct.freeShipping=false;
     },
 
     clearQuntity() {
@@ -1674,7 +1776,9 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
+      this.newProduct.freeShipping=false;
       this.dialog = true;
+       
     },
 
     editSave() {
@@ -1804,11 +1908,11 @@ export default {
 
       formData.append("lid", this.newLotQuantity.lot);
       formData.append("pid", this.editedItem.PID);
-      formData.append("quantity", this.LotQuantity);
+      formData.append("quantity", this.TotallotQuantity);
       console.log("**************************");
       console.log(this.newLotQuantity.lot);
       console.log(this.editedItem.PID);
-      console.log(this.LotQuantity);
+      console.log(this.TotallotQuantity);
 
       // this.newProduct.image = formData;
 
@@ -1841,16 +1945,17 @@ export default {
   padding-top: 0px;
   padding-bottom: 0;
 }
-.layout.button_2.row.wrap {
-  margin-left: 380px;
-  margin-right: 0px;
-}
+
 .flex.md6.sm12.lg6.xs12.d-flex {
   padding-right: 30px;
 }
 
 .layout.button_1.row.wrap {
   margin-left: 480px;
+}
+.flex.md3.sm12.lg3.xs12.d-flex {
+    padding: 0px;
+    margin: 0px;
 }
 </style>
 
