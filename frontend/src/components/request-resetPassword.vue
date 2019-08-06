@@ -48,7 +48,7 @@ export default {
 
             axios
           .post(
-            "http://localhost:8000/api/sendPasswordResetLink/",
+            this.$baseUrl+"/sendPasswordResetLink/",
             this.User
           )
 

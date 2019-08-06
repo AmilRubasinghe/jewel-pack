@@ -97,7 +97,11 @@ const router = new VueRouter({
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
+<<<<<<< HEAD
         {path:"/admin/shippingMethod",component: manageShippingMethod ,meta:{requireAuth:true,roles: ['admin','editor']}},
+=======
+        {path:"/test",component:test},
+>>>>>>> 6efae7edbc7875757f9703dfeefb2a7c620ee077
         {path:"*",component:home},
         
         {path:"/contactus",component:contactus},

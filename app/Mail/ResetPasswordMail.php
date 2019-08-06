@@ -34,6 +34,8 @@ class ResetPasswordMail extends Mailable
         
         return $this->markdown('Email.passwordReset')->with([
             'token'=>$this->token,
-            ]);
+            ])
+            ->from('jewelpacksparta@gmail.com','Jewel Pack')
+            ->subject('Reset Jewel Pack Password');;
     }
 }

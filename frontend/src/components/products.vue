@@ -4,29 +4,71 @@
       <v-container grid-list-sm text-xs-center>
         <h1 class="custom-font1">{{pageTitle}}</h1>
 
-
         <v-container v-if="searchMode">
-<v-layout row wrap align-center justify-center>
-         <v-flex xs10 sm10 md9 lg8 xl8>
-          <v-text-field
-            label="Search"
-            outline
-            v-model="keywords"
-            color=#E65100
-            placeholder="Find your box using color,size"    
-          ></v-text-field>
-          </v-flex>
-           <v-btn icon @click="search" large>
-          <v-icon large color=#E65100>search</v-icon>
-        </v-btn>
-        </v-layout>
+          <v-layout row wrap align-center justify-center>
+            <v-flex xs10 sm10 md9 lg8 xl8>
+              <v-text-field
+                label="Search"
+                outline
+                v-model="keywords"
+                color="#E65100"
+                placeholder="Find your box using color,size"
+                autofocus
+                onblur="this.focus()"
+              ></v-text-field>
+            </v-flex>
+            <v-btn icon @click="search" large>
+              <v-icon large color="#E65100">search</v-icon>
+            </v-btn>
+          </v-layout>
         </v-container>
 
-        
-        <v-layout row wrap justify-space-between>
-          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 class="pr-2">
+        <v-container>
+          <v-layout>
+            <div></div>
+
+            <v-toolbar>
+              <v-toolbar-title>Sorting</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-flex xs12 sm6 md4 d-flex>
+                  <v-select
+                    :items="sortCategories"
+                    label="Sort by"
+                    outline
+                    menu-props
+                    v-model="sortCat"
+                    
+                  ></v-select>
+                </v-flex>
+
+                <v-flex xs12 sm6 md4 d-flex>
+                  <v-select
+                    label="Order"
+                    :items="sortAscOrDesc"
+                    item-text="text"
+                    item-value="value"
+                    v-model="sortOrder"
+                    outline
+                    menu-props
+                  ></v-select>
+                </v-flex>
+              </v-toolbar-items>
+            </v-toolbar>
+          </v-layout>
+        </v-container>
+
+        <v-layout row wrap align-center justify-center>
+          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
             <br />
-            <v-card class="card-5" light ripple align="center" @click="productPreview(products[i])">
+            <v-card
+              class="card-5"
+              style="cursor: pointer"
+              light
+              ripple
+              align="center"
+              @click="productPreview(products[i])"
+            >
               <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
                   <v-layout fill-height>
@@ -38,8 +80,7 @@
               </v-img>
 
               <v-card-title>
-              
-                  <v-flex xs9 sm12 offset-sm0>
+                <v-flex xs9 sm12 offset-sm0>
                   <span>
                     <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
                  
@@ -61,12 +102,11 @@
                     </v-chip>
                   </del>&nbsp;
                   <span class="title">
-                      <v-chip label color="white" text-color="brown darken-3">
-                          <h4>$ {{products[i].Price}}</h4>
-                       </v-chip>
-                   
-                  </span> 
-               </v-flex>
+                    <v-chip label color="white" text-color="brown darken-3">
+                      <h4>$ {{products[i].Price}}</h4>
+                    </v-chip>
+                  </span>
+                </v-flex>
               </v-card-title>
               <v-card-actions>
                 &nbsp;
@@ -155,25 +195,21 @@
                             </span>
                           </td>
                         </tr>
-                          <tr id="priceblock_dealquantity_row">
+                        <tr id="priceblock_dealquantity_row">
                           <td
                             id="priceblock_dealquantity_lbl"
                             class="a-color-secondary a-size-base a-text-right a-nowrap"
                           >Lot Size:</td>
                           <td class="a-span12">
-                             <v-flex xs12 sm12 md11 d-flex offset-xs0 offset-lg1 >
-                  <v-select
-                    label="Sizes"
-                    :items="sizes"
-                    item-text="SName"
-                    item-value="CID"
-                    
-                    v-model.number="size"
-                   
-                   
-                  ></v-select>
-                </v-flex>
-                            
+                            <v-flex xs12 sm12 md11 d-flex offset-xs0 offset-lg1>
+                              <v-select
+                                label="Sizes"
+                                :items="sizes"
+                                item-text="SName"
+                                item-value="CID"
+                                v-model.number="size"
+                              ></v-select>
+                            </v-flex>
                           </td>
                         </tr>
 
@@ -215,8 +251,14 @@
                     <v-divider></v-divider>
 
                     <v-card-actions>
-                      <v-btn color="warning" dark outline round  @click="addToCart(selectedItem,value)">Add to cart</v-btn>
-                      <v-btn color="warning" dark outline round >Buy Now</v-btn>
+                      <v-btn
+                        color="warning"
+                        dark
+                        outline
+                        round
+                        @click="addToCart(selectedItem,value)"
+                      >Add to cart</v-btn>
+                      <v-btn color="warning" dark outline round>Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -236,46 +278,89 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
+import _ from "lodash";
 
 export default {
-  props: ["pageTitle", "products","searchMode"],
+  props: ["pageTitle", "products", "searchMode"],
   data() {
     return {
-      
       page: 1,
       dialog: false,
       products: [],
       selectedItem: null,
       value: 0,
       max: 500,
-      min:0,
+      min: 0,
       newValue: 0,
-      keywords:"",
+      size: 0,
+      keywords: "",
 
-      sizes: ["25","50","100","150","200"],
+      sizes: ["25", "50", "100", "150", "200"],
+      sortCategories: ["Size", "Price"],
+      sortCat: "Size",
+      sortAscOrDesc: [
+        { text: "Ascending", value: 'asc' },
+        { text: "Descending", value: 'desc' }
+      ],
+      sortOrder: 'asc',
+      debounceKey: ""
     };
   },
 
+  watch: {
+    // whenever keywords changes, this function will run
+    keywords: function() {
+      this.getResult();
+    },
+    sortCat: function() {
+      this.sortProducts();
+    },
+    sortOrder: function() {
+      this.sortProducts();
+    }
+  },
 
 
   mounted() {
     this.productItems(this.$route.path);
-    
-    
   },
-
 
   methods: {
 
-    search() {
+    sortProducts(){
       
+      this.products= _.orderBy(this.products, this.sortCat ,this.sortOrder);
+    
+    },
+    swap2Ordered() {
+      if (!this.ascPrice) {
+        this.products = this.orderByPriceAsc;
+        this.ascPrice = true;
+      } else {
+        this.products = this.orderByPriceDesc;
+        this.ascPrice = false;
+      }
+    },
+
+    getResult: _.debounce(
+      function() {
+        //console.log(this.keywords);
+        this.search();
+      },
+      // This is the number of milliseconds we wait for the
+      // user to stop typing.
+      1500
+    ),
+
+    search() {
       const formData = new FormData();
       formData.append("keywords", this.keywords);
 
       axios
-        .post(this.$baseUrl+"/api/search", formData)
+        .post(this.$baseUrl + "/search", formData)
         .then(response => {
-          this.products=response.data.products;
+          this.products = response.data.products;
+          this.sortProducts();
         })
         .catch(error => {
           console.log(error.response);
@@ -285,18 +370,13 @@ export default {
 
     productItems($path) {
       axios
-        .get(this.$baseUrl+$path)
+        .get(this.$baseUrl + $path)
         .then(response => {
           this.products = response.data.product;
-
-
-this.pageTitle = this.$store.getters.getCategory.find(
+          this.sortProducts();
+          this.pageTitle = this.$store.getters.getCategory.find(
             element => element.CID === this.products[0].CID
           ).CName;
-
-          
-
-          //   console.log(this.products);
         })
         .catch(error => {
           console.log(error.response);
@@ -307,25 +387,25 @@ this.pageTitle = this.$store.getters.getCategory.find(
     productPreview(item) {
       this.selectedItem = item;
       this.size = 0;
-      this.value=0;
-      
+      this.value = 0;
+
       this.dialog = true;
     },
 
     increment() {
       if (this.value >= this.max) {
         alert("Available only " + this.max + " units");
-        this.value=this.max;
+        this.value = this.max;
       } else {
-        this.value=this.value+this.size;
+        this.value = this.value + this.size;
       }
     },
     decrement() {
       if (this.value <= this.min) {
         alert("Negative quantity not allowed");
-         this.value=this.min;
+        this.value = this.min;
       } else {
-        this.value=this.value-this.size;
+        this.value = this.value - this.size;
       }
     },
 
@@ -336,8 +416,7 @@ this.pageTitle = this.$store.getters.getCategory.find(
     valid() {
       if (this.value >= this.max) {
         this.value = this.max;
-      }
-      else if (this.value <= this.min) {
+      } else if (this.value <= this.min) {
         this.value = this.min;
       }
     },
@@ -413,7 +492,7 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
- 
+
   margin: 0;
 }
 
@@ -443,29 +522,25 @@ h2 {
   margin-bottom: 20px;
 }
 
-.custom-font1{
-  font-family: 'Dancing Script', cursive;
+.custom-font1 {
+  font-family: "Dancing Script", cursive;
   font-size: 6em;
-  color:#FFA000;
+  color: #ffa000;
 }
 
-.custom-font3{
-  font-family: 'Dancing Script', cursive;
+.custom-font3 {
+  font-family: "Dancing Script", cursive;
   font-size: 2.5em;
-  color:rgba(129, 91, 24, 0.788);
+  color: rgba(129, 91, 24, 0.788);
 }
 .flex.xs12.sm12.md11.d-flex.offset-xs0.offset-lg1 {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
-
-.product-description{
-  font-family: 'Rye', cursive;
+.product-description {
+  font-family: "Rye", cursive;
   font-size: 2em;
-  color:rgba(129, 91, 24, 0.788);
+  color: rgba(129, 91, 24, 0.788);
 }
-
-
-
 </style>

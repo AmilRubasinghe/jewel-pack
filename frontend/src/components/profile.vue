@@ -199,7 +199,7 @@ export default {
 
       axios
 
-        .post("http://localhost:8000/api/logout?token=" + $Token)
+        .post(this.$baseUrl+"/logout?token=" + $Token)
 
         .then(response => {
           localStorage.removeItem("token");
@@ -225,7 +225,7 @@ export default {
 
       axios
 
-        .post("http://localhost:8000/api/me?token=" + $Token, {})
+        .post(this.$baseUrl+"/me?token=" + $Token, {})
 
         .then(response => {
           if (!$Token) {

@@ -1,6 +1,5 @@
 <template>
   <div id="inspire">
-    
     <v-layout row justify-center>
       <v-dialog v-model="searchDialog" fullscreen transition="dialog-bottom-transition">
         <v-card class="search-dialog">
@@ -29,9 +28,9 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
-         <span class="display-1">
-                   <i class="far fa-gem" style="color:#212121;"></i>
-                  </span>
+          <span class="display-1">
+            <i class="far fa-gem" style="color:#212121;"></i>
+          </span>
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
         </router-link>
@@ -109,9 +108,7 @@
         </v-btn>
       </v-toolbar-items>
       <v-menu class="hidden-lg-and-up">
-        <v-toolbar-side-icon slot="activator" >
-           <v-icon dark @click="mobileDrawer = true">{{ 'more_vert' }}</v-icon>
-        </v-toolbar-side-icon>
+        <v-toolbar-side-icon @click="mobileDrawer = true" slot="activator"></v-toolbar-side-icon>
 
         <v-dialog
           v-model="mobileDrawer"
@@ -130,20 +127,19 @@
                 </router-link>
               </v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon @click.native="mobileDrawer = !mobileDrawer">
+              <v-btn icon @click.stop="mobileDrawer = false">
                 <v-icon>close</v-icon>
               </v-btn>
             </v-toolbar>
 
             <v-list>
-              <v-list-tile>
-                <v-flex xs12 sm6 md3>
-                  <v-text-field label="Search" v-model.number="term"></v-text-field>
-                </v-flex>
-
-                <v-btn icon @click.native.stop="modalModel=true">
+              <v-list-tile @click.stop="searchDialog=true">
+                <v-list-tile-action>
                   <v-icon>search</v-icon>
-                </v-btn>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Search</v-list-tile-title>
+                </v-list-tile-content>
               </v-list-tile>
 
               <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -167,9 +163,9 @@
                 </v-list-tile-content>
               </v-list-tile>
 
-              <v-list-tile to="/gemBox">
+              <v-list-tile>
                 >
-                <v-menu offset-y open-on-hover>
+                <v-menu offset-y>
                   <template v-slot:activator="{ on }">
                     <v-btn flat v-on="on">
                       <v-icon left dark>{{ 'reorder' }}</v-icon>categories
@@ -180,7 +176,7 @@
                     <v-list-tile
                       v-for="item in categoryItems"
                       :key="item.CID"
-                      :to="cPath(item.CID)"
+                      :to="({ path: `/category/${item.CID}` }) "
                     >
                       <v-icon left>{{ item.icon }}</v-icon>
                       <v-list-tile-title>{{ item.CName }}</v-list-tile-title>
@@ -259,10 +255,6 @@
       </v-menu>
     </v-toolbar>
 
-    
-
-   
-
     <v-navigation-drawer
       v-if="role=='admin'"
       v-model="drawer"
@@ -272,8 +264,7 @@
       disable-route-watcher
       temporary
       class="drawer card-5"
-      width=350
-
+      width="350"
     >
       <v-list>
         <v-list-tile
@@ -339,8 +330,12 @@ export default {
         { title: "Category", icon: "reorder", path: "category" },
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
+<<<<<<< HEAD
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
         { title: "Shipping Method", icon: "time_to_leave", path: "shippingMethod" },
+=======
+        { title: "LotQuantity", icon: "add_to_photos", path: "lotQuantity" }
+>>>>>>> 6efae7edbc7875757f9703dfeefb2a7c620ee077
       ],
       appTitle: "JewelPack",
       searchDialog: false,
@@ -351,7 +346,7 @@ export default {
 
       term: "",
       results: [],
-      
+
       filterKey: "",
 
       menuItems: [
@@ -389,18 +384,27 @@ export default {
   },
 
   methods: {
-
-    cPath($id) {
-      var $path = "category/" + $id;
-      return $path;
-    },
     logout() {
       let $Token = localStorage.getItem("token");
       /* console.log(Token);*/
 
       // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+      window.onLoadCallback = function() {
+        gapi.auth2.init({
+          client_id:
+            "604126479887-9vpo97k8caubk13hc87m0e5vhngjlrje.apps.googleusercontent.com"
+        });
+      };
+
+      if (gapi.auth2.getAuthInstance()) {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function() {
+          console.log("User signed out.");
+        });
+      }
+
       axios
-        .post("http://localhost:8000/api/logout?token=" + $Token)
+        .post(this.$baseUrl + "/logout?token=" + $Token)
         .then(response => {
           localStorage.removeItem("token");
           let $Token = localStorage.getItem("token");
@@ -417,7 +421,7 @@ export default {
 
     catItems() {
       axios
-        .get("http://jewelpack.tk/api/category")
+        .get(this.$baseUrl + "/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
           this.$store.commit("setCategory", this.categoryItems);
@@ -442,17 +446,12 @@ export default {
 
   mounted() {
     this.catItems();
-    
-
-    
   },
 
   beforeRouteUpdate(to, from, next) {
     console.log("befRo");
     this.catItems();
-  },
-
-  
+  }
 };
 </script>
 <style>

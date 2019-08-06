@@ -121,6 +121,11 @@ class userController extends Controller
 
 
     public function loginUser(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        // new rules here
+    ]);
 
         $data = $request->only('email','password');
 
@@ -175,13 +180,7 @@ class userController extends Controller
     }
 
 
-    public function loginPage(){
-        if(Auth::user()){
-            return redirect('/logged');
-        }
-        return view('loginPage');
-        
-    }
+
 
 
 public function logoutUser(Request $request){

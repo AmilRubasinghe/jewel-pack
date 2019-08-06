@@ -51,7 +51,7 @@
 
         
         <v-btn small to="request-password-reset" outline color="white">Forget Password?</v-btn>
-        <v-btn @click="route">Routee</v-btn>
+        
 
 
         <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
