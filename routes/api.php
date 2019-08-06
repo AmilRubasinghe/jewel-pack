@@ -63,7 +63,8 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('coupons','CouponController@getCoupon');
     //lotQuntity
     Route::get('getLot', 'LotquantityController@getAllLot');
-   
+    //shippingMethod
+    Route::get('getMethod', 'shippingmethodController@getShippingMethod');
 
 //Checkout
 
@@ -113,6 +114,10 @@ Route::post ( 'deleteSlideshow', 'SlideshowController@deleteItem' );
 
 Route::post('addlot','LotquantityController@addLotItem');
 Route::post ( 'deleteLot/{id}', 'LotquantityController@deleteLot' );
+
+
+Route::post('addMethod','shippingmethodController@addShippingMethod');
+Route::post ( 'deleteShipping/{id}', 'shippingmethodController@deleteShipping' );
 
 
 Route::post('addProduct','ProductController@addProduct');
