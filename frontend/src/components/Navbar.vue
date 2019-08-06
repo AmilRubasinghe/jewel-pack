@@ -330,12 +330,8 @@ export default {
         { title: "Category", icon: "reorder", path: "category" },
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
-<<<<<<< HEAD
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
         { title: "Shipping Method", icon: "time_to_leave", path: "shippingMethod" },
-=======
-        { title: "LotQuantity", icon: "add_to_photos", path: "lotQuantity" }
->>>>>>> 6efae7edbc7875757f9703dfeefb2a7c620ee077
       ],
       appTitle: "JewelPack",
       searchDialog: false,
