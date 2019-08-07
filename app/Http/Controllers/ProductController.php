@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\product;
+use App\productshippingmethod;
 use DB;
 
 class ProductController extends Controller
@@ -123,13 +124,32 @@ $products = product::where(function ($query) use($searchQuery, $field) {
       $table->Size = $request->input('size');
       $table->CID = $request->input('cid');
       $table->Colour = $request->input('colour');
-      $table->Quantity = $request->input('quantity');
+     
       $table->Price = $request->input('price');
+      $table->border = $request->input('border');
+      $table->description = $request->input('details');
       $table->Image = url('/').'/storage/product/'.$filename;
+
       $table->ImageName = $filename;
 
       $table->save();
 
+     
+      $shiptable = new productshippingmethod;
+     // $shiptable->pid = $table->PID;
+     // $shiptable->shipid = $request->input('shipMethod');
+     // $shiptable->save();
+      $ship = $request->input('method');
+      for($i = 0; $i < count($ship); $i++) {
+        $shiptable->pid = $table->PID;
+        $shiptable->shipid = $request->input('method');
+        $shiptable->save();
+
+       // $storePicture->picture_id = $i;
+        //$storePicture->picture_owner = Auth::user()->id;
+       // $storePicture->price = '10';
+        //$storePicture->save();
+      }
 
         return response()->json(['product'=>$table,'message'=>"Product added succesfully !"]);
 
@@ -152,10 +172,17 @@ public function editProduct(Request $request, $productId){
   $thisProduct->Colour = $request->input('Colour');
   $thisProduct->Price = $request->input('Price');
   $thisProduct->unitWeight = $request->input('unitWeight');
-
+  $thisProduct->border = $request->input('border');
+  $thisProduct->description = $request->input('description');
   
 
   $thisProduct->save();
+
+      $thisship = new productshippingmethod;
+      $thisship->pid = $request->input('PID');
+      $thisship->shipid = $request->input('shipMethod');
+      $thisship->save();
+
   
   return response()->json(['editedProduct'=>$thisProduct,'message'=>"Product edited succesfully !"]);
 }
