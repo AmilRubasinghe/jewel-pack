@@ -310,6 +310,8 @@ public function logoutUser(Request $request){
         return response()->json(['user' => $thisUser,'message' => "Succesfully Edited"]);
     }
 
+   
+
 
 
 

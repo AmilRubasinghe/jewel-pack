@@ -33,6 +33,8 @@ Route::group([
 
 });
 
+Route::get('pay', 'PaymentController@payHerePost');
+
 //userModuleRoutes
     Route::post('login', 'UserController@loginUser');
     Route::post('register','UserController@registerUser');
@@ -43,7 +45,7 @@ Route::group([
     Route::post('guard','UserController@guard');
     Route::post('refresh', 'UserController@refresh');
 
-//NavbarCategoryRoutes
+//CategoryRoutes
     Route::get('category', 'CategoryController@getItem');
 
     Route::get('products', 'ProductController@getAllProduct');
@@ -59,9 +61,14 @@ Route::group([
 
 Route::post('checkDetails','OrderController@saveOrder');
 
+
+
+
 //payment
 
 Route::post('checkoutDetails','PaymentController@store');
+Route::post('checkout','PaymentController@payHerePost');
+Route::post('checkoutNotify','PaymentController@checkoutNotify');
 
 
 
@@ -109,5 +116,13 @@ Route::post('restoreProduct/{id}', 'ProductController@restoreProduct');
 
 Route::post('upload/product','uploadController@storeProduct');
 Route::post('upload/profile','uploadController@storeProfile'); 
+
+Route::post('addCat','CategoryController@addCat');
+Route::post('editCat/{id}','CategoryController@editCat');
+Route::post ( 'deleteCategory/{id}', 'CategoryController@deleteCat' );
+Route::post('restoreCategory/{id}', 'CategoryController@restoreCategory');
+
+Route::get('deletedCategory','CategoryController@getDeletedCat');
+
 });
 Route::get('getImages', 'SlideshowController@getImages');

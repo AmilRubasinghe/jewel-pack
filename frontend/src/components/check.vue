@@ -88,8 +88,9 @@
     <v-stepper-content step="3" @click="chekout()">
           
       <template> 
-      
-      <v-btn color="primary" href="/cart_totals">Place order</v-btn>
+       Enter coupon code here: <input type="text" id="couponcode" name="couponcode" >
+       <v-btn color="primary" @click="coupon()">Enter</v-btn><br><br>
+      <v-btn color="primary" href="/checkForm">Place order</v-btn>
       <v-btn flat @click.native="e6=2">Previous</v-btn>
       <v-btn flat>Cancel</v-btn>
       </template>
@@ -130,20 +131,9 @@ import axios from 'axios';
     },
 
     computed:{
-       firstname:{
-         get: function(){
-					return this.$store.state.name;
-        },
-        set: function(newName){
-            this.$store.dispatch('addName',newName);
-          }
-       }
     },
 
     methods:{
-         checkout(){
-           
-         },
 
           saveData(){
 
@@ -166,6 +156,9 @@ import axios from 'axios';
 
            
         },
+
+        coupon(){
+        }
     }
    
   }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\order;
+use DB;
 
 class OrderController extends Controller
 {
@@ -53,7 +54,5 @@ class OrderController extends Controller
        
     }
 
-    public function sendOrder(){
     
-    }
 }

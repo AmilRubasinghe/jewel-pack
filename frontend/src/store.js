@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
 import { totalmem } from 'os';
 import { parse } from 'querystring';
+
 //import axios from axios;
 
 Vue.use(Vuex);
@@ -18,10 +19,6 @@ export default new Vuex.Store({
         user:null,
         tempEmailToVerify:null,
         category:[],
-        
-        
-        name:"ridmi",
-       
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
         
@@ -178,7 +175,6 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
         },
-    
 
     },
 
@@ -197,10 +193,6 @@ export default new Vuex.Store({
         category(context,payload){
             context.commit('setCategory', payload)
         },
-        addName(state,newName){
-            state.name=newName;
-            console.log(newName);
-        }
         
       },
 
