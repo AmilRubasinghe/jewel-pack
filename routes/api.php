@@ -40,6 +40,11 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('tokensignin', 'GTokenController@verify');
 
 
+    //temp
+    Route::post('myOrder', 'userController@loginUser');
+
+
+
 
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ResetPasswordController@process');

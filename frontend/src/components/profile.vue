@@ -80,6 +80,7 @@
 
           
           <v-btn @click="editItem()">Update</v-btn>
+          <v-btn @click="myOrders">My Orders</v-btn>
         </form>
       </v-flex>
 
@@ -153,6 +154,11 @@ export default {
   },
 
   methods: {
+
+    myOrders(){
+
+    },
+    
     editItem() {
       this.editedItem = Object.assign({}, this.user);
       console.log(this.editedItem);

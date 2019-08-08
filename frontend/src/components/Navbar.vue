@@ -331,7 +331,11 @@ export default {
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
-        { title: "Shipping Method", icon: "time_to_leave", path: "shippingMethod" },
+        {
+          title: "Shipping Method",
+          icon: "time_to_leave",
+          path: "shippingMethod"
+        }
       ],
       appTitle: "JewelPack",
       searchDialog: false,
@@ -380,11 +384,8 @@ export default {
   },
 
   methods: {
-    logout() {
-      let $Token = localStorage.getItem("token");
-      /* console.log(Token);*/
+    googleLogout() {
 
-      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
       window.onLoadCallback = function() {
         gapi.auth2.init({
           client_id:
@@ -392,11 +393,21 @@ export default {
         });
       };
 
-      if (gapi.auth2.getAuthInstance()) {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function() {
-          console.log("User signed out.");
-        });
+      
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+      });
+    },
+    logout() {
+      let $Token = localStorage.getItem("token");
+      /* console.log(Token);*/
+      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+
+      if (!!gapi.auth2.init()) {
+        this.googleLogout();
+
+        
       }
 
       axios
