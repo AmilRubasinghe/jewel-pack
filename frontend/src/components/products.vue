@@ -64,8 +64,9 @@
            
   
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
-            <transition-group  name="shuffleMedium" tag="v-card">
+            <br/>
             
+            <transition-group  name="staggered-fade" tag="v-card">
             
             <v-card
               class="card-5"
@@ -347,24 +348,13 @@ export default {
 
   methods: {
 
-    shuffle: function () {
-      this.items = _.shuffle(this.items)
-    },
 
     sortProducts(){
       
       this.products= _.orderBy(this.products, this.sortCat ,this.sortOrder);
     
     },
-    swap2Ordered() {
-      if (!this.ascPrice) {
-        this.products = this.orderByPriceAsc;
-        this.ascPrice = true;
-      } else {
-        this.products = this.orderByPriceDesc;
-        this.ascPrice = false;
-      }
-    },
+    
 
     getResult: _.debounce(
       function() {
@@ -570,6 +560,6 @@ h2 {
 
 
   .shuffleMedium-move {
-  transition: transform 0.4s;
+  transition: transform 1s;
 }
 </style>

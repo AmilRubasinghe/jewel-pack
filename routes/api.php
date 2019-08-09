@@ -41,7 +41,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 
 
     //temp
-    Route::post('myOrder', 'userController@loginUser');
+    Route::post('myOrder/{token}', 'orderController@myOrder');
 
 
 

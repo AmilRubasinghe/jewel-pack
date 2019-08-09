@@ -28,6 +28,7 @@ import checkForm from  './components/checkForm'
 import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
 import manageShippingMethod from './components/admin/manageShippingMethod'
+import myOrders from  './components/myOrders'
 
 
 import Store from './store.js'
@@ -89,6 +90,7 @@ const router = new VueRouter({
         {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
+        {path:"/myOrders",component:myOrders,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/products",component:manageProducts,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/users",component:manageUsers,meta:{requireAuth:true,roles: ['admin']}},
