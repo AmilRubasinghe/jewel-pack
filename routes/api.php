@@ -123,7 +123,7 @@ Route::post ( 'deleteLot/{id}', 'LotquantityController@deleteLot' );
 
 Route::post('addMethod','shippingmethodController@addShippingMethod');
 Route::post ( 'deleteShipping/{id}', 'shippingmethodController@deleteShipping' );
-
+Route::post('editShippingMethod/{id}','shippingmethodController@editShippingMethod');
 
 Route::post('addProduct','ProductController@addProduct');
 Route::post('editProduct/{id}','ProductController@editProduct');

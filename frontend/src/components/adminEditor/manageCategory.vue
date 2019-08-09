@@ -43,15 +43,15 @@
 <v-container grid-list-md text-md-center fluid fill-height>
       <v-layout row wrap>
         <v-flex d-flex>
-          <v-btn color="primary" @click="clear">clear</v-btn>
+          <v-btn outline color="primary" @click="clear">clear</v-btn>
         
         </v-flex>
 
         <v-flex d-flex>
-         <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+         <v-btn  dark color="blue" @click="dialog = false">Close</v-btn>
         </v-flex>
          <v-flex d-flex>
-          <v-btn outline color="primary" @click="addCat">Save</v-btn>
+          <v-btn  dark color="blue" @click="addCat">Save</v-btn>
         </v-flex>
         </v-layout>
         </v-container>
@@ -93,12 +93,12 @@
 <v-container grid-list-md text-md-center fluid fill-height>
      
       <v-layout row wrap>
-        <v-flex d-flex class="button_1">
-         <v-btn outline outline-color="blue darken-1" flat @click="close">Cancel</v-btn>
+        <v-flex d-flex >
+         <v-btn dark color="blue"  @click="close">Cancel</v-btn>
         </v-flex>
 
-        <v-flex d-flex class="button_2">
-           <v-btn  outline color="blue darken-1" flat @click="editSave">Save</v-btn>
+        <v-flex d-flex >
+           <v-btn  dark color="blue"  @click="editSave">Save</v-btn>
         </v-flex>
         </v-layout>
        
@@ -389,13 +389,6 @@ export default {
   }
 };
 </script>
-<style>
-.flex.button_1.d-flex {
- margin-left: 60px;
-}
-.flex.button_2.d-flex {
-    margin-right: 60px;
-}
-</style>
+
 
 
