@@ -694,7 +694,7 @@ export default {
     
     catItems() {
       axios
-        .get("http://localhost:8000/api/category")
+        .get(this.baseUrl+"/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -708,7 +708,7 @@ export default {
 
     lotItems() {
       axios
-        .get("http://localhost:8000/api/getLot")
+        .get(this.baseUrl+"/getLot")
         .then(response => {
           response.data.lotItems.forEach(element => {
             this.lotItem.push(element);
@@ -787,7 +787,7 @@ export default {
   console.log("*******************");
       console.log(formData);
       axios
-        .post("http://localhost:8000/api/addProduct?token=" + $Token, formData)
+        .post(this.baseUrl+"/addProduct?token=" + $Token, formData)
         .then(response => {
           this.dialog = false;
           this.productItems();
@@ -803,7 +803,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get("http://localhost:8000/api/products")
+        .get(this.baseUrl+"/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -819,7 +819,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/deletedProducts?token=" + $Token)
+        .post(this.baseUrl+"/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -886,7 +886,7 @@ export default {
 
         axios
           .post(
-            "http://localhost:8000/api/editProduct/" +
+            this.baseUrl+"/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -917,7 +917,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteProduct/" +
+            this.baseUrl+"/deleteProduct/" +
               item.PID +
               "?token=" +
               $Token
@@ -939,7 +939,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreProduct/" +
+            this.baseUrl+"/restoreProduct/" +
               item.PID +
               "?token=" +
               $Token
@@ -980,7 +980,7 @@ export default {
           console.log(response.data.image);
           axios
             .post(
-              "http://localhost:8000/api/storeImage" + "?token=" + $Token,
+              this.baseUrl+"/storeImage" + "?token=" + $Token,
               response.data
             )
             .then(response => {
@@ -1018,7 +1018,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8000/api/addProductLot?token=" + $Token,
+          this.baseUrl+"/addProductLot?token=" + $Token,
           formData
         )
         .then(response => {

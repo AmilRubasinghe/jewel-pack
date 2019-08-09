@@ -58,9 +58,16 @@
           </v-layout>
         </v-container>
 
+        
+
         <v-layout row wrap align-center justify-center>
+           
+  
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
-            <br />
+            <br/>
+            
+            <transition-group  name="staggered-fade" tag="v-card">
+            
             <v-card
               class="card-5"
               style="cursor: pointer"
@@ -68,6 +75,8 @@
               ripple
               align="center"
               @click="productPreview(products[i])"
+              :key="item.PID"
+              
             >
               <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                 <v-container fill-height fluid>
@@ -122,7 +131,10 @@
               </v-card-actions>
               
             </v-card>
+            </transition-group>
+            
           </v-flex>
+            
         </v-layout>
       </v-container>
 
@@ -268,7 +280,15 @@
             </v-card-text>
           </v-card>
         </v-dialog>
+
+             
+
+
       </v-layout>
+
+
+
+
     </v-app>
   </div>
 </template>
@@ -284,6 +304,7 @@ export default {
   props: ["pageTitle", "products", "searchMode"],
   data() {
     return {
+       items: [1,2,3,4,5,6,7,8,9],
       page: 1,
       dialog: false,
       products: [],
@@ -327,20 +348,13 @@ export default {
 
   methods: {
 
+
     sortProducts(){
       
       this.products= _.orderBy(this.products, this.sortCat ,this.sortOrder);
     
     },
-    swap2Ordered() {
-      if (!this.ascPrice) {
-        this.products = this.orderByPriceAsc;
-        this.ascPrice = true;
-      } else {
-        this.products = this.orderByPriceDesc;
-        this.ascPrice = false;
-      }
-    },
+    
 
     getResult: _.debounce(
       function() {
@@ -542,5 +556,10 @@ h2 {
   font-family: "Rye", cursive;
   font-size: 2em;
   color: rgba(129, 91, 24, 0.788);
+}
+
+
+  .shuffleMedium-move {
+  transition: transform 1s;
 }
 </style>

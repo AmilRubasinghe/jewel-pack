@@ -56,7 +56,7 @@
           </v-badge>Cart
         </v-btn>
 
-        <v-menu offset-y open-on-hover>
+        <v-menu offset-y open-on-hover transition="slide-y-transition">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
               <v-icon left dark>{{ 'reorder' }}</v-icon>categories
@@ -79,10 +79,29 @@
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn v-if="user" flat v-for="item in regItems" :key="item.title" :to="item.path">
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
-        </v-btn>
+
+ 
+        <v-menu offset-y open-on-hover v-if="user" transition="slide-y-transition">
+          <template v-slot:activator="{ on }">
+            <v-btn flat v-on="on">
+              <v-icon left dark>{{ 'person' }}</v-icon>My Account
+              <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
+            </v-btn>
+          </template>
+          
+          <v-list>
+            <v-list-tile
+              v-for="item in regItems"
+              :key="item.CID"
+              :to="({ path: `${item.path}` }) "
+            >
+              <v-icon left>{{ item.icon }}</v-icon>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+
+
         <v-btn
           v-if="role=='admin'"
           flat
@@ -331,7 +350,11 @@ export default {
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
-        { title: "Shipping Method", icon: "time_to_leave", path: "shippingMethod" },
+        {
+          title: "Shipping Method",
+          icon: "time_to_leave",
+          path: "shippingMethod"
+        }
       ],
       appTitle: "JewelPack",
       searchDialog: false,
@@ -356,7 +379,8 @@ export default {
         { title: "Sign In", path: "/loginPage", icon: "lock_open" }
       ],
       regItems: [
-        { title: "Profile", path: "/profile", icon: "face" }
+        { title: "My Profile", path: "/profile", icon: "face" },
+        { title: "My Orders", path: "/myOrders", icon: "library_books" },
         // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
       ],
       adminItems: [
@@ -380,11 +404,8 @@ export default {
   },
 
   methods: {
-    logout() {
-      let $Token = localStorage.getItem("token");
-      /* console.log(Token);*/
+    googleLogout() {
 
-      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
       window.onLoadCallback = function() {
         gapi.auth2.init({
           client_id:
@@ -392,11 +413,21 @@ export default {
         });
       };
 
-      if (gapi.auth2.getAuthInstance()) {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function() {
-          console.log("User signed out.");
-        });
+      
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+      });
+    },
+    logout() {
+      let $Token = localStorage.getItem("token");
+      /* console.log(Token);*/
+      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+
+      if (!!gapi.auth2.init()) {
+        this.googleLogout();
+
+        
       }
 
       axios
