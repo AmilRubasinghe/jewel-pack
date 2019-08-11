@@ -126,7 +126,7 @@
           <v-icon left dark>{{ 'exit_to_app' }}</v-icon>Logout
         </v-btn>
       </v-toolbar-items>
-      <v-menu class="hidden-lg-and-up">
+      <v-menu class="hidden-lg-and-up" >
         <v-toolbar-side-icon @click="mobileDrawer = true" slot="activator"></v-toolbar-side-icon>
 
         <v-dialog
@@ -134,6 +134,7 @@
           fullscreen
           hide-overlay
           transition="dialog-bottom-transition"
+          :close-on-content-click="true"
         >
           <!-- <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>-->
           <v-card>
@@ -369,7 +370,7 @@ export default {
       filterKey: "",
 
       menuItems: [
-        { title: "Home", path: "/home", icon: "home" }
+        { title: "Home", path: "/", icon: "home" }
         //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
         //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
@@ -396,11 +397,11 @@ export default {
     };
   },
 
-  beforeRouteUpdate(to, from, next) {
-    const toDepth = to.path.split("/").length;
-    const fromDepth = from.path.split("/").length;
-    this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-    next();
+  
+  watch: {
+    $route() {
+      this.mobileDrawer=false;
+    }
   },
 
   methods: {
@@ -429,6 +430,7 @@ export default {
 
         
       }
+
 
       axios
         .post(this.$baseUrl + "/logout?token=" + $Token)

@@ -39,5 +39,7 @@ Route::get('verifyEmailFirst',['uses'=>'UserController@verifyEmailFirst',
 Route::get('verify/{email}/{verifyToken}',['uses'=>'UserController@sendEmailDone',
     'as' => 'sendEmailDone']);
 
+	/*
 Route::get('loginPage',['uses'=>'UserController@loginPage',
     'as' => 'loginPage']);
+	*/

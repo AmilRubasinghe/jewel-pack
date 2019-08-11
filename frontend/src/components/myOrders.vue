@@ -98,7 +98,9 @@ export default {
     myOrders() {
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl + "/myOrder/" + $Token)
+        .post(this.$baseUrl + "/myOrder/?token="+$Token,{
+            token: $Token
+        })
         .then(response => {
             this.orders=response.data.orders;
           console.log(response.data);

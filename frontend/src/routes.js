@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import test from  './components/test.vue'
 
 import loginPage from  './components/loginPage.vue'
+import loginPage2 from  './components/loginPage2.vue'
 import reqResetPassword from  './components/request-resetPassword.vue'
 import resResetPassword from  './components/response-resetPassword.vue'
 import home from  './components/home.vue'
@@ -79,6 +80,7 @@ const router = new VueRouter({
       
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
+        {path:"/loginPage2",beforeEnter: ShouldSkip,component:loginPage2},
         {path:"/response-password-reset",beforeEnter: ShouldSkip,component:resResetPassword},
         {path:"/request-password-reset",beforeEnter: ShouldSkip,component:reqResetPassword},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},

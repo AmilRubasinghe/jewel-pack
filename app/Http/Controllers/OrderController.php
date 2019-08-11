@@ -59,7 +59,8 @@ class OrderController extends Controller
     
     }
 
-    public function myOrder($token){
+    public function myOrder(Request $request){
+        $token= $request->input('token');
         $userID = JWTAuth::toUser($token)->ID;
 
 

@@ -1,73 +1,70 @@
 <template>
-<body class="inventory-body">
-  <div class="wrapper">
-    <div class="container box">
-      <alert v-if="alert" v-bind:message="alert"/>
- <notification v-if="notify"  :message="notify" :type="status"></notification>
-      <v-snackbar v-if="snack" v-model="snackActive" bottom center multi-line :timeout="0">
-        {{ snack }}
-        <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
-        <v-btn flat color="red" @click="snackActive=!snackActive">Close</v-btn>
-      </v-snackbar>
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-Top justify-top>
+          <v-flex xs12 sm8 md8>
+            <v-card class="elevation-14">
+              <v-toolbar color="primary" dark flat>
+                <v-toolbar-title>Login</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form @submit.prevent="loginUser">
+                                   
+                  <v-text-field
+                    label="Email"
+                    name="Email"
+                    prepend-icon="email"
+                    type="email"
+                    v-validate="'required'"
+                    v-model="login.email"
+                  ></v-text-field>
 
-      <form class="form-signin" @submit.prevent="loginUser">
-        <h1 align="center">Sign In</h1>
-        <div class="form-group form-group-lg">
-          <input
-            type="email"
-            class="form-control"
-            id="inputEmail3"
-            placeholder="Email"
-            name="email"
-            autofocus
-            v-validate="'required|email'"
-            v-model="login.email"
-          >
-
-          <div
+                  <div
             v-show="errors.has('email')"
             class="help block alert alert-danger"
           >{{ errors.first('email') }}</div>
-        </div>
 
-        <br>
-
-        <div class="form-group form-group-lg">
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword3"
-            placeholder="password"
-            name="password"
-            v-validate="'required'"
-            v-model="login.password"
-          >
-          <div
+                  <v-text-field
+                    id="password"
+                    label="Password"
+                    name="password"
+                    prepend-icon="lock"
+                    type="password"
+                    v-validate="'required'"
+                    v-model="login.password"
+                  ></v-text-field>
+              
+             <div
             v-show="errors.has('password')"
             class="help block alert alert-danger"
           >{{ errors.first('password') }}</div>
-        </div>
 
 
-        
-        <v-btn small to="request-password-reset" outline color="white">Forget Password?</v-btn>
-        
 
-
-        <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
-          <v-btn type="submit" round color="blue" outline block>Sign in</v-btn>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue" @click='loginUser'>Login</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+          <v-flex xs12 sm8 md8>
+            <v-card height="400">
+                <div id="my-signin2"></div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import alert from "./alert.vue";
 import axios from "axios";
 import Store from "../store.js";
-import notification from "./notification.vue";
 export default {
   data() {
     return {
@@ -76,7 +73,7 @@ export default {
         password: ""
       },
 
-      user: {
+ user: {
         email: ""
       },
 
@@ -86,14 +83,15 @@ export default {
 
       notify:'',
         status:2,
+
+
+
     };
   },
-
   components: {
-    alert,
-    notification
+     alert
   },
-  created() {
+created() {
     if (this.$route.query.alert) {
       this.alert = this.$route.query.alert;
     }
@@ -104,12 +102,12 @@ export default {
        (this.notify = this.$route.query.notify);
     }
   },
-  methods: {
-    route() {
-     console.log(this.$baseUrl);
-    },
 
-    
+  mounted(){
+    this.renderButton();
+  },
+
+ methods: {
     resendEmail() {
       this.user.email = Store.getters.vEmail;
       axios
@@ -160,6 +158,71 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
+    },
+
+
+
+
+     onSuccess(googleUser) {
+      // console.log(googleUser.getAuthResponse().id_token);
+      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+
+      let $token = googleUser.getAuthResponse().id_token;
+      axios
+        .post(this.$baseUrl + "/tokensignin", {
+          token: $token
+        })
+        .then(response => {
+          this.alert = response.data.message;
+
+          this.snackActive = true;
+          this.snack = response.data.snack;
+
+          let $token = response.data.token;
+
+          this.$store.dispatch("setUser", null);
+          if ($token) {
+            console.log($token);
+            localStorage.setItem("token", $token);
+            //console.log(response.data.role);
+
+            this.$store.dispatch("setUser", response.data.user);
+            // console.log("User");
+            //  console.log(this.$store.state.user);
+            // console.log(Store.getters.role);
+            if (response.data.role == "admin") {
+              this.$router.push("/admin");
+            } else {
+              this.$router.push("/profile");
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+    onFailure(error) {
+      console.log(error);
+    },
+
+    renderButton() {
+      gapi.signin2.render("my-signin2", {
+        scope: "profile email",
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: "dark",
+        onsuccess: this.onSuccess,
+        onfailure: this.onFailure
+      });
+    },
+
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+      });
     }
   }
 };

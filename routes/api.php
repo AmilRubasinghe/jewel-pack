@@ -41,7 +41,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 
 
     //temp
-    Route::post('myOrder/{token}', 'orderController@myOrder');
+    
 
 
 
@@ -88,6 +88,8 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         
         Route::post('logout', 'userController@logoutUser');
         Route::post('me', 'userController@me');
+
+        Route::post('myOrder', 'orderController@myOrder');
         
         
     });
