@@ -108,6 +108,8 @@ export default {
     route() {
      console.log(this.$baseUrl);
     },
+
+    
     resendEmail() {
       this.user.email = Store.getters.vEmail;
       axios

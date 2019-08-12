@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\order;
+use JWTAuth;
 
 class OrderController extends Controller
 {
@@ -56,4 +58,15 @@ class OrderController extends Controller
     public function sendOrder(){
     
     }
+
+    public function myOrder($token){
+        $userID = JWTAuth::toUser($token)->ID;
+
+
+       $orders = order::where('ID', '=', $userID)->get();
+
+        return response()->json(['orders'=>$orders]);
+    }
+
+
 }
