@@ -16,7 +16,7 @@ use App\Mail\verifyEmail;
 use phpDocumentor\Reflection\Types\Null_;
 use JWTAuth;
 use App\Http\Controllers\Controller;
-
+use DB;
 class userController extends Controller
 {
 
@@ -311,7 +311,10 @@ public function logoutUser(Request $request){
         return response()->json(['user' => $thisUser,'message' => "Succesfully Edited"]);
     }
 
-   
+   public function printUser(){
+    $newuser =DB::table('users')->orderBy('created_at','desc')->first(); // it will get the entire table
+    return response()->json(['printUser'=>$newuser],200);
+   }
 
 
 

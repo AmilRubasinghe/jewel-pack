@@ -19,11 +19,7 @@ export default new Vuex.Store({
         user:null,
         tempEmailToVerify:null,
         category:[],
-<<<<<<< HEAD
-=======
-        
-        
->>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
+
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
         
@@ -145,7 +141,7 @@ export default new Vuex.Store({
             //let found = state.cart.find(product => product.PID == item.PID); Short form of above function
 
         //console.log("++++++");
-        state.cartCount+=item.qty;
+        state.cartCount+=1;
         
             if (found) {
                 console.log(found);         
@@ -169,7 +165,7 @@ export default new Vuex.Store({
         
             if (index > -1) {
                 let product = state.cart[index];
-                state.cartCount -= product.qty;
+                state.cartCount -= 1;
         
                 state.cart.splice(index, 1);
             }

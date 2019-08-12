@@ -33,12 +33,9 @@
 
 <script>
 import axios from 'axios';
-import checkVue from './check.vue';
 
 //import checkFormVue from './checkForm.vue';
 export default {
-
-    props:["checkDetails"],
 
     data(){
         return{
@@ -66,9 +63,8 @@ export default {
     },
 
     mounted(){
-        this.autoFill();
+       this.autoFill();
     },
-
     computed:{
          total(){
             let total =0;
@@ -79,11 +75,38 @@ export default {
         }
     },
     methods:{
-
+       
        autoFill(){
-           
-       }
+            axios
+        .get("http://localhost:8000/api/showOrder")
+        .then(response => {
+          this.checkoutDetails.email = response.data.printOrder.customerEmail;
+          this.checkoutDetails.order_id=response.data.printOrder.OID;
+          this.checkoutDetails.phone=response.data.printOrder.contactNo;
+          this.checkoutDetails.address=response.data.printOrder.deliveryAddress;
+          console.log(this.email);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
 
+        this.checkoutDetails.amount=this.total;
+
+         axios
+        .get("http://localhost:8000/api/showUser")
+        .then(response => {
+          this.checkoutDetails.first_name= response.data.printUser.firstName;
+           this.checkoutDetails.last_name= response.data.printUser.lastName;
+
+          console.log(this.first_name);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
+       }
        /* print(){
             console.log(this.props.checkDetails);
         }*/

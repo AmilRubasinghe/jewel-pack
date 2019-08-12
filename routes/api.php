@@ -69,7 +69,8 @@ Route::get('pay', 'PaymentController@payHerePost');
 //Checkout
 
 Route::post('checkDetails','OrderController@saveOrder');
-
+Route::get('showOrder','OrderController@getOrder');
+Route::get('showUser','userController@printUser');
 
 
 

@@ -19,13 +19,9 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
-<<<<<<< HEAD
-import example from  './components/example'
-=======
 import contactus from'./components/contactus.vue'
 import facebook from'./components/facebook.vue'
 import manageLotQuantity from './components/adminEditor/manageLotQuantity'
->>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
 import products from  './components/products'
 import check from  './components/check'
 import checkForm from  './components/checkForm'
@@ -100,10 +96,6 @@ const router = new VueRouter({
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
-<<<<<<< HEAD
-        {path:"*",component:test},
-        {path:"/example",component:example},
-=======
         {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/shippingMethod",component: manageShippingMethod ,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/test",component:test},
@@ -113,7 +105,6 @@ const router = new VueRouter({
         {path:"/facebook",component:facebook},
 
 
->>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
     ],
 
 
