@@ -156,7 +156,7 @@
                          class="card category card-5"
                         color="grey lighten-4"
                         width="300"
-                        height="423"
+                        height="483"
                         
                       >
                         <v-img :aspect-ratio="3.8/4.5" :src="item.image">
