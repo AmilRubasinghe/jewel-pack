@@ -1,20 +1,18 @@
 {{--
 @component('mail::message')
-# Jewelpack - Email verification
+# Jewelpack - Password Reset
 
-Click on the button below to verify email
+Click on the button below to change password
 
-
-@component('mail::button', ['url' => 'http://localhost:8000/verify/'.$user->email."/".$user->verifyToken])
-Verify Email
+@component('mail::button', ['url' => 'http://jewelpack.tk/response-password-reset?token='.$token])
+Reset Password
 @endcomponent
 
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
+
 --}}
-
-
 @component('mail::layout')
     {{-- Header --}}
     @slot('header')
@@ -23,13 +21,13 @@ Thanks,<br>
         @endcomponent
     @endslot
 
-# Jewelpack - Email verification
+   
+# Jewelpack - Password Reset
 
-Click on the button below to verify email
+Click on the button below to change password
 
-
-@component('mail::button', ['url' => 'http://localhost:8000/verify/'.$user->email."/".$user->verifyToken])
-Verify Email
+@component('mail::button', ['url' => 'http://jewelpack.tk/response-password-reset?token='.$token])
+Reset Password
 @endcomponent
 
 Thanks,<br>

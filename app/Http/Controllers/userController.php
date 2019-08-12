@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -13,7 +16,6 @@ use App\Mail\verifyEmail;
 use phpDocumentor\Reflection\Types\Null_;
 use JWTAuth;
 use App\Http\Controllers\Controller;
-use DB;
 
 class userController extends Controller
 {
@@ -66,7 +68,7 @@ class userController extends Controller
 			
 			
     }
-    
+
 
     public function resendvEmail(Request $request){
 
@@ -119,6 +121,11 @@ class userController extends Controller
 
 
     public function loginUser(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        // new rules here
+    ]);
 
         $data = $request->only('email','password');
 
@@ -173,13 +180,7 @@ class userController extends Controller
     }
 
 
-    public function loginPage(){
-        if(Auth::user()){
-            return redirect('/logged');
-        }
-        return view('loginPage');
-        
-    }
+
 
 
 public function logoutUser(Request $request){

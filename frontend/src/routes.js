@@ -6,8 +6,11 @@ Vue.use(VueRouter);
 import test from  './components/test.vue'
 
 import loginPage from  './components/loginPage.vue'
+import reqResetPassword from  './components/request-resetPassword.vue'
+import resResetPassword from  './components/response-resetPassword.vue'
 import home from  './components/home.vue'
 import registerPage from  './components/registerPage.vue'
+import registration2 from  './components/registration2.vue'
 import profile from  './components/profile.vue'
 import adminPanel from './components/admin/adminPanel'
 import manageUsers from './components/admin/manageUsers'
@@ -16,20 +19,31 @@ import manageOrders from './components/admin/manageOrders'
 import manageReports from './components/admin/reports'
 import manageSlideshow from './components/adminEditor/manageSlideshow'
 import manageCategory from './components/adminEditor/manageCategory'
+<<<<<<< HEAD
 import example from  './components/example'
+=======
+import contactus from'./components/contactus.vue'
+import facebook from'./components/facebook.vue'
+import manageLotQuantity from './components/adminEditor/manageLotQuantity'
+>>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
 import products from  './components/products'
 import check from  './components/check'
 import checkForm from  './components/checkForm'
 import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
-
+import manageShippingMethod from './components/admin/manageShippingMethod'
 
 
 import Store from './store.js'
 import { mapState } from 'vuex'
 
+
+
 function guard(to, from, next){
-    if(localStorage.getItem('token')) {
+  
+    if(localStorage.getItem('token')||auth2.isSignedIn.get() == true) {
+      console.log('++++++++');
+      console.log(auth2.isSignedIn.get());
         // or however you store your logged in state
         next(); // allow to enter route
     } else{
@@ -68,7 +82,10 @@ const router = new VueRouter({
       
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
+        {path:"/response-password-reset",beforeEnter: ShouldSkip,component:resResetPassword},
+        {path:"/request-password-reset",beforeEnter: ShouldSkip,component:reqResetPassword},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
+        {path:"/registration2",component:registration2},
         {path:"/home",component:home},
         {path:"/category/:id",component:products},
         {path:"/check",component:check},
@@ -83,8 +100,20 @@ const router = new VueRouter({
         {path:"/admin/reports",component:manageReports,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
+<<<<<<< HEAD
         {path:"*",component:test},
         {path:"/example",component:example},
+=======
+        {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/admin/shippingMethod",component: manageShippingMethod ,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/test",component:test},
+        {path:"*",component:home},
+        
+        {path:"/contactus",component:contactus},
+        {path:"/facebook",component:facebook},
+
+
+>>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
     ],
 
 
@@ -96,7 +125,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 //console.log(Store.getters.role);
 if(to.meta.requireAuth){
+  
     if(localStorage.getItem('token')){
+    
+      
         if(to.meta.roles){
         if (to.meta.roles.includes(Store.getters.role)) {
             next();    

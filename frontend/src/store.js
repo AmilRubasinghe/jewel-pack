@@ -19,6 +19,11 @@ export default new Vuex.Store({
         user:null,
         tempEmailToVerify:null,
         category:[],
+<<<<<<< HEAD
+=======
+        
+        
+>>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
         

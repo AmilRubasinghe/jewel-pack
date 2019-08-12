@@ -146,6 +146,7 @@
 
 .footer {
   background-color: #393b45;
+     margin-top: 50px;
 }
 
 .layout.my-5.row.wrap.justify-center {
@@ -187,4 +188,5 @@ i.fab.fa-cc-amex.fa-w-18.fa-3x {
   border-top: 1px solid;
   border-color: rgba(221, 221, 221, 0.12);
 }
+
 </style>

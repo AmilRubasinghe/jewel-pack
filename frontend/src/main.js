@@ -7,8 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VeeValidate from 'vee-validate'
 import store from './store';
 
-//import axios from 'axios'
-//Vue.use(axios);
+import axios from 'axios'
+Vue.use(axios);
 
 
 //import VueResource from 'vue-resource';
@@ -24,14 +24,21 @@ Vue.use(Vuetify)
 import responsive from 'vue-responsive'
 Vue.use(responsive)
 
+import Snotify from 'vue-snotify'; 
+Vue.use(Snotify)
+
 
 
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
+
+Vue.prototype.$baseUrl = 'http://localhost:8000/api';
+
 new Vue({
   el: '#app',
   store,
+  axios,
   render: h => h(App),
   router:Router
 })

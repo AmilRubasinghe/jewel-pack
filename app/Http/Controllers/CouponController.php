@@ -7,13 +7,19 @@ use App\coupon;
 
 class CouponController extends Controller
 {
-
     public function getCoupon(){
+<<<<<<< HEAD
     
         
     $coupons= coupon::all();
     return response()->json(['coupofgn'=>$coupons],200);
     
+=======
+
+      $coupons=coupon::all();
+      return response()->json(['coupon'=>$coupons],200);
+   
+>>>>>>> 0b8c6c48a5a0e8c4e159a757e66f1b39d23d9726
     }
 
     public function generateCoupon(){

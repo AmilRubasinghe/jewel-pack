@@ -1,148 +1,209 @@
+
+
+
+
 <template>
-<body class="inventory-body">
-    <div>
-    <div class="container box">
-        <alert v-if="alert" v-bind:message="alert" />
-        
-        
-     
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height  grid-list-md text-center>
+        <v-layout wrap>
+          <v-flex xs12 sm12 md6 lg6>
+            <v-card class="elevation-14">
+              <v-toolbar color="primary" dark flat>
+                <v-toolbar-title>Register</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form @submit.prevent="registerUser">
+                  <v-text-field
+                    label="First Name"
+                    
+                    prepend-icon="person"
+                    type="text"
+                    v-validate="'required'"
+                    v-model="register.firstname"
+                    name="first_name"
+                    data-vv-as="First Name"
+                    :error-messages="errors.collect('first_name')"
+                  ></v-text-field>
+                  <v-text-field
+                    label="Last Name"
+                    name="last_name"
+                    prepend-icon="person"
+                    type="text"
+                    v-validate="'required'"
+                    data-vv-as="Last Name"
+                    v-model="register.lastname"
+                    :error-messages="errors.collect('last_name')"
+                  ></v-text-field>
+                  <v-text-field
+                    label="Email"
+                    name="email"
+                    prepend-icon="email"
+                    type="email"
+                    v-validate="'email|required'"
+                    v-model="register.email"
+                    data-vv-as="Email"
+                     :error-messages="errors.collect('email')"
+                  ></v-text-field>
 
+                  <v-text-field
+                    ref="password"
+                    label="Password"
+                    name="password"
+                    prepend-icon="lock"
+                    type="password"
+                    v-validate="'required|min:6'"
+                    v-model="register.password"
+                    :error-messages="errors.collect('password')"
+                  ></v-text-field>
 
-   <form @submit.prevent='registerUser'>
-
-
-
-        <h1 align="center">Register</h1>
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname" v-validate="'required'" v-model="register.firstname">
-            <div v-show="errors.has('firstname')" class="help block alert alert-danger">
-                    {{ errors.first('firstname') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname" v-validate="'required'" v-model="register.lastname">
-            <div v-show="errors.has('lastname')" class="help block alert alert-danger">
-                    {{ errors.first('lastname') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="email" class="form-control" id="email" placeholder="Email" name="email" v-validate="'required|email'" v-model="register.email">
-            <div v-show="errors.has('email')" class="help block alert alert-danger">
-                    {{ errors.first('email') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg">
-            <input type="password" class="form-control" id="password" placeholder="password" name="password" v-validate="'required'" v-model="register.password">
-            <div v-show="errors.has('password')" class="help block alert alert-danger">
-                    {{ errors.first('password') }}
-            </div>
-        </div>
-
-
-
-        <div class="form-group form-group-lg">
-            <input type="password" class="form-control" id="confirm_password" placeholder="confirm password" name="confirm_password" v-validate="'required'" v-model="register.confirm_password">
-            <div v-show="errors.has('confirm_password')" class="help block alert alert-danger">
-                    {{ errors.first('confirm_password') }}
-            </div>
-        </div>
-
-
-        <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
-            
-            <v-btn type="submit" round color="blue" outline  block>Register</v-btn>
-
-        </div>
-
-    </form>
-    </div>
-    </div>
-    
-    </body>
+                  <v-text-field
+                    id="confirm password"
+                    label="Confirm Password"
+                    name="password_confirmation"
+                    prepend-icon="lock"
+                    type="password"
+                    v-validate="'required|min:6|confirmed:password'"
+                    data-vv-as="confirm password"
+                    v-model="register.confirm_password"
+                    :error-messages="errors.collect('password_confirmation')"
+                  ></v-text-field>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue" @click='registerUser'>Register</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+          <v-flex xs12 sm12 md6 lg6>
+            <v-card height="400">
+                <div id="my-signin2"></div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
-
-
 <script>
-import alert from './alert.vue';
-import axios from 'axios';
-import Store from '../store.js';
+import alert from "./alert.vue";
+import axios from "axios";
+import Store from "../store.js";
+export default {
+  data() {
+    return {
+      register: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirm_password: ""
+      },
+      alert: ""
+    };
+  },
 
-export default{
-    data(){
-        return{
-            register:{
-                firstname:"",
-                lastname:"",
-                email:"",
-                password:"",
-                confirm_password:""
-            },
-             alert:'',
-        }
+   mounted() {
+    this.renderButton();
+  },
+  components: {
+    alert
+  },
+  methods: {
+    registerUser() {
+      this.$validator.validateAll();
+
+      Store.commit("setEmailToVerify", this.register.email);
+      if (!this.errors.any()) {
+        axios
+          .post(this.$baseUrl+"/register", this.register, {})
+          .then(response => {
+            //console.log(response.data.message);
+            this.$router.push({
+              path: "/loginPage",
+              query: {
+                alert: response.data.message,
+                snack: response.data.snack
+              }
+            });
+          })
+          .catch(error => {
+            console.log(error.response);
+            console.log("ERROR");
+          });
+      }
     },
-     components:{
-            alert
-        },
-    methods:{
-        registerUser(){
 
-            this.$validator.validateAll()
-            
-             Store.commit("setEmailToVerify",this.register.email);
-            if (!this.errors.any()) {
-                axios.post('http://localhost:8000/api/register',this.register
-                , {
 
-            }).then(response=>{
-                //console.log(response.data.message);
-                     this.$router.push({path:'/loginPage',query:{alert:response.data.message,snack:response.data.snack}});
-                     
-                })
-                .catch(error=>{
-                    console.log(error.response);
-                    console.log("ERROR");
-                })
+
+
+    onSuccess(googleUser) {
+      // console.log(googleUser.getAuthResponse().id_token);
+      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+
+      let $token = googleUser.getAuthResponse().id_token;
+      axios
+        .post(this.$baseUrl + "/tokensignin", {
+          token: $token
+        })
+        .then(response => {
+          this.alert = response.data.message;
+
+          this.snackActive = true;
+          this.snack = response.data.snack;
+
+          let $token = response.data.token;
+
+          this.$store.dispatch("setUser", null);
+          if ($token) {
+            console.log($token);
+            localStorage.setItem("token", $token);
+            //console.log(response.data.role);
+
+            this.$store.dispatch("setUser", response.data.user);
+            // console.log("User");
+            //  console.log(this.$store.state.user);
+            // console.log(Store.getters.role);
+            if (response.data.role == "admin") {
+              this.$router.push("/admin");
+            } else {
+              this.$router.push("/profile");
             }
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
+    onFailure(error) {
+      console.log(error);
+    },
 
-           
-        },
+    renderButton() {
+      gapi.signin2.render("my-signin2", {
+        scope: "profile email",
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: "dark",
+        onsuccess: this.onSuccess,
+        onfailure: this.onFailure
+      });
+    },
+
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+      });
     }
-
-}
-
+  }
+};
 </script>
 
 
 <style>
-    html, body, app-root {
-     height: 100%;
-     margin: 0;
-     }
- .inventory-body {
-     min-width: 100%;
-     background-image: url("https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg");
-     background-repeat: no-repeat;
-     background-size: 50%;
-     background-position: center;
-     background-size: cover;
-       /*filter: blur(8px);
-  -webkit-filter: blur(8px);*/
-     }
-
-.wrapper {
-  height: 100%; 
-  width: 100%; 
-}
-
-
-
-
-
 </style>

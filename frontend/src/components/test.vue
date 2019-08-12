@@ -1,57 +1,39 @@
 <template>
-  <div>
-    <h1>Testing</h1>
-<br>
-    <form enctype="multipart/form-data">
-      <input type="file" ref="file" @change="handleFileUpload"/>
-      <v-btn @click="upload" dark>Upload</v-btn>
-    </form>
+  <v-hover>
+    <template v-slot:default="{ hover }">
+      <v-card
+        class="mx-auto"
+        max-width="344"
+      >
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"></v-img>
 
-    <v-img src="http://localhost:8000/storage/opJR9nPs8TGtMRIyfJG0H0B8xkt4nOPxMbjZ1KDO.jpeg"></v-img>
-  </div>
+        <v-card-text>
+          <h2 class="title primary--text">Magento Forests</h2>
+          Travel to the best outdoor experience on planet Earth. A vacation you will never forget!
+        </v-card-text>
+
+        <v-card-title>
+          <v-rating
+            :value="4"
+            dense
+            color="orange"
+            background-color="orange"
+            hover
+            class="mr-2"
+          ></v-rating>
+          <span class="primary--text subtitle-2">64 Reviews</span>
+        </v-card-title>
+
+        <v-fade-transition>
+          <v-overlay
+            v-if="hover"
+            absolute
+            color="#036358"
+          >
+            <v-btn>See more info</v-btn>
+          </v-overlay>
+        </v-fade-transition>
+      </v-card>
+    </template>
+  </v-hover>
 </template>
-
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      file: ''
-    };
-  },
-
-  methods: {
-    upload() {
-       let formData = new FormData();
-
-            /*
-                Add the form data we need to submit
-            */
-            formData.append('file', this.file);
-
-        /*
-          Make the request to the POST /single-file URL
-        */
-            axios.post( 'http://localhost:8000/api/upload',
-                formData,
-                {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-              }
-            ).then(function(){
-          console.log('SUCCESS!!');
-        })
-        .catch(function(){
-          console.log('FAILURE!!');
-        });
-    },
-
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
-    }
-  }
-};
-</script>
-

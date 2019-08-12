@@ -6,22 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\User;
 
-class verifyEmail extends Mailable
+class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+
+    public $token;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $user;
-
-    public function __construct(User $user)
+    public function __construct($token)
     {
-        $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -31,12 +31,11 @@ class verifyEmail extends Mailable
      */
     public function build()
     {
-      /*  return $this->view('email.sendView')
+        
+        return $this->markdown('Email.passwordReset')->with([
+            'token'=>$this->token,
+            ])
             ->from('jewelpacksparta@gmail.com','Jewel Pack')
-            ->subject('Verify Jewel Pack account');*/
-
-        return $this->markdown('Email.sendView')
-        ->from('jewelpacksparta@gmail.com','Jewel Pack')
-        ->subject('Verify Jewel Pack account');
+            ->subject('Reset Jewel Pack Password');;
     }
 }
