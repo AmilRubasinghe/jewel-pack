@@ -34,7 +34,37 @@
                       required
                       />
                     </v-flex>
+                    <v-flex d-flex>
+                  <v-layout row wrap justify-center>  
+                    <v-flex xs9 sm9 md4 lg4 d-flex >
+                     <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
+                            
+                        <form enctype="multipart/form-data">
+                        <div class="text-xs-center">
+                            
+                        
+
+                            <label class="button"  >
+                                    <input 
+                                    type="file"
+                                    ref="file"
+                                    @change="selectFile"
+                                    style="display:none"
+                                    >
+                                    <v-icon outline large>cloud_upload</v-icon>
+                                    <h4>Upload photo</h4>
+                                    <span v-if="file" class="file-name">{{file.name}}</span>
+                            </label>
+                        </div>
+                        
+                        </form>
+                        </v-card>
+                    </v-flex>
+                    </v-layout> 
+                   </v-flex > 
                     </v-layout>
+                    
+
                 </v-container>
               </v-card-text>
 
@@ -82,7 +112,32 @@
                     <v-flex md3 sm3 lg3 xs3 d-flex>
                       <v-text-field v-model="editedItem.icon" label="Icon" />
                     </v-flex>
+                    
+                     <v-flex xs12 sm6 offset-sm4>
+                  <v-img height="155" width="350" max-width="260px" :src="editedItem.Image"></v-img>
 
+                  <v-card
+                    flat
+                    color="#B0BEC5"
+                    @click="$refs.file.click()"
+                    ripple
+                    hover
+                    height="70"
+                    width="260"
+                    max-width="600px"
+                  >
+                    <form enctype="multipart/form-data">
+                      <div class="text-xs-center">
+                        <label class="button">
+                          <input type="file" ref="file" @change="selectFile" style="display:none" />
+                          <v-icon outline large>cloud_upload</v-icon>
+                          <h4>Upload photo</h4>
+                          <span v-if="file" class="file-name">{{file.name}}</span>
+                        </label>
+                      </div>
+                    </form>
+                  </v-card>
+                </v-flex>
                   
                      </v-layout>
                 </v-container>
@@ -172,7 +227,10 @@
               <td class="text-xs-center">{{ props.item.CID }}</td>
               <td class="text-xs-center">{{ props.item.CName }}</td>
               <td class="text-xs-center">{{ props.item.icon }}</td>
-              <td class="text-xs-center">{{ props.item.Images }}</td>
+              <td class="text-xs-center">{{ props.item.Image }}</td>
+                <td class="text-xs-left">
+                <v-img :src="props.item.Image"></v-img>
+              </td>
               <td class="justify-center layout px-0">
                 <v-icon
                   color="deep-purple darken-1"
@@ -221,12 +279,13 @@ export default {
       },
       selected: [],
       categoryItems: [],
-
+         file: "",
       headers: [
         { text: "Category ID", value: "CID" },
         { text: "Category Name", value: "CName" },
         { text: "Icon Code", value: "icon" },
         { text: "Image", value: "Image" },
+         { text: "Preview", value: "preview" },
         { text: "Action", value: "action" }
       ]
     };
@@ -262,11 +321,17 @@ export default {
     },
 
     addCat() {
+        const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      formData.append("CName", this.newCategory.CName);
+      formData.append("icon", this.newCategory.icon);
+      console.log( "this.newCategory.icon");
+
       let $Token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:8000/api/addCat?token=" + $Token,
-          this.newCategory
+          "http://localhost:8000/api/addCat?token=" + $Token,formData
         )
         .then(response => {
            this.dialog = false;
@@ -360,6 +425,12 @@ export default {
           });
       }
     },
+
+     selectFile(event){
+            this.file= this.$refs.file.files[0];
+            console.log(this.file.name);
+        },
+    
 
     deleteItem(item) {
       var result = confirm("Want to delete Category" + item.CID + "?");

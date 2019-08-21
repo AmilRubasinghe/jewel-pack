@@ -33,4 +33,20 @@ class ProductlotController extends Controller
               
               
         }
+
+
+        public function deleteProductLot(Request $request){
+                //  return $request->input('data');
+                  //return $request->input('size');
+    
+                  $thisProduct=product::findOrFail($request->input('pid'));
+                    $thisProduct->Quantity = $thisProduct->Quantity-$request->input('quantity');
+                    $thisProduct->save();
+            
+            
+                    return response()->json(['productlot'=>$thisProduct,'message'=>"Productlot delected succesfully !"]);
+            
+                  
+                  
+            }
 }
