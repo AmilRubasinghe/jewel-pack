@@ -103,7 +103,7 @@ const router = new VueRouter({
         {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/shippingMethod",component: manageShippingMethod ,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/test",component:test},
-        {path:"*",component:home},
+       // {path:"*",component:home},
         
         {path:"/contactus",component:contactus},
         {path:"/facebook",component:facebook},

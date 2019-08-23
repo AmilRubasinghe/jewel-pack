@@ -33,7 +33,8 @@ Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
 
-Vue.prototype.$baseUrl = 'http://jewelpack.tk/api';
+Vue.prototype.$baseUrl = 'http://localhost:8000/api';
+Vue.prototype.$url = 'http://localhost:8000/';
 
 new Vue({
   el: '#app',

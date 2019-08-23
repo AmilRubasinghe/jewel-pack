@@ -325,7 +325,7 @@ export default {
     save() {
       let $Token = localStorage.getItem("token");
       if (this.editedIndex > -1) {
-        Object.assign(this.users[this.editedIndex], this.editedItem);
+        Object.assign(this.users[this.editedIndex].email, this.editedItem);
         console.log("*******************");
         console.log(this.editedItem);
 

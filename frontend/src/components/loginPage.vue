@@ -1,16 +1,15 @@
 <template>
   <v-app id="inspire">
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-Top justify-top>
-          <v-flex xs12 sm8 md8>
-            <v-card class="elevation-14">
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap align-center>
+          <v-flex xs12 sm12 md6>
+            <v-card class="card-5" height=400>
               <v-toolbar color="primary" dark flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form @submit.prevent="loginUser">
-                                   
                   <v-text-field
                     label="Email"
                     name="Email"
@@ -21,9 +20,9 @@
                   ></v-text-field>
 
                   <div
-            v-show="errors.has('email')"
-            class="help block alert alert-danger"
-          >{{ errors.first('email') }}</div>
+                    v-show="errors.has('email')"
+                    class="help block alert alert-danger"
+                  >{{ errors.first('email') }}</div>
 
                   <v-text-field
                     id="password"
@@ -34,26 +33,36 @@
                     v-validate="'required'"
                     v-model="login.password"
                   ></v-text-field>
-              
-             <div
-            v-show="errors.has('password')"
-            class="help block alert alert-danger"
-          >{{ errors.first('password') }}</div>
 
-
-
+                  <div
+                    v-show="errors.has('password')"
+                    class="help block alert alert-danger"
+                  >{{ errors.first('password') }}</div>
                 </v-form>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue" @click='loginUser'>Login</v-btn>
-              </v-card-actions>
+              
+                
+                <v-btn color="blue" @click="loginUser">Login</v-btn>
+              
+                    
+                  <v-divider></v-divider>
+                 <div class="my-signin2" id="my-signin2"></div>
+              
             </v-card>
           </v-flex>
-          <v-flex xs12 sm8 md8>
-            <v-card height="400">
-                <div id="my-signin2"></div>
-            </v-card>
+          <v-flex xs12 sm12 md6>
+
+            
+            
+                  <v-card height="300" class="card-5">
+                    <v-toolbar light flat>
+                <v-toolbar-title>Already have an account</v-toolbar-title>
+              </v-toolbar>
+                    
+                    <div class="my-signin2" id="my-signin2"></div>
+                  </v-card>
+                
+            
           </v-flex>
         </v-layout>
       </v-container>
@@ -73,7 +82,7 @@ export default {
         password: ""
       },
 
- user: {
+      user: {
         email: ""
       },
 
@@ -81,17 +90,14 @@ export default {
       snack: "",
       snackActive: false,
 
-      notify:'',
-        status:2,
-
-
-
+      notify: "",
+      status: 2
     };
   },
   components: {
-     alert
+    alert
   },
-created() {
+  created() {
     if (this.$route.query.alert) {
       this.alert = this.$route.query.alert;
     }
@@ -99,19 +105,19 @@ created() {
       (this.snackActive = true), (this.snack = this.$route.query.snack);
     }
     if (this.$route.query.notify) {
-       (this.notify = this.$route.query.notify);
+      this.notify = this.$route.query.notify;
     }
   },
 
-  mounted(){
+  mounted() {
     this.renderButton();
   },
 
- methods: {
+  methods: {
     resendEmail() {
       this.user.email = Store.getters.vEmail;
       axios
-        .post(this.$baseUrl+"/resendvEmail", this.user, {})
+        .post(this.$baseUrl + "/resendvEmail", this.user, {})
         .then(response => {
           if (response.data.alert) {
             this.alert = response.data.message;
@@ -128,7 +134,7 @@ created() {
 
     loginUser() {
       axios
-        .post(this.$baseUrl+"/login", this.login, {})
+        .post(this.$baseUrl + "/login", this.login, {})
         .then(response => {
           this.alert = response.data.message;
 
@@ -160,10 +166,7 @@ created() {
         });
     },
 
-
-
-
-     onSuccess(googleUser) {
+    onSuccess(googleUser) {
       // console.log(googleUser.getAuthResponse().id_token);
       console.log("Logged in as: " + googleUser.getBasicProfile().getName());
 
@@ -214,7 +217,7 @@ created() {
         longtitle: true,
         theme: "dark",
         onsuccess: this.onSuccess,
-        onfailure: this.onFailure
+        onfailure: this.onFailure,
       });
     },
 
@@ -248,5 +251,25 @@ app-root {
 .wrapper {
   height: 100%;
   width: 100%;
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.my-signin2{
+  width: 100%;
+}
+
+.my-signin2 > div{
+  margin: 0 auto;
+}
+
+.g-signin2{
+  width: 100%;
+}
+
+.g-signin2 > div{
+  margin: 0 auto;
 }
 </style>

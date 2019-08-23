@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
+Route::get('/{any}', function(){
+	return view('index');
+ })->where('any', '.*');
+ 
+//Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
 /*
 Route::post('register',['uses'=>'UserController@registerUser',
 	'as' => 'signup']);

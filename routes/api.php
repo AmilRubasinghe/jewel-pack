@@ -42,6 +42,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 
     //temp
     
+    Route::post('test', 'CategoryController@test');
 
 
 

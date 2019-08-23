@@ -55,7 +55,7 @@
                       />
                     </v-flex>
 
-                    <v-flex md6 sm12 lg6 xs12 d-flex >
+                    <v-flex md6 sm12 lg6 xs12 d-flex>
                       <v-text-field
                         input-type="number"
                         v-model="newProduct.price"
@@ -86,42 +86,35 @@
                 <v-flex d-flex>
                   <v-layout row wrap>
                     <v-flex md6 sm12 lg6 xs12 d-flex>
-                     
-                       <v-combobox
-                           v-model="newProduct.shipMethod"
-                          :items=" ShippingMethodItems"
-                         
-                          item-text="shipMethod"
-                            item-value="shipId"
-                           label="Shipping Method"
-                           
-                             chips
-                          clearable
-                           multiple
-                        
-                           outline
-                           
-                             solo
-   
-  >
-    <template v-slot:selection="{ attrs,item , select, selected }">
-      <v-chip
-        v-bind="attrs"
-        :input-value="selected"
-        close
-        @click="selectShip(item)"
-        @input="remove(item)"
-      >
-         <strong>{{item.shipMethod}}</strong>&nbsp;
-        
-       
-      </v-chip>
-    </template>
-   </v-combobox>
+                      <v-combobox
+                        v-model="newProduct.shipMethod"
+                        :items=" ShippingMethodItems"
+                        item-text="shipMethod"
+                        item-value="shipId"
+                        label="Shipping Method"
+                        chips
+                        clearable
+                        multiple
+                        outline
+                        solo
+                      >
+                        <template v-slot:selection="{ attrs,item , select, selected }">
+                          <v-chip
+                            v-bind="attrs"
+                            :input-value="selected"
+                            close
+                            @click="selectShip(item)"
+                            @input="remove(item)"
+                          >
+                            <strong>{{item.shipMethod}}</strong>
+&nbsp;
+                          </v-chip>
+                        </template>
+                      </v-combobox>
                     </v-flex>
 
-                       <v-flex md3 sm12 lg3 xs12 d-flex>
-                       <v-checkbox
+                    <v-flex md3 sm12 lg3 xs12 d-flex>
+                      <v-checkbox
                         v-model="newProduct.border"
                         v-validate="'required'"
                         :error-messages="errors.collect('checkbox')"
@@ -132,12 +125,12 @@
                         required
                       ></v-checkbox>
                     </v-flex>
-                  </v-layout> 
-                   </v-flex > 
+                  </v-layout>
+                </v-flex>
 
-                    <v-flex d-flex>
-                  <v-layout row wrap justify-center>  
-                    <v-flex xs9 sm9 md4 lg4 d-flex >
+                <v-flex d-flex>
+                  <v-layout row wrap justify-center>
+                    <v-flex xs9 sm9 md4 lg4 d-flex>
                       <v-card
                         flat
                         color="#B0BEC5"
@@ -165,19 +158,17 @@
                         </form>
                       </v-card>
                     </v-flex>
-                    </v-layout> 
-                   </v-flex > 
-
                   </v-layout>
-               
+                </v-flex>
+              </v-layout>
             </v-container>
           </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-container grid-list-md text-md-center fluid fill-height>
-              <v-layout row wrap  justify-end>
-                <v-flex  xs4 sm4 md2 lg2 d-flex>
+              <v-layout row wrap justify-end>
+                <v-flex xs4 sm4 md2 lg2 d-flex>
                   <v-btn outline color="primary" @click="clear">clear</v-btn>
                 </v-flex>
 
@@ -264,10 +255,10 @@
                   </v-layout>
                 </v-flex>
 
-                    <v-flex d-flex>
+                <v-flex d-flex>
                   <v-layout row wrap>
                     <v-flex md6 sm12 lg6 xs12 d-flex>
-                       <v-select
+                      <v-select
                         label="Shipping Method"
                         :items=" ShippingMethodItems"
                         item-text="shipMethod"
@@ -278,9 +269,7 @@
                       ></v-select>
                     </v-flex>
 
-                    <v-flex md9 sm12 lg9 xs12 d-flex>
-                      
-                    </v-flex>
+                    <v-flex md9 sm12 lg9 xs12 d-flex></v-flex>
                   </v-layout>
                 </v-flex>
 
@@ -316,8 +305,8 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-container grid-list-md text-md-center fluid fill-height>
-              <v-layout justify-end row wrap >
-                <v-flex  md3 sm4 lg3 xs4 d-flex>
+              <v-layout justify-end row wrap>
+                <v-flex md3 sm4 lg3 xs4 d-flex>
                   <v-btn color="primary" @click="close">Cancel</v-btn>
                 </v-flex>
 
@@ -432,7 +421,6 @@
             <v-icon large color="blue">playlist_add_check</v-icon>Active products
           </v-btn>
         </v-toolbar>
-        
 
         <v-data-table
           v-model="selected"
@@ -475,7 +463,6 @@
               <td class="text-xs-center">{{ props.item.unitWeight }}</td>
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
-             
 
               <td class="justify-center layout px-0">
                 <v-icon
@@ -505,20 +492,10 @@
                 >restore_from_trash</v-icon>
               </td>
             </tr>
-             
           </template>
-         
         </v-data-table>
-        
       </div>
     </div>
-   
- 
- 
-
-
-    
-
   </div>
 </template>
 
@@ -540,20 +517,19 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: "",
-       LotQuantity: "",
+      LotQuantity: "",
 
-         model: [],
+      model: [],
 
       file: "",
 
-         model: null,
+      model: null,
       multiple: false,
       mandatory: false,
       showArrows: true,
       prevIcon: false,
       nextIcon: false,
       centerActive: false,
-
 
       editedItem: {
         PID: 0,
@@ -564,8 +540,8 @@ export default {
         Colour: "",
         Price: "",
         unitWeight: "",
-       description: "",
-        border: 0,
+        description: "",
+        border: 0
       },
 
       quantity: "",
@@ -584,22 +560,20 @@ export default {
         border: 0,
         image: "",
         cid: "",
-        
-        shipMethod:[],
+
+        shipMethod: []
       },
 
       newLotQuantity: {
         lot: "",
-        quantity: "",
-        
-        
+        quantity: ""
       },
 
       sizes: ["1x1", "2x2", "3x3", "4x4", "5x5"],
 
       category: [],
       lotItem: [],
-       ShippingMethodItems: [],
+      ShippingMethodItems: [],
 
       colours: ["White", "Black"],
 
@@ -632,7 +606,7 @@ export default {
         { text: "unitWeight", value: "unitWeight" },
         { text: "Details", value: "description" },
         { text: "Border", value: "border" },
-        
+
         { text: "Action", value: "action" }
       ]
     };
@@ -669,32 +643,29 @@ export default {
         );
         if (obj.lotquantity) {
           console.log("+++++++++++++++++++++");
-           console.log(obj.lotquantity);
-           return obj.lotquantity*this.newLotQuantity.quantity;
+          console.log(obj.lotquantity);
+          return obj.lotquantity * this.newLotQuantity.quantity;
         }
       }
     }
   },
 
   methods: {
-
-
-    selectShip(item){
- 
-            this.newProduct.shipMethod.push(item);
-          
+    selectShip(item) {
+      this.newProduct.shipMethod.push(item);
     },
-   
 
-    
-     remove(item) {
-        this.newProduct.shipMethod.splice(this.newProduct.shipMethod.indexOf(item), 1);
-       this.newProduct.shipMethod = [...this.newProduct.shipMethod]
-      },
-    
+    remove(item) {
+      this.newProduct.shipMethod.splice(
+        this.newProduct.shipMethod.indexOf(item),
+        1
+      );
+      this.newProduct.shipMethod = [...this.newProduct.shipMethod];
+    },
+
     catItems() {
       axios
-        .get(this.baseUrl+"/category")
+        .get(this.$baseUrl + "/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -708,7 +679,7 @@ export default {
 
     lotItems() {
       axios
-        .get(this.baseUrl+"/getLot")
+        .get(this.$baseUrl + "/getLot")
         .then(response => {
           response.data.lotItems.forEach(element => {
             this.lotItem.push(element);
@@ -724,14 +695,11 @@ export default {
         });
     },
 
-    
-   methodItems() {
+    methodItems() {
       axios
         .get("http://localhost:8000/api/getMethod")
         .then(response => {
           this.ShippingMethodItems = response.data.methodItems;
-          
-
 
           //console.log(this.categoryItems);
         })
@@ -761,12 +729,9 @@ export default {
     },
 
     addProduct() {
-       
       const formData = new FormData();
       formData.append("file", this.file, this.file.name);
-      
 
-      
       formData.append("details", this.newProduct.details);
       formData.append("price", this.newProduct.price);
       formData.append("size", this.newProduct.size);
@@ -774,20 +739,22 @@ export default {
       formData.append("colour", this.newProduct.colour);
       formData.append("cid", this.newProduct.cid);
       for (var i = 0; i < this.newProduct.shipMethod.length; i++) {
-         formData.append("method["+i+"]", this.newProduct.shipMethod[i].shipId);
-          console.log(this.newProduct.shipMethod[i].shipId);
-         //console.log(method[i]);
-    }
+        formData.append(
+          "method[" + i + "]",
+          this.newProduct.shipMethod[i].shipId
+        );
+        console.log(this.newProduct.shipMethod[i].shipId);
+        //console.log(method[i]);
+      }
       //formData.append("method", this.newProduct.shipMethod);
-      
-      
+
       // this.newProduct.image = formData;
 
       let $Token = localStorage.getItem("token");
-  console.log("*******************");
+      console.log("*******************");
       console.log(formData);
       axios
-        .post(this.baseUrl+"/addProduct?token=" + $Token, formData)
+        .post(this.$baseUrl + "/addProduct?token=" + $Token, formData)
         .then(response => {
           this.dialog = false;
           this.productItems();
@@ -803,7 +770,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get(this.baseUrl+"/products")
+        .get(this.$baseUrl + "/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -819,7 +786,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.baseUrl+"/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -856,9 +823,8 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
-      
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
     },
 
     clearQuntity() {
@@ -873,10 +839,9 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
       this.dialog = true;
-       
     },
 
     editSave() {
@@ -886,7 +851,8 @@ export default {
 
         axios
           .post(
-            this.baseUrl+"/editProduct/" +
+            this.$baseUrl +
+              "/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -917,10 +883,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            this.baseUrl+"/deleteProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -939,10 +902,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            this.baseUrl+"/restoreProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
+            this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -980,7 +940,7 @@ export default {
           console.log(response.data.image);
           axios
             .post(
-              this.baseUrl+"/storeImage" + "?token=" + $Token,
+              this.$baseUrl + "/storeImage" + "?token=" + $Token,
               response.data
             )
             .then(response => {
@@ -1017,10 +977,7 @@ export default {
       let $Token = localStorage.getItem("token");
 
       axios
-        .post(
-          this.baseUrl+"/addProductLot?token=" + $Token,
-          formData
-        )
+        .post(this.baseUrl + "/addProductLot?token=" + $Token, formData)
         .then(response => {
           this.showQuantity = false;
           this.productItems();
@@ -1049,8 +1006,8 @@ export default {
 }
 
 .flex.md3.sm12.lg3.xs12.d-flex {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 </style>
 

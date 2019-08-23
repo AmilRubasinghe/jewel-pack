@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="inspire">
     <v-app>
       <navbar></navbar>
       <v-content>
         <transition :name="transitionName" mode="out-in">
-          <router-view></router-view>
+          <router-view :key="$route.fullPath"></router-view>
         </transition>
       </v-content>
 
@@ -47,7 +47,7 @@ export default {
       transitionName: "slide-left"
     };
   },
-
+/*
   watch: {
     $route(to, from) {
       const toDepth = to.path.split("/").length;
@@ -55,7 +55,7 @@ export default {
       this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
     }
   },
-
+*/
   created() {
     axios.interceptors.request.use(
       config => {
@@ -133,4 +133,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Rye&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Eagle+Lake&display=swap");
+
+
+
 </style>
