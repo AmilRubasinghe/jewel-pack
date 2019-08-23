@@ -308,7 +308,7 @@ export default {
     catItems() {
       this.deleted=false;
       axios
-        .get("http://localhost:8000/api/category")
+        .get(this.$baseUrl+"/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -331,7 +331,7 @@ export default {
       let $Token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:8000/api/addCat?token=" + $Token,formData
+          this.$baseUrl+"/addCat?token=" + $Token,formData
         )
         .then(response => {
            this.dialog = false;
@@ -346,7 +346,7 @@ export default {
       this.deleted=true;
       let $Token = localStorage.getItem("token");
       axios
-        .get("http://localhost:8000/api/deletedCategory?token="+$Token)
+        .get(this.$baseUrl+"/deletedCategory?token="+$Token)
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -387,7 +387,7 @@ export default {
 
         axios
           .post(
-            "http://localhost:8000/api/editCat/" +
+            this.$baseUrl+"/editCat/" +
               this.editedItem.CID +
               "?token=" +
               $Token,
@@ -411,7 +411,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreCategory/" +
+            this.$baseUrl+"/restoreCategory/" +
               item.CID +
               "?token=" +
               $Token
@@ -439,7 +439,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteCategory/" +
+            this.$baseUrl+"/deleteCategory/" +
               item.CID +
               "?token=" +
               $Token
