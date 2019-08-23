@@ -113,8 +113,25 @@
                       </v-combobox>
                     </v-flex>
 
-                    <v-flex md3 sm12 lg3 xs12 d-flex>
-                      <v-checkbox
+                     <v-flex md6 sm12 lg6 xs12 d-flex >
+                      <v-text-field
+                        input-type="number"
+                        v-model="newProduct.slashedPrice"
+                        v-validate="'required'"
+                        :error-messages="errors.collect('slashedPrice')"
+                        label="Slashed Price"
+                        data-vv-name="slashedPrice"
+                        required
+                        type="number"
+                        onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                      />
+                    </v-flex>
+
+                     
+                  </v-layout> 
+                   </v-flex > 
+                     <v-flex md3 sm12 lg3 xs12 d-flex>
+                       <v-checkbox
                         v-model="newProduct.border"
                         v-validate="'required'"
                         :error-messages="errors.collect('checkbox')"
@@ -125,8 +142,6 @@
                         required
                       ></v-checkbox>
                     </v-flex>
-                  </v-layout>
-                </v-flex>
 
                 <v-flex d-flex>
                   <v-layout row wrap justify-center>
@@ -460,17 +475,20 @@
               <td class="text-xs-center">{{ props.item.Quantity}}</td>
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
-              <td class="text-xs-center">{{ props.item.unitWeight }}</td>
+              <td class="text-xs-center">{{ props.item.slashedPrice }}</td>
+              
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
 
               <td class="justify-center layout px-0">
                 <v-icon
+                  v-if="!deletedItem"
                   color="blue-grey lighten-1"
                   medium
                   class="mr-2"
                   @click="AddQuantity(props.item)"
                 >add_box</v-icon>
+                
 
                 <v-icon
                   color="deep-purple darken-1"
@@ -560,8 +578,8 @@ export default {
         border: 0,
         image: "",
         cid: "",
-
-        shipMethod: []
+        slashedPrice:"",
+        shipMethod:[],
       },
 
       newLotQuantity: {
@@ -603,7 +621,8 @@ export default {
         { text: "Quantity", value: "Quantity" },
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
-        { text: "unitWeight", value: "unitWeight" },
+        { text: "Slashed Price", value: "slashedPrice" },
+       
         { text: "Details", value: "description" },
         { text: "Border", value: "border" },
 
@@ -665,7 +684,7 @@ export default {
 
     catItems() {
       axios
-        .get(this.$baseUrl + "/category")
+        .get(this.$baseUrl+"/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -679,7 +698,7 @@ export default {
 
     lotItems() {
       axios
-        .get(this.$baseUrl + "/getLot")
+        .get(this.$baseUrl+"/getLot")
         .then(response => {
           response.data.lotItems.forEach(element => {
             this.lotItem.push(element);
@@ -713,49 +732,84 @@ export default {
       this.file = this.$refs.file.files[0];
 
       let $Token = localStorage.getItem("token");
-      /*
-      axios
-        .post(
-          "https://vgy.me/upload?userkey=2BX3uyR6WMJK6l2CA3frAi12xQcmXrgg",
-          formData
-        )
-        .then(response => {
-          this.newProduct.image = response.data.image;
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("Upload Failed");
-        });*/
+    
     },
 
     addProduct() {
+      
+    
+
+    /*  axios
+
+        .post(this.$baseUrl+"/test",{
+
+          "c":this.colours,
+
+          "b":this.border})
+
+        .then(response => {
+
+          console.log(response.data);
+
+ 
+
+          //console.log(this.slideshowItems);
+
+        })
+
+        .catch(error => {
+
+          console.log(error.response);
+
+          console.log("ERROR");
+
+        });
+
+    }
+       
       const formData = new FormData();
       formData.append("file", this.file, this.file.name);
 
       formData.append("details", this.newProduct.details);
       formData.append("price", this.newProduct.price);
+      formData.append("slashedPrice", this.newProduct.slashedPrice);
       formData.append("size", this.newProduct.size);
       formData.append("border", this.newProduct.border);
       formData.append("colour", this.newProduct.colour);
       formData.append("cid", this.newProduct.cid);
+      console.log("***************");
+     
       for (var i = 0; i < this.newProduct.shipMethod.length; i++) {
-        formData.append(
-          "method[" + i + "]",
-          this.newProduct.shipMethod[i].shipId
-        );
+        
         console.log(this.newProduct.shipMethod[i].shipId);
-        //console.log(method[i]);
-      }
+         formData.append("method["+i+"]", this.newProduct.shipMethod[i].shipId);
+          console.log(this.newProduct.shipMethod[i].shipId);
+         //console.log(method[i]);
+    }
       //formData.append("method", this.newProduct.shipMethod);
-
-      // this.newProduct.image = formData;
+      
+      
+      // this.newProduct.image = formData;*/
 
       let $Token = localStorage.getItem("token");
-      console.log("*******************");
-      console.log(formData);
+  
       axios
-        .post(this.$baseUrl + "/addProduct?token=" + $Token, formData)
+        .post(this.$baseUrl+"/addProduct?token=" + $Token,{
+              file:this.file,
+              details: this.newProduct.details,
+              price: this.newProduct.price,
+              slashedPrice: this.newProduct.slashedPrice,
+              size: this.newProduct.size,
+              border: this.newProduct.border,
+              colour: this.newProduct.colour,
+              cid: this.newProduct.cid,
+              method: this.newProduct.shipMethod,
+            
+
+        })
+       
         .then(response => {
+          console.log(response.data);
           this.dialog = false;
           this.productItems();
           console.log("Product Succesfully Added");
@@ -770,7 +824,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get(this.$baseUrl + "/products")
+        .get(this.$baseUrl+"/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -786,7 +840,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl+"/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -823,8 +877,10 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod = "";
-      this.newProduct.cid = "";
+      this.newProduct.shipMethod="";
+      this.newProduct.cid="";
+      this.newProduct.slashedPrice="";
+      
     },
 
     clearQuntity() {
@@ -839,8 +895,9 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod = "";
-      this.newProduct.cid = "";
+      this.newProduct.shipMethod="";
+      this.newProduct.cid="";
+      this.newProduct.slashedPrice="";
       this.dialog = true;
     },
 
@@ -851,8 +908,7 @@ export default {
 
         axios
           .post(
-            this.$baseUrl +
-              "/editProduct/" +
+            this.$baseUrl+"/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -883,7 +939,10 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
+            this.$baseUrl+"/deleteProduct/" +
+              item.PID +
+              "?token=" +
+              $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -902,7 +961,10 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
+            this.$baseUrl+"/restoreProduct/" +
+              item.PID +
+              "?token=" +
+              $Token
           )
           .then(response => {
             /*axios.get(item.deleteURL).then(res=>{
@@ -924,42 +986,40 @@ export default {
       this.showQuantity = true;
     },
 
-    sendFile() {
-      const formData = new FormData();
-      formData.append("file", this.file, this.file.name);
+   
+    DeleteQuntity() {
+       var result = confirm("Want to delete lot in product " + this.editedItem.PID + "?");
+      if (result) {
+        const formData = new FormData();
 
-      let $Token = localStorage.getItem("token");
+      formData.append("lid", this.newLotQuantity.lot);
+      formData.append("pid", this.editedItem.PID);
+      formData.append("quantity", this.TotallotQuantity);
+      console.log("**************************");
+      console.log(this.newLotQuantity.lot);
+      console.log(this.editedItem.PID);
+      console.log(this.TotallotQuantity);
 
-      axios
-        .post(
-          "https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs",
+        //Logic to delete the item
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(
+            this.$baseUrl+"/deleteProductLot?token=" + $Token,
           formData
-        )
-        .then(response => {
-          console.log(response);
-          console.log(response.data.image);
-          axios
-            .post(
-              this.$baseUrl + "/storeImage" + "?token=" + $Token,
-              response.data
-            )
-            .then(response => {
-              this.dialog = false;
-              this.file = "";
-              this.getSlideshow();
-              alert("Succesfully Saved");
-            })
-            .catch(error => {
-              console.log(error.response);
-              console.log("Failed Save img url");
-            });
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("Upload Failed");
-        });
+          )
+          .then(response => {
+            this.showQuantity = false;
+            /*axios.get(item.deleteURL).then(res=>{
+                            console.log(res);
+                        });*/
+            this.productItems();
+            alert("Product lot qunantity succesfully Deleted");
+          });
+      }
     },
-    DeleteQuntity() {},
+
+
+  
 
     SaveQuntity() {
       const formData = new FormData();
@@ -977,11 +1037,14 @@ export default {
       let $Token = localStorage.getItem("token");
 
       axios
-        .post(this.baseUrl + "/addProductLot?token=" + $Token, formData)
+        .post(
+          this.$baseUrl+"/addProductLot?token=" + $Token,
+          formData
+        )
         .then(response => {
           this.showQuantity = false;
           this.productItems();
-          console.log("Product Succesfully Added");
+          console.log("Product lot Succesfully Added");
         })
         .catch(error => {
           console.log(error.response);

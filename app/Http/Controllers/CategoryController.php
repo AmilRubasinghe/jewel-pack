@@ -26,20 +26,23 @@ class CategoryController extends Controller
         //  $image = $request->file('file');
           //$filename = time().'-'.$image->getClientOriginalName();
           // $image->storeAs('public/product',$filename);
-    
+          $image = $request->file('file');
+          $filename = time().'-'.$image->getClientOriginalName();
+           $image->storeAs('public/catagory',$filename);
     
           $table = new category;
           
           $table->CName = $request->input('CName');
 
-     
+         
 
         if ($request->input('icon')) {
             $table->icon = $request->input('icon');
         } else{
             $table->icon = "local_mall";
         }
-
+        $table->Image = url('/').'/storage/catagory/'.$filename;
+        $table->ImageName = $filename;
           $table->save();
             return response()->json(['category'=>$table,'message'=>"Category added succesfully !"]);
     

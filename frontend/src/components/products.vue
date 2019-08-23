@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-container grid-list-sm text-xs-center>
+      <div class="marginWith page">
         <h1 class="custom-font1">{{pageTitle}}</h1>
 
         <v-container v-if="searchMode">
@@ -128,10 +128,10 @@
             </transition-group>
           </v-flex>
         </v-layout>
-      </v-container>
+      </div>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px">
+        <v-dialog v-model="dialog" max-width="1200px" >
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -161,15 +161,18 @@
                     </v-hover>
                   </v-flex>
 
-                  <v-flex xs12 md6>
+                  <v-flex xs8 md5>
                     <h3
                       class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
-                    <p
-                      class="card-description font-weight-light"
-                    >Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+                     
+                    <p> 
+
+                   {{selectedItem.description}} 
+                    </p>
+                     
                     <v-divider></v-divider>
-                    <v-hover></v-hover>
+                   
 
                     <table class="a-lineitem">
                       <tbody>
@@ -193,7 +196,7 @@
                             <span
                               id="priceblock_dealprice"
                               class="a-size-medium a-color-price priceBlockDealPriceString"
-                            >$56.99</span>
+                            >$ {{selectedItem.slashedPrice}}</span>
                             <span id="dealprice_shippingmessage" class="a-size-medium">
                               <span id="price-shipping-message" class="a-size-base a-color-base"></span>
                             </span>
@@ -299,6 +302,7 @@ export default {
       newValue: 0,
       size: 0,
       keywords: "",
+     
 
       sizes: ["25", "50", "100", "150", "200"],
       sortCategories: ["Size", "Price"],
@@ -385,9 +389,9 @@ export default {
     },
 
     increment() {
-      if (this.value >= this.max) {
-        alert("Available only " + this.max + " units");
-        this.value = this.max;
+      if (this.value >= this.selectedItem.Quantity) {
+        alert("Available only " + this.selectedItem.Quantity + " units");
+        this.value = this.selectedItem.Quantity;
       } else {
         this.value = this.value + this.size;
       }
@@ -406,8 +410,8 @@ export default {
     },
 
     valid() {
-      if (this.value >= this.max) {
-        this.value = this.max;
+      if (this.value >= this.selectedItem.Quantity) {
+        this.value = this.selectedItem.Quantity;
       } else if (this.value <= this.min) {
         this.value = this.min;
       }
@@ -441,10 +445,7 @@ export default {
   width: 100%;
 }
 
-.layout.row.wrap.justify-space-between {
-  margin-left: -60px;
-  margin-right: -60px;
-}
+
 
 .container.grid-list-md .layout .flex {
   padding: 10px;
@@ -512,6 +513,10 @@ td {
 }
 h2 {
   margin-bottom: 20px;
+}
+.marginWith.page {
+    padding-left: 140px;
+    padding-right: 140px;
 }
 
 .custom-font1 {

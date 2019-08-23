@@ -347,6 +347,7 @@ export default {
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
+        { title: "Homepage products", icon: "add_photo_alternate", path: "homeProduct" },
         {
           title: "Shipping Method",
           icon: "time_to_leave",
