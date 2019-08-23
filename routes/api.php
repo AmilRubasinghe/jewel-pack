@@ -126,6 +126,7 @@ Route::post ( 'deleteShipping/{id}', 'shippingmethodController@deleteShipping' )
 Route::post('editShippingMethod/{id}','shippingmethodController@editShippingMethod');
 
 Route::post('addProduct','ProductController@addProduct');
+Route::post('addHomeProduct','ProductController@addHomeProduct');
 Route::post('editProduct/{id}','ProductController@editProduct');
 Route::post('deletedProducts','ProductController@getDeletedProducts');
 Route::post ( 'deleteProduct/{id}', 'ProductController@deleteProduct' );
@@ -143,6 +144,8 @@ Route::post('restoreCategory/{id}', 'CategoryController@restoreCategory');
 Route::get('deletedCategory','CategoryController@getDeletedCat');
 
 Route::post('addProductLot','ProductlotController@addProductlot');
+Route::post('deleteProductLot','ProductlotController@deleteProductLot');
+
 
 });
 Route::get('getImages', 'SlideshowController@getImages');

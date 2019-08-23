@@ -155,18 +155,18 @@
                        
                          class="card category card-5"
                         color="grey lighten-4"
-                        width="300"
-                        height="423"
+                        max-width="300"
+                       max-height="430"
                         
                       >
-                        <v-img :aspect-ratio="3.8/4.5" :src="item.image">
+                        <v-img :aspect-ratio="3.9/4.5" :src="item.image">
                          
                         </v-img>
                          <v-card-text> 
                             <h4
                 style="color:#8D6E63"
                   class="ab subtitle-2 headline mb-1"
-                  
+                  justify-center
                 >{{item.name}}
                   
                   </h4> 

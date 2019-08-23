@@ -111,13 +111,15 @@ $products = product::where(function ($query) use($searchQuery, $field) {
 
 
     public function addProduct(Request $request){
-    //  return $request->input('data');
-      //return $request->input('size');
-
-      $image = $request->file('file');
-      $filename = time().'-'.$image->getClientOriginalName();
-       $image->storeAs('public/product',$filename);
-
+   
+      
+      
+     // $image = $request->file('file');
+      
+     // $filename = time().'-'.$image->getClientOriginalName();
+     
+       //$image->storeAs('public/product',$filename);
+      // return $image;
 
       $table = new product;
       
@@ -126,11 +128,12 @@ $products = product::where(function ($query) use($searchQuery, $field) {
       $table->Colour = $request->input('colour');
      
       $table->Price = $request->input('price');
+      $table->slashedPrice = $request->input('slashedPrice');
       $table->border = $request->input('border');
       $table->description = $request->input('details');
-      $table->Image = url('/').'/storage/product/'.$filename;
+     // $table->Image = url('/').'/storage/product/'.$filename;
 
-      $table->ImageName = $filename;
+     // $table->ImageName = $filename;
 
       $table->save();
 
@@ -142,7 +145,8 @@ $products = product::where(function ($query) use($searchQuery, $field) {
       $ship = $request->input('method');
       for($i = 0; $i < count($ship); $i++) {
         $shiptable->pid = $table->PID;
-        $shiptable->shipid = $request->input('method');
+        
+        $shiptable->shipid = $ship[$i];
         $shiptable->save();
 
        // $storePicture->picture_id = $i;
@@ -161,6 +165,25 @@ $products = product::where(function ($query) use($searchQuery, $field) {
 
 
 public function editProduct(Request $request, $productId){
+
+
+//find data by id
+/*$institution = $this->institution->find($id);
+$filename  = public_path('uploads/institutions/').$institution->avatar;
+if(File::exists($filename)) {
+
+  $avatar = $request->file('avatar');
+  $filename_new = time() . '.' . $avatar->getClientOriginalExtension();
+  Image::make($avatar)->resize(250, 205)->save( public_path('uploads/institutions/' . $filename_new ) );
+
+  //update filename to database
+  $institution->avatar = $filename_new;
+  $institution->save();    
+  //Found existing file then delete
+  File::delete($filename);  // or unlink($filename);
+*/
+
+  
   $thisProduct=product::findOrFail($productId);
   //$thisImage =slideshow::where('imageId', $imageId)->first();
   $thisProduct->timestamps = false;
@@ -180,7 +203,7 @@ public function editProduct(Request $request, $productId){
 
       $thisship = new productshippingmethod;
       $thisship->pid = $request->input('PID');
-      $thisship->shipid = $request->input('shipMethod');
+      $thisship->shipid= $request->input('shipMethod');
       $thisship->save();
 
   
@@ -210,4 +233,27 @@ public function getDeletedProducts(){
  $products = product::where('isDeleted', '=', 1)->get(); 
   return response()->json(['product'=>$products],200);
 }
+
+
+
+public function addHomeProduct(Request $request){
+  $items = $request->input('PIDList');
+
+ // $selectItems = product::where('isSelected', '=', 1)->get();
+  //$titles = product::table('products')->pluck('PID' , 'isSelected');
+  $products = product::where('isSelected', '=', 1)->get();
+
+   product::where(['isSelected'=>'1'])->update(['isSelected'=>'0']);
+  
+  for ($i = 0; $i < count($items); $i++){
+
+  product::where(['PID'=> $items[$i]])->update(['isSelected'=>'1']);
+}
+ return response()->json(['message'=>"Featured Products added succesfully !"]);
+   }
+
+    
+    
+
+
 }
