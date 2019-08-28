@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\order;
 use JWTAuth;
+use DB;
 
 class OrderController extends Controller
 {
