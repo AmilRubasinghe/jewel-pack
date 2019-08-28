@@ -1,14 +1,15 @@
 <template>
 <v-container>
+    <h3>Your Bill</h3><br>
     <v-form method="post" action="https://sandbox.payhere.lk/pay/checkout" target="_blank">
         <h4>Customer details</h4>
         First Name:   <input type="text" name="first_name" v-model="checkoutDetails.first_name" ><br><br>
-        Last Name:  <input type="text" name="last_name" v-model="checkoutDetails.last_name" ><br><br>
-        Email:  <input type="text" name="email" v-model="checkoutDetails.email" ><br><br>
-        Address: <input type="text" name="address" v-model="checkoutDetails.address"><br><br>
-        City: <input type="text" name="city" v-model="checkoutDetails.city"><br><br>
-        Country: <input type="text" name="country" v-model="checkoutDetails.country"><br><br>
-        Telephone: <input type="text" name="phone" v-model="checkoutDetails.phone"><br><br>
+        Last Name:    <input type="text" name="last_name" v-model="checkoutDetails.last_name" ><br><br>
+        Email:        <input type="text" name="email" v-model="checkoutDetails.email" ><br><br>
+        Address:      <input type="text" name="address" v-model="checkoutDetails.address"><br><br>
+        City:         <input type="text" name="city" v-model="checkoutDetails.city"><br><br>
+        Country:      <input type="text" name="country" v-model="checkoutDetails.country"><br><br>
+        Telephone:    <input type="text" name="phone" v-model="checkoutDetails.phone"><br><br>
 
         <input type="hidden" name="merchant_id" value="1212709" v-model="checkoutDetails.merchant_id">
         <input type="hidden" name="return_url"  v-model="checkoutDetails.return_url">
@@ -22,7 +23,8 @@
             Amount :  <input type="text" name="amount"  v-model="checkoutDetails.amount"><br><br>
             Currency :  <input type="text" name="currency"  v-model="checkoutDetails.currency"><br><br>
 
-         <v-btn color="success" type="submit">Pay now</v-btn>  
+         <v-btn color="success" type="submit" >Pay now</v-btn>  
+           
     </v-form>
 </v-container>
     
@@ -31,33 +33,86 @@
 
 <script>
 import axios from 'axios';
-import checkVue from './check.vue';
+
 //import checkFormVue from './checkForm.vue';
 export default {
+
     data(){
         return{
           checkoutDetails:{ 
-                    merchant_id : "1212709",
+            merchant_id : "1212709",
             return_url : "http://localhost:8080/",
             cancel_url : "http://localhost:8080/",
-            notify_url : "https://webhook.site/08661338-c397-449a-9c32-4e89f6fbbe4e",
-            first_name : "Thira",
-            last_name : "Muna",
-            email : "thira@gmail.com",
-            phone : "0715418325",
-            address : "Malimbada Gewatta, Nawimana South, Matara",
+            notify_url : "https://webhook.site/5f37258e-8750-4fa3-aea1-b045ffadb9ab",
+            first_name : "",
+            last_name : "",
+            email : "",
+            phone : "",
+            address : "",
             city : "Matara",
             country : "Sri Lanka",
-            order_id : "5",
-            items : "Example Title",
+            order_id : "",
+            items : "Gem Boxes",
             currency : "LKR",
-            amount : "100",  
+            amount :"",  
             custom_1: this.email,
           }
         }
+
+    
+    },
+
+    mounted(){
+       this.autoFill();
+    },
+    computed:{
+         total(){
+            let total =0;
+            for(let item of this.$store.state.cart){
+                total+=((item.Price)*(item.qty));
+            }
+            return total.toFixed(2);
+        }
     },
     methods:{
-        sendData(){
+       
+       autoFill(){
+            axios
+        .get("http://localhost:8000/api/showOrder")
+        .then(response => {
+          this.checkoutDetails.email = response.data.printOrder.customerEmail;
+          this.checkoutDetails.order_id=response.data.printOrder.OID;
+          this.checkoutDetails.phone=response.data.printOrder.contactNo;
+          this.checkoutDetails.address=response.data.printOrder.deliveryAddress;
+          console.log(this.email);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
+        this.checkoutDetails.amount=this.total;
+
+         axios
+        .get("http://localhost:8000/api/showUser")
+        .then(response => {
+          this.checkoutDetails.first_name= response.data.printUser.firstName;
+           this.checkoutDetails.last_name= response.data.printUser.lastName;
+
+          console.log(this.first_name);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
+       }
+       /* print(){
+            console.log(this.props.checkDetails);
+        }*/
+
+    
+       /*sendData(){
 
            if (!this.errors.any()) {
                 axios.post('http://localhost:8000/api/checkoutDetails' , this.checkoutDetails,
@@ -73,8 +128,10 @@ export default {
                     console.log("ERROR");
                 })
             }
-        }
+       },*/
     }
+
+   
 
 }
 </script>

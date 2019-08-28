@@ -10,88 +10,100 @@
     </v-stepper-step>
 
     <v-stepper-content step="1">
-      
-         <v-form @submit.prevent='getEmail'>
-
-                   <v-flex xs4 sm3>
-                    <v-text-field
-                     v-model="checkDetails.email"
-                     label="Email"
-                     v-validate="'required'"
-                     box
-                    ></v-text-field>
-                   </v-flex>   
-         </v-form>
-                   
-      <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
-      <v-btn flat>Cancel</v-btn>
-    </v-stepper-content>
-
-    <v-stepper-step :complete="e6 > 2" step="2">Billing</v-stepper-step>
-
-    <v-stepper-content step="2">
       <template>
-          <v-form @submit.prevent='saveData'>
-              <v-container>
-              
-
-                   <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname" v-validate="'required'" v-model="checkDetails.firstname">
-            <div v-show="errors.has('firstname')" class="help block alert alert-danger">
-                    {{ errors.first('firstname') }}
-            </div>
-        </div>
-
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname" v-validate="'required'" v-model="checkDetails.lastname">
-            <div v-show="errors.has('lastname')" class="help block alert alert-danger">
-                    {{ errors.first('lastname') }}
-            </div>
-        </div>
-
-                   <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="phone" placeholder="Phone number" name="phone" v-validate="'required'" v-model="checkDetails.phone">
-            <div v-show="errors.has('phone')" class="help block alert alert-danger">
-                    {{ errors.first('phone') }}
-            </div>
-        </div>
-
-        <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="postalcode" placeholder="Postal Code" name="postalcode" v-validate="'required'" v-model="checkDetails.postalcode">
-            <div v-show="errors.has('postalcode')" class="help block alert alert-danger">
-                    {{ errors.first('postalcode') }}
-            </div>
-        </div>
-
-         <div class="form-group form-group-lg">
-            <input type="text" class="form-control" id="address" placeholder="Delivery Address " name="address" v-validate="'required'" v-model="checkDetails.address">
-            <div v-show="errors.has('address')" class="help block alert alert-danger">
-                    {{ errors.first('address') }}
-            </div>
-        </div>
-       
-              
-               </v-container>
-                <v-btn type="submit" color="primary" @click="e6 = 3">Continue</v-btn>
-      <v-btn flat @click.native="e6 = 1">Previous</v-btn>
-      <v-btn flat>Cancel</v-btn>
-      
-          </v-form>
-       </template>
-
-     
+        <div id="app">
+        <v-app id="inspire">
+         <v-form v-model="valid" ref="form" @submit.prevent="saveData" >
+         <v-container>
+   <v-flex xs12 sm6>
+    <v-text-field
+      label="First Name"
+      v-model="checkDetails.firstname"
+      :rules="nameRules"
+      :counter="50"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex>
+   <v-flex xs12 sm6>
+    <v-text-field
+      label="Last Name"
+      v-model="checkDetails.lastname"
+      :rules="nameRules"
+      :counter="50"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex>
+   <v-flex xs12 sm6>
+    <v-text-field
+      label="E-mail"
+      v-model="checkDetails.email"
+      :rules="emailRules"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex>
+   <v-flex xs12 sm6>
+     <v-text-field
+      label="Contact No"
+      v-model="checkDetails.phone"
+      :rules="PhoneRules"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex>
+   <v-flex xs12 sm6>
+    <v-text-field
+      label="Postal Code"
+      v-model="checkDetails.postalcode"
+      :rules="codeRules"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex>
+   <v-flex xs12 sm6>
+     <v-text-field
+      label="Delivery Address"
+      v-model="checkDetails.address"
+      :rules="AddressRules"
+      required
+      box
+      background-color="#F5F5F5"
+      color="#FFAB00"
+    ></v-text-field>
+   </v-flex> 
+  </v-container>
+      <v-btn type="submit" :class="{ red: !valid, amber: valid }"  @click="e6 = 2" :disabled="!valid">Continue</v-btn>
+      <v-btn color="#FFF176">Cancel</v-btn>
+  </v-form>
+  </v-app>
+  </div>
+ </template>
 
     </v-stepper-content>
 
-    <v-stepper-step :complete="e6 > 3" step="3">Payment</v-stepper-step>
+    <v-stepper-step :complete="e6 > 2" step="2">Payment</v-stepper-step>
         
-    <v-stepper-content step="3" @click="chekout()">
+    <v-stepper-content step="2">
           
       <template> 
-      
-      <v-btn color="primary" href="/cart_totals">Place order</v-btn>
-      <v-btn flat @click.native="e6=2">Previous</v-btn>
-      <v-btn flat>Cancel</v-btn>
+       Enter coupon code here: <input type="text" id="couponcode" name="couponcode" >
+       <v-btn color="primary" @click="coupon()">Enter</v-btn><br><br>
+
+      <v-btn color="amber" href="/cart_totals">Place order</v-btn>
+      <v-btn color="#FFCA28" @click.native="e6=1">Previous</v-btn>
+      <v-btn color="#FFF176">Cancel</v-btn>
       </template>
     </v-stepper-content>
   </v-stepper>
@@ -107,9 +119,40 @@ import axios from 'axios';
   export default {
     components:{
           //'cart-totals':cart_totals
+         
     },
     data () {
       return {
+
+        valid: false,
+        name: 'Default',
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length <= 50 || 'Name must be less than 20 characters'
+        ],
+        email: '',
+        emailRules: [
+          (v) => !!v || 'E-mail is required',
+          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        ],
+        phone:'',
+        PhoneRules:[
+             (v) => !!v || 'Contact No is required',
+             (v) => v && v.length == 10 || 'Phone must be valid',
+             (v) => /^\d{10}$/.test(v) || 'Phone number should only contains numbers'
+            
+        ],
+        postalcode:'',
+        codeRules:[
+            (v) => !!v || 'Postal code is required',
+            (v) => /^[0-9]{5}(?:-[0-9]{4})?$/.test(v) || 'Postal Code should be valid'
+        ],
+
+        address:'',
+        AddressRules:[
+             (v) => !!v || 'Address is required',
+        ],
+
         checkDetails:{
             email:"",
             firstname:"",
@@ -130,24 +173,15 @@ import axios from 'axios';
     },
 
     computed:{
-       firstname:{
-         get: function(){
-					return this.$store.state.name;
-        },
-        set: function(newName){
-            this.$store.dispatch('addName',newName);
-          }
-       }
+      isComplete () {
+          return this.email;
+  }
+     
     },
 
     methods:{
-         checkout(){
-           
-         },
 
           saveData(){
-
-            this.$validator.validateAll()
 
             if (!this.errors.any()) {
                 axios.post('http://localhost:8000/api/checkDetails',this.checkDetails
@@ -166,6 +200,9 @@ import axios from 'axios';
 
            
         },
+        
+        coupon(){
+        }
     }
    
   }
