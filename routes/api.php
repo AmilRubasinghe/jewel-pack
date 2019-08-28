@@ -40,6 +40,12 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('tokensignin', 'GTokenController@verify');
 
 
+    //temp
+    
+    Route::post('test', 'CategoryController@test');
+
+
+
 
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ResetPasswordController@process');
@@ -87,6 +93,8 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         
         Route::post('logout', 'userController@logoutUser');
         Route::post('me', 'userController@me');
+
+        Route::post('myOrder', 'orderController@myOrder');
         
         
     });
@@ -122,9 +130,10 @@ Route::post ( 'deleteLot/{id}', 'LotquantityController@deleteLot' );
 
 Route::post('addMethod','shippingmethodController@addShippingMethod');
 Route::post ( 'deleteShipping/{id}', 'shippingmethodController@deleteShipping' );
-
+Route::post('editShippingMethod/{id}','shippingmethodController@editShippingMethod');
 
 Route::post('addProduct','ProductController@addProduct');
+Route::post('addHomeProduct','ProductController@addHomeProduct');
 Route::post('editProduct/{id}','ProductController@editProduct');
 Route::post('deletedProducts','ProductController@getDeletedProducts');
 Route::post ( 'deleteProduct/{id}', 'ProductController@deleteProduct' );
@@ -142,6 +151,8 @@ Route::post('restoreCategory/{id}', 'CategoryController@restoreCategory');
 Route::get('deletedCategory','CategoryController@getDeletedCat');
 
 Route::post('addProductLot','ProductlotController@addProductlot');
+Route::post('deleteProductLot','ProductlotController@deleteProductLot');
+
 
 });
 Route::get('getImages', 'SlideshowController@getImages');
