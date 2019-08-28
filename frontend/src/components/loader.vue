@@ -72,7 +72,8 @@
 import Store from '../store.js'
  //import 'epic-spinners/dist/lib/epic-spinners.min.css'
  // import { BreedingRhombusSpinner } from 'epic-spinners/dist/lib/epic-spinners.min.js'
- import { BreedingRhombusSpinner } from 'epic-spinners'
+ import { BreedingRhombusSpinner } from 'epic-spinners/dist/lib/epic-spinners.min.js'
+ 
 
   export default {
     components: {

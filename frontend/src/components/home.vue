@@ -371,7 +371,7 @@ h4.ab.subtitle-2.headline.mb-1 {
 
 .custom-font3 {
   font-family: "Fredericka the Great", cursive;
-  color: #ff6f00;
+  color: #FFDF00;
 }
 
 .custom-font4 {

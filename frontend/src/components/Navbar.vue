@@ -48,9 +48,9 @@
         </v-btn>
 
         <v-btn flat to="/cartView">
-          <v-badge right color="red">
+          <v-badge right color="#CD853F">
             <template v-slot:badge>
-              <span>{{cartCount}}</span>
+              <span style="color:white" >{{cartCount}}</span>
             </template>
             <v-icon left dark color="black">shopping_cart</v-icon>
           </v-badge>Cart

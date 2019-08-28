@@ -20,11 +20,7 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 Vue.use(Vuetify)
 
 
-
-import responsive from 'vue-responsive'
-Vue.use(responsive)
-
-import Snotify from 'vue-snotify'; 
+import Snotify from 'vue-snotify/vue-snotify.min.js'
 Vue.use(Snotify)
 
 
@@ -33,8 +29,8 @@ Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
 
-Vue.prototype.$baseUrl = 'http://localhost:8000/api';
-Vue.prototype.$url = 'http://localhost:8000/';
+Vue.prototype.$baseUrl = 'http://jewelpack.tk/api';
+Vue.prototype.$url = 'http://jewelpack.tk/';
 
 new Vue({
   el: '#app',
