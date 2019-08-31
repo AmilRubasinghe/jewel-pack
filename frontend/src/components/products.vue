@@ -146,22 +146,44 @@
       <v-layout row justify-center>
         <v-dialog v-model="dialog" max-width="1200px" >
           <v-card class="card-5" v-if="selectedItem">
+            <section class="content">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
                 <span aria-hidden="true">×</span>
               </button>
               <v-container grid-list-md>
-                <!--................................-->
-                <v-layout row wrap>
+                <!--................................
+                <section class="content">
+  <article class="demo-area">
+  <img class="demo-trigger" src="https://demos.imgix.net/wristwatch.jpg?w=200&ch=DPR&dpr=2&border=1,ddd" data-zoom="https://demos.imgix.net/wristwatch.jpg?w=1000&ch=DPR&dpr=2">
+  <div class="detail">
+   <section>
+      <h3>Men's Watch - Drift Demo</h3>
+      <p>Specifications:</p>
+      <ul>
+        <li>Hover over image</li>
+        <li>35 mm stainless steel case</li>
+        <li>Stainless link bracelet with buckle closure</li>
+        <li>Water resistant to 100m</li>
+      </ul>
+      <h4>$XX.XX <button>Add to Cart</button></h4>
+    </section>
+  </div>
+  </article>
+</section>-->
+                <v-layout row wrap class="demo-area">
+                  
                   <v-flex xs12 md6>
                     <v-hover>
+                     
                       <v-card
                         slot-scope="{ hover }"
                         class="mx-auto"
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
+                      
+                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image" class="demo-trigger">
                           <v-expand-transition>
                             <div
                               v-if="hover"
@@ -173,8 +195,9 @@
                       </v-card>
                     </v-hover>
                   </v-flex>
+                  
 
-                  <v-flex xs8 md5>
+                  <v-flex xs8 md5  class="detail">
                     <h3
                       class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
@@ -188,8 +211,11 @@
                    
 
                     <table class="a-lineitem">
+                      
                       <tbody>
+                        
                         <tr>
+                          
                           <td
                             class="a-color-secondary a-size-base a-text-right a-nowrap padding:10px"
                           >List Price:</td>
@@ -281,11 +307,15 @@
                       <v-btn color="warning" dark outline round>Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
+                 
+  
+
                 </v-layout>
 
                 <!--..............................-->
               </v-container>
             </v-card-text>
+            </section>
           </v-card>
         </v-dialog>
 

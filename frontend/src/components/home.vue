@@ -73,7 +73,7 @@
     
   >
   <v-layout wrap>
-         <v-flex v-for="(item, i) in items" :key="i" d-flex xs12 sm6 md3   >
+         <v-flex v-for="(item, i) in selectedProducts" :key="i" d-flex xs12 sm6 md3   >
        
          <v-card
                         
@@ -82,10 +82,15 @@
                         max-width="500"
                       >
                       <div class="image-box">
-                        <v-img :aspect-ratio="3/3.1" :src="item.image">
+                        
+                        <v-img :aspect-ratio="3/3.1" :src="item.Image" class="image">
                          
                         </v-img>
+                        <div class="middle content">
+                             <div class="text">{{item.Size}}&nbsp;{{item.Colour}}&nbsp;Colour Box </div>
+                        </div>
                       </div>  
+                    
                       </v-card>
                      
       </v-flex>
@@ -118,7 +123,7 @@
           
 
         <v-card flat
-    max-heigt="1000"
+   max-height="1000"
     color="brown lighten-5"
   >
   
@@ -155,8 +160,8 @@
                        
                          class="card category card-5"
                         color="grey lighten-4"
-                        max-width="300"
-                       max-height="430"
+                        max-width="330"
+                       max-height="460"
                         
                       >
                         <v-img :aspect-ratio="3.9/4.5" :src="item.image">
@@ -230,26 +235,8 @@ export default {
   data() {
     return {
       slideshowItems: [],
-      items:[
-        
-        {
-          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
-        },
-        
-        {
-          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
-        },
-         
-        {
-          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
-        },
-         {
-          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
-        },
-         {
-          image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
-        }
-      ],
+      selectedProducts:[],
+     
       categorys:[
         {
           image :"http://localhost:8000/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg",
@@ -279,17 +266,34 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
-    }
+    },
+     productSelectedItems() {
+      
+
+      axios
+        .get(this.$baseUrl+"/selectedProducts")
+        .then(response => {
+          this.selectedProducts = response.data.selectedProducts;
+
+          console.log(this.selectedProducts);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
   },
 
   mounted() {
     this.getSlideshow();
+    this.productSelectedItems();
     AOS.init({
       duration: 1000,
       once: true,
       
     });
-  }
+  },
+ 
 };
 </script>
 
@@ -443,6 +447,47 @@ font-family: 'Abril Fatface', cursive;
 .v-responsive.v-image {
    
     margin-bottom: 0px;
+}
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+
+.image-box:hover .image {
+  opacity: 0.8;
+}
+
+.image-box:hover .middle {
+  opacity: 1;
+}
+
+.text {
+ 
+  color: white;
+  font-size: 17px;
+  padding: 16px 32px;
+  text-align: center;
+}
+.image-box .content {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 20px; /* Some padding */
+  transition: .3s ease;
+  opacity: 0;
+  position: absolute;
+  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 </style>

@@ -60,6 +60,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 //CategoryRoutes
     Route::get('category', 'CategoryController@getItem');
 
+    Route::get('selectedProducts', 'ProductController@getselectedProducts');
     Route::get('products', 'ProductController@getAllProduct');
   //  Route::get('product/{cid}', 'ProductController@getProduct');
     Route::get('category/{cid}', 'ProductController@getProduct');
