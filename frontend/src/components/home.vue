@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-flex xs12 style="width:100%;">
-      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height="92vh">
-        <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
+      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height="92vh" >
+        <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"></v-carousel-item>
       </v-carousel>
     </v-flex>
 
@@ -27,7 +27,7 @@
 
         <v-flex v-for="(item, i) in categorys" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card category card-5" color="grey lighten-4" width="300" height="423">
-            <v-img :aspect-ratio="3.8/4.5" :src="item.image"></v-img>
+            <v-img position=center :aspect-ratio="3.8/4.5" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/loader.gif"></v-img>
             <v-card-text>
               <h4 style="color:#8D6E63" class="ab subtitle-2 headline mb-1">{{item.name}}</h4>
             </v-card-text>
@@ -73,7 +73,8 @@
       <v-flex xs12 sm12 md6 lg7>
         <v-parallax
           height="600"
-          src="http://jewelpack.tk/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+          src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+          lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
         >
           <v-layout align-center column justify-center>
             <h1 style="align:center;" class="custom-font3">JewelPack</h1>
@@ -108,7 +109,7 @@
         <v-flex v-for="(item, i) in items" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card product" color="blue-grey lighten-3" max-width="500">
             <div class="image-box">
-              <v-img :aspect-ratio="3/3.1" :src="item.image"></v-img>
+              <v-img :aspect-ratio="3/3.1" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"></v-img>
             </div>
           </v-card>
         </v-flex>
@@ -118,7 +119,8 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="http://jewelpack.tk/storage/slideshow/1563280490-11071592_1621554201423818_8781376146243943971_o.jpg"
+      src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
         <h1 style="align:center;" class="custom-font3">JewelPack</h1>
@@ -171,40 +173,40 @@ export default {
       items: [
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
         },
 
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
         },
 
         {
-          image: "https://i.vgy.me/ihyoWC.jpg"
+          image: "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563515746-11084068_1621553484757223_8453650611327338621_o.jpg"
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
         }
       ],
       categorys: [
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg",
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
           name: "Gem boxes"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563515746-11084068_1621553484757223_8453650611327338621_o.jpg",
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
           name: "Jewellery boxes"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg",
+            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
           name: "Gem boxes"
         }
       ]

@@ -35,15 +35,15 @@ Vue.use(BootstrapVue);
 import { VueSpinners } from '@saeris/vue-spinners'
 Vue.use(VueSpinners)
 
-
-Vue.prototype.$baseUrl = 'http://localhost:8000/api';
-Vue.prototype.$url = 'http://localhost:8000/';
-
-
 /*
-Vue.prototype.$baseUrl = 'http://jewelpack.tk/api';
-Vue.prototype.$url = 'http://jewelpack.tk/';
+Vue.prototype.$baseUrl = 'https://localhost:8000/api';
+Vue.prototype.$url = 'http://localhost:8000/';
 */
+
+
+Vue.prototype.$baseUrl = 'https://jewelpack.tk/api';
+Vue.prototype.$url = 'https://jewelpack.tk/';
+
 
 new Vue({
   el: '#app',

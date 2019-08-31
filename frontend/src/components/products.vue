@@ -58,7 +58,7 @@
           </v-layout>
         </v-container>
 
-        <v-layout row wrap align-center justify-center>
+        <v-layout row wrap align-center justify-left>
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
             <br />
 
@@ -72,7 +72,7 @@
                 @click="productPreview(products[i])"
                 :key="item.PID"
               >
-                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
+                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif" transition=scale-transition>
                   <v-container fill-height fluid>
                     <v-layout fill-height>
                       <v-flex xs12 align-end flexbox>
@@ -150,7 +150,7 @@
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
+                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image" lazy-src="https://jewelpack.tk/storage/loader/loader.gif">
                           <v-expand-transition>
                             <div
                               v-if="hover"
