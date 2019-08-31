@@ -1,7 +1,7 @@
 <template>
   <div>
     <navDrawer></navDrawer>
-    </br>
+    <br>
 <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-card>
         <v-card-title>
