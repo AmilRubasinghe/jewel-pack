@@ -10,12 +10,13 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@saeris/vue-spinners": "^1.0.8",
     "aos": "^3.0.0-beta.6",
     "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
-    "epic-spinners": "^1.1.0",
     "html2canvas": "^1.0.0-rc.3",
+    "jquery": "^1.12.4",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.1.4",
     "v-debounce": "^0.1.2",

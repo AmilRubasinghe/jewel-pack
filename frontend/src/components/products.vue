@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <div class="marginWith page">
+      <div>
+        <v-container pa-0>
         <h1 class="custom-font1">{{pageTitle}}</h1>
 
         <v-container v-if="searchMode">
@@ -84,7 +85,7 @@
                 <v-card-title>
                   <v-flex xs9 sm12 offset-sm0>
                     <span>
-                      <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
+                      <h2 style="color: #000000;">{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
                     </span>
 
                     <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
@@ -128,10 +129,11 @@
             </transition-group>
           </v-flex>
         </v-layout>
+        </v-container>
       </div>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px" >
+        <v-dialog v-model="dialog" max-width="1200px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -165,14 +167,10 @@
                     <h3
                       class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
-                     
-                    <p> 
 
-                   {{selectedItem.description}} 
-                    </p>
-                     
+                    <p>{{selectedItem.description}}</p>
+
                     <v-divider></v-divider>
-                   
 
                     <table class="a-lineitem">
                       <tbody>
@@ -302,7 +300,6 @@ export default {
       newValue: 0,
       size: 0,
       keywords: "",
-     
 
       sizes: ["25", "50", "100", "150", "200"],
       sortCategories: ["Size", "Price"],
@@ -445,8 +442,6 @@ export default {
   width: 100%;
 }
 
-
-
 .container.grid-list-md .layout .flex {
   padding: 10px;
 }
@@ -515,8 +510,8 @@ h2 {
   margin-bottom: 20px;
 }
 .marginWith.page {
-    padding-left: 140px;
-    padding-right: 140px;
+  padding-left: 140px;
+  padding-right: 140px;
 }
 
 .custom-font1 {
@@ -544,7 +539,6 @@ h2 {
   transition: transform 1s;
 }
 
-
 @media screen and (min-width: 601px) {
   .custom-font1 {
     font-size: 75px;
@@ -556,5 +550,4 @@ h2 {
     font-size: 53px;
   }
 }
-
 </style>

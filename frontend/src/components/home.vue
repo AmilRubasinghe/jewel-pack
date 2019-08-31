@@ -1,12 +1,11 @@
 <template>
   <div>
     <v-flex xs12 style="width:100%;">
-      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height=92vh>
+      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height="92vh">
         <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
       </v-carousel>
     </v-flex>
 
-    
     <v-card flat max-height="1000" color="brown lighten-5">
       <v-layout wrap>
         <v-flex d-flex xs12 sm6 md3>
@@ -36,7 +35,6 @@
         </v-flex>
       </v-layout>
     </v-card>
-
 
     <v-layout align-center justify-center>
       <v-card width="100%" flat>
@@ -127,7 +125,6 @@
       </v-layout>
     </v-parallax>
 
-
     <v-container grid-list-md text-xs-center class="hidden-md-and-down">
       <v-layout row wrap>
         <v-flex xs4 data-aos="fade-right">
@@ -183,8 +180,7 @@ export default {
         },
 
         {
-          image:
-            "https://i.vgy.me/ihyoWC.jpg"
+          image: "https://i.vgy.me/ihyoWC.jpg"
         },
         {
           image:
@@ -237,15 +233,14 @@ export default {
     });
   },
 
-  computed(){
-    
-/*
+  computed() {
+    /*
       computed: {
     fullHeight: function() {
       return $this.100vh + " " + this.user.lastName;
     }
   },*/
-  },
+  }
 };
 </script>
 
@@ -364,14 +359,13 @@ h4.ab.subtitle-2.headline.mb-1 {
   padding-bottom: 10px;
 }
 
-
 .custom-font1 {
   font-family: "Dancing Script", cursive;
 }
 
 .custom-font3 {
   font-family: "Fredericka the Great", cursive;
-  color: #FFDF00;
+  color: #ffdf00;
 }
 
 .custom-font4 {
@@ -388,8 +382,8 @@ h4.ab.subtitle-2.headline.mb-1 {
 
 @media screen and (min-width: 601px) {
   .custom-font1 {
-  font-size: 70px;
-}
+    font-size: 70px;
+  }
   .custom-font3 {
     font-size: 100px;
   }
@@ -403,10 +397,9 @@ h4.ab.subtitle-2.headline.mb-1 {
 }
 
 @media screen and (max-width: 600px) {
-
   .custom-font1 {
-  font-size: 53px;
-}
+    font-size: 53px;
+  }
 
   .custom-font3 {
     font-size: 70px;
@@ -419,7 +412,5 @@ h4.ab.subtitle-2.headline.mb-1 {
     font-family: "Eagle Lake", cursive;
     font-size: 23px;
   }
-
 }
-
 </style>
