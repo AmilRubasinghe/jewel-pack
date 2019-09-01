@@ -139,6 +139,8 @@ export default {
     } else {
       this.logout();
     }
+
+    
   },
 
   methods: {
@@ -176,7 +178,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8000/api/editUser/?token=" + $Token,
+          this.$baseUrl+"/editUser/?token=" + $Token,
           this.editedItem
         )
 

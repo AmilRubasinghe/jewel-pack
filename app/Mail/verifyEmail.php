@@ -35,7 +35,7 @@ class verifyEmail extends Mailable
             ->from('jewelpacksparta@gmail.com','Jewel Pack')
             ->subject('Verify Jewel Pack account');*/
 
-        return $this->markdown('Email.sendView')
+        return $this->markdown('email.sendView')
         ->from('jewelpacksparta@gmail.com','Jewel Pack')
         ->subject('Verify Jewel Pack account');
     }

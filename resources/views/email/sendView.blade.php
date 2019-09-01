@@ -28,7 +28,7 @@ Thanks,<br>
 Click on the button below to verify email
 
 
-@component('mail::button', ['url' => 'http://localhost:8000/verify/'.$user->email."/".$user->verifyToken])
+@component('mail::button', ['url' => url('/').'/api/verify/'.$user->email."/".$user->verifyToken])
 Verify Email
 @endcomponent
 

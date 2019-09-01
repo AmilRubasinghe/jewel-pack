@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
+Route::get('/{any}', function(){
+	return view('index');
+ })->where('any', '.*');
+ 
+//Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
 /*
 Route::post('register',['uses'=>'UserController@registerUser',
 	'as' => 'signup']);
@@ -39,5 +43,7 @@ Route::get('verifyEmailFirst',['uses'=>'UserController@verifyEmailFirst',
 Route::get('verify/{email}/{verifyToken}',['uses'=>'UserController@sendEmailDone',
     'as' => 'sendEmailDone']);
 
+	/*
 Route::get('loginPage',['uses'=>'UserController@loginPage',
     'as' => 'loginPage']);
+	*/

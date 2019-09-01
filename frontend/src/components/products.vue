@@ -38,7 +38,6 @@
                     outline
                     menu-props
                     v-model="sortCat"
-                    
                   ></v-select>
                 </v-flex>
 
@@ -58,88 +57,76 @@
           </v-layout>
         </v-container>
 
-        
-
         <v-layout row wrap align-center justify-center>
-           
-  
           <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
-            <br/>
-            
-            <transition-group  name="staggered-fade" tag="v-card" >
-            
-            <v-card
-              class="card-5"
-              style="cursor: pointer"
-              light
-              ripple
-              align="center"
-              
-              @click="productPreview(products[i])"
-              :key="item.PID"
-             
-            >
-              <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
-                <v-container fill-height fluid>
-                  <v-layout fill-height>
-                    <v-flex xs12 align-end flexbox>
-                      <!--                   <span class="headline"></span> -->
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-img>
+            <br />
 
-              <v-card-title>
-                <v-flex xs9 sm12 offset-sm0>
-                  <span>
-                    <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
-                 
-                   <v-chip v-if="products[i].Quantity" label color="brown lighten-3" text-color="brown darken-3" outline>
-                          <h4>SALE!</h4>
-                       </v-chip>
-                  <v-chip v-if="!products[i].Quantity" label color="brown lighten-3" text-color="brown darken-3" outline>
-                          <h4>SALE OUT!</h4>
-                       </v-chip>
+            <transition-group name="staggered-fade" tag="v-card">
+              <v-card
+                class="card-5"
+                style="cursor: pointer"
+                light
+                ripple
+                align="center"
+                @click="productPreview(products[i])"
+                :key="item.PID"
+              >
+                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
+                  <v-container fill-height fluid>
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <!--                   <span class="headline"></span> -->
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
 
-                  <v-rating readonly 
-                   :value="4"
-                   dense
-           
-                  hover
-                   background-color="brown" color="brown"></v-rating>
-                  
-                  <del class  >
-                    <v-chip label color="white" text-color="brown lighten-3">
-                      <h5 v-if="products[i].slashedPrice" >${{products[i].slashedPrice}}</h5>
+                <v-card-title>
+                  <v-flex xs9 sm12 offset-sm0>
+                    <span>
+                      <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
+                    </span>
+
+                    <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
+                      <h4>SALE!</h4>
                     </v-chip>
-                  </del>&nbsp;
-                 
-                  <span class="title">
-                    <v-chip label color="white" text-color="brown darken-3">
-                      <h4>$ {{products[i].Price}}</h4>
-                    </v-chip>
-                  </span>
-                </v-flex>
-              </v-card-title>
-              <v-card-actions>
-                &nbsp;
-                <v-btn
-                
-                  large
-                  round
-                  depressed
-                  color="brown lighten-4"
-                  outline-color="dark"
-                  class="mx-auto"
-                  @click="productPreview(products[i])"
-                >Product View</v-btn>
-              </v-card-actions>
-              
-            </v-card>
+
+                    <v-rating
+                      readonly
+                      :value="4"
+                      dense
+                      hover
+                      background-color="brown"
+                      color="brown"
+                    ></v-rating>
+
+                    <del class>
+                      <v-chip label color="white" text-color="brown lighten-3">
+                        <h5>$50</h5>
+                      </v-chip>
+                    </del>&nbsp;
+                    <span class="title">
+                      <v-chip label color="white" text-color="brown darken-3">
+                        <h4>$ {{products[i].Price}}</h4>
+                      </v-chip>
+                    </span>
+                  </v-flex>
+                </v-card-title>
+                <v-card-actions>
+                  &nbsp;
+                  <v-btn
+                    large
+                    round
+                    depressed
+                    color="brown lighten-4"
+                    outline-color="dark"
+                    class="mx-auto"
+                    @click="productPreview(products[i])"
+                  >Product View</v-btn>
+                </v-card-actions>
+              </v-card>
             </transition-group>
-            
           </v-flex>
-            
         </v-layout>
       </div>
 
@@ -318,15 +305,7 @@
             </section>
           </v-card>
         </v-dialog>
-
-             
-
-
       </v-layout>
-
-
-
-
     </v-app>
   </div>
 </template>
@@ -342,7 +321,7 @@ export default {
   props: ["pageTitle", "products", "searchMode"],
   data() {
     return {
-       items: [1,2,3,4,5,6,7,8,9],
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       page: 1,
       dialog: false,
       products: [],
@@ -359,10 +338,10 @@ export default {
       sortCategories: ["Size", "Price"],
       sortCat: "Size",
       sortAscOrDesc: [
-        { text: "Ascending", value: 'asc' },
-        { text: "Descending", value: 'desc' }
+        { text: "Ascending", value: "asc" },
+        { text: "Descending", value: "desc" }
       ],
-      sortOrder: 'asc',
+      sortOrder: "asc",
       debounceKey: ""
     };
   },
@@ -380,20 +359,14 @@ export default {
     }
   },
 
-
   mounted() {
     this.productItems(this.$route.path);
   },
 
   methods: {
-
-
-    sortProducts(){
-      
-      this.products= _.orderBy(this.products, this.sortCat ,this.sortOrder);
-    
+    sortProducts() {
+      this.products = _.orderBy(this.products, this.sortCat, this.sortOrder);
     },
-    
 
     getResult: _.debounce(
       function() {
@@ -578,7 +551,6 @@ h2 {
 
 .custom-font1 {
   font-family: "Dancing Script", cursive;
-  font-size: 6em;
   color: #ffa000;
 }
 
@@ -598,8 +570,21 @@ h2 {
   color: rgba(129, 91, 24, 0.788);
 }
 
-
-  .shuffleMedium-move {
+.shuffleMedium-move {
   transition: transform 1s;
 }
+
+
+@media screen and (min-width: 601px) {
+  .custom-font1 {
+    font-size: 75px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .custom-font1 {
+    font-size: 53px;
+  }
+}
+
 </style>

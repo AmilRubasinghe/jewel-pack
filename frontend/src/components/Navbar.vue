@@ -1,5 +1,5 @@
 <template>
-  <div id="inspire">
+  <div id="app">
     <v-layout row justify-center>
       <v-dialog v-model="searchDialog" fullscreen transition="dialog-bottom-transition">
         <v-card class="search-dialog">
@@ -29,7 +29,7 @@
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <span class="display-1">
-            <i class="far fa-gem" style="color:#212121;"></i>
+            <img :src="Jlogo" width="60" height="60" />
           </span>
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
@@ -80,7 +80,6 @@
           {{ item.title }}
         </v-btn>
 
- 
         <v-menu offset-y open-on-hover v-if="user" transition="slide-y-transition">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
@@ -88,19 +87,14 @@
               <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
             </v-btn>
           </template>
-          
+
           <v-list>
-            <v-list-tile
-              v-for="item in regItems"
-              :key="item.CID"
-              :to="({ path: `${item.path}` }) "
-            >
+            <v-list-tile v-for="item in regItems" :key="item.CID" :to="({ path: `${item.path}` }) ">
               <v-icon left>{{ item.icon }}</v-icon>
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
-
 
         <v-btn
           v-if="role=='admin'"
@@ -127,20 +121,23 @@
         </v-btn>
       </v-toolbar-items>
       <v-menu class="hidden-lg-and-up">
-        <v-toolbar-side-icon @click="mobileDrawer = true" slot="activator"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="mobileDrawer = true" slot="activator"></v-toolbar-side-icon>
 
         <v-dialog
           v-model="mobileDrawer"
           fullscreen
           hide-overlay
           transition="dialog-bottom-transition"
+          :close-on-content-click="true"
         >
           <!-- <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>-->
           <v-card>
             <v-toolbar flat prominent height="80" scroll-off-screen>
               <v-toolbar-title>
                 <router-link to="/" tag="span" style="cursor: pointer">
-                  <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+                  <span class="display-1">
+                    <img :src="Jlogo" width="60" height="60" />
+                  </span>
                   <span class="font-weight-light">Jewel</span>
                   <span>Pack</span>
                 </router-link>
@@ -370,7 +367,7 @@ export default {
       filterKey: "",
 
       menuItems: [
-        { title: "Home", path: "/home", icon: "home" }
+        { title: "Home", path: "/", icon: "home" }
         //{ title: 'Cart', path: '/cartView', icon: 'shopping_cart' },
         // { title: 'Sign Up', path: '/registerPage', icon: 'face'},
         //{ title: 'Sign In', path: '/loginPage', icon: 'lock_open' }
@@ -381,7 +378,7 @@ export default {
       ],
       regItems: [
         { title: "My Profile", path: "/profile", icon: "face" },
-        { title: "My Orders", path: "/myOrders", icon: "library_books" },
+        { title: "My Orders", path: "/myOrders", icon: "library_books" }
         // { title: 'Logout', path: '/logout', icon: 'exit_to_app'},
       ],
       adminItems: [
@@ -397,16 +394,14 @@ export default {
     };
   },
 
-  beforeRouteUpdate(to, from, next) {
-    const toDepth = to.path.split("/").length;
-    const fromDepth = from.path.split("/").length;
-    this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-    next();
+  watch: {
+    $route() {
+      this.mobileDrawer = false;
+    }
   },
 
   methods: {
     googleLogout() {
-
       window.onLoadCallback = function() {
         gapi.auth2.init({
           client_id:
@@ -414,7 +409,6 @@ export default {
         });
       };
 
-      
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function() {
         console.log("User signed out.");
@@ -427,8 +421,6 @@ export default {
 
       if (!!gapi.auth2.init()) {
         this.googleLogout();
-
-        
       }
 
       axios
@@ -467,9 +459,11 @@ export default {
             'user',
             ]),*/
 
-    ...mapGetters(["role", "user", "cartCount", "cart"])
+    ...mapGetters(["role", "user", "cartCount", "cart"]),
 
-    // Other properties
+    Jlogo: function() {
+      return this.$url + "storage/logo/jewelpack.png";
+    }
   },
 
   mounted() {

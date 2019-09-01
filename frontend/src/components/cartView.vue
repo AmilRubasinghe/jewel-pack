@@ -5,6 +5,7 @@
         <br><br>
         <v-card>
             <v-list two-line>
+             <div v-if="$store.state.cartCount>0">   
                 <template v-for="(item,index) in $store.state.cart">
 
                     <v-list-tile avatar :key="item.Size" >
@@ -18,18 +19,25 @@
                     <v-list-tile-sub-title>
                         Quantity: {{ item.qty }} &nbsp; - &nbsp;
                         {{ item.Price}} $
+                        
+                            <span id="quantity" class="a-size-medium a-color-quantity">
+                              <div class="minusplusnumber">
+                                <div class="mpbtn minus" v-on:click="decrement()">-</div>
+                                <div id="field_container">
+                                  <input
+                                    @change="valid()"
+                                    type="number"
+                                    v-model.number="value"
+                                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                  />
+                                </div>
+                                <div class="mpbtn plus" v-on:click="increment()">+</div>
+                              </div>
+                            </span>
+                         
                     </v-list-tile-sub-title>
                     </v-list-tile-content>
-                    
 
-                    <v-list-tile-action>
-                        <v-text-field
-                        
-                        :value="item.qty"
-                         reverse>
-                    </v-text-field>
-                        
-                    </v-list-tile-action>
                     <v-list-tile>
                         {{item.qty * item.Price}}$
                     </v-list-tile>
@@ -55,20 +63,32 @@
                 <v-list-tile-sub-title align="middle">
                     Total : {{totalPrice}}
                 </v-list-tile-sub-title>
+             </div>
+             
+             <div v-else>
+                 <v-list-tile-content align="middle">
+                <h4> Your cart is empty.</h4>
+                 </v-list-tile-content>
+            </div>
+             
             </v-list>
 
             <v-card-actions class="justify-center">
-            <v-btn class="white--text"
-                   color="black"
+            <v-btn class="black--text"
+                   color="#FFAB00"
                    align="right"
                    v-if="item_count > 0"
                    to="/check">
              Check out
             </v-btn>
+            <v-btn class="gold--text"
+                   color="#FFAB00"
+                   align="right"
+                   to="/products">
+             Continue shopping
+            </v-btn>
             </v-card-actions>
         </v-card>
-
-        <s-check v-model="Check"></s-check>
     </div>
 
 </template>
@@ -77,14 +97,22 @@
 export default {
     data(){
         return{
-             Check:false,
+            
              //value:"item.qty",
              value:'',
+             min:0,
+             max: 500,
+             size: 0
+
         }
        
        
     },
-
+  mounted(){
+    for(let item of this.$store.state.cart){
+      this.autoFill();
+       }
+  },
     computed:{
          //return
                 //this.$store.getters.item},
@@ -110,7 +138,37 @@ export default {
         refreshItem(item,value){
             Vue.set(item, 'qty', value);
             this.$store.commit('addToCart',item);
-        }
+        },
+
+        increment() {
+      if (this.value >= this.max) {
+        alert("Available only " + this.max + " units");
+        this.value = this.max;
+      } else {
+        this.value = this.value + this.size;
+      }
+    },
+    decrement() {
+      if (this.value <= this.min) {
+        alert("Negative quantity not allowed");
+        this.value = this.min;
+      } else {
+        this.value = this.value - this.size;
+      }
+    },
+
+    autoFill(){
+         for(let item of this.$store.state.cart){
+            this.value=item.qty;
+         }        
+    },
+    valid() {
+      if (this.value >= this.max) {
+        this.value = this.max;
+      } else if (this.value <= this.min) {
+        this.value = this.min;
+      }
+    }
 
     }
 

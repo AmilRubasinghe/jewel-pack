@@ -107,7 +107,7 @@
                             @input="remove(item)"
                           >
                             <strong>{{item.shipMethod}}</strong>
-                            &nbsp;
+&nbsp;
                           </v-chip>
                         </template>
                       </v-combobox>
@@ -140,6 +140,22 @@
                     required
                   ></v-checkbox>
                 </v-flex>
+
+                     
+                  </v-layout> 
+                   </v-flex > 
+                     <v-flex md3 sm12 lg3 xs12 d-flex>
+                       <v-checkbox
+                        v-model="newProduct.border"
+                        v-validate="'required'"
+                        :error-messages="errors.collect('checkbox')"
+                        value="1"
+                        label="Gold border"
+                        data-vv-name="checkbox"
+                        type="checkbox"
+                        required
+                      ></v-checkbox>
+                    </v-flex>
 
                 <v-flex d-flex>
                   <v-layout row wrap justify-center>
@@ -762,9 +778,7 @@ export default {
        
       const formData = new FormData();
       formData.append("file", this.file, this.file.name);
-      
 
-      
       formData.append("details", this.newProduct.details);
       formData.append("price", this.newProduct.price);
       formData.append("slashedPrice", this.newProduct.slashedPrice);

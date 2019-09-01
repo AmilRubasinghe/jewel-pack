@@ -225,7 +225,7 @@ export default {
           Make the request to the POST /single-file URL
         */
       axios
-        .post("http://localhost:8000/api/upload/slideshow", formData, {
+        .post(this.$baseUrl+"/upload/slideshow", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -246,7 +246,11 @@ export default {
       let $Token = localStorage.getItem("token");
       axios
         .post(
+<<<<<<< HEAD
           "http://localhost:8000/api/storeImage" + "?token=" + $Token,
+=======
+          this.$baseUrl+"/storeImage" + "?token=" + $Token,
+>>>>>>> 9d93ebba105c6921c6901f3476e8995d6853fc97
           // axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
           // axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs',
           formData
@@ -265,7 +269,11 @@ export default {
 
     getSlideshow() {
       axios
+<<<<<<< HEAD
         .get("http://localhost:8000/api/getImages")
+=======
+        .get(this.$baseUrl+"/getImages")
+>>>>>>> 9d93ebba105c6921c6901f3476e8995d6853fc97
         .then(response => {
           this.slideshowItems = response.data.images;
 
@@ -308,7 +316,11 @@ export default {
         //console.log(item.imageID)
         axios
           .post(
+<<<<<<< HEAD
             "http://localhost:8000/api/deleteSlideshow/?token=" + $Token,
+=======
+            this.$baseUrl+"/deleteSlideshow/?token=" + $Token,
+>>>>>>> 9d93ebba105c6921c6901f3476e8995d6853fc97
             item
           )
           .then(response => {
@@ -330,7 +342,11 @@ export default {
 
         axios
           .post(
+<<<<<<< HEAD
             "http://localhost:8000/api/edititems/" +
+=======
+            this.$baseUrl+"/edititems/" +
+>>>>>>> 9d93ebba105c6921c6901f3476e8995d6853fc97
               this.editedItem.imageID +
               "?token=" +
               $Token,

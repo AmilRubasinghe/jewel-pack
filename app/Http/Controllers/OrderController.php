@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\order;
 use JWTAuth;
+use DB;
 
 class OrderController extends Controller
 {
@@ -29,7 +30,9 @@ class OrderController extends Controller
 			$tableU = new User;
 			$tableU->firstName = $request->input('firstname');
 			$tableU->lastName = $request->input('lastname');
-			$tableU->email = $request->input('email');
+            $tableU->email = $request->input('email');
+            $tableU->contactNo = $request->input('phone');
+            
             
             $tableU->save();
 
@@ -43,8 +46,9 @@ class OrderController extends Controller
         
 
         $table = new order;
-        $table->timestamps = false;
+        $table->timestamps = true;
         $table->ID =  $user->ID;
+        $table->customerEmail =$request->input('email') ;
         $table->contactNo = $request->input('phone');
         $table->deliveryAddress = $request->input('address');
 
@@ -55,11 +59,13 @@ class OrderController extends Controller
        
     }
 
-    public function sendOrder(){
-    
+    public function getOrder(){
+        $order = DB::table('orders')->orderBy('created_at','desc')->first(); // it will get the entire table
+        return response()->json(['printOrder'=>$order],200);
     }
 
-    public function myOrder($token){
+    public function myOrder(Request $request){
+        $token= $request->input('token');
         $userID = JWTAuth::toUser($token)->ID;
 
 

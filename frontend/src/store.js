@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
 import { totalmem } from 'os';
 import { parse } from 'querystring';
+
 //import axios from axios;
 
 Vue.use(Vuex);
@@ -18,8 +19,7 @@ export default new Vuex.Store({
         user:null,
         tempEmailToVerify:null,
         category:[],
-        
-        
+
         cart: cart ? JSON.parse(cart) : [],
         cartCount: cartCount ? parseInt(cartCount) : 0,
         
@@ -141,7 +141,7 @@ export default new Vuex.Store({
             //let found = state.cart.find(product => product.PID == item.PID); Short form of above function
 
         //console.log("++++++");
-        state.cartCount+=item.qty;
+        state.cartCount+=1;
         
             if (found) {
                 console.log(found);         
@@ -165,7 +165,7 @@ export default new Vuex.Store({
         
             if (index > -1) {
                 let product = state.cart[index];
-                state.cartCount -= product.qty;
+                state.cartCount -= 1;
         
                 state.cart.splice(index, 1);
             }
@@ -176,7 +176,6 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
         },
-    
 
     },
 
@@ -195,10 +194,6 @@ export default new Vuex.Store({
         category(context,payload){
             context.commit('setCategory', payload)
         },
-        addName(state,newName){
-            state.name=newName;
-            console.log(newName);
-        }
         
       },
 
