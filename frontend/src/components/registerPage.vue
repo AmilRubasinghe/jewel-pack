@@ -9,7 +9,7 @@
         <v-layout wrap>
           <v-flex xs12 sm12 md6 lg6>
             <v-card class="elevation-14">
-              <v-toolbar color="primary" dark flat>
+              <v-toolbar color="#CD853F" dark flat>
                 <v-toolbar-title>Register</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -72,7 +72,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue" @click='registerUser'>Register</v-btn>
+                <v-btn color="#FFAB00" @click='registerUser'>Register</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

@@ -1,12 +1,11 @@
 <template>
   <div>
     <v-flex xs12 style="width:100%;">
-      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height=92vh>
-        <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path"></v-carousel-item>
+      <v-carousel delimiter-icon="stop" interval="3000" hide-controls height="92vh" >
+        <v-carousel-item v-for="(item,i) in slideshowItems" :key="i" :src="item.path" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"></v-carousel-item>
       </v-carousel>
     </v-flex>
 
-    
     <v-card flat max-height="1000" color="brown lighten-5">
       <v-layout wrap>
         <v-flex d-flex xs12 sm6 md3>
@@ -28,7 +27,7 @@
 
         <v-flex v-for="(item, i) in categorys" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card category card-5" color="grey lighten-4" width="300" height="423">
-            <v-img :aspect-ratio="3.8/4.5" :src="item.image"></v-img>
+            <v-img position=center :aspect-ratio="3.8/4.5" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/loader.gif"></v-img>
             <v-card-text>
               <h4 style="color:#8D6E63" class="ab subtitle-2 headline mb-1">{{item.name}}</h4>
             </v-card-text>
@@ -36,7 +35,6 @@
         </v-flex>
       </v-layout>
     </v-card>
-
 
     <v-layout align-center justify-center>
       <v-card width="100%" flat>
@@ -75,7 +73,8 @@
       <v-flex xs12 sm12 md6 lg7>
         <v-parallax
           height="600"
-          src="http://jewelpack.tk/storage/slideshow/1563280479-10519703_1621551864757385_30034616773715997_o.jpg"
+          src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+          lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
         >
           <v-layout align-center column justify-center>
             <h1 style="align:center;" class="custom-font3">JewelPack</h1>
@@ -110,7 +109,7 @@
         <v-flex v-for="(item, i) in items" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card product" color="blue-grey lighten-3" max-width="500">
             <div class="image-box">
-              <v-img :aspect-ratio="3/3.1" :src="item.image"></v-img>
+              <v-img :aspect-ratio="3/3.1" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"></v-img>
             </div>
           </v-card>
         </v-flex>
@@ -120,13 +119,13 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="http://jewelpack.tk/storage/slideshow/1563280490-11071592_1621554201423818_8781376146243943971_o.jpg"
+      src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
         <h1 style="align:center;" class="custom-font3">JewelPack</h1>
       </v-layout>
     </v-parallax>
-
 
     <v-container grid-list-md text-xs-center class="hidden-md-and-down">
       <v-layout row wrap>
@@ -174,41 +173,40 @@ export default {
       items: [
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
 
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
 
         {
-          image:
-            "https://i.vgy.me/ihyoWC.jpg"
+          image: "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563515746-11084068_1621553484757223_8453650611327338621_o.jpg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         }
       ],
       categorys: [
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Gem boxes"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563515746-11084068_1621553484757223_8453650611327338621_o.jpg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Jewellery boxes"
         },
         {
           image:
-            "http://localhost:8000/storage/product/1563523149-11090958_1621555728090332_7168703738469121013_o.jpg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Gem boxes"
         }
       ]
@@ -237,15 +235,14 @@ export default {
     });
   },
 
-  computed(){
-    
-/*
+  computed() {
+    /*
       computed: {
     fullHeight: function() {
       return $this.100vh + " " + this.user.lastName;
     }
   },*/
-  },
+  }
 };
 </script>
 
@@ -364,14 +361,13 @@ h4.ab.subtitle-2.headline.mb-1 {
   padding-bottom: 10px;
 }
 
-
 .custom-font1 {
   font-family: "Dancing Script", cursive;
 }
 
 .custom-font3 {
   font-family: "Fredericka the Great", cursive;
-  color: #ff6f00;
+  color: #ffdf00;
 }
 
 .custom-font4 {
@@ -388,8 +384,8 @@ h4.ab.subtitle-2.headline.mb-1 {
 
 @media screen and (min-width: 601px) {
   .custom-font1 {
-  font-size: 70px;
-}
+    font-size: 70px;
+  }
   .custom-font3 {
     font-size: 100px;
   }
@@ -403,10 +399,9 @@ h4.ab.subtitle-2.headline.mb-1 {
 }
 
 @media screen and (max-width: 600px) {
-
   .custom-font1 {
-  font-size: 53px;
-}
+    font-size: 53px;
+  }
 
   .custom-font3 {
     font-size: 70px;
@@ -419,7 +414,5 @@ h4.ab.subtitle-2.headline.mb-1 {
     font-family: "Eagle Lake", cursive;
     font-size: 23px;
   }
-
 }
-
 </style>

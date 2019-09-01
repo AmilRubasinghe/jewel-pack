@@ -8,7 +8,7 @@ use Mail;
 use App\User;
 use App\Mail\ResetPasswordMail;
 use DB;
-use App\Http\Requests\changePasswordRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Support\Str;
 
 
@@ -69,7 +69,7 @@ class ResetPasswordController extends Controller
 
     }
 
-    public function process(changePasswordRequest $request){
+    public function process(ChangePasswordRequest $request){
 
         
         if($this->getPasswordResetTableRow($request)->count()>0){

@@ -1,137 +1,151 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <div class="marginWith page">
-        <h1 class="custom-font1">{{pageTitle}}</h1>
+      <div>
+        <v-container pa-0>
+          <h1 class="custom-font1">{{pageTitle}}</h1>
 
-        <v-container v-if="searchMode">
-          <v-layout row wrap align-center justify-center>
-            <v-flex xs10 sm10 md9 lg8 xl8>
-              <v-text-field
-                label="Search"
-                outline
-                v-model="keywords"
-                color="#E65100"
-                placeholder="Find your box using color,size"
-                autofocus
-                onblur="this.focus()"
-              ></v-text-field>
-            </v-flex>
-            <v-btn icon @click="search" large>
-              <v-icon large color="#E65100">search</v-icon>
-            </v-btn>
-          </v-layout>
-        </v-container>
+          <v-container v-if="searchMode">
+            <v-layout row wrap align-center justify-center>
+              <v-flex xs10 sm10 md9 lg8 xl8>
+                <v-text-field
+                  label="Search"
+                  outline
+                  v-model="keywords"
+                  color="#E65100"
+                  placeholder="Find your box using color,size"
+                  autofocus
+                  onblur="this.focus()"
+                ></v-text-field>
+              </v-flex>
+              <v-btn icon @click="search" large>
+                <v-icon large color="#E65100">search</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-container>
 
-        <v-container>
-          <v-layout>
-            <div></div>
+          <v-container>
+            <v-layout>
+              <div></div>
 
-            <v-toolbar>
-              <v-toolbar-title>Sorting</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-flex xs12 sm6 md4 d-flex>
-                  <v-select
-                    :items="sortCategories"
-                    label="Sort by"
-                    outline
-                    menu-props
-                    v-model="sortCat"
-                  ></v-select>
-                </v-flex>
-
-                <v-flex xs12 sm6 md4 d-flex>
-                  <v-select
-                    label="Order"
-                    :items="sortAscOrDesc"
-                    item-text="text"
-                    item-value="value"
-                    v-model="sortOrder"
-                    outline
-                    menu-props
-                  ></v-select>
-                </v-flex>
-              </v-toolbar-items>
-            </v-toolbar>
-          </v-layout>
-        </v-container>
-
-        <v-layout row wrap align-center justify-center>
-          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
-            <br />
-
-            <transition-group name="staggered-fade" tag="v-card">
-              <v-card
-                class="card-5"
-                style="cursor: pointer"
-                light
-                ripple
-                align="center"
-                @click="productPreview(products[i])"
-                :key="item.PID"
-              >
-                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
-                  <v-container fill-height fluid>
-                    <v-layout fill-height>
-                      <v-flex xs12 align-end flexbox>
-                        <!--                   <span class="headline"></span> -->
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
-                </v-img>
-
-                <v-card-title>
-                  <v-flex xs9 sm12 offset-sm0>
-                    <span>
-                      <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
-                    </span>
-
-                    <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
-                      <h4>SALE!</h4>
-                    </v-chip>
-
-                    <v-rating
-                      readonly
-                      :value="4"
-                      dense
-                      hover
-                      background-color="brown"
-                      color="brown"
-                    ></v-rating>
-
-                    <del class>
-                      <v-chip label color="white" text-color="brown lighten-3">
-                        <h5>$50</h5>
-                      </v-chip>
-                    </del>&nbsp;
-                    <span class="title">
-                      <v-chip label color="white" text-color="brown darken-3">
-                        <h4>$ {{products[i].Price}}</h4>
-                      </v-chip>
-                    </span>
+              <v-toolbar>
+                <v-toolbar-title>Sorting</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                  <v-flex xs12 sm6 md4 d-flex>
+                    <v-select
+                      :items="sortCategories"
+                      label="Sort by"
+                      outline
+                      menu-props
+                      v-model="sortCat"
+                    ></v-select>
                   </v-flex>
-                </v-card-title>
-                <v-card-actions>
-                  &nbsp;
-                  <v-btn
-                    large
-                    round
-                    depressed
-                    color="brown lighten-4"
-                    outline-color="dark"
-                    class="mx-auto"
-                    @click="productPreview(products[i])"
-                  >Product View</v-btn>
-                </v-card-actions>
-              </v-card>
-            </transition-group>
-          </v-flex>
-        </v-layout>
+
+                  <v-flex xs12 sm6 md4 d-flex>
+                    <v-select
+                      label="Order"
+                      :items="sortAscOrDesc"
+                      item-text="text"
+                      item-value="value"
+                      v-model="sortOrder"
+                      outline
+                      menu-props
+                    ></v-select>
+                  </v-flex>
+                </v-toolbar-items>
+              </v-toolbar>
+            </v-layout>
+          </v-container>
+<v-container>
+          <v-layout row wrap align-center 
+          :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
+          >
+            <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
+              <br />
+
+              <transition-group name="staggered-fade" tag="v-card">
+                <v-card
+                  class="card-5"
+                  style="cursor: pointer"
+                  light
+                  ripple
+                  align="center"
+                  @click="productPreview(products[i])"
+                  :key="item.PID"
+                >
+                  <v-img
+                    :aspect-ratio="4/3"
+                    contain
+                    align="right"
+                    :src="products[i].Image"
+                    lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                    transition="scale-transition"
+                  >
+                    <v-container fill-height fluid>
+                      <v-layout fill-height>
+                        <v-flex xs12 align-end flexbox>
+                          <!--                   <span class="headline"></span> -->
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-img>
+
+                  <v-card-title>
+                    <v-flex xs9 sm12 offset-sm0>
+                      <span>
+                        <h2
+                          style="color: #000000;"
+                        >{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
+                      </span>
+
+                      <v-chip label color="brown lighten-3" text-color="brown darken-3" outline>
+                        <h4>SALE!</h4>
+                      </v-chip>
+
+                      <v-rating
+                        readonly
+                        :value="4"
+                        dense
+                        hover
+                        background-color="brown"
+                        color="brown"
+                      ></v-rating>
+
+                      <del class>
+                        <v-chip label color="white" text-color="brown lighten-3">
+                          <h5>$50</h5>
+                        </v-chip>
+                      </del>&nbsp;
+                      <span class="title">
+                        <v-chip label color="white" text-color="brown darken-3">
+                          <h4>$ {{products[i].Price}}</h4>
+                        </v-chip>
+                      </span>
+                    </v-flex>
+                  </v-card-title>
+                  <v-card-actions>
+                    &nbsp;
+                    <v-btn
+                      large
+                      round
+                      depressed
+                      color="brown lighten-4"
+                      outline-color="dark"
+                      class="mx-auto"
+                      @click="productPreview(products[i])"
+                    >Product View</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </transition-group>
+            </v-flex>
+          </v-layout>
+          </v-container>
+        </v-container>
       </div>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px" >
+        <v-dialog v-model="dialog" max-width="1200px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -148,7 +162,11 @@
                         color="grey lighten-4"
                         max-width="600"
                       >
-                        <v-img :aspect-ratio="4/3.6" :src="selectedItem.Image">
+                        <v-img
+                          :aspect-ratio="4/3.6"
+                          :src="selectedItem.Image"
+                          lazy-src="https://jewelpack.tk/storage/loader/loader.gif"
+                        >
                           <v-expand-transition>
                             <div
                               v-if="hover"
@@ -165,14 +183,10 @@
                     <h3
                       class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
-                     
-                    <p> 
 
-                   {{selectedItem.description}} 
-                    </p>
-                     
+                    <p>{{selectedItem.description}}</p>
+
                     <v-divider></v-divider>
-                   
 
                     <table class="a-lineitem">
                       <tbody>
@@ -302,7 +316,6 @@ export default {
       newValue: 0,
       size: 0,
       keywords: "",
-     
 
       sizes: ["25", "50", "100", "150", "200"],
       sortCategories: ["Size", "Price"],
@@ -445,8 +458,6 @@ export default {
   width: 100%;
 }
 
-
-
 .container.grid-list-md .layout .flex {
   padding: 10px;
 }
@@ -515,8 +526,8 @@ h2 {
   margin-bottom: 20px;
 }
 .marginWith.page {
-    padding-left: 140px;
-    padding-right: 140px;
+  padding-left: 140px;
+  padding-right: 140px;
 }
 
 .custom-font1 {
@@ -544,7 +555,6 @@ h2 {
   transition: transform 1s;
 }
 
-
 @media screen and (min-width: 601px) {
   .custom-font1 {
     font-size: 75px;
@@ -556,5 +566,4 @@ h2 {
     font-size: 53px;
   }
 }
-
 </style>

@@ -1,94 +1,100 @@
 <template>
   <v-container grid-list-md text-xs-center>
+    <v-dialog v-model="dialog" max-width="700">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Update Details</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout column>
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.firstName" label="First Name" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.lastName" label="Last Name" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.contactNo" label="Contact No" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.email" label="Email" />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout row wrap>
+              <v-flex d-flex>
+                <v-btn color="primary" @click="close">Cancel</v-btn>
+              </v-flex>
+
+              <v-flex d-flex>
+                <v-btn color="primary" @click="save">Save</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-layout row wrap>
-      <v-flex xs12 md4>
-        <v-avatar slot="offset" class="mx-auto d-block" size="250">
+      <v-flex xs12 md4 sm12>
+        <v-avatar slot="offset" class="mx-auto d-block" size="230">
           <img src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg" />
         </v-avatar>
 
         <v-card-text class="text-xs-center">
-          <h4 class="card-title font-weight-light">{{fullname}}</h4>
+          <h4 class="card-title font-weight-dark">{{fullname}}</h4>
         </v-card-text>
       </v-flex>
 
-      <v-dialog v-model="dialog" max-width="700">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Update Details</span>
-          </v-card-title>
+      <v-flex md8 xs12 sm12>
+        <v-card class="card-5 pa-3">
+          <form>
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelname}}</b>
+                  </p>
+                </div>
+                <v-text-field v-model="fullname" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
 
-          <v-card-text>
-            <v-container grid-list-md text-md-center fluid fill-height>
-              <v-layout column>
-                <v-flex md3 sm3 lg3 xs3 d-flex>
-                  <v-text-field v-model="editedItem.firstName" label="First Name" />
-                </v-flex>
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelemail}}</b>
+                  </p>
+                </div>
+                <v-text-field v-model="user.email" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
 
-                <v-flex md3 sm3 lg3 xs3 d-flex>
-                  <v-text-field v-model="editedItem.lastName" label="Last Name" />
-                </v-flex>
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelcontact}}</b>
+                  </p>
+                </div>
+                <v-text-field v-model="user.contactNo" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </form>
 
-                <v-flex md3 sm3 lg3 xs3 d-flex>
-                  <v-text-field v-model="editedItem.contactNo" label="Contact No" />
-                </v-flex>
-
-                <v-flex md3 sm3 lg3 xs3 d-flex>
-                  <v-text-field v-model="editedItem.email" label="Email" />
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-container grid-list-md text-md-center fluid fill-height>
-              <v-layout row wrap>
-                <v-flex d-flex>
-                  <v-btn color="primary" @click="close">Cancel</v-btn>
-                </v-flex>
-
-                <v-flex d-flex>
-                  <v-btn color="primary" @click="save">Save</v-btn>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-actions>
+          <v-btn @click="editItem()" color="secondary">Edit Profile</v-btn>
         </v-card>
-      </v-dialog>
-
-      <v-flex md4 xs6 sm6>
-        <form>
-          <v-flex md7 xs6 sm6>
-            <v-text-field v-model="labelname" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex md7 xs6 sm6>
-            <v-text-field v-model="labelemail" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex md7 xs6 sm6>
-            <v-text-field v-model="labelcontact" readonly></v-text-field>
-          </v-flex>
-
-          <v-btn @click="editItem()">Update</v-btn>
-          <v-btn @click="myOrders">My Orders</v-btn>
-        </form>
-      </v-flex>
-
-      <v-flex xs6 sm6 md4>
-        <form>
-          <v-flex>
-            <v-text-field v-model="fullname" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex>
-            <v-text-field v-model="user.email" readonly></v-text-field>
-          </v-flex>
-
-          <v-flex>
-            <v-text-field v-model="user.contactNo" readonly></v-text-field>
-          </v-flex>
-        </form>
       </v-flex>
     </v-layout>
   </v-container>
@@ -139,8 +145,6 @@ export default {
     } else {
       this.logout();
     }
-
-    
   },
 
   methods: {
@@ -149,7 +153,7 @@ export default {
       axios
         .post(this.$baseUrl + "/myOrder/" + $Token)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
         })
 
         .catch(error => {
@@ -161,7 +165,7 @@ export default {
 
     editItem() {
       this.editedItem = Object.assign({}, this.user);
-      console.log(this.editedItem);
+      // console.log(this.editedItem);
       this.dialog = true;
     },
 
@@ -177,10 +181,7 @@ export default {
       console.log(this.editedItem);
 
       axios
-        .post(
-          this.$baseUrl+"/editUser/?token=" + $Token,
-          this.editedItem
-        )
+        .post(this.$baseUrl + "/editUser/?token=" + $Token, this.editedItem)
 
         .then(response => {
           this.dialog = false;
