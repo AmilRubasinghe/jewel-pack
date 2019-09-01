@@ -73,7 +73,7 @@
       <v-flex xs12 sm12 md6 lg7>
         <v-parallax
           height="600"
-          src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+          src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
           lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
         >
           <v-layout align-center column justify-center>
@@ -119,7 +119,7 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+      src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -173,40 +173,40 @@ export default {
       items: [
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
 
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
 
         {
-          image: "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+          image: "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         },
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
         }
       ],
       categorys: [
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Gem boxes"
         },
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Jewellery boxes"
         },
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
           name: "Gem boxes"
         }
       ]

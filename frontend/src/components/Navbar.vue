@@ -50,7 +50,7 @@
         <v-btn flat to="/cartView">
           <v-badge right color="#CD853F">
             <template v-slot:badge>
-              <span style="color:white" >{{cartCount}}</span>
+              <span style="color:white">{{cartCount}}</span>
             </template>
             <v-icon left dark color="black">shopping_cart</v-icon>
           </v-badge>Cart
@@ -118,6 +118,17 @@
         </v-btn>
         <v-btn v-if="user" flat @click="logout">
           <v-icon left dark>{{ 'exit_to_app' }}</v-icon>Logout
+        </v-btn>
+      </v-toolbar-items>
+
+      <v-toolbar-items class="hidden-lg-and-up">
+        <v-btn flat to="/cartView" class="cartBtn">
+          <v-badge right color="#CD853F">
+            <template v-slot:badge>
+              <span style="color:white">{{cartCount}}</span>
+            </template>
+            <v-icon left dark color="black">shopping_cart</v-icon>
+          </v-badge>
         </v-btn>
       </v-toolbar-items>
       <v-menu class="hidden-lg-and-up">
@@ -347,7 +358,11 @@ export default {
         { title: "Reports", icon: "file_copy", path: "reports" },
         { title: "Slide Show", icon: "photo_library", path: "slideshow" },
         { title: "Lot Quantity", icon: "add_to_photos", path: "lotQuantity" },
-        { title: "Homepage products", icon: "add_photo_alternate", path: "homeProduct" },
+        {
+          title: "Homepage products",
+          icon: "add_photo_alternate",
+          path: "homeProduct"
+        },
         {
           title: "Shipping Method",
           icon: "time_to_leave",
@@ -479,6 +494,11 @@ export default {
 <style>
 .v-badge__badge {
   right: -0.1px;
+}
+
+.cartBtn{
+
+  right: -27px;
 }
 
 .card-5 {

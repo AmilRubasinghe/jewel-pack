@@ -32,7 +32,7 @@ class ResetPasswordMail extends Mailable
     public function build()
     {
         
-        return $this->markdown('Email.passwordReset')->with([
+        return $this->markdown('email.passwordReset')->with([
             'token'=>$this->token,
             ])
             ->from('jewelpacksparta@gmail.com','Jewel Pack')

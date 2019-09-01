@@ -68,17 +68,7 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
-// vue.config.js
 
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
-
-module.exports = {
-  configureWebpack: {
-    plugins: [
-      new VuetifyLoaderPlugin()
-    ],
-  },
-}
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'

@@ -22,7 +22,7 @@ Vue.prototype.$vuetify.theme = {
   primary: '#CD853F',
   secondary: '#FFAB00',
   accent: '#8c9eff',
-  error: '#ff00ff'
+  error: '#E65100'
 };
 
 import Snotify from 'vue-snotify/vue-snotify.min.js'
@@ -36,7 +36,7 @@ import { VueSpinners } from '@saeris/vue-spinners'
 Vue.use(VueSpinners)
 
 /*
-Vue.prototype.$baseUrl = 'https://localhost:8000/api';
+Vue.prototype.$baseUrl = 'http://localhost:8000/api';
 Vue.prototype.$url = 'http://localhost:8000/';
 */
 
