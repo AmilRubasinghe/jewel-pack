@@ -1,192 +1,145 @@
+ 
+
+
  <template>
-  <div>
-    <section>
-      <footer>
-        <div class="footer">
-          <v-container>
-            <v-layout row wrap justify-center class="my-5">
-              <v-flex xs10 sm3>
-                <v-card class="elevation-0 transparent">
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class="headline">Company info</div>
-                  </v-card-title>
-                  <v-card-text>
-                    <ul>
-                      <li>
-                        <a href>Gem boxes</a>
-                      </li>
+  
+    <v-footer
+      v-bind="localAttrs"
+      :padless="padless"
+    >
+      <v-card
+        flat
+        tile
+        width="100%"
+        class="blue-grey darken-3 text-center"
+      >
+        
+        <v-card-text>
+            <v-layout column>
+                <v-flex d-flex>
+            <v-layout row wrap justify-center >
+              <v-flex xs10 sm9 md9>
 
-                      <li>
-                        <a href>Jewellery boxes</a>
-                      </li>
+           
 
-                      <li>
-                        <a href>store locator</a>
-                      </li>
-                      <li>
-                        <a href>Your accounts</a>
-                      </li>
 
-                      <li>
-                        <a href>Take your order</a>
-                      </li>
 
-                      <li>
-                        <a href>Email sign In</a>
-                      </li>
-                      <li>
-                        <a href>Return & refunds</a>
-                      </li>
-                    </ul>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs10 sm3 offset-sm1>
-                <v-card class="elevation-0 transparent">
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class="headline">Contact us</div>
-                  </v-card-title>
-
-                  <v-list class="transparent">
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>+9477-000-0000</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">place</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>Colombo, Sri Lanka</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">email</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>jewelPack@example.com</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">fb</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>jewelpackcompany</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
-                </v-card>
-              </v-flex>
-
-              <v-flex xs10 sm3 payment>
-                <v-card class="elevation-0 transparent">
-                  <v-card-title primary-title class="layout justify-center">
-                    <div class="headline">Payment Method</div>
-                  </v-card-title>
-                  <v-card-text>
-                    <i class="fab fa-cc-visa fa-w-18 fa-3x"></i>
-                    <i class="fab fa-cc-mastercard fa-w-18 fa-3x"></i>
-                    <i class="fab fa-cc-amex fa-w-18 fa-3x"></i>
-                    <a href="https://www.payhere.lk" target="_blank">
-                      <img
-                        src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"
-                        alt="Pay with PayHere"
-                        width="200"
-                      >
-                    </a>
-                  </v-card-text>
-                </v-card>
+               <v-btn
+        v-for="link in links"
+        
+        color="blue-grey lighten-1"
+        text
+        rounded
+        class="my-2"
+        :key="link.title"
+        :to="link.path"
+      >
+       
+          <v-list-tile-content>
+            <v-list-tile-title   class=" text-center ">{{ link.title }}</v-list-tile-title>
+          </v-list-tile-content>
+      </v-btn>
+          
               </v-flex>
             </v-layout>
-            <v-layout row wrap justify-center class="row-my">
-              <div class="copy-right-footer">
-                <div class="container">
-                  <div class="row-copy-center">
-                    <div class="travel-copyright">
-                      <p>
-                        <center>Copy right &copy; 2019 web desing Srilanka</center>
-                      </p>
-                      <p>
-                        All rights design reserved design by
-                        <span>T E A M SPATA</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </v-flex>
+             <v-flex d-flex>
+               <v-layout row wrap justify-center >
+              <v-flex xs10 sm6 md6>
+                   <v-btn
+            v-for="icon in icons"
+            :key="icon.icon"
+            class="mx-4"
+            icon
+            :to="icon.link"
+          >
+            <v-icon size="24px"  color="blue-grey lighten-1">{{ icon.icon }}</v-icon>
+          </v-btn>
+         
+            </v-flex>
             </v-layout>
-          </v-container>
-        </div>
-      </footer>
-    </section>
-  </div>
+                </v-flex>
+            </v-layout>
+
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-text class="blue-grey lighten-3--text body-2 ">
+          <strong> <p class=" body-2">
+                        <center>Copy right &copy; {{ new Date().getFullYear() }}  web desing Srilanka</center>
+                      </p>
+                      <p class=" body-2 " >
+                        All rights design reserved design by 
+                        <span class="red--text  body-1 overline">T E A M SPATA</span>
+                      </p></strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
+
+    
+  
 </template>
+ 
+
+<script>
+  export default {
+    data: () => ({
+      links: [
+       
+        { title: "HOME", path: "home" },
+       
+        { title: "Cart",  path: "cartView" },
+        { title: "My Account", path: "profile" },
+       
+        { title: "About Us", path: "" },
+        { title: "Contact Us", path: "profile" },
+      ],
+      icons: [
+       
+        {  icon: "fab fa-facebook", link: "'https://www.facebook.com/jewelpackcompany/?__tn__=%2Cd%2CP-R&eid=ARDttFCuVtyeoBG_oePhv14EJYivkmMFPfZXD0Vop2gVfm4oqobUUDsR2TaNwAolFqTH6-4BkZWx9UwW'" },
+        {  icon: "fab fa-twitter", path: "orders" },
+       {  icon: "fab fa-google-plus", path: "orders" },
+      
+        
+      ],
+       
+     
+      items: [
+        'default',
+        'absolute',
+        'fixed',
+      ],
+      padless: false,
+      variant: 'default',
+    }),
+    computed: {
+      localAttrs () {
+        const attrs = {}
+
+        if (this.variant === 'default') {
+          attrs.absolute = false
+          attrs.fixed = false
+        } else {
+          attrs[this.variant] = true
+        }
+        return attrs
+      },
+    },
+  }
+</script>
+
+
 
 
       <style>
-.v-card__text ul li {
-  padding: 2.5px;
-  border-bottom: 1px dotted #47505b;
-}
 
-.v-card__text ul {
-  list-style-type: none;
+.blue-grey.darken-3.text-center.v-card.v-card--flat.v-sheet.v-sheet--tile.theme--light {
+    margin-top: auto;
+    margin-top: 250px;
 }
-
-.container.grid-list-xl {
-  background-color: #393b45;
-}
-
-.footer {
-  background-color: #393b45;
-     margin-top: 50px;
-}
-
-.layout.my-5.row.wrap.justify-center {
-  background-color: #393b45;
-}
-
-.flex.xs10.sm3.payment {
-  padding-left: 50px;
-}
-
-i.fab.fa-cc-visa {
-  size: 5 x;
-  color: #7487e3;
-  padding: 5px;
-}
-
-i.fab.fa-cc-mastercard.fa-w-18.fa-3x {
-  color: #7487e3;
-  padding: 5px;
-}
-
-i.fab.fa-cc-amex.fa-w-18.fa-3x {
-  color: #7487e3;
-  padding: 5px;
-}
-
-.travel-copyright p {
-  color: #a6a6a6;
-  text-align: center;
-  margin: 0;
-  font-size: 12px;
-}
-
-.travel-copyright p span {
-  color: rgb(218, 26, 26);
-}
-
-.copy-right-footer {
-  border-top: 1px solid;
-  border-color: rgba(221, 221, 221, 0.12);
+footer.v-footer.theme--light {
+    margin-top: 60px;
 }
 
 </style>

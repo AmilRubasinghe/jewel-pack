@@ -1,39 +1,69 @@
 <template>
-  <v-hover>
-    <template v-slot:default="{ hover }">
-      <v-card
-        class="mx-auto"
-        max-width="344"
-      >
-        <v-img src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"></v-img>
-
-        <v-card-text>
-          <h2 class="title primary--text">Magento Forests</h2>
-          Travel to the best outdoor experience on planet Earth. A vacation you will never forget!
-        </v-card-text>
-
-        <v-card-title>
-          <v-rating
-            :value="4"
-            dense
-            color="orange"
-            background-color="orange"
-            hover
-            class="mr-2"
-          ></v-rating>
-          <span class="primary--text subtitle-2">64 Reviews</span>
-        </v-card-title>
-
-        <v-fade-transition>
-          <v-overlay
-            v-if="hover"
-            absolute
-            color="#036358"
-          >
-            <v-btn>See more info</v-btn>
-          </v-overlay>
-        </v-fade-transition>
-      </v-card>
-    </template>
-  </v-hover>
+  <div>
+    <h1>Find Us</h1>
+    <div class="mapouter">
+      <div class="gmap_canvas">
+        <iframe
+          width="400"
+          height="400"
+          id="gmap_canvas"
+          src="https://maps.google.com/maps?q=119%20Gangarama%20Rd%2C%20Boralesgamuwa%2C%20Western%20Province&t=&z=11&ie=UTF8&iwloc=&output=embed"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+        ></iframe>
+        <a href="https://www.pureblack.de">Pureblack.de - Website erstellen lassen</a>
+      </div>
+    </div>
+  </div>
 </template>
+
+
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      colours: ["White", "Black", "Grey"],
+      border: "border String"
+    };
+  },
+
+  methods: {
+    send() {
+      console.log("sending");
+
+      axios
+        .post(this.$baseUrl + "/test", {
+          c: this.colours,
+          b: this.border
+        })
+        .then(response => {
+          console.log(response.data);
+
+          //console.log(this.slideshowItems);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    }
+  }
+};
+</script>
+
+<style>
+.mapouter {
+  position: relative;
+  text-align: right;
+  height: 400px;
+  width: 400px;
+}
+.gmap_canvas {
+  overflow: hidden;
+  background: none !important;
+  height: 400px;
+  width: 400px;
+}
+</style>

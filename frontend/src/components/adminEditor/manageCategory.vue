@@ -34,7 +34,37 @@
                       required
                       />
                     </v-flex>
+                    <v-flex d-flex>
+                  <v-layout row wrap justify-center>  
+                    <v-flex xs9 sm9 md4 lg4 d-flex >
+                     <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
+                            
+                        <form enctype="multipart/form-data">
+                        <div class="text-xs-center">
+                            
+                        
+
+                            <label class="button"  >
+                                    <input 
+                                    type="file"
+                                    ref="file"
+                                    @change="selectFile"
+                                    style="display:none"
+                                    >
+                                    <v-icon outline large>cloud_upload</v-icon>
+                                    <h4>Upload photo</h4>
+                                    <span v-if="file" class="file-name">{{file.name}}</span>
+                            </label>
+                        </div>
+                        
+                        </form>
+                        </v-card>
+                    </v-flex>
+                    </v-layout> 
+                   </v-flex > 
                     </v-layout>
+                    
+
                 </v-container>
               </v-card-text>
 
@@ -43,15 +73,15 @@
 <v-container grid-list-md text-md-center fluid fill-height>
       <v-layout row wrap>
         <v-flex d-flex>
-          <v-btn color="primary" @click="clear">clear</v-btn>
+          <v-btn outline color="primary" @click="clear">clear</v-btn>
         
         </v-flex>
 
         <v-flex d-flex>
-         <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+         <v-btn  dark color="blue" @click="dialog = false">Close</v-btn>
         </v-flex>
          <v-flex d-flex>
-          <v-btn outline color="primary" @click="addCat">Save</v-btn>
+          <v-btn  dark color="blue" @click="addCat">Save</v-btn>
         </v-flex>
         </v-layout>
         </v-container>
@@ -82,7 +112,32 @@
                     <v-flex md3 sm3 lg3 xs3 d-flex>
                       <v-text-field v-model="editedItem.icon" label="Icon" />
                     </v-flex>
+                    
+                     <v-flex xs12 sm6 offset-sm4>
+                  <v-img height="155" width="350" max-width="260px" :src="editedItem.Image"></v-img>
 
+                  <v-card
+                    flat
+                    color="#B0BEC5"
+                    @click="$refs.file.click()"
+                    ripple
+                    hover
+                    height="70"
+                    width="260"
+                    max-width="600px"
+                  >
+                    <form enctype="multipart/form-data">
+                      <div class="text-xs-center">
+                        <label class="button">
+                          <input type="file" ref="file" @change="selectFile" style="display:none" />
+                          <v-icon outline large>cloud_upload</v-icon>
+                          <h4>Upload photo</h4>
+                          <span v-if="file" class="file-name">{{file.name}}</span>
+                        </label>
+                      </div>
+                    </form>
+                  </v-card>
+                </v-flex>
                   
                      </v-layout>
                 </v-container>
@@ -93,12 +148,12 @@
 <v-container grid-list-md text-md-center fluid fill-height>
      
       <v-layout row wrap>
-        <v-flex d-flex class="button_1">
-         <v-btn outline outline-color="blue darken-1" flat @click="close">Cancel</v-btn>
+        <v-flex d-flex >
+         <v-btn dark color="blue"  @click="close">Cancel</v-btn>
         </v-flex>
 
-        <v-flex d-flex class="button_2">
-           <v-btn  outline color="blue darken-1" flat @click="editSave">Save</v-btn>
+        <v-flex d-flex >
+           <v-btn  dark color="blue"  @click="editSave">Save</v-btn>
         </v-flex>
         </v-layout>
        
@@ -172,7 +227,10 @@
               <td class="text-xs-center">{{ props.item.CID }}</td>
               <td class="text-xs-center">{{ props.item.CName }}</td>
               <td class="text-xs-center">{{ props.item.icon }}</td>
-              <td class="text-xs-center">{{ props.item.Images }}</td>
+              <td class="text-xs-center">{{ props.item.Image }}</td>
+                <td class="text-xs-left">
+                <v-img :src="props.item.Image"></v-img>
+              </td>
               <td class="justify-center layout px-0">
                 <v-icon
                   color="deep-purple darken-1"
@@ -221,12 +279,13 @@ export default {
       },
       selected: [],
       categoryItems: [],
-
+         file: "",
       headers: [
         { text: "Category ID", value: "CID" },
         { text: "Category Name", value: "CName" },
         { text: "Icon Code", value: "icon" },
         { text: "Image", value: "Image" },
+         { text: "Preview", value: "preview" },
         { text: "Action", value: "action" }
       ]
     };
@@ -249,7 +308,7 @@ export default {
     catItems() {
       this.deleted=false;
       axios
-        .get("http://localhost:8000/api/category")
+        .get(this.$baseUrl+"/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -262,11 +321,17 @@ export default {
     },
 
     addCat() {
+        const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      formData.append("CName", this.newCategory.CName);
+      formData.append("icon", this.newCategory.icon);
+      console.log( "this.newCategory.icon");
+
       let $Token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:8000/api/addCat?token=" + $Token,
-          this.newCategory
+          this.$baseUrl+"/addCat?token=" + $Token,formData
         )
         .then(response => {
            this.dialog = false;
@@ -281,7 +346,7 @@ export default {
       this.deleted=true;
       let $Token = localStorage.getItem("token");
       axios
-        .get("http://localhost:8000/api/deletedCategory?token="+$Token)
+        .get(this.$baseUrl+"/deletedCategory?token="+$Token)
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -322,7 +387,7 @@ export default {
 
         axios
           .post(
-            "http://localhost:8000/api/editCat/" +
+            this.$baseUrl+"/editCat/" +
               this.editedItem.CID +
               "?token=" +
               $Token,
@@ -346,7 +411,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/restoreCategory/" +
+            this.$baseUrl+"/restoreCategory/" +
               item.CID +
               "?token=" +
               $Token
@@ -361,6 +426,12 @@ export default {
       }
     },
 
+     selectFile(event){
+            this.file= this.$refs.file.files[0];
+            console.log(this.file.name);
+        },
+    
+
     deleteItem(item) {
       var result = confirm("Want to delete Category" + item.CID + "?");
       if (result) {
@@ -368,7 +439,7 @@ export default {
         let $Token = localStorage.getItem("token");
         axios
           .post(
-            "http://localhost:8000/api/deleteCategory/" +
+            this.$baseUrl+"/deleteCategory/" +
               item.CID +
               "?token=" +
               $Token
@@ -389,13 +460,6 @@ export default {
   }
 };
 </script>
-<style>
-.flex.button_1.d-flex {
- margin-left: 60px;
-}
-.flex.button_2.d-flex {
-    margin-right: 60px;
-}
-</style>
+
 
 

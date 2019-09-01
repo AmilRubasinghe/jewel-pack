@@ -1,8 +1,8 @@
 <template>
   <div>
     <navDrawer></navDrawer>
-    <br>
-<div class="container" v-bind:style="{ background: '#B0BEC5'}">
+    <br />
+    <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-card>
         <v-card-title>
           <h3>Sales Order Reports</h3>
@@ -22,6 +22,59 @@
           <v-btn fab dark color="blue" @click="report">
             <v-icon dark>refresh</v-icon>
           </v-btn>
+        </v-card-title>
+
+        <v-card-title>
+          <v-flex xs12 sm6 md6>
+            <v-menu
+              v-model="menu1"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="startDate"
+                  label="Start Date"
+                  prepend-icon="event"
+                  readonly
+                  v-on="on"
+                  name="startD"
+                ></v-text-field>
+              </template>
+              <v-date-picker :max="today" v-model="startDate" @input="menu1= false" landscape></v-date-picker>
+            </v-menu>
+          </v-flex>
+
+          <v-flex xs12 sm6 md6>
+            <v-menu
+              v-model="menu2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-validate="'after:'+startDate+'|date_format:yyyy-MM-dd'"
+                  data-vv-as="End day"
+                  name="endD"
+                  v-model="endDate"
+                  label="End Date"
+                  prepend-icon="event"
+                  readonly
+                  v-on="on"
+                  :error-messages="errors.collect('endD')"
+                ></v-text-field>
+              </template>
+              <v-date-picker :max="today" v-model="endDate" @input="menu2 = false" landscape></v-date-picker>
+            </v-menu>
+          </v-flex>
         </v-card-title>
 
         <!--
@@ -110,7 +163,15 @@ import autoTable from "jspdf-autotable";
 export default {
   data() {
     return {
+      date_limit: "2019-06-05",
       search: "",
+
+      startDate: "",
+      endDate: "",
+      menu1: false,
+      menu2: false,
+
+      allReports: [],
       reports: [],
       pagination: {
         sortBy: "oid"
@@ -135,13 +196,32 @@ export default {
     this.report();
   },
 
+  watch: {
+    // whenever keywords changes, this function will run
+    startDate: function() {
+      if (this.endDate) {
+        this.filterD();
+      }
+    },
+    endDate: function() {
+      if (this.startDate) {
+        this.filterD();
+      }
+    }
+  },
+
   methods: {
+    filterD() {
+      this.reports = this.dateFilter;
+    },
+
     report() {
       let $Token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/salesReport?token=" + $Token, {})
+        .get(this.$baseUrl + "/salesReport?token=" + $Token, {})
         .then(response => {
           this.reports = response.data.salesReport;
+          this.allReports = this.reports;
         })
         .catch(error => {
           console.log(error.response);
@@ -225,6 +305,13 @@ export default {
     }
   },
   computed: {
+
+ 
+
+    today: function() {
+      return new Date().toJSON();
+    },
+
     pages() {
       if (
         this.pagination.rowsPerPage == null ||
@@ -235,6 +322,18 @@ export default {
       return Math.ceil(
         this.pagination.totalItems / this.pagination.rowsPerPage
       );
+    },
+    dateFilter() {
+      var startDate = this.startDate;
+      var endDate = this.endDate;
+      return _.filter(this.allReports, function(data) {
+        if (_.isNull(startDate) && _.isNull(endDate)) {
+          return true;
+        } else {
+          var date = data.orderDate;
+          return date >= startDate && date <= endDate;
+        }
+      });
     }
   }
 };

@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import test from  './components/test.vue'
 
 import loginPage from  './components/loginPage.vue'
+import loginPage2 from  './components/loginPage2.vue'
 import reqResetPassword from  './components/request-resetPassword.vue'
 import resResetPassword from  './components/response-resetPassword.vue'
 import home from  './components/home.vue'
@@ -28,6 +29,8 @@ import checkForm from  './components/checkForm'
 import cart_totals from  './components/cart_totals'
 import cartView from  './components/cartView'
 import manageShippingMethod from './components/admin/manageShippingMethod'
+import myOrders from  './components/myOrders'
+import managehomeProduct from './components/adminEditor/managehomeProduct'
 
 
 import Store from './store.js'
@@ -78,6 +81,7 @@ const router = new VueRouter({
       
         {path:"/",component:home},
         {path:"/loginPage",beforeEnter: ShouldSkip,component:loginPage},
+        {path:"/loginPage2",beforeEnter: ShouldSkip,component:loginPage2},
         {path:"/response-password-reset",beforeEnter: ShouldSkip,component:resResetPassword},
         {path:"/request-password-reset",beforeEnter: ShouldSkip,component:reqResetPassword},
         {path:"/registerPage",beforeEnter: ShouldSkip,component:registerPage},
@@ -89,6 +93,7 @@ const router = new VueRouter({
         {path:"/cart_totals",component:cart_totals},
         {path:"/cartView",component:cartView},
         {path:"/profile",component:profile,meta:{requireAuth:true}},
+        {path:"/myOrders",component:myOrders,meta:{requireAuth:true}},
         {path:"/admin",component:adminPanel,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/products",component:manageProducts,meta:{requireAuth:true,roles: ['admin']}},
         {path:"/admin/users",component:manageUsers,meta:{requireAuth:true,roles: ['admin']}},
@@ -97,9 +102,10 @@ const router = new VueRouter({
         {path:"/admin/slideshow",component:manageSlideshow,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/category",component:manageCategory,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/lotQuantity",component:manageLotQuantity,meta:{requireAuth:true,roles: ['admin','editor']}},
+        {path:"/admin/homeProduct",component:managehomeProduct,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/admin/shippingMethod",component: manageShippingMethod ,meta:{requireAuth:true,roles: ['admin','editor']}},
         {path:"/test",component:test},
-        {path:"*",component:home},
+       // {path:"*",component:home},
         
         {path:"/contactus",component:contactus},
         {path:"/facebook",component:facebook},

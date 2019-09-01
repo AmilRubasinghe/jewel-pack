@@ -21,7 +21,7 @@ class ShippingmethodController extends Controller
         
         $table = new shippingmethod;
         $table->shipMethod = $request->input('method');
-     
+        $table->flatRate = $request->input('flatRate');
   
         $table->save();
   
@@ -36,6 +36,21 @@ class ShippingmethodController extends Controller
         shippingmethod::where(['shipId'=>$ShipId])->delete();
         
         return response()->json(['message'=>"Shipping method deleted succesfully !"]);
+      }
+
+      public function editShippingMethod(Request $request, $shipId){
+        $thisMethod=shippingmethod::findOrFail($shipId);
+        //$thisImage =slideshow::where('imageId', $imageId)->first();
+        $thisMethod->timestamps = false;
+        $thisMethod->shipId = $request->input('shipId');
+        $thisMethod->shipMethod = $request->input('shipMethod');
+        $thisMethod->flatRate = $request->input('flatRate');
+      
+        
+      
+        $thisMethod->save();
+        
+        return response()->json(['editedshippingmethod'=>$thisMethod,'message'=>"Shipping method edited succesfully !"]);
       }
 
    
