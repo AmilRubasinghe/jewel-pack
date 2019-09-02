@@ -21,7 +21,7 @@ Route::post('/login',[
     'uses'=>'UserController@loginUser'
 ]);*/
 
-
+/*
 Route::group([
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
@@ -32,6 +32,8 @@ Route::group([
     
 
 });
+*/
+
 
 Route::get('pay', 'PaymentController@payHerePost');
 
@@ -115,6 +117,9 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
     
     
 //SlideshowModuleRoutes
+
+Route::get('getMsg', 'ContactUsController@getAll');
+Route::post('saveMsg', 'ContactUsController@save');
 
 
 Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {

@@ -5,7 +5,8 @@
 <template>
   <v-app id="inspire">
     <v-content>
-      <v-container fluid fill-height  grid-list-md text-center>
+      <v-container fluid fill-height grid-list-md text-center>
+        <notification v-if="notify"  :message="notify" :type="status"></notification>
         <v-layout wrap>
           <v-flex xs12 sm12 md6 lg6>
             <v-card class="elevation-14">
@@ -16,7 +17,6 @@
                 <v-form @submit.prevent="registerUser">
                   <v-text-field
                     label="First Name"
-                    
                     prepend-icon="person"
                     type="text"
                     v-validate="'required'"
@@ -43,7 +43,7 @@
                     v-validate="'email|required'"
                     v-model="register.email"
                     data-vv-as="Email"
-                     :error-messages="errors.collect('email')"
+                    :error-messages="errors.collect('email')"
                   ></v-text-field>
 
                   <v-text-field
@@ -72,13 +72,13 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="#FFAB00" @click='registerUser'>Register</v-btn>
+                <v-btn color="#FFAB00" @click="registerUser">Register</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
           <v-flex xs12 sm12 md6 lg6>
             <v-card height="400">
-                <div id="my-signin2"></div>
+              <div id="my-signin2"></div>
             </v-card>
           </v-flex>
         </v-layout>
@@ -91,6 +91,7 @@
 import alert from "./alert.vue";
 import axios from "axios";
 import Store from "../store.js";
+import notification from "./notification.vue";
 export default {
   data() {
     return {
@@ -101,43 +102,51 @@ export default {
         password: "",
         confirm_password: ""
       },
-      alert: ""
+      alert: "",
+      notify:'',
+      status:'',
+
     };
   },
 
-   mounted() {
+  mounted() {
     this.renderButton();
   },
   components: {
-    alert
+    alert,
+    notification
   },
   methods: {
     registerUser() {
-      this.$validator.validateAll();
+      this.notify='';
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
 
-      Store.commit("setEmailToVerify", this.register.email);
-      if (!this.errors.any()) {
-        axios
-          .post(this.$baseUrl+"/register", this.register, {})
-          .then(response => {
-            //console.log(response.data.message);
-            this.$router.push({
-              path: "/loginPage",
-              query: {
-                alert: response.data.message,
-                snack: response.data.snack
-              }
+        Store.commit("setEmailToVerify", this.register.email);
+        if (!this.errors.any()) {
+          axios
+            .post(this.$baseUrl + "/register", this.register, {})
+            .then(response => {
+              //console.log(response.data.message);
+              this.$router.push({
+                path: "/loginPage",
+                query: {
+                  alert: response.data.message,
+                  snack: response.data.snack
+                }
+              });
+            })
+            .catch(error => {
+              this.notify = error.response.data.message;
+              this.status = 0;
+              console.log(error.response.data.message);
+              console.log("ERROR");
             });
-          })
-          .catch(error => {
-            console.log(error.response);
-            console.log("ERROR");
-          });
-      }
+        }
+      });
     },
-
- 
-
 
     onSuccess(googleUser) {
       // console.log(googleUser.getAuthResponse().id_token);

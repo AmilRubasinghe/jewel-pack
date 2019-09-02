@@ -107,7 +107,7 @@ const router = new VueRouter({
         {path:"/test",component:test},
        // {path:"*",component:home},
         
-        {path:"/contactus",component:contactus},
+        {path:"/contact",component:contactus},
         {path:"/facebook",component:facebook},
 
 

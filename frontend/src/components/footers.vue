@@ -93,7 +93,7 @@
         { title: "My Account", path: "profile" },
        
         { title: "About Us", path: "" },
-        { title: "Contact Us", path: "profile" },
+        { title: "Contact Us", path: "contact" },
       ],
       icons: [
        

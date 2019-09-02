@@ -2,10 +2,17 @@
   <v-app id="inspire">
     <v-content>
       <v-container grid-list-md text-xs-center>
+        <alert v-if="alert" v-bind:message="alert" />
+        <notification v-if="notify" :message="notify" :type="status"></notification>
+        <v-snackbar v-if="snack" v-model="snackActive" bottom center multi-line :timeout="0">
+        {{ snack }}
+        <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
+        <v-btn flat color="red" @click="snackActive=!snackActive">Close</v-btn>
+      </v-snackbar>
         <v-layout row wrap align-center>
           <v-flex xs12 sm12 md6>
-            <v-card class="card-5" height=400>
-              <v-toolbar color='primary' dark flat>
+            <v-card class="card-5" height="400">
+              <v-toolbar color="primary" dark flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -15,14 +22,10 @@
                     name="Email"
                     prepend-icon="email"
                     type="email"
-                    v-validate="'required'"
+                    v-validate="'email|required'"
                     v-model="login.email"
+                    :error-messages="errors.collect('Email')"
                   ></v-text-field>
-
-                  <div
-                    v-show="errors.has('email')"
-                    class="help block alert alert-danger"
-                  >{{ errors.first('email') }}</div>
 
                   <v-text-field
                     id="password"
@@ -30,39 +33,27 @@
                     name="password"
                     prepend-icon="lock"
                     type="password"
-                    v-validate="'required'"
+                    v-validate="'required|min:6'"
                     v-model="login.password"
+                    :error-messages="errors.collect('password')"
                   ></v-text-field>
-
-                  <div
-                    v-show="errors.has('password')"
-                    class="help block alert alert-danger"
-                  >{{ errors.first('password') }}</div>
                 </v-form>
               </v-card-text>
-              
-                
-                <v-btn color="#FFAB00" @click="loginUser">Login</v-btn>
-              
-                    
-                  <v-divider></v-divider>
-                 <div class="my-signin2" id="my-signin2"></div>
-              
+
+              <v-btn color="#FFAB00" @click="loginUser">Login</v-btn>
+
+              <v-divider></v-divider>
+              <div class="my-signin2" id="my-signin2"></div>
             </v-card>
           </v-flex>
           <v-flex xs12 sm12 md6>
-
-            
-            
-                  <v-card height="300" class="card-5">
-                    <v-toolbar light flat >
+            <v-card height="300" class="card-5">
+              <v-toolbar light flat>
                 <v-toolbar-title>Already have an account</v-toolbar-title>
               </v-toolbar>
-                    
-                    <div class="my-signin2" id="my-signin2"></div>
-                  </v-card>
-                
-            
+
+              <div class="my-signin2" id="my-signin2"></div>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -74,6 +65,7 @@
 import alert from "./alert.vue";
 import axios from "axios";
 import Store from "../store.js";
+import notification from "./notification.vue";
 export default {
   data() {
     return {
@@ -91,11 +83,12 @@ export default {
       snackActive: false,
 
       notify: "",
-      status: 2
+      status: ""
     };
   },
   components: {
-    alert
+    alert,
+    notification
   },
   created() {
     if (this.$route.query.alert) {
@@ -133,37 +126,46 @@ export default {
     },
 
     loginUser() {
-      axios
-        .post(this.$baseUrl + "/login", this.login, {})
-        .then(response => {
-          this.alert = response.data.message;
+      this.notify = "";
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
 
-          this.snackActive = true;
-          this.snack = response.data.snack;
+        axios
+          .post(this.$baseUrl + "/login", this.login, {})
+          .then(response => {
+            this.alert = response.data.message;
 
-          let $token = response.data.token;
+            this.snackActive = true;
+            this.snack = response.data.snack;
 
-          this.$store.dispatch("setUser", null);
-          if ($token) {
-            console.log($token);
-            localStorage.setItem("token", $token);
-            //console.log(response.data.role);
+            let $token = response.data.token;
 
-            this.$store.dispatch("setUser", response.data.user);
-            // console.log("User");
-            //  console.log(this.$store.state.user);
-            // console.log(Store.getters.role);
-            if (response.data.role == "admin") {
-              this.$router.push("/admin");
-            } else {
-              this.$router.push("/profile");
+            this.$store.dispatch("setUser", null);
+            if ($token) {
+              console.log($token);
+              localStorage.setItem("token", $token);
+              //console.log(response.data.role);
+
+              this.$store.dispatch("setUser", response.data.user);
+              // console.log("User");
+              //  console.log(this.$store.state.user);
+              // console.log(Store.getters.role);
+              if (response.data.role == "admin") {
+                this.$router.push("/admin");
+              } else {
+                this.$router.push("/profile");
+              }
             }
-          }
-        })
-        .catch(error => {
-          console.log(error.response);
-          console.log("ERROR");
-        });
+          })
+          .catch(error => {
+            this.notify = error.response.data.message;
+            this.status = 0;
+            console.log(error.response);
+            console.log("ERROR");
+          });
+      });
     },
 
     onSuccess(googleUser) {
@@ -217,7 +219,7 @@ export default {
         longtitle: true,
         theme: "dark",
         onsuccess: this.onSuccess,
-        onfailure: this.onFailure,
+        onfailure: this.onFailure
       });
     },
 
@@ -257,19 +259,19 @@ app-root {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-.my-signin2{
+.my-signin2 {
   width: 100%;
 }
 
-.my-signin2 > div{
+.my-signin2 > div {
   margin: 0 auto;
 }
 
-.g-signin2{
+.g-signin2 {
   width: 100%;
 }
 
-.g-signin2 > div{
+.g-signin2 > div {
   margin: 0 auto;
 }
 </style>

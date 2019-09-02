@@ -131,7 +131,7 @@ class userController extends Controller
 
         if(!$token=JWTAuth::attempt($data)){
         //    if ($token = $this->guard()->attempt($data)) {
-                return response()->json(['message'=>'Email or Password you entered is incorrect !'],200);
+                return response()->json(['message'=>'Email or Password you entered is incorrect !'],422);
         }
         
         $user =auth()->user();

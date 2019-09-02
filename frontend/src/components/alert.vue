@@ -2,9 +2,8 @@
     
  <v-alert
       :value="true"
-      color="yellow"
+      color="error"
       icon="warning"
-      outline
       transition="scale-transition"
       
     >
