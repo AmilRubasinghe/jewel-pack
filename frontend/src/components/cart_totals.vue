@@ -4,6 +4,10 @@
     <v-app id="inspire">
     <v-container fluid grid-list-md>
         <h3 style="color:#FFCA28;">Your Bill</h3>
+        <div class="my-2">
+        <v-btn text small color="amber" @click="download">download
+          </v-btn>
+        </div>
   <v-form method="post" action="https://sandbox.payhere.lk/pay/checkout" target="_blank">
     <table class="datatable table">
       <tbody>
@@ -34,6 +38,19 @@
           <td><br>Address:</td>
           <td class="sm-only-text-right"><br>
             <input type="text" name="address" v-model="checkoutDetails.address">
+          </td>
+        </tr>
+
+         <tr>
+          <td><br>City:</td>
+          <td class="sm-only-text-right"><br>
+            <input type="text" name="city" v-model="checkoutDetails.city">
+          </td>
+        </tr>
+        <tr>
+        <td><br>country:</td>
+          <td class="sm-only-text-right"><br>
+            <input type="text" name="country" v-model="checkoutDetails.country">
           </td>
         </tr>
 
@@ -116,6 +133,9 @@
 
 <script>
 import axios from 'axios';
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import autoTable from "jspdf-autotable";
 
 export default {
     
@@ -130,14 +150,24 @@ export default {
             first_name:"",
             last_name:"",
             address:"",
+            city:"",
             email:"",
             order_id:"",
             phone:"",
             items : "Gem Boxes",
             currency : "LKR",
-            amount :"",  
+            amount :"",
+            country:"Sri Lanka",  
             custom_1: this.email
          },
+
+         headers:[
+            { text: "Order ID", value: "order_id" },
+            { text: "Customer Name", value: "first_name" },
+            { text: "Customer Email", value: "email" },
+            { text: "contact No", value: "phone" },
+            { text: "Tot Price", value: "amount" }
+         ]
          
        }
     },
@@ -192,6 +222,7 @@ export default {
           this.checkoutDetails.order_id=response.data.printOrder.OID;
           this.checkoutDetails.phone=response.data.printOrder.contactNo;
           this.checkoutDetails.address=response.data.printOrder.deliveryAddress;
+          this.checkoutDetails.city=response.data.printOrder.deliveryAddress;
           console.log(this.email);
         })
         .catch(error => {
@@ -221,6 +252,63 @@ export default {
 
            
         }*/
+
+      downloadWithCSS() {
+      const doc = new jsPDF();
+      /** WITH CSS */
+      var canvasElement = document.createElement("canvas");
+      html2canvas(this.$refs.content, { canvas: canvasElement }).then(function(
+        canvas
+      ) {
+        const img = canvas.toDataURL("image/png");
+        doc.addImage(img, "JPEG", 20, 20);
+        doc.save("sample.pdf");
+      });
+    },
+
+     download() {
+      var vm = this;
+      var columns = [
+        { title: "Order_ID", datakey: " order_id" },
+        { title: "Customer_Name", datakey: "first_name" },
+        { title: "Customer_Email", datakey: "email" },
+        { title: "contact_No", datakey: "phone" },
+        { title: "Tot_Price", datakey: "amount" }
+      ];
+
+      var rows = [];
+
+      for (var item in this.checkoutDetails) {
+        // console.log("Item.oid");
+        // console.log(this.reports[item]);
+        var temp = [
+          this.checkoutDetails[item].order_id,
+          this.checkoutDetails[item].first_name,
+          this.checkoutDetails[item].email,
+          this.checkoutDetails[item].phone,
+          this.checkoutDetails[item].amount
+        ];
+        rows.push(temp);
+      }
+
+      var doc = new jsPDF("p", "pt");
+      doc.setFontSize(18);
+      doc.setTextColor(40);
+      doc.setFontStyle("normal");
+      doc.text("Invoice", 50, 25);
+      doc.autoTable(columns, rows);
+      doc.save("invoice.pdf");
+      /*
+        const doc = new jsPDF();
+      
+      var canvasElement = document.createElement('canvas');
+      html2canvas(this.$refs.content, { canvas: canvasElement }).then(function (canvas) {
+        const img = canvas.toDataURL("image/png");
+        doc.addImage(img,'JPEG',20,20);
+        doc.save("sample.pdf");
+      });
+    */
+    }
 }
 }
 </script>
