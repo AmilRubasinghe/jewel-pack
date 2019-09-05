@@ -4,6 +4,7 @@
       :value="true"
       color="error"
       icon="warning"
+      outline
       transition="scale-transition"
       
     >

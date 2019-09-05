@@ -107,13 +107,13 @@
                             @input="remove(item)"
                           >
                             <strong>{{item.shipMethod}}</strong>
-&nbsp;
+                            &nbsp;
                           </v-chip>
                         </template>
                       </v-combobox>
                     </v-flex>
 
-                     <v-flex md6 sm12 lg6 xs12 d-flex >
+                    <v-flex md6 sm12 lg6 xs12 d-flex>
                       <v-text-field
                         input-type="number"
                         v-model="newProduct.slashedPrice"
@@ -126,22 +126,20 @@
                         onkeydown="javascript: return event.keyCode == 69 ? false : true"
                       />
                     </v-flex>
-
-                     
-                  </v-layout> 
-                   </v-flex > 
-                     <v-flex md3 sm12 lg3 xs12 d-flex>
-                       <v-checkbox
-                        v-model="newProduct.border"
-                        v-validate="'required'"
-                        :error-messages="errors.collect('checkbox')"
-                        value="1"
-                        label="Gold border"
-                        data-vv-name="checkbox"
-                        type="checkbox"
-                        required
-                      ></v-checkbox>
-                    </v-flex>
+                  </v-layout>
+                </v-flex>
+                <v-flex md3 sm12 lg3 xs12 d-flex>
+                  <v-checkbox
+                    v-model="newProduct.border"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('checkbox')"
+                    value="1"
+                    label="Gold border"
+                    data-vv-name="checkbox"
+                    type="checkbox"
+                    required
+                  ></v-checkbox>
+                </v-flex>
 
                 <v-flex d-flex>
                   <v-layout row wrap justify-center>
@@ -476,7 +474,7 @@
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.slashedPrice }}</td>
-              
+
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
 
@@ -488,7 +486,6 @@
                   class="mr-2"
                   @click="AddQuantity(props.item)"
                 >add_box</v-icon>
-                
 
                 <v-icon
                   color="deep-purple darken-1"
@@ -578,8 +575,8 @@ export default {
         border: 0,
         image: "",
         cid: "",
-        slashedPrice:"",
-        shipMethod:[],
+        slashedPrice: "",
+        shipMethod: []
       },
 
       newLotQuantity: {
@@ -622,7 +619,7 @@ export default {
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
         { text: "Slashed Price", value: "slashedPrice" },
-       
+
         { text: "Details", value: "description" },
         { text: "Border", value: "border" },
 
@@ -684,7 +681,7 @@ export default {
 
     catItems() {
       axios
-        .get(this.$baseUrl+"/category")
+        .get(this.$baseUrl + "/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -698,7 +695,7 @@ export default {
 
     lotItems() {
       axios
-        .get(this.$baseUrl+"/getLot")
+        .get(this.$baseUrl + "/getLot")
         .then(response => {
           response.data.lotItems.forEach(element => {
             this.lotItem.push(element);
@@ -732,14 +729,10 @@ export default {
       this.file = this.$refs.file.files[0];
 
       let $Token = localStorage.getItem("token");
-    
     },
 
     addProduct() {
-      
-    
-
-    /*  axios
+      /*  axios
 
         .post(this.$baseUrl+"/test",{
 
@@ -792,22 +785,20 @@ export default {
       // this.newProduct.image = formData;*/
 
       let $Token = localStorage.getItem("token");
-  
-      axios
-        .post(this.$baseUrl+"/addProduct?token=" + $Token,{
-              file:this.file,
-              details: this.newProduct.details,
-              price: this.newProduct.price,
-              slashedPrice: this.newProduct.slashedPrice,
-              size: this.newProduct.size,
-              border: this.newProduct.border,
-              colour: this.newProduct.colour,
-              cid: this.newProduct.cid,
-              method: this.newProduct.shipMethod,
-            
 
+      axios
+        .post(this.$baseUrl + "/addProduct?token=" + $Token, {
+          file: this.file,
+          details: this.newProduct.details,
+          price: this.newProduct.price,
+          slashedPrice: this.newProduct.slashedPrice,
+          size: this.newProduct.size,
+          border: this.newProduct.border,
+          colour: this.newProduct.colour,
+          cid: this.newProduct.cid,
+          method: this.newProduct.shipMethod
         })
-       
+
         .then(response => {
           console.log(response.data);
           this.dialog = false;
@@ -824,7 +815,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get(this.$baseUrl+"/products")
+        .get(this.$baseUrl + "/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -840,7 +831,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl+"/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -877,10 +868,9 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
-      this.newProduct.slashedPrice="";
-      
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
+      this.newProduct.slashedPrice = "";
     },
 
     clearQuntity() {
@@ -895,9 +885,9 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
-      this.newProduct.slashedPrice="";
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
+      this.newProduct.slashedPrice = "";
       this.dialog = true;
     },
 
@@ -908,7 +898,8 @@ export default {
 
         axios
           .post(
-            this.$baseUrl+"/editProduct/" +
+            this.$baseUrl +
+              "/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -933,47 +924,88 @@ export default {
     },
 
     deleteItem(item) {
-      var result = confirm("Want to delete product" + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/deleteProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      //var result = confirm("Want to delete product" + item.PID + "?");
+
+      this.$dialog
+        .confirm("Delete the selected product?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Product succesfully Deleted");
-          });
-      }
+              this.productItems();
+             // alert("Product succesfully Deleted");
+
+              this.$dialog.alert("Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     restoreItem(item) {
-      var result = confirm("Want to restore " + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/restoreProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Restore the selected file?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Restore!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Succesfully Restored");
-          });
-      }
+              this.productItems();
+            //  alert("Succesfully Restored");
+              this.$dialog.alert("Succesfully Restored!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     selectFile(event) {
@@ -986,40 +1018,40 @@ export default {
       this.showQuantity = true;
     },
 
-   
     DeleteQuntity() {
-       var result = confirm("Want to delete lot in product " + this.editedItem.PID + "?");
+      var result = confirm(
+        "Want to delete lot in product " + this.editedItem.PID + "?"
+      );
       if (result) {
         const formData = new FormData();
 
-      formData.append("lid", this.newLotQuantity.lot);
-      formData.append("pid", this.editedItem.PID);
-      formData.append("quantity", this.TotallotQuantity);
-      console.log("**************************");
-      console.log(this.newLotQuantity.lot);
-      console.log(this.editedItem.PID);
-      console.log(this.TotallotQuantity);
+        formData.append("lid", this.newLotQuantity.lot);
+        formData.append("pid", this.editedItem.PID);
+        formData.append("quantity", this.TotallotQuantity);
+        console.log("**************************");
+        console.log(this.newLotQuantity.lot);
+        console.log(this.editedItem.PID);
+        console.log(this.TotallotQuantity);
 
         //Logic to delete the item
         let $Token = localStorage.getItem("token");
         axios
-          .post(
-            this.$baseUrl+"/deleteProductLot?token=" + $Token,
-          formData
-          )
+          .post(this.$baseUrl + "/deleteProductLot?token=" + $Token, formData)
           .then(response => {
             this.showQuantity = false;
             /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
             this.productItems();
-            alert("Product lot qunantity succesfully Deleted");
+        //    alert("Product lot qunantity succesfully Deleted");
+            this.$dialog.alert("Product Lot Qunantity Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
           });
       }
     },
-
-
-  
 
     SaveQuntity() {
       const formData = new FormData();
@@ -1037,10 +1069,7 @@ export default {
       let $Token = localStorage.getItem("token");
 
       axios
-        .post(
-          this.$baseUrl+"/addProductLot?token=" + $Token,
-          formData
-        )
+        .post(this.$baseUrl + "/addProductLot?token=" + $Token, formData)
         .then(response => {
           this.showQuantity = false;
           this.productItems();

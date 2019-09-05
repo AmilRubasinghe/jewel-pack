@@ -40,10 +40,10 @@ Route::get('logout',['uses'=>'UserController@logoutUser',
 */
 Route::get('verifyEmailFirst',['uses'=>'UserController@verifyEmailFirst',
     'as' => 'verifyEmail']);
-
+/*
 Route::get('verify/{email}/{verifyToken}',['uses'=>'UserController@sendEmailDone',
     'as' => 'sendEmailDone']);
-
+*/
 	/*
 Route::get('loginPage',['uses'=>'UserController@loginPage',
     'as' => 'loginPage']);

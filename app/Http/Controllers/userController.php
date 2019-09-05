@@ -109,10 +109,10 @@ class userController extends Controller
 	    $user = User::where(['email'=>$email,'verifyToken'=>$verifyToken])->first();
 	    if($user){
 	        user::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['emailStatus'=>'1','verifyToken'=>Null]);
-            return redirect('http://localhost:8080/loginPage')->with('responseReg','Registration & verification Completed');
+            return redirect(url('/').'/loginPage')->with('responseReg','Registration & verification Completed');
             
         }else{
-            return redirect('http://localhost:8080/loginPage')->with('responseVerifyErr','User Not Found');
+            return redirect(url('/').'/loginPage')->with('responseVerifyErr','User Not Found');
         }
 
     }

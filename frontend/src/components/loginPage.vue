@@ -1,64 +1,75 @@
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container grid-list-md text-xs-center>
+  <div>
+    
+      <v-container>
         <alert v-if="alert" v-bind:message="alert" />
         <notification v-if="notify" :message="notify" :type="status"></notification>
         <v-snackbar v-if="snack" v-model="snackActive" bottom center multi-line :timeout="0">
-        {{ snack }}
-        <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
-        <v-btn flat color="red" @click="snackActive=!snackActive">Close</v-btn>
-      </v-snackbar>
-        <v-layout row wrap align-center>
-          <v-flex xs12 sm12 md6>
-            <v-card class="card-5" height="400">
-              <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>Login</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form @submit.prevent="loginUser">
-                  <v-text-field
-                    label="Email"
-                    name="Email"
-                    prepend-icon="email"
-                    type="email"
-                    v-validate="'email|required'"
-                    v-model="login.email"
-                    :error-messages="errors.collect('Email')"
-                  ></v-text-field>
+          {{ snack }}
+          <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
+          <v-btn flat color="red" @click="snackActive=!snackActive">Close</v-btn>
+        </v-snackbar>
+      </v-container>
 
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="lock"
-                    type="password"
-                    v-validate="'required|min:6'"
-                    v-model="login.password"
-                    :error-messages="errors.collect('password')"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
+      <v-container grid-list-md text-lg-center>
+        <v-layout justify-center>
+          <v-flex lg9 md9 sm12 xs12>
+            <v-card class="card-5">
+              <v-card-title class="justify-center">
+                <h3 color="primary">Sign In</h3>
+              </v-card-title>
+              <v-divider class="mx-5 justify-center v-divider-1"></v-divider>
+              <v-layout row wrap align-center justify-center>
+                <v-flex>
+                  <v-card-text>
+                    <v-form @submit.prevent="loginUser">
+                      <v-text-field
+                        label="Email"
+                        name="Email"
+                        prepend-icon="email"
+                        type="email"
+                        v-validate="'email|required'"
+                        v-model="login.email"
+                        :error-messages="errors.collect('Email')"
+                      ></v-text-field>
 
-              <v-btn color="#FFAB00" @click="loginUser">Login</v-btn>
+                      <v-text-field
+                        id="password"
+                        label="Password"
+                        name="password"
+                        prepend-icon="lock"
+                        type="password"
+                        v-validate="'required|min:6'"
+                        v-model="login.password"
+                        :error-messages="errors.collect('password')"
+                      ></v-text-field>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions class="justify-center">
+                    <v-btn block color="#FFAB00" @click="loginUser">Login</v-btn>
+                  </v-card-actions>
+                </v-flex>
+                <v-divider class="mx-3 align-center hidden-sm-and-down" vertical></v-divider>
 
-              <v-divider></v-divider>
-              <div class="my-signin2" id="my-signin2"></div>
-            </v-card>
-          </v-flex>
-          <v-flex xs12 sm12 md6>
-            <v-card height="300" class="card-5">
-              <v-toolbar light flat>
-                <v-toolbar-title>Already have an account</v-toolbar-title>
-              </v-toolbar>
+                <v-flex lg6 md6 sm12 xs12>
+                  <v-divider class="mx-3 align-center hidden-md-and-up">
+                  </v-divider>
+                  <div class="my-signin2" id="my-signin2"></div>
 
-              <div class="my-signin2" id="my-signin2"></div>
+                  <v-card-title class="justify-center">
+                    <h4>or</h4>
+                  </v-card-title>
+
+                  <v-btn block dark color="red" to="registerPage">Create an account</v-btn>
+                  <v-btn block dark color="green" to="home">Continue as guest</v-btn>
+                </v-flex>
+              </v-layout>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
-    </v-content>
-  </v-app>
+    
+  </div>
 </template>
 
 <script>
@@ -214,8 +225,8 @@ export default {
     renderButton() {
       gapi.signin2.render("my-signin2", {
         scope: "profile email",
-        width: 240,
-        height: 50,
+        width: 200,
+        height: 40,
         longtitle: true,
         theme: "dark",
         onsuccess: this.onSuccess,
@@ -274,4 +285,13 @@ app-root {
 .g-signin2 > div {
   margin: 0 auto;
 }
+
+.v-divider-1 {
+  display: block !important;
+  flex: 1 1 0px !important;
+  max-width: 100% !important;
+  border: solid !important;
+  border-width: thin 0 0 0 !important;
+}
+
 </style>

@@ -47,6 +47,9 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('test', 'CategoryController@test');
 
 
+	
+    Route::get('verify/{email}/{verifyToken}',['uses'=>'userController@sendEmailDone',
+    'as' => 'sendEmailDone']);
 
 
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
@@ -109,7 +112,7 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         Route::post('editUser', 'userController@editUser');
         Route::post('deleteUser/{id}', 'userController@deleteUser');
         Route::post('restoreUser/{id}', 'userController@restoreUser');
-        Route::get('salesReport', 'salesReport@getReport');
+        Route::get('salesReport', 'salesReportController@getReport');
         
         
     });

@@ -4,8 +4,6 @@
     <br />
 
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-     
-
       <v-dialog v-model="showModal" max-width="1200">
         <v-card>
           <v-card-title>
@@ -160,7 +158,6 @@ export default {
       snackbar: false,
       message: "",
 
-      
       showModal: false,
       editedIndex: -1,
       editedItem: {},
@@ -229,7 +226,7 @@ export default {
       (this.table_title = "Active Users"), (this.deletedUsers = false);
       let $Token = localStorage.getItem("token");
       axios
-        .get(this.$baseUrl+"/users?token=" + $Token)
+        .get(this.$baseUrl + "/users?token=" + $Token)
         .then(response => {
           this.users = response.data.users;
         })
@@ -243,7 +240,7 @@ export default {
       (this.table_title = "Deleted Users"), (this.deletedUsers = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl+"/deletedUsers?token=" + $Token)
+        .post(this.$baseUrl + "/deletedUsers?token=" + $Token)
         .then(response => {
           this.users = response.data.users;
 
@@ -280,47 +277,89 @@ export default {
     },
 
     deleteItem(item) {
-      var result = confirm("Want to delete " + item.firstName + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/deleteUser/" +
-              item.ID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Want to delete user " + item.firstName + "?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(this.$baseUrl + "/deleteUser/" + item.ID + "?token=" + $Token)
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.getUsers();
-            alert("Succesfully Deleted");
-          });
-      }
+              this.getUsers();
+              // alert("Succesfully Deleted");
+
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     restoreItem(item) {
-      var result = confirm("Want to restore " + item.firstName + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/restoreUser/" +
-              item.ID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Want to restore user " + item.firstName + "?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Restore!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/restoreUser/" + item.ID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.getDeletedUsers();
-            alert("Succesfully Restored");
-          });
-      }
+              this.getDeletedUsers();
+              //  alert("Succesfully Restored");
+
+              this.$dialog
+                .alert("Succesfully Restored!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
     save() {
       let $Token = localStorage.getItem("token");
@@ -330,10 +369,7 @@ export default {
         console.log(this.editedItem);
 
         axios
-          .post(
-            this.$baseUrl+"/editUser/?token=" + $Token,
-            this.editedItem
-          )
+          .post(this.$baseUrl + "/editUser/?token=" + $Token, this.editedItem)
 
           .then(response => {
             this.showModal = false;
