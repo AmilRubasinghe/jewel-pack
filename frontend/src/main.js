@@ -18,23 +18,32 @@ import Vuetify from 'vuetify'
 // index.js or main.js
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 Vue.use(Vuetify)
+Vue.prototype.$vuetify.theme = {
+  primary: '#CD853F',
+  secondary: '#FFAB00',
+  accent: '#8c9eff',
+  error: '#E65100'
+};
 
-
-
-import responsive from 'vue-responsive'
-Vue.use(responsive)
-
-import Snotify from 'vue-snotify'; 
+import Snotify from 'vue-snotify/vue-snotify.min.js'
 Vue.use(Snotify)
-
-
 
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
 
+import { VueSpinners } from '@saeris/vue-spinners'
+Vue.use(VueSpinners)
+
+/*
 Vue.prototype.$baseUrl = 'http://localhost:8000/api';
 Vue.prototype.$url = 'http://localhost:8000/';
+*/
+
+
+Vue.prototype.$baseUrl = 'https://jewelpack.tk/api';
+Vue.prototype.$url = 'https://jewelpack.tk/';
+
 
 new Vue({
   el: '#app',

@@ -5,7 +5,7 @@
         <v-layout row wrap align-center>
           <v-flex xs12 sm12 md6>
             <v-card class="card-5" height=400>
-              <v-toolbar color="primary" dark flat>
+              <v-toolbar color='primary' dark flat>
                 <v-toolbar-title>Login</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
@@ -42,7 +42,7 @@
               </v-card-text>
               
                 
-                <v-btn color="blue" @click="loginUser">Login</v-btn>
+                <v-btn color="#FFAB00" @click="loginUser">Login</v-btn>
               
                     
                   <v-divider></v-divider>
@@ -55,7 +55,7 @@
             
             
                   <v-card height="300" class="card-5">
-                    <v-toolbar light flat>
+                    <v-toolbar light flat >
                 <v-toolbar-title>Already have an account</v-toolbar-title>
               </v-toolbar>
                     

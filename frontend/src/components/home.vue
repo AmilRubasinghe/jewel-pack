@@ -26,9 +26,14 @@
         </v-flex>
 
         <v-flex v-for="(item, i) in categorys" :key="i" d-flex xs12 sm6 md3>
+<<<<<<< HEAD
           <v-card class="card category card-5" color="grey lighten-4"  max-width="330"
                        max-height="460">
             <v-img position=center :aspect-ratio="3.9/4.1" :src="item.image" ></v-img>
+=======
+          <v-card class="card category card-5" color="grey lighten-4" width="300" height="423">
+            <v-img position=center :aspect-ratio="3.8/4.5" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/loader.gif"></v-img>
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
             <v-card-text>
               <h4 style="color:#8D6E63" class="ab subtitle-2 headline mb-1" justify-center>{{item.name}}</h4>
             </v-card-text>
@@ -74,7 +79,11 @@
       <v-flex xs12 sm12 md6 lg7>
         <v-parallax
           height="600"
+<<<<<<< HEAD
           src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+=======
+          src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
           lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
         >
           <v-layout align-center column justify-center>
@@ -111,10 +120,14 @@
           <v-card class="card product" color="blue-grey lighten-3" max-width="500">
             
             <div class="image-box">
+<<<<<<< HEAD
               <v-img :aspect-ratio="3/3.1" :src="item.Image"  class="image"></v-img>
                  <div class="middle content">
                              <div class="text">{{item.Size}}&nbsp;{{item.Colour}}&nbsp;Colour Box </div>
                         </div>            
+=======
+              <v-img :aspect-ratio="3/3.1" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"></v-img>
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
             </div>
           </v-card>
         </v-flex>
@@ -124,7 +137,11 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
+<<<<<<< HEAD
       src="https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg"
+=======
+      src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -175,22 +192,60 @@ export default {
   data() {
     return {
       slideshowItems: [],
+<<<<<<< HEAD
        selectedProducts:[],
      
       categorys: [
         {
           image:
             "http://localhost:8000/storage/product/1566405169-1.jpeg",
+=======
+      items: [
+        {
+          image:
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+        },
+
+        {
+          image:
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+        },
+
+        {
+          image: "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+        },
+        {
+          image:
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+        },
+        {
+          image:
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg"
+        }
+      ],
+      categorys: [
+        {
+          image:
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
           name: "Gem boxes"
         },
         {
           image:
+<<<<<<< HEAD
             "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+=======
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
           name: "Jewellery boxes"
         },
         {
           image:
+<<<<<<< HEAD
             "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+=======
+            "https://jewelpack.tk/storage/product/1566404772-1.jpeg",
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
           name: "Gem boxes"
         }
       ]
@@ -414,6 +469,7 @@ h4.ab.subtitle-2.headline.mb-1 {
     font-family: "Eagle Lake", cursive;
     font-size: 23px;
   }
+<<<<<<< HEAD
 }
 .image {
   opacity: 1;
@@ -456,4 +512,7 @@ h4.ab.subtitle-2.headline.mb-1 {
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
+=======
+}
+>>>>>>> 98a8c0b6662f77dd68a42fdb1bc78a2c41c0000a
 </style>
