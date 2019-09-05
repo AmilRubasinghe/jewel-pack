@@ -20,12 +20,9 @@ class CategoryController extends Controller
     }
 
     public function addCat(Request $request){
-        //  return $request->input('data');
-          //return $request->input('size');
-    
-        //  $image = $request->file('file');
-          //$filename = time().'-'.$image->getClientOriginalName();
-          // $image->storeAs('public/product',$filename);
+      
+        
+
           $image = $request->file('file');
           $filename = time().'-'.$image->getClientOriginalName();
            $image->storeAs('public/catagory',$filename);
@@ -80,4 +77,54 @@ public function restoreCategory($CID){
     category::where(['CID'=>$CID])->update(['isDeleted'=>'0']);
     return response()->json(['message'=>"Category restored!"]);
   }
+
+
+public function editCat(Request $request, $CID){
+
+  
+
+ 
+  $thisCat=category::findOrFail($CID);
+ // if ( $request->file('file')) {
+  $image_path = category::where('CID', $CID)->first()->ImageName;
+  //return  $image_path;
+ // $dell = category::select(['ImageName','Image'])->where('CID', $CID)->get();
+//$dell->delete();
+ // $table = category::where('CID', $CID)->delete(['ImageName']);
+ // return $dell;
+  \Storage::delete('public/catagory/'.$image_path);
+  
+  //return ('public/catagory/'.$image_path);
+ 
+  $image = $request->file('file');
+  $filename = time().'-'.$image->getClientOriginalName();
+  $image->storeAs('public/catagory',$filename);
+    
+ 
+  //}
+    
+     $thisCat->CName = $request->input('CName');
+
+   
+
+  if ($request->input('icon')) {
+    $thisCat->icon = $request->input('icon');
+  } else{
+    $thisCat->icon = "local_mall";
+  }
+  $thisCatImage = url('/').'/storage/catagory/'.$filename;
+  $action = category::where('CID', $CID)
+    ->first()
+    ->update([
+        'Image' => $thisCatImage ,
+        'ImageName' => $filename
+    ]);
+ // $thisCat->Image = url('/').'/storage/catagory/'.$filename;
+ // $thisCat->ImageName = $filename;
+  $thisCat->save();
+      return response()->json(['category'=>$thisCat,'message'=>"Category edited succesfully !"]);
+
+    
+    
+}
 }

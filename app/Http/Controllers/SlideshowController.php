@@ -28,6 +28,7 @@ class SlideshowController extends Controller
 
         $table = new slideshow;
         $table->name = $filename;
+        
         $table->path = url('/').'/storage/slideshow/'.$filename;
 
     $table->save();

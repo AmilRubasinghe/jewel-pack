@@ -28,7 +28,7 @@
         <v-flex v-for="(item, i) in categorys" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card category card-5" color="grey lighten-4"  max-width="330"
                        max-height="460">
-            <v-img position=center :aspect-ratio="3.9/4.5" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/loader.gif"></v-img>
+            <v-img position=center :aspect-ratio="3.9/4.1" :src="item.image" ></v-img>
             <v-card-text>
               <h4 style="color:#8D6E63" class="ab subtitle-2 headline mb-1" justify-center>{{item.name}}</h4>
             </v-card-text>
@@ -109,8 +109,9 @@
       <v-layout wrap>
         <v-flex v-for="(item, i) in selectedProducts" :key="i" d-flex xs12 sm6 md3>
           <v-card class="card product" color="blue-grey lighten-3" max-width="500">
+            
             <div class="image-box">
-              <v-img :aspect-ratio="3/3.1" :src="item.image" lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif" class="image"></v-img>
+              <v-img :aspect-ratio="3/3.1" :src="item.Image"  class="image"></v-img>
                  <div class="middle content">
                              <div class="text">{{item.Size}}&nbsp;{{item.Colour}}&nbsp;Colour Box </div>
                         </div>            
@@ -179,7 +180,7 @@ export default {
       categorys: [
         {
           image:
-            "https://jewelpack.tk/storage/slideshow/1566380646-1.jpeg",
+            "http://localhost:8000/storage/product/1566405169-1.jpeg",
           name: "Gem boxes"
         },
         {
@@ -208,7 +209,7 @@ export default {
           console.log("ERROR");
         });
     },
-     productSelectedItems() {
+   productSelectedItems() {
       
 
       axios

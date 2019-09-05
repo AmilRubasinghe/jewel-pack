@@ -107,7 +107,7 @@
                             @input="remove(item)"
                           >
                             <strong>{{item.shipMethod}}</strong>
-&nbsp;
+                                    &nbsp;
                           </v-chip>
                         </template>
                       </v-combobox>
@@ -128,22 +128,8 @@
                     </v-flex>
                   </v-layout>
                 </v-flex>
-                <v-flex md3 sm12 lg3 xs12 d-flex>
-                  <v-checkbox
-                    v-model="newProduct.border"
-                    v-validate="'required'"
-                    :error-messages="errors.collect('checkbox')"
-                    value="1"
-                    label="Gold border"
-                    data-vv-name="checkbox"
-                    type="checkbox"
-                    required
-                  ></v-checkbox>
-                </v-flex>
 
-                     
-                  </v-layout> 
-                   </v-flex > 
+                
                      <v-flex md3 sm12 lg3 xs12 d-flex>
                        <v-checkbox
                         v-model="newProduct.border"
@@ -292,7 +278,7 @@
                         :items=" ShippingMethodItems"
                         item-text="shipMethod"
                         item-value="shipId"
-                        v-model="editedItem.shipMethod"
+                        v-model="editedItem.shipId"
                         outline
                         menu-props
                       ></v-select>
@@ -493,6 +479,7 @@
 
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
+              <td class="text-xs-center">{{ props.item.shipMethod }}</td>
 
               <td class="justify-center layout px-0">
                 <v-icon
