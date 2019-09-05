@@ -53,7 +53,7 @@
               <span style="color:white">{{cartCount}}</span>
             </template>
             <v-icon left dark color="black">shopping_cart</v-icon>
-          </v-badge>Cart
+          </v-badge>
         </v-btn>
 
         <v-menu offset-y open-on-hover transition="slide-y-transition">
@@ -186,7 +186,7 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                  <v-list-tile-title>Cart</v-list-tile-title>
+                  <v-list-tile-title></v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
 

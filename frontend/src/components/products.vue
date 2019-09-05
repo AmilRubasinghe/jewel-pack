@@ -38,7 +38,6 @@
                     outline
                     menu-props
                     v-model="sortCat"
-                    
                   ></v-select>
                 </v-flex>
 
@@ -58,93 +57,97 @@
           </v-layout>
         </v-container>
 
-        
-
         <v-layout row wrap align-center justify-center>
-           
-  
-          <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs12 sm12 class="pr-2">
-            <br/>
-            
-            <transition-group  name="staggered-fade" tag="v-card" >
-            
-            <v-card
-              class="card-5"
-              style="cursor: pointer"
-              light
-              ripple
-              align="center"
-              
-              @click="productPreview(products[i])"
-              :key="item.PID"
-             
-            >
-              <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
-                <v-container fill-height fluid>
-                  <v-layout fill-height>
-                    <v-flex xs12 lg4 md6 align-end flexbox>
-                      <!--                   <span class="headline"></span> -->
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-img>
+          <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs6 sm6 class="pr-2">
+            <br />
 
-              <v-card-title>
-                <v-flex xs9 sm12 offset-sm0>
-                  <span>
-                    <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2></span>
-                 
-                   <v-chip v-if="products[i].Quantity" label color="brown lighten-3" text-color="brown darken-3" outline>
-                          <h4>SALE!</h4>
-                       </v-chip>
-                  <v-chip v-if="!products[i].Quantity" label color="brown lighten-3" text-color="brown darken-3" outline>
-                          <h4>SALE OUT!</h4>
-                       </v-chip>
+            <transition-group name="staggered-fade" tag="v-card">
+              <v-card
+                class="card-5"
+                style="cursor: pointer"
+                light
+                ripple
+                align="center"
+                @click="productPreview(products[i])"
+                :key="item.PID"
+              >
+                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
+                  <v-container fill-height fluid>
+                    <v-layout fill-height>
+                      <v-flex xs12 lg4 md6 align-end flexbox>
+                        <!--                   <span class="headline"></span> -->
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
 
-                  <v-rating readonly 
-                   :value="4"
-                   dense
-           
-                  hover
-                   background-color="brown" color="brown"></v-rating>
-                  
-                  <del class  >
-                    <v-chip label color="white" text-color="brown lighten-3">
-                      <h5 v-if="products[i].slashedPrice" >${{products[i].slashedPrice}}</h5>
+                <v-card-title>
+                  <v-flex md12 lg12 xs4 sm4 offset-sm0>
+                    <span>
+                      <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
+                    </span>
+
+                    <v-chip
+                      v-if="products[i].Quantity"
+                      label
+                      color="brown lighten-3"
+                      text-color="brown darken-3"
+                      outline
+                    >
+                      <h4>SALE!</h4>
                     </v-chip>
-                  </del>&nbsp;
-                 
-                  <span class="title">
-                    <v-chip label color="white" text-color="brown darken-3">
-                      <h4>$ {{products[i].Price}}</h4>
+                    <v-chip
+                      v-if="!products[i].Quantity"
+                      label
+                      color="brown lighten-3"
+                      text-color="brown darken-3"
+                      outline
+                    >
+                      <h4>SALE OUT!</h4>
                     </v-chip>
-                  </span>
-                </v-flex>
-              </v-card-title>
-              <v-card-actions>
-                &nbsp;
-                <v-btn
-                
-                  large
-                  round
-                  depressed
-                  color="brown lighten-4"
-                  outline-color="dark"
-                  class="mx-auto"
-                  @click="productPreview(products[i])"
-                >Product View</v-btn>
-              </v-card-actions>
-              
-            </v-card>
+
+                    <v-rating
+                      readonly
+                      :value="4"
+                      dense
+                      hover
+                      background-color="brown"
+                      color="brown"
+                    ></v-rating>
+
+                    <del class>
+                      <v-chip label color="white" text-color="brown lighten-3">
+                        <h5 v-if="products[i].slashedPrice">${{products[i].slashedPrice}}</h5>
+                      </v-chip>
+                    </del>
+&nbsp;
+                    <span class="title">
+                      <v-chip label color="white" text-color="brown darken-3">
+                        <h4>$ {{products[i].Price}}</h4>
+                      </v-chip>
+                    </span>
+                  </v-flex>
+                </v-card-title>
+                <v-card-actions>
+                  &nbsp;
+                  <v-btn
+                    large
+                    round
+                    depressed
+                    color="brown lighten-4"
+                    outline-color="dark"
+                    class="mx-auto"
+                    @click="productPreview(products[i])"
+                  >Product View</v-btn>
+                </v-card-actions>
+              </v-card>
             </transition-group>
-            
           </v-flex>
-            
         </v-layout>
       </div>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px" >
+        <v-dialog v-model="dialog" max-width="1200px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -174,77 +177,81 @@
                     </v-hover>-->
 
                     <section class="gallery">
-  <div class="carousel">
+                      <div class="carousel">
+                        <input type="radio" id="image1" name="gallery-control" checked />
+                        <input type="radio" id="image2" name="gallery-control" />
+                        <input type="radio" id="image3" name="gallery-control" />
 
-    
-    <input type="radio" id="image1" name="gallery-control" checked>
-    <input type="radio" id="image2" name="gallery-control">
-    <input type="radio" id="image3" name="gallery-control">
-    
-    
-   
-    
-    <div class="wrap">
-      
-      <figure>
-        <label for="fullscreen">
-          <img src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg" alt="image1"/>
-        </label>
-      </figure>
-      
-      <figure>
-        <label for="fullscreen">
-          <img src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg" alt="image2"/>
-        </label>
-      </figure>
+                        <div class="wrap">
+                          <figure>
+                            <label for="fullscreen">
+                              <img
+                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                alt="image1"
+                              />
+                            </label>
+                          </figure>
 
-      <figure>
-        <label for="fullscreen">
-          <img src="http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg" alt="image3" />
-        </label>
-      </figure>
+                          <figure>
+                            <label for="fullscreen">
+                              <img
+                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                alt="image2"
+                              />
+                            </label>
+                          </figure>
 
-      
-    </div>
-    
-    <div class="thumbnails">
-      <v-flex xs12 md6 lg6 sm12>
-      
-      <div class="slider"><div class="indicator"></div></div>
-      
-      <label for="image1" class="thumb" style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"></label>
-      
-      <label for="image2" class="thumb" style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"></label>
-      
-      <label for="image3" class="thumb" style="background-image: url('http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg')"></label>
-      </v-flex>  
-      
-    </div>
-  </div>
-</section>
+                          <figure>
+                            <label for="fullscreen">
+                              <img
+                                src="http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg"
+                                alt="image3"
+                              />
+                            </label>
+                          </figure>
+                        </div>
 
+                        <div class="thumbnails">
+                          <v-flex xs12 md6 lg6 sm12>
+                            <div class="slider">
+                              <div class="indicator"></div>
+                            </div>
 
+                            <label
+                              for="image1"
+                              class="thumb"
+                              style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"
+                            ></label>
+
+                            <label
+                              for="image2"
+                              class="thumb"
+                              style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"
+                            ></label>
+
+                            <label
+                              for="image3"
+                              class="thumb"
+                              style="background-image: url('http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg')"
+                            ></label>
+                          </v-flex>
+                        </div>
+                      </div>
+                    </section>
                   </v-flex>
 
                   <v-flex xs8 md5>
                     <h3
                       class="display-1 font-weight-light orange--text mb-1"
                     >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
-                     
-                    <p> 
 
-                   {{selectedItem.description}} 
-                    </p>
-                     
+                    <p>{{selectedItem.description}}</p>
+
                     <v-divider></v-divider>
-                   
 
                     <table class="a-lineitem">
-                      
                       <tbody>
-                        
                         <tr>
-                          
                           <td
                             class="a-color-secondary a-size-base a-text-right a-nowrap padding:10px"
                           >List Price:</td>
@@ -343,15 +350,7 @@
             </v-card-text>
           </v-card>
         </v-dialog>
-
-             
-
-
       </v-layout>
-
-
-
-
     </v-app>
   </div>
 </template>
@@ -363,16 +362,12 @@ import axios from "axios";
 import Vue from "vue";
 import _ from "lodash";
 
-
-
-
-
 export default {
   props: ["pageTitle", "products", "searchMode"],
-  
+
   data() {
     return {
-       items: [1,2,3,4,5,6,7,8,9],
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       page: 1,
       dialog: false,
       products: [],
@@ -383,18 +378,16 @@ export default {
       newValue: 0,
       size: 0,
       keywords: "",
-     
 
       sizes: ["25", "50", "100", "150", "200"],
       sortCategories: ["Size", "Price"],
       sortCat: "Size",
       sortAscOrDesc: [
-        { text: "Ascending", value: 'asc' },
-        { text: "Descending", value: 'desc' }
+        { text: "Ascending", value: "asc" },
+        { text: "Descending", value: "desc" }
       ],
-      sortOrder: 'asc',
+      sortOrder: "asc",
       debounceKey: ""
-      
     };
   },
 
@@ -411,20 +404,14 @@ export default {
     }
   },
 
-
   mounted() {
     this.productItems(this.$route.path);
   },
 
   methods: {
-
-
-    sortProducts(){
-      
-      this.products= _.orderBy(this.products, this.sortCat ,this.sortOrder);
-    
+    sortProducts() {
+      this.products = _.orderBy(this.products, this.sortCat, this.sortOrder);
     },
-    
 
     getResult: _.debounce(
       function() {
@@ -533,8 +520,6 @@ export default {
   width: 100%;
 }
 
-
-
 .container.grid-list-md .layout .flex {
   padding: 10px;
 }
@@ -603,8 +588,8 @@ h2 {
   margin-bottom: 20px;
 }
 .marginWith.page {
-    padding-left: 140px;
-    padding-right: 140px;
+  padding-left: 140px;
+  padding-right: 140px;
 }
 
 .custom-font1 {
@@ -629,9 +614,8 @@ h2 {
   color: rgba(129, 91, 24, 0.788);
 }
 
-
- /*product preveiw*/
- .gallery input[name$="control"] {
+/*product preveiw*/
+.gallery input[name$="control"] {
   display: none;
 }
 
@@ -642,8 +626,8 @@ h2 {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   position: relative;
   height: 70vh;
   width: 100%;
@@ -660,13 +644,13 @@ h2 {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
+  flex-wrap: nowrap;
   margin-right: 20px;
 }
 /*big photo center*/
@@ -682,17 +666,17 @@ h2 {
   position: relative;
   left: 0;
   -webkit-transform: translateX(0%);
-          transform: translateX(0%);
+  transform: translateX(0%);
   box-sizing: border-box;
   text-align: center;
   margin: 0;
   display: block;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   opacity: 1;
 }
 /*big 4to ratio*/
@@ -715,23 +699,23 @@ h2 {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 /*small photo*/
 .gallery .thumbnails {
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   min-width: 100px;
   max-height: 100%;
   height: auto;
   -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
   -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
   -ms-flex-preferred-size: auto;
-      flex-basis: auto;
+  flex-basis: auto;
   position: relative;
   white-space: nowrap;
   overflow: hidden;
@@ -741,10 +725,9 @@ h2 {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction:row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   padding: 0 10px;
- 
 }
 .gallery .thumbnails .thumb {
   min-width: 120px;
@@ -753,9 +736,9 @@ h2 {
   background-size: cover;
   box-sizing: border-box;
   opacity: 0.7;
-  margin:  0;
+  margin: 0;
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   left: 0;
   border-radius: 3px;
   cursor: pointer;
@@ -774,18 +757,17 @@ h2 {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%) !important;
-          transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
   -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
   -webkit-animation-fill-mode: backwards;
-          animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
 }
-
 
 /*zoom in smmoth chech out opasity*/
 .gallery input#image1:checked ~ .wrap figure {
   -webkit-transform: translateX(0);
-          transform: translateX(0);
+  transform: translateX(0);
 }
 
 .gallery input#image1:checked ~ .wrap figure:not(:nth-of-type(1)) {
@@ -793,7 +775,7 @@ h2 {
 }
 .gallery input#image1:checked ~ .thumbnails .slider {
   -webkit-transform: translateY(0);
-          transform: translateY(0);
+  transform: translateY(0);
 }
 .gallery input#image1:checked ~ .thumbnails .thumb:nth-of-type(1) {
   opacity: 1;
@@ -802,14 +784,14 @@ h2 {
 /*other product*/
 .gallery input#image2:checked ~ .wrap figure {
   -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 .gallery input#image2:checked ~ .wrap figure:not(:nth-of-type(2)) {
   opacity: 0;
 }
 .gallery input#image2:checked ~ .thumbnails .slider {
   -webkit-transform: translateY(100%);
-          transform: translateY(100%);
+  transform: translateY(100%);
 }
 .gallery input#image2:checked ~ .thumbnails .thumb:nth-of-type(2) {
   opacity: 1;
@@ -817,14 +799,14 @@ h2 {
 }
 .gallery input#image3:checked ~ .wrap figure {
   -webkit-transform: translateX(-200%);
-          transform: translateX(-200%);
+  transform: translateX(-200%);
 }
 .gallery input#image3:checked ~ .wrap figure:not(:nth-of-type(3)) {
   opacity: 0;
 }
 .gallery input#image3:checked ~ .thumbnails .slider {
   -webkit-transform: translateY(200%);
-          transform: translateY(200%);
+  transform: translateY(200%);
 }
 .gallery input#image3:checked ~ .thumbnails .thumb:nth-of-type(3) {
   opacity: 1;
@@ -832,14 +814,14 @@ h2 {
 }
 .gallery input#image4:checked ~ .wrap figure {
   -webkit-transform: translateX(-300%);
-          transform: translateX(-300%);
+  transform: translateX(-300%);
 }
 .gallery input#image4:checked ~ .wrap figure:not(:nth-of-type(4)) {
   opacity: 0;
 }
 .gallery input#image4:checked ~ .thumbnails .slider {
   -webkit-transform: translateY(300%);
-          transform: translateY(300%);
+  transform: translateY(300%);
 }
 .gallery input#image4:checked ~ .thumbnails .thumb:nth-of-type(4) {
   opacity: 1;
@@ -851,41 +833,42 @@ h2 {
 @-webkit-keyframes full {
   from {
     -webkit-transform: translate(-50%, -50%) scale(0.8);
-            transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.8);
   }
   to {
     -webkit-transform: translate(-50%, -50%) scale(1);
-            transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
 @keyframes full {
   from {
     -webkit-transform: translate(-50%, -50%) scale(0.8);
-            transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.8);
   }
   to {
     -webkit-transform: translate(-50%, -50%) scale(1);
-            transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 @-webkit-keyframes shadow {
   from {
-    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0), 0 0 10vmin rgba(13, 21, 31, 0);
+    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0),
+      0 0 10vmin rgba(13, 21, 31, 0);
   }
   to {
-    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0.6), 0 0 10vmin rgba(13, 21, 31, 0.6);
+    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0.6),
+      0 0 10vmin rgba(13, 21, 31, 0.6);
   }
 }
 @keyframes shadow {
   from {
-    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0), 0 0 10vmin rgba(13, 21, 31, 0);
+    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0),
+      0 0 10vmin rgba(13, 21, 31, 0);
   }
   to {
-    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0.6), 0 0 10vmin rgba(13, 21, 31, 0.6);
+    box-shadow: 0 0 0 100vmin rgba(24, 33, 45, 0.6),
+      0 0 10vmin rgba(13, 21, 31, 0.6);
   }
 }
- 
-
-
 </style>
