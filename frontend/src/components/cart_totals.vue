@@ -136,12 +136,14 @@ import axios from 'axios';
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import autoTable from "jspdf-autotable";
+import Store from "../store.js";
+
 
 export default {
     
     data(){
        return{
-         
+         user:[],
          checkoutDetails:{
             merchant_id : "1212709",
             return_url : "http://localhost:8080/",
@@ -171,7 +173,9 @@ export default {
          
        }
     },
-
+    components:{
+        
+    },
      mounted(){
        this.autoFill();
     },
@@ -202,7 +206,12 @@ export default {
     methods:{
 
     autoFill(){
-      axios
+        if(Store.getters.user){
+            this.user=Store.getters.user;
+            this.checkoutDetails.first_name=this.user.firstName;
+            this.checkoutDetails.last_name=this.user.lastName;
+          }
+      /*axios
         .get("http://localhost:8000/api/showUser")
         .then(response => {
           this.checkoutDetails.first_name= response.data.printUser.firstName;
@@ -213,7 +222,7 @@ export default {
         .catch(error => {
           console.log(error.response);
           console.log("ERROR");
-        });
+        });*/
 
         axios
         .get("http://localhost:8000/api/showOrder")
