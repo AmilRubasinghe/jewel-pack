@@ -23,13 +23,15 @@
         </v-card>
       </v-dialog>
     </v-layout>
+    
 
     <v-toolbar app flat prominent height="60" scroll-off-screen >
+      
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <span class="display-1">
-            <img :src="Jlogo" width="60" height="60" />
+            <img :src="Jlogo" width="90" height="90" />
           </span>
           <span class="font-weight-light">Jewel</span>
           <span>Pack</span>
@@ -477,7 +479,7 @@ export default {
     ...mapGetters(["role", "user", "cartCount", "cart"]),
 
     Jlogo: function() {
-      return this.$url + "storage/logo/jewelpack.png";
+      return this.$url + "storage/logo/logo.png";
     }
   },
 
@@ -521,12 +523,6 @@ export default {
 }
 
 
-.v-toolbar__content, .v-toolbar__extension {
-    align-items: center;
-    display: flex;
-    padding: 0 24px;
-   
-    background-color: #FBC02D;
-}
+
 </style>
 
