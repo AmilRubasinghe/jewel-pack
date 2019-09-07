@@ -144,17 +144,17 @@
                     </v-flex>
 
                 <v-flex d-flex>
-                  <v-layout row wrap justify-center>
-                    <v-flex xs9 sm9 md4 lg4 d-flex>
+                  <v-layout row wrap  justify-center>
+                   <!-- <v-flex xs9 sm9 md4 lg4 offset-sm1 d-flex>
                       <v-card
                         flat
                         color="#B0BEC5"
                         @click="$refs.file.click()"
                         ripple
                         hover
-                        height="100"
-                        width="100"
-                        max-width="500px"
+                         max-height="300"
+                
+                         max-width="200"
                       >
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
@@ -172,7 +172,27 @@
                           </div>
                         </form>
                       </v-card>
-                    </v-flex>
+                    </v-flex>-->
+                    <v-flex xs9 sm9 md7 lg7  d-flex>
+                     <v-card
+                flat
+                color="#B0BEC5"
+                @click="$refs.file.click()"
+                ripple
+                hover
+                max-height="300"
+                
+                max-width="600"
+              >
+              
+  
+<vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" v-on:vdropzone-sending="addProduct" >
+  <v-icon outline large>cloud_upload</v-icon>
+ <h4>Upload photo</h4>
+</vue-dropzone>
+
+</v-card>
+                      </v-flex>  
                   </v-layout>
                 </v-flex>
               </v-layout>
@@ -525,9 +545,25 @@
 <script>
 import axios from "axios";
 import navDrawer from "../admin/navDrawer.vue";
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
+   name: 'app',
+  
+
   data() {
     return {
+       dropzoneOptions: {
+          url: 'https://httpbin.org/post',
+          thumbnailWidth: 150,
+          maxFilesize: 0.5,
+          headers: { "My-Awesome-Header": "header value" },
+          addRemoveLinks: true,
+        dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD HERE",
+      
+          
+      },
+
       dialog: false,
       showModal: false,
       showQuantity: false,
@@ -639,6 +675,9 @@ export default {
   },
 
   components: {
+    
+    vueDropzone: vue2Dropzone,
+  
     navDrawer
   },
 
@@ -681,6 +720,10 @@ export default {
       );
       this.newProduct.shipMethod = [...this.newProduct.shipMethod];
     },
+
+  morePhotos(){
+
+  },
 
     catItems() {
       axios
@@ -795,7 +838,7 @@ export default {
 
 
 
-      const formData = new FormData();
+       const formData = new FormData();
       formData.append("file", this.file, this.file.name);
       formData.append("method", json_arr);
       formData.append("details", this.newProduct.details);
@@ -1068,6 +1111,14 @@ export default {
 .flex.md3.sm12.lg3.xs12.d-flex {
   padding: 0px;
   margin: 0px;
+}
+.dropzone .dz-preview .dz-image {
+  
+    overflow: hidden;
+    
+    position: static;
+    display: block;
+    z-index: 10;
 }
 </style>
 

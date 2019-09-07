@@ -24,7 +24,7 @@
       </v-dialog>
     </v-layout>
 
-    <v-toolbar app flat prominent height="80" scroll-off-screen>
+    <v-toolbar app flat prominent height="60" scroll-off-screen >
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -518,6 +518,15 @@ export default {
 .search-dialog {
   opacity: 1;
   filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+
+.v-toolbar__content, .v-toolbar__extension {
+    align-items: center;
+    display: flex;
+    padding: 0 24px;
+   
+    background-color: #FBC02D;
 }
 </style>
 

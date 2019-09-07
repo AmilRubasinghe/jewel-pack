@@ -58,11 +58,13 @@
         </v-container>
 
         <v-layout row wrap align-center justify-center>
-          <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs6 sm6 class="pr-2">
+          <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs12 sm12 >
             <br />
 
             <transition-group name="staggered-fade" tag="v-card">
+              
               <v-card
+             
                 class="card-5"
                 style="cursor: pointer"
                 light
@@ -70,7 +72,9 @@
                 align="center"
                 @click="productPreview(products[i])"
                 :key="item.PID"
+               
               >
+             
                 <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
                   <v-container fill-height fluid>
                     <v-layout fill-height>
@@ -82,65 +86,90 @@
                 </v-img>
 
                 <v-card-title>
-                  <v-flex md12 lg12 xs4 sm4 offset-sm0>
-                    <span>
-                      <h2>{{products[i].Size}}&nbsp;{{products[i].Colour}}&nbsp;Colour Box</h2>
-                    </span>
+                  <v-layout colum wrap align-center justify-center>
+                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                      <span>
+                        <p
+                         v-on:mouseover="toggleInfo"
+                          v-on:mouseleave="toggleInfo"
+                          data-aos="fade-up"  class=" headline font-weight-medium" style="color:#212121;"
+                        >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
+                      </span>
+                    </v-flex>
+                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                      <v-rating
+                      data-aos="zoom-in-up"
+                        readonly
+                        :value="4"
+                        dense
+                        hover
+                        background-color="amber accent-4"
+                        color="amber accent-3"
+                      ></v-rating>
+                    </v-flex>
+                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                      <p
+                        v-if="products[i].Quantity"
+                         class="subtitle-2 font-weight-medium" style="color:#1B5E20;"
+                        
+                      >In Stock</p>
 
-                    <v-chip
-                      v-if="products[i].Quantity"
-                      label
-                      color="brown lighten-3"
-                      text-color="brown darken-3"
-                      outline
-                    >
-                      <h4>SALE!</h4>
-                    </v-chip>
-                    <v-chip
-                      v-if="!products[i].Quantity"
-                      label
-                      color="brown lighten-3"
-                      text-color="brown darken-3"
-                      outline
-                    >
-                      <h4>SALE OUT!</h4>
-                    </v-chip>
-
-                    <v-rating
-                      readonly
-                      :value="4"
-                      dense
-                      hover
-                      background-color="brown"
-                      color="brown"
-                    ></v-rating>
-
-                    <del class>
-                      <v-chip label color="white" text-color="brown lighten-3">
-                        <h5 v-if="products[i].slashedPrice">${{products[i].slashedPrice}}</h5>
-                      </v-chip>
+                      <p
+                        v-if="!products[i].Quantity"
+                        
+                        class="subtitle-2 font-weight-medium " style="color:#D50000;"
+                       
+                      >Out of Stock</p>
+                    </v-flex>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <v-layout row wrap align-center justify-center>
+                    
+                    <del class style="color:#616161;">
+                      
+                        <p v-if="products[i].slashedPrice"
+                        class="subtitle-1 font-weight-medium " style="color:#616161;"
+                        >{{products[i].slashedPrice}}LKR</p>
+                      
                     </del>
-&nbsp;
-                    <span class="title">
-                      <v-chip label color="white" text-color="brown darken-3">
-                        <h4>$ {{products[i].Price}}</h4>
-                      </v-chip>
-                    </span>
-                  </v-flex>
+                    
+                 &nbsp; &nbsp;
+                     
+                        <p
+                         class="headline font-weight-bold "  v-if="displayInfo" style="color:#F9A825;"
+                        > {{products[i].Price}}LKR</p>
+                         <p
+                         class="headline font-weight-bold " style="color:#212121;"  v-else
+                        > {{products[i].Price}}LKR</p>
+                      
+                    
+                        </v-layout>
+                      </v-flex>
+                  </v-layout>
                 </v-card-title>
+               
                 <v-card-actions>
-                  &nbsp;
+                    <v-layout row wrap align-center justify-center>
+                  <v-flex md11 lg11 xs11 sm11 offset-sm0 >
+                    <div class="text-center">
                   <v-btn
                     large
                     round
                     depressed
-                    color="brown lighten-4"
+                    color="yellow darken-2"
                     outline-color="dark"
-                    class="mx-auto"
+                   
                     @click="productPreview(products[i])"
-                  >Product View</v-btn>
+                  >
+                   
+                    
+                  Product View</v-btn>
+                    </div>
+                  </v-flex>
+                   </v-layout>
                 </v-card-actions>
+                
               </v-card>
+             
             </transition-group>
           </v-flex>
         </v-layout>
@@ -361,12 +390,16 @@
 import axios from "axios";
 import Vue from "vue";
 import _ from "lodash";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 export default {
   props: ["pageTitle", "products", "searchMode"],
 
   data() {
     return {
+       displayInfo: false,
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       page: 1,
       dialog: false,
@@ -406,9 +439,17 @@ export default {
 
   mounted() {
     this.productItems(this.$route.path);
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
   },
 
   methods: {
+    toggleInfo () {
+       this.displayInfo = !this.displayInfo
+      },
+      
     sortProducts() {
       this.products = _.orderBy(this.products, this.sortCat, this.sortOrder);
     },
@@ -511,18 +552,20 @@ export default {
 
 
 <style>
-.v-card--reveal {
-  align-items: center;
-  bottom: 0;
-  justify-content: center;
-  opacity: 0.5;
-  position: absolute;
-  width: 100%;
+.v-card__actions {
+    align-items: center;
+    /* display: flex; */
+    /* padding: 8px; */
+    padding-bottom: 8px;
+}
+.v-card__title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+     padding: 0px; 
 }
 
-.container.grid-list-md .layout .flex {
-  padding: 10px;
-}
+
 
 .minusplusnumber {
   border: 1px solid silver;
@@ -566,10 +609,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 20px !important;
 }
 
-.v-rating.v-rating--readonly.v-rating--dense {
-  padding-bottom: 10px;
-  margin-top: 20px !important;
-}
 
 td {
   width: 130px;
@@ -584,12 +623,10 @@ td {
 .card-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-h2 {
-  margin-bottom: 20px;
-}
+
 .marginWith.page {
-  padding-left: 140px;
-  padding-right: 140px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .custom-font1 {
@@ -871,4 +908,29 @@ h2 {
       0 0 10vmin rgba(13, 21, 31, 0.6);
   }
 }
+
+
+
+.theme--light.v-sheet {
+    
+    color: rgba(0,0,0,.87);
+    padding: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
