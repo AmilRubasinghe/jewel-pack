@@ -18,6 +18,7 @@
    <v-flex xs12 sm6>
     <v-text-field
       label="First Name"
+      id="fn"
       v-model="checkDetails.firstname"
       :rules="nameRules"
       :counter="50"
@@ -30,6 +31,7 @@
    <v-flex xs12 sm6>
     <v-text-field
       label="Last Name"
+      id="ln"
       v-model="checkDetails.lastname"
       :rules="nameRules"
       :counter="50"
@@ -42,6 +44,7 @@
    <v-flex xs12 sm6>
     <v-text-field
       label="E-mail"
+      id="email"
       v-model="checkDetails.email"
       :rules="emailRules"
       required
@@ -101,7 +104,7 @@
        Enter coupon code here: <input type="text" id="couponcode" name="couponcode" >
        <v-btn color="primary" @click="coupon()">Enter</v-btn><br><br>
 
-      <v-btn color="amber" href="/cart_totals">Place order</v-btn>
+      <v-btn color="amber" href="/cart_totals" @click="check()">Place order</v-btn>
       <v-btn color="#FFCA28" @click.native="e6=1">Previous</v-btn>
       <v-btn color="#FFF176">Cancel</v-btn>
       </template>
@@ -115,6 +118,8 @@
  //import cart_totals from './components/cart_totals.vue'
 import alert from './alert.vue';
 import axios from 'axios';
+import Store from "../store.js";
+
 
   export default {
     components:{
@@ -123,7 +128,7 @@ import axios from 'axios';
     },
     data () {
       return {
-
+        user:[],
         valid: false,
         name: 'Default',
         nameRules: [
@@ -178,6 +183,9 @@ import axios from 'axios';
   }
      
     },
+    mounted(){
+      this.autoFill();
+    },
 
     methods:{
 
@@ -202,8 +210,27 @@ import axios from 'axios';
         },
         
         coupon(){
-        }
+        },
+
+        autoFill(){
+          if(Store.getters.user){
+            this.user=Store.getters.user;
+            this.checkDetails.email=this.user.email;
+            this.checkDetails.firstname=this.user.firstName;
+            this.checkDetails.lastname=this.user.lastName;
+            //set user login fields constants
+            document.getElementById('fn').readOnly=true;
+            document.getElementById('ln').readOnly=true;
+            document.getElementById('email').readOnly=true;
+            var fnval=document.getElementById('fn');
+            fnval.style.color="#CD853F";
+            var lnval=document.getElementById('ln');
+            lnval.style.color="#CD853F";
+             var emailval=document.getElementById('email');
+            emailval.style.color="#CD853F";
+          }
     }
-   
+    }
   }
+  
 </script>
