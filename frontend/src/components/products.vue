@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <div class="marginWith page">
+      <div>
+        <v-container pa-0>
         <h1 class="custom-font1">{{pageTitle}}</h1>
 
         <v-container v-if="searchMode">
@@ -56,9 +57,11 @@
             </v-toolbar>
           </v-layout>
         </v-container>
-
-        <v-layout row wrap align-center justify-center>
-          <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs12 sm12>
+<v-container>
+          <v-layout row wrap align-center 
+          :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
+          >
+            <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
             <br />
 
             <transition-group name="staggered-fade" tag="v-card">
@@ -71,11 +74,22 @@
                 @click="productPreview(products[i])"
                 :key="item.PID"
               >
-              <div class="image-box">
-                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
-
-                </v-img>
-                    </div>
+              <v-img
+                    :aspect-ratio="4/3"
+                    contain
+                    align="right"
+                    :src="products[i].Image"
+                    lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                    transition="scale-transition"
+                  >
+                    <v-container fill-height fluid>
+                      <v-layout fill-height>
+                        <v-flex xs12 align-end flexbox>
+                          <!--                   <span class="headline"></span> -->
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-img>
 
                 <v-card-title>
                   <v-layout colum wrap align-center justify-center>
@@ -168,6 +182,8 @@
             </transition-group>
           </v-flex>
         </v-layout>
+        </v-container>
+        </v-container>
       </div>
 
       <v-layout row justify-center>
