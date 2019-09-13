@@ -273,13 +273,13 @@
 
                     <v-card-actions>
                       <v-btn
-                        color="warning"
+                        color="secondary"
                         dark
                         outline
                         round
                         @click="addToCart(selectedItem,value)"
                       >Add to cart</v-btn>
-                      <v-btn color="warning" dark outline round>Buy Now</v-btn>
+                      <v-btn color="secondary" dark outline round>Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>

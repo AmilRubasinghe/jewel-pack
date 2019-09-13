@@ -46,15 +46,15 @@ import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 Vue.use(VuejsDialog);
 
 
-
+/*
 Vue.prototype.$baseUrl = 'http://localhost:8000/api';
 Vue.prototype.$url = 'http://localhost:8000/';
 
+*/
 
-/*
 Vue.prototype.$baseUrl = 'https://jewelpack.tk/api';
 Vue.prototype.$url = 'https://jewelpack.tk/';
-*/
+
 
 new Vue({
   el: '#app',

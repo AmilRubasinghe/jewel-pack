@@ -47,8 +47,6 @@
           {{ item.title }}
         </v-btn>
 
-       
-
         <v-menu offset-y open-on-hover transition="slide-y-transition">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
@@ -68,7 +66,7 @@
           </v-list>
         </v-menu>
 
-         <v-btn flat to="/cartView">
+        <v-btn flat to="/cartView">
           <v-badge right color="#CD853F">
             <template v-slot:badge>
               <span style="color:white">{{cartCount}}</span>
@@ -436,10 +434,6 @@ export default {
       /* console.log(Token);*/
       // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
 
-      if (!!gapi.auth2.init()) {
-        this.googleLogout();
-      }
-
       axios
         .post(this.$baseUrl + "/logout?token=" + $Token)
         .then(response => {
@@ -454,6 +448,10 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
+
+      if (!!gapi.auth2.init()) {
+        this.googleLogout();
+      }
     },
 
     catItems() {
@@ -498,8 +496,7 @@ export default {
   right: -0.1px;
 }
 
-.cartBtn{
-
+.cartBtn {
   right: -27px;
 }
 
