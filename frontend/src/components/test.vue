@@ -1,69 +1,106 @@
 <template>
-  <div>
-    <h1>Find Us</h1>
-    <div class="mapouter">
-      <div class="gmap_canvas">
-        <iframe
-          width="400"
-          height="400"
-          id="gmap_canvas"
-          src="https://maps.google.com/maps?q=119%20Gangarama%20Rd%2C%20Boralesgamuwa%2C%20Western%20Province&t=&z=11&ie=UTF8&iwloc=&output=embed"
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-        ></iframe>
-        <a href="https://www.pureblack.de">Pureblack.de - Website erstellen lassen</a>
-      </div>
-    </div>
-  </div>
+ <v-layout align-center justify-center>
+    <v-card max-width="600px">
+          <v-card-title>
+            <span class="headline">Upload File</span>
+          </v-card-title>
+          <v-card-text>
+            <v-layout align-center justify-center>
+              <v-card
+                flat
+                color="#B0BEC5"
+                @click="$refs.file.click()"
+                ripple
+                hover
+                height="300"
+                width="300"
+                max-width="600px"
+              >
+                <form enctype="multipart/form-data">
+                  <div class="text-xs-center">
+                   
+                      <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" v-on:vdropzone-sending="sendingEvent" ></vue-dropzone>
+                      
+                     
+                    
+                  </div>
+                </form>
+              </v-card>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+           
+            <v-btn outline color="blue" @click="sendFile">Upload</v-btn>
+          </v-card-actions>
+        </v-card>
+   
+
+ </v-layout>
 </template>
-
-
 <script>
-import axios from "axios";
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
-  data() {
-    return {
-      colours: ["White", "Black", "Grey"],
-      border: "border String"
-    };
+  name: 'app',
+  components: {
+    vueDropzone: vue2Dropzone
   },
+  data: function () {
+    return {
+      dropzoneOptions: {
+          url: 'http://localhost:8000/api/storeImage',
+          thumbnailWidth: 150,
+          maxFilesize: 0.5,
+          headers: { "My-Awesome-Header": "header value" },
+          addRemoveLinks: true,
+        dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD ME",
+        processing: false
+          
+      },
+      methods: {
+      sendingEvent (file, xhr, formData) {
+        this.file=file;
+        comsole.log("**************************")
+        console.log(this.file);
+      },
+      sendFile() {
+      const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+      console.log("****");
 
-  methods: {
-    send() {
-      console.log("sending");
-
+      let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl + "/test", {
-          c: this.colours,
-          b: this.border
-        })
+        .post(
+          this.$baseUrl+"/storeImage" + "?token=" + $Token,
+          // axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
+          // axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs',
+          formData
+        )
         .then(response => {
-          console.log(response.data);
-
-          //console.log(this.slideshowItems);
+          this.dialog = false;
+          this.file = "";
+          this.getSlideshow();
+          alert("Succesfully Saved");
         })
         .catch(error => {
           console.log(error.response);
-          console.log("ERROR");
+          console.log("Failed Save img url");
         });
+    },
+    }
     }
   }
-};
-</script>
-
-<style>
-.mapouter {
-  position: relative;
-  text-align: right;
-  height: 400px;
-  width: 400px;
+  
 }
-.gmap_canvas {
-  overflow: hidden;
-  background: none !important;
-  height: 400px;
-  width: 400px;
+</script>
+<style>
+.dropzone .dz-preview .dz-image {
+  
+    overflow: hidden;
+    
+    position: static;
+    display: block;
+    z-index: 10;
 }
 </style>
