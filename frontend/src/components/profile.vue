@@ -1,5 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
+    <notification v-if="notify" :message="notify" :type="status"></notification>
+
     <v-dialog v-model="dialog" max-width="700">
       <v-card>
         <v-card-title>
@@ -38,6 +40,73 @@
 
               <v-flex d-flex>
                 <v-btn color="primary" @click="save">Save</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="passwordDialog" max-width="700">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Update Password</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout column>
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  :type="show1 ? 'text' : 'password'"
+                  :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                  @click:append="show1 = !show1"
+                  v-model="OldPassword"
+                  label="Current Password"
+                />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  ref="password"
+                  name="password"
+                  :type="show2 ? 'text' : 'password'"
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                  @click:append="show2 = !show2"
+                  v-model="NewPassword"
+                  label="New Password"
+                  v-validate="'required|min:6'"
+                  :error-messages="errors.collect('password')"
+                />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  :type="show3 ? 'text' : 'password'"
+                  :append-icon="show3 ? 'visibility' : 'visibility_off'"
+                  @click:append="show3 = !show3"
+                  v-model="ConfirmNewPassword"
+                  label="Confirm New Password"
+                  name="password_confirmation"
+                  v-validate="'required|min:6|confirmed:password'"
+                  data-vv-as="Confirm Password"
+                  :error-messages="errors.collect('password_confirmation')"
+                />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout row wrap>
+              <v-flex d-flex>
+                <v-btn color="primary" @click="close">Cancel</v-btn>
+              </v-flex>
+
+              <v-flex d-flex>
+                <v-btn color="primary" @click="editPassword">Save</v-btn>
               </v-flex>
             </v-layout>
           </v-container>
@@ -94,6 +163,7 @@
           </form>
 
           <v-btn @click="editItem()" color="secondary">Edit Profile</v-btn>
+          <v-btn @click="editPasswordDialog()" color="secondary">Change Password</v-btn>
         </v-card>
       </v-flex>
     </v-layout>
@@ -107,6 +177,7 @@
 
 <script>
 import axios from "axios";
+import notification from "./notification.vue";
 
 import Store from "../store.js";
 
@@ -124,9 +195,22 @@ export default {
         labelcontact: ""
       },
 
+      OldPassword: "",
+      NewPassword: "",
+      ConfirmNewPassword: "",
       defaultItem: {},
-      dialog: false
+      dialog: false,
+      passwordDialog: false,
+      show1: false,
+      show2: false,
+      show3: false,
+      notify: "",
+      status: ""
     };
+  },
+
+  components: {
+    notification
   },
 
   computed: {
@@ -148,10 +232,39 @@ export default {
   },
 
   methods: {
+    editPassword() {
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
+        this.notify = "";
+
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(this.$baseUrl + "/editPassword/?token=" + $Token, {
+            ID: this.user.ID,
+            OldPassword: this.OldPassword,
+            NewPassword: this.NewPassword
+          })
+          .then(response => {
+            this.close();
+            this.notify = response.data.message;
+            this.status = 2;
+          })
+
+          .catch(error => {
+            this.notify = error.response.data.message;
+            this.status = 0;
+            console.log(error.response);
+
+            console.log("ERROR");
+          });
+      });
+    },
     myOrders() {
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl + "/myOrder/" + $Token)
+        .post(this.$baseUrl + "/myOrder/?token=" + $Token)
         .then(response => {
           // console.log(response.data);
         })
@@ -163,6 +276,11 @@ export default {
         });
     },
 
+    editPasswordDialog() {
+      this.clear();
+      this.passwordDialog = true;
+    },
+
     editItem() {
       this.editedItem = Object.assign({}, this.user);
       // console.log(this.editedItem);
@@ -170,23 +288,36 @@ export default {
     },
 
     close() {
-      this.dialog = false;
+      (this.dialog = false), (this.passwordDialog = false);
+    },
+
+    clear() {
+      (this.OldPassword = ""),
+        (this.NewPassword = ""),
+        (this.ConfirmNewPassword = "");
     },
 
     save() {
+      this.notify = "";
       let $Token = localStorage.getItem("token");
 
       Object.assign(this.user, this.editedItem);
-      console.log("*******************");
-      console.log(this.editedItem);
 
       axios
-        .post(this.$baseUrl + "/editUser/?token=" + $Token, this.editedItem)
+        .post(this.$baseUrl + "/editProfile/?token=" + $Token, this.editedItem)
 
         .then(response => {
           this.dialog = false;
-          //this.snackbar = true;
+
+          this.notify = response.data.message;
+          this.status = 2;
           this.message = response.data.message;
+        })
+        .catch(error => {
+          this.notify = error.response.data.message;
+          this.status = 0;
+          console.log(error.response);
+          console.log("ERROR");
         });
 
       //this.users.push(this.editedItem);

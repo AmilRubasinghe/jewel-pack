@@ -225,7 +225,7 @@ export default {
           Make the request to the POST /single-file URL
         */
       axios
-        .post(this.$baseUrl+"/upload/slideshow", formData, {
+        .post(this.$baseUrl + "/upload/slideshow", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
@@ -246,7 +246,7 @@ export default {
       let $Token = localStorage.getItem("token");
       axios
         .post(
-          this.$baseUrl+"/storeImage" + "?token=" + $Token,
+          this.$baseUrl + "/storeImage" + "?token=" + $Token,
           // axios.post('http://localhost:8000/api/storeImage'+'?token='+$Token,response.data)
           // axios.post('https://vgy.me/upload?userkey=Kpx6WS9lOl8dx3rU9pDrOasKbkUOlpGs',
           formData
@@ -255,7 +255,15 @@ export default {
           this.dialog = false;
           this.file = "";
           this.getSlideshow();
-          alert("Succesfully Saved");
+         // alert("Succesfully Saved");
+
+          this.$dialog.alert("Succesfully Saved!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+
+
         })
         .catch(error => {
           console.log(error.response);
@@ -265,7 +273,7 @@ export default {
 
     getSlideshow() {
       axios
-        .get(this.$baseUrl+"/getImages")
+        .get(this.$baseUrl + "/getImages")
         .then(response => {
           this.slideshowItems = response.data.images;
 
@@ -302,23 +310,59 @@ export default {
     },
 
     deleteItem(item) {
-      var result = confirm("Want to delete?");
+      // var result = confirm("Want to delete?");
+
+      this.$dialog
+        .confirm("Delete the selected file?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(this.$baseUrl + "/deleteSlideshow/?token=" + $Token, item)
+            .then(response => {
+              this.getSlideshow();
+             // alert("Succesfully Deleted");
+             dialog.close();
+
+              this.$dialog.alert("Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
+
+      /*
       if (result) {
         let $Token = localStorage.getItem("token");
         //console.log(item.imageID)
+
         axios
-          .post(
-            this.$baseUrl+"/deleteSlideshow/?token=" + $Token,
-            item
-          )
+          .post(this.$baseUrl + "/deleteSlideshow/?token=" + $Token, item)
           .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
-                            console.log(res);
-                        });*/
+            
             this.getSlideshow();
             alert("Succesfully Deleted");
           });
       }
+      */
     },
 
     editSave() {
@@ -330,7 +374,8 @@ export default {
 
         axios
           .post(
-            this.$baseUrl+"/edititems/" +
+            this.$baseUrl +
+              "/edititems/" +
               this.editedItem.imageID +
               "?token=" +
               $Token,

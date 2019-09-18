@@ -2,8 +2,8 @@
 <body class="inventory-body">
   <div class="wrapper">
     <div class="container box">
-      <alert v-if="alert" v-bind:message="alert"/>
- <notification v-if="notify"  :message="notify" :type="status"></notification>
+      <alert v-if="alert" v-bind:message="alert" />
+      <notification v-if="notify" :message="notify" :type="status"></notification>
       <v-snackbar v-if="snack" v-model="snackActive" bottom center multi-line :timeout="0">
         {{ snack }}
         <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
@@ -22,7 +22,7 @@
             autofocus
             v-validate="'required|email'"
             v-model="login.email"
-          >
+          />
 
           <div
             v-show="errors.has('email')"
@@ -30,7 +30,7 @@
           >{{ errors.first('email') }}</div>
         </div>
 
-        <br>
+        <br />
 
         <div class="form-group form-group-lg">
           <input
@@ -41,18 +41,14 @@
             name="password"
             v-validate="'required'"
             v-model="login.password"
-          >
+          />
           <div
             v-show="errors.has('password')"
             class="help block alert alert-danger"
           >{{ errors.first('password') }}</div>
         </div>
 
-
-        
         <v-btn small to="request-password-reset" outline color="white">Forget Password?</v-btn>
-        
-
 
         <div class="form-group form-group-lg" v-ripple="{ class: 'white--text' }">
           <v-btn type="submit" round color="blue" outline block>Sign in</v-btn>
@@ -84,8 +80,8 @@ export default {
       snack: "",
       snackActive: false,
 
-      notify:'',
-        status:2,
+      notify: "",
+      status: 2
     };
   },
 
@@ -101,19 +97,18 @@ export default {
       (this.snackActive = true), (this.snack = this.$route.query.snack);
     }
     if (this.$route.query.notify) {
-       (this.notify = this.$route.query.notify);
+      this.notify = this.$route.query.notify;
     }
   },
   methods: {
     route() {
-     console.log(this.$baseUrl);
+      console.log(this.$baseUrl);
     },
 
-    
     resendEmail() {
       this.user.email = Store.getters.vEmail;
       axios
-        .post(this.$baseUrl+"/resendvEmail", this.user, {})
+        .post(this.$baseUrl + "/resendvEmail", this.user, {})
         .then(response => {
           if (response.data.alert) {
             this.alert = response.data.message;
@@ -130,7 +125,7 @@ export default {
 
     loginUser() {
       axios
-        .post(this.$baseUrl+"/login", this.login, {})
+        .post(this.$baseUrl + "/login", this.login, {})
         .then(response => {
           this.alert = response.data.message;
 

@@ -107,7 +107,7 @@
                             @input="remove(item)"
                           >
                             <strong>{{item.shipMethod}}</strong>
-                                    &nbsp;
+                            &nbsp;
                           </v-chip>
                         </template>
                       </v-combobox>
@@ -128,20 +128,18 @@
                     </v-flex>
                   </v-layout>
                 </v-flex>
-
-                
-                     <v-flex md3 sm12 lg3 xs12 d-flex>
-                       <v-checkbox
-                        v-model="newProduct.border"
-                        v-validate="'required'"
-                        :error-messages="errors.collect('checkbox')"
-                        value="1"
-                        label="Gold border"
-                        data-vv-name="checkbox"
-                        type="checkbox"
-                        required
-                      ></v-checkbox>
-                    </v-flex>
+                <v-flex md3 sm12 lg3 xs12 d-flex>
+                  <v-checkbox
+                    v-model="newProduct.border"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('checkbox')"
+                    value="1"
+                    label="Gold border"
+                    data-vv-name="checkbox"
+                    type="checkbox"
+                    required
+                  ></v-checkbox>
+                </v-flex>
 
                 <v-flex d-flex>
                   <v-layout row wrap  justify-center>
@@ -987,41 +985,88 @@ export default {
     },
 
     deleteItem(item) {
-      var result = confirm("Want to delete product" + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      //var result = confirm("Want to delete product" + item.PID + "?");
+
+      this.$dialog
+        .confirm("Delete the selected product?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Product succesfully Deleted");
-          });
-      }
+              this.productItems();
+             // alert("Product succesfully Deleted");
+
+              this.$dialog.alert("Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     restoreItem(item) {
-      var result = confirm("Want to restore " + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Restore the selected file?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Restore!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Succesfully Restored");
-          });
-      }
+              this.productItems();
+            //  alert("Succesfully Restored");
+              this.$dialog.alert("Succesfully Restored!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     selectFile(event) {
@@ -1059,7 +1104,12 @@ export default {
                             console.log(res);
                         });*/
             this.productItems();
-            alert("Product lot qunantity succesfully Deleted");
+        //    alert("Product lot qunantity succesfully Deleted");
+            this.$dialog.alert("Product Lot Qunantity Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
           });
       }
     },

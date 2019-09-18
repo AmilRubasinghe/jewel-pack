@@ -25,8 +25,7 @@
     </v-layout>
     
 
-    <v-toolbar app flat prominent height="60" scroll-off-screen >
-      
+    <v-toolbar app flat prominent height="75vh" scroll-off-screen>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -49,19 +48,10 @@
           {{ item.title }}
         </v-btn>
 
-        <v-btn flat to="/cartView">
-          <v-badge right color="#CD853F">
-            <template v-slot:badge>
-              <span style="color:white">{{cartCount}}</span>
-            </template>
-            <v-icon left dark color="black">shopping_cart</v-icon>
-          </v-badge>
-        </v-btn>
-
         <v-menu offset-y open-on-hover transition="slide-y-transition">
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">
-              <v-icon left dark>{{ 'reorder' }}</v-icon>categories
+              <v-icon left dark>{{ 'reorder' }}</v-icon>Products
               <v-icon left dark>{{ 'arrow_drop_down' }}</v-icon>
             </v-btn>
           </template>
@@ -76,6 +66,15 @@
             </v-list-tile>
           </v-list>
         </v-menu>
+
+        <v-btn flat to="/cartView">
+          <v-badge right color="#CD853F">
+            <template v-slot:badge>
+              <span style="color:white">{{cartCount}}</span>
+            </template>
+            <v-icon left dark color="black">shopping_cart</v-icon>
+          </v-badge>Cart
+        </v-btn>
 
         <v-btn v-if="!user" flat v-for="item in userItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
@@ -436,10 +435,6 @@ export default {
       /* console.log(Token);*/
       // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
 
-      if (!!gapi.auth2.init()) {
-        this.googleLogout();
-      }
-
       axios
         .post(this.$baseUrl + "/logout?token=" + $Token)
         .then(response => {
@@ -454,6 +449,10 @@ export default {
           console.log(error.response);
           console.log("ERROR");
         });
+
+      if (!!gapi.auth2.init()) {
+        this.googleLogout();
+      }
     },
 
     catItems() {
@@ -498,8 +497,7 @@ export default {
   right: -0.1px;
 }
 
-.cartBtn{
-
+.cartBtn {
   right: -27px;
 }
 

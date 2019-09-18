@@ -47,6 +47,7 @@ class ProductController extends Controller
 
     $searchQuery = trim($request->keywords);
     $field = ['Size', 'Colour'];
+    
     $products=product::where('isDeleted', '=', 0)->
     where(function ($query) use($searchQuery, $field) {
       for ($i = 0; $i < count($field); $i++){
