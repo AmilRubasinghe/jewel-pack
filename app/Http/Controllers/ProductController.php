@@ -113,13 +113,19 @@ $products = product::where(function ($query) use($searchQuery, $field) {
 
     public function addProduct(Request $request){
    
-      
-      
-     // $image = $request->file('file');
-      
-     // $filename = time().'-'.$image->getClientOriginalName();
+
+   // $arr =  $request->input('method');
      
-       //$image->storeAs('public/product',$filename);
+
+       $arr = json_decode($request->input('method'));
+     // return $arr[2]->shipId;
+     //return count($arr);
+      $image = $request->file('file');
+      
+     // return $image;
+      $filename = time().'-'.$image->getClientOriginalName();
+    // return $filename;
+       $image->storeAs('public/product',$filename);
       // return $image;
 
       $table = new product;
@@ -132,9 +138,9 @@ $products = product::where(function ($query) use($searchQuery, $field) {
       $table->slashedPrice = $request->input('slashedPrice');
       $table->border = $request->input('border');
       $table->description = $request->input('details');
-     // $table->Image = url('/').'/storage/product/'.$filename;
+      $table->Image = url('/').'/storage/product/'.$filename;
 
-     // $table->ImageName = $filename;
+      $table->ImageName = $filename;
 
       $table->save();
 
@@ -143,13 +149,17 @@ $products = product::where(function ($query) use($searchQuery, $field) {
      // $shiptable->pid = $table->PID;
      // $shiptable->shipid = $request->input('shipMethod');
      // $shiptable->save();
-      $ship = $request->input('method');
-      for($i = 0; $i < count($ship); $i++) {
+     // $ship = $request->input('method');
+     
+
+      for($i = 0; $i < count($arr); $i++) {
+        $shiptable = new productshippingmethod;
         $shiptable->pid = $table->PID;
         
-        $shiptable->shipid = $ship[$i];
-        $shiptable->save();
+        $shiptable->shipid =$arr[$i]->shipId;
 
+        $shiptable->save();
+       
        // $storePicture->picture_id = $i;
         //$storePicture->picture_owner = Auth::user()->id;
        // $storePicture->price = '10';
@@ -255,6 +265,11 @@ public function addHomeProduct(Request $request){
 
     
     
-
+   public function getselectedProducts (){
+   
+  
+  $product = product::where('isSelected', '=', 1)->get();
+  return response()->json(['selectedProducts'=>$product],200);
+}
 
 }

@@ -142,17 +142,17 @@
                 </v-flex>
 
                 <v-flex d-flex>
-                  <v-layout row wrap justify-center>
-                    <v-flex xs9 sm9 md4 lg4 d-flex>
+                  <v-layout row wrap  justify-center>
+                   <!-- <v-flex xs9 sm9 md4 lg4 offset-sm1 d-flex>
                       <v-card
                         flat
                         color="#B0BEC5"
                         @click="$refs.file.click()"
                         ripple
                         hover
-                        height="100"
-                        width="100"
-                        max-width="500px"
+                         max-height="300"
+                
+                         max-width="200"
                       >
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
@@ -170,7 +170,27 @@
                           </div>
                         </form>
                       </v-card>
-                    </v-flex>
+                    </v-flex>-->
+                    <v-flex xs9 sm9 md7 lg7  d-flex>
+                     <v-card
+                flat
+                color="#B0BEC5"
+                @click="$refs.file.click()"
+                ripple
+                hover
+                max-height="300"
+                
+                max-width="600"
+              >
+              
+  
+<vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" v-on:vdropzone-sending="addProduct" >
+  <v-icon outline large>cloud_upload</v-icon>
+ <h4>Upload photo</h4>
+</vue-dropzone>
+
+</v-card>
+                      </v-flex>  
                   </v-layout>
                 </v-flex>
               </v-layout>
@@ -276,7 +296,7 @@
                         :items=" ShippingMethodItems"
                         item-text="shipMethod"
                         item-value="shipId"
-                        v-model="editedItem.shipMethod"
+                        v-model="editedItem.shipId"
                         outline
                         menu-props
                       ></v-select>
@@ -477,6 +497,7 @@
 
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
+              <td class="text-xs-center">{{ props.item.shipMethod }}</td>
 
               <td class="justify-center layout px-0">
                 <v-icon
@@ -522,9 +543,25 @@
 <script>
 import axios from "axios";
 import navDrawer from "../admin/navDrawer.vue";
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
+   name: 'app',
+  
+
   data() {
     return {
+       dropzoneOptions: {
+          url: 'https://httpbin.org/post',
+          thumbnailWidth: 150,
+          maxFilesize: 0.5,
+          headers: { "My-Awesome-Header": "header value" },
+          addRemoveLinks: true,
+        dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD HERE",
+      
+          
+      },
+
       dialog: false,
       showModal: false,
       showQuantity: false,
@@ -636,6 +673,9 @@ export default {
   },
 
   components: {
+    
+    vueDropzone: vue2Dropzone,
+  
     navDrawer
   },
 
@@ -678,6 +718,10 @@ export default {
       );
       this.newProduct.shipMethod = [...this.newProduct.shipMethod];
     },
+
+  morePhotos(){
+
+  },
 
     catItems() {
       axios
@@ -786,18 +830,32 @@ export default {
 
       let $Token = localStorage.getItem("token");
 
+      var json_arr = JSON.stringify(this.newProduct.shipMethod);
+     // console.log(json_arr);
+
+
+
+
+       const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+      formData.append("method", json_arr);
+      formData.append("details", this.newProduct.details);
+      formData.append("price", this.newProduct.price);
+      formData.append("slashedPrice", this.newProduct.slashedPrice);
+      formData.append("size", this.newProduct.size);
+      formData.append("border", this.newProduct.border);
+      formData.append("colour", this.newProduct.colour);
+      formData.append("cid", this.newProduct.cid);
+
+      console.log('&&&&&&&&&&&&&&');
+      //console.log(this.file);
+
+
       axios
-        .post(this.$baseUrl + "/addProduct?token=" + $Token, {
-          file: this.file,
-          details: this.newProduct.details,
-          price: this.newProduct.price,
-          slashedPrice: this.newProduct.slashedPrice,
-          size: this.newProduct.size,
-          border: this.newProduct.border,
-          colour: this.newProduct.colour,
-          cid: this.newProduct.cid,
-          method: this.newProduct.shipMethod
-        })
+        .post(this.$baseUrl + "/addProduct?token=" + $Token,
+           formData
+        
+        )
 
         .then(response => {
           console.log(response.data);
@@ -871,6 +929,8 @@ export default {
       this.newProduct.shipMethod = "";
       this.newProduct.cid = "";
       this.newProduct.slashedPrice = "";
+      this.newProduct.shipMethod= "";
+      
     },
 
     clearQuntity() {
@@ -888,6 +948,7 @@ export default {
       this.newProduct.shipMethod = "";
       this.newProduct.cid = "";
       this.newProduct.slashedPrice = "";
+      this.newProduct.shipMethod= "";
       this.dialog = true;
     },
 
@@ -1100,6 +1161,14 @@ export default {
 .flex.md3.sm12.lg3.xs12.d-flex {
   padding: 0px;
   margin: 0px;
+}
+.dropzone .dz-preview .dz-image {
+  
+    overflow: hidden;
+    
+    position: static;
+    display: block;
+    z-index: 10;
 }
 </style>
 

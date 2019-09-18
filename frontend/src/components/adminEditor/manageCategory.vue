@@ -218,7 +218,8 @@
               <td class="text-xs-center">{{ props.item.CName }}</td>
               <td class="text-xs-center">{{ props.item.icon }}</td>
               <td class="text-xs-center">{{ props.item.Image }}</td>
-              <td class="text-xs-left">
+              <td class="text-xs-center">{{ props.item.file }}</td>
+                <td class="text-xs-left">
                 <v-img :src="props.item.Image"></v-img>
               </td>
               <td class="justify-center layout px-0">
@@ -369,7 +370,15 @@ export default {
     },
 
     editSave() {
+       const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      formData.append("CName", this.editedItem.CName);
+      formData.append("icon", this.editedItem.icon);
+      console.log( this.editedItem.icon);
+
       let $Token = localStorage.getItem("token");
+   
       if (this.editedIndex > -1) {
         Object.assign(this.categoryItems[this.editedIndex], this.editedItem);
 
@@ -380,7 +389,7 @@ export default {
               this.editedItem.CID +
               "?token=" +
               $Token,
-            this.editedItem
+            formData
           )
           .then(response => {
             this.showModal = false;
