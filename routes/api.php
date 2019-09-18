@@ -101,6 +101,9 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         Route::post('me', 'userController@me');
 
         Route::post('myOrder', 'orderController@myOrder');
+        Route::post('editPassword', 'userController@editPassword');
+        Route::post('editProfile', 'userController@editUser');
+
         
         
     });

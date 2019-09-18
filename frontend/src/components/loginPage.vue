@@ -108,9 +108,13 @@ export default {
     if (this.$route.query.snack) {
       (this.snackActive = true), (this.snack = this.$route.query.snack);
     }
+    if (this.$route.query.status) {
+      this.status = this.$route.query.status;
+    }
     if (this.$route.query.notify) {
       this.notify = this.$route.query.notify;
     }
+    
   },
 
   mounted() {
