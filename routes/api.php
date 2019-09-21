@@ -75,6 +75,7 @@ Route::get('pay', 'PaymentController@payHerePost');
 //Checkout
 
 Route::post('checkDetails','OrderController@saveOrder');
+Route::post('PayLater','OrderController@setOrderPending');
 Route::get('showOrder','OrderController@getOrder');
 Route::get('showUser','userController@printUser');
 

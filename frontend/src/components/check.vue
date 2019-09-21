@@ -164,7 +164,8 @@ import Store from "../store.js";
             lastname:"",
             phone:"",
             postalcode:"",
-            address:""
+            address:"",
+            order_status:"success"
             
         },
 
