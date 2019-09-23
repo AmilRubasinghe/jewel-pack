@@ -192,7 +192,7 @@ import Store from "../store.js";
           saveData(){
 
             if (!this.errors.any()) {
-                axios.post('http://localhost:8000/api/checkDetails',this.checkDetails
+                axios.post(this.$baseUrl+'/checkDetails',this.checkDetails
                 , {
 
             }).then(response=>{

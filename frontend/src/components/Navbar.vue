@@ -478,7 +478,7 @@ export default {
     ...mapGetters(["role", "user", "cartCount", "cart"]),
 
     Jlogo: function() {
-      return this.$url + "storage/logo/logo.png";
+      return this.$url + "storage/logo/jewelpack.png";
     }
   },
 

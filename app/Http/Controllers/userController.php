@@ -315,6 +315,50 @@ public function logoutUser(Request $request){
         return response()->json(['message' => "Profile Succesfully Edited"]);
     }
 
+
+    public function storeDP(Request $request){
+        
+        $thisUser=JWTAuth::parseToken()->authenticate();
+
+        if($thisUser->profileImage){
+        
+        $this->deleteDP();
+
+
+        }
+
+
+        $image = $request->file('file');
+        $filename = $thisUser->ID.'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/dp',$filename);
+
+      //  $thisUser->profileImage=$filename;
+       // $table->name = $filename;
+
+       $thisUser->profileImageName = $filename;    
+        $thisUser->profileImage = url('/').'/storage/dp/'.$filename;
+
+    $thisUser->save();
+    return response()->json(['message'=>"Image uploaded succesfully !"]);      
+    
+    
+    }
+
+    public function deleteDP() {
+
+        $thisUser=JWTAuth::parseToken()->authenticate();
+
+        \Storage::delete('public/dp/'.$thisUser->profileImageName);
+        $thisUser->profileImage = null;
+        $thisUser->profileImageName = null;
+
+        $thisUser->save();
+
+      //  $table = slideshow::findOrFail( $request->input('imageID'))->delete();
+        
+        return response()->json(['message'=>"Photo deleted succesfully !"]);
+    }
+
     public function editPassword(Request $request){
 
        if(JWTAuth::parseToken()->authenticate()->password||$request->get('OldPassword')){

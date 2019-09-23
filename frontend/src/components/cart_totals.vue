@@ -146,8 +146,8 @@ export default {
          user:[],
          checkoutDetails:{
             merchant_id : "1212709",
-            return_url : "http://localhost:8080/",
-            cancel_url : "http://localhost:8080/",
+            return_url : this.$url,
+            cancel_url : this.$url,
             notify_url : "https://webhook.site/5f37258e-8750-4fa3-aea1-b045ffadb9ab",
             first_name:"",
             last_name:"",
@@ -225,7 +225,7 @@ export default {
         });*/
 
         axios
-        .get("http://localhost:8000/api/showOrder")
+        .get(this.$baseUrl+"/showOrder")
         .then(response => {
           this.checkoutDetails.email = response.data.printOrder.customerEmail;
           this.checkoutDetails.order_id=response.data.printOrder.OID;

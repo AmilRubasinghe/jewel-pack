@@ -103,6 +103,9 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         Route::post('myOrder', 'orderController@myOrder');
         Route::post('editPassword', 'userController@editPassword');
         Route::post('editProfile', 'userController@editUser');
+        Route::post('storeDP', 'userController@storeDP');
+        Route::post ( 'deleteDP', 'userController@deleteDP' );
+
 
         
         
