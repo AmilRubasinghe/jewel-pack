@@ -87,7 +87,7 @@
         <v-flex d-flex xs6 sm6 md7 lg7>
           <v-parallax
             height="500"
-            src="http://localhost:8000/storage/home/photo.png"
+            src="http://localhost:8000/storage/home/photo.jpeg"
             lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
           ></v-parallax>
         </v-flex>
@@ -131,11 +131,11 @@
           class="display-1 font-weight-bold"
           style="color:#212121; align:center;"
         >Our Best Products</p>
-        <br /><br />
+        <br />
+        <br />
       </v-flex>
 
-     
-        <!--<v-layout wrap>
+      <!--<v-layout wrap>
           <v-flex v-for="(item, i) in selectedProducts" :key="i" d-flex xs12 sm6 md3>
             <v-card class="card product" color="blue-grey lighten-3" max-width="500">
               <div class="image-box">
@@ -146,100 +146,77 @@
               </div>
             </v-card>
           </v-flex>
-        </v-layout>-->
-        <v-container>
-         <v-layout row wrap align-center justify-center>
+      </v-layout>-->
+      <v-container>
+        <v-layout row wrap align-center justify-center>
           <v-flex v-for="(item, i) in selectedProducts" :key="i" d-flex xs12 sm6 md3>
             <br />
 
-           <v-card class="card product" style="cursor: pointer" align="center"  max-width="500">
-              
-                 <div class="image-box">
+            <v-card class="card product" style="cursor: pointer" align="center" max-width="500">
+              <div class="image-box">
                 <v-img :aspect-ratio="1/1" :src="item.Image"></v-img>
-                 </div>
-                  
+              </div>
 
-                <v-card-title>
-                  <v-layout colum wrap align-center justify-center>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <span>
-                        <p
-                       
-                          data-aos="fade-up"
-                          class="subtitle-1 font-weight-regular"
-                          style="color:#212121;"
-                        >{{item.Size}} {{item.Colour}} Colour Box</p>
-                      </span>
-                    </v-flex>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <v-rating
-                        data-aos="zoom-in-up"
-                        readonly
-                        :value="4"
-                        dense
-                        hover
-                        background-color="#eabf00"
-                        color="#eabf00"
-                      ></v-rating>
-                    </v-flex>
-                   
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <v-layout row wrap align-center justify-center>
-                        <del class style="color:#616161;">
-                          <p
-                            v-if="item.slashedPrice"
-                            data-aos="fade-up"
-                            class="subtitle-1 font-weight-medium"
-                            style="color:#616161;"
-                          >{{item.slashedPrice}}LKR</p>
-                        </del>
-
-                        &nbsp; &nbsp;
-                        <p
-                          class="headline font-weight-bold"
-                          data-aos="fade-up"
-                         
-                          style="color:#212121;"
-                        >{{item.Price}}LKR</p>
-                        
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-
-                 <v-card-actions>
-                    <v-layout row wrap align-center justify-center>
-                  <v-flex md11 lg11 xs11 sm11 offset-sm0 >
-                    
-                  <v-btn
-                    class="button"
-                    color="#212121"
-                    dark
-                    block 
-                    
-
-
-                 
-                    
-                  >
-                     Product View</v-btn>
-                  
-                  
+              <v-card-title>
+                <v-layout colum wrap align-center justify-center>
+                  <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                    <span>
+                      <p
+                        data-aos="fade-up"
+                        class="subtitle-1 font-weight-regular"
+                        style="color:#212121;"
+                      >{{item.Size}} {{item.Colour}} Colour Box</p>
+                    </span>
                   </v-flex>
-                   </v-layout>
-                </v-card-actions>
-              </v-card>
-           
+                  <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                    <v-rating
+                      data-aos="zoom-in-up"
+                      readonly
+                      :value="4"
+                      dense
+                      hover
+                      background-color="#eabf00"
+                      color="#eabf00"
+                    ></v-rating>
+                  </v-flex>
+
+                  <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                    <v-layout row wrap align-center justify-center>
+                      <del class style="color:#616161;">
+                        <p
+                          v-if="item.slashedPrice"
+                          data-aos="fade-up"
+                          class="subtitle-1 font-weight-medium"
+                          style="color:#616161;"
+                        >{{item.slashedPrice}}LKR</p>
+                      </del>
+                      &nbsp; &nbsp;
+                      <p
+                        class="headline font-weight-bold"
+                        data-aos="fade-up"
+                        style="color:#212121;"
+                      >{{item.Price}}LKR</p>
+                    </v-layout>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+              <v-card-actions>
+                <v-layout row wrap align-center justify-center>
+                  <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                    <v-btn dark block color="#212121" outline-color="#ffffff">Product View</v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-card-actions>
+            </v-card>
           </v-flex>
         </v-layout>
-        </v-container>
-      </v-card>
-    
+      </v-container>
+    </v-card>
 
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="http://localhost:8000/storage/home/home.png"
+      src="http://localhost:8000/storage/home/home.jpeg"
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -247,6 +224,7 @@
       </v-layout>
     </v-parallax>
 
+<<<<<<< HEAD
  <v-card flat class="getInTouch" style="background-color:#FBC02D;">
    <v-container>
    <v-layout row wrap >
@@ -285,6 +263,38 @@
    </v-layout>
    </v-container>
  </v-card>
+=======
+    <v-card flat class="getInTouch" style="background-color:#FBC02D;">
+      <v-container>
+        <v-layout row wrap>
+          <v-flex xs4 sm4 md2 lg2 d-flex>
+            <p
+              data-aos="fade-up"
+              class="display-1 font-weight-bold"
+              style="color:#212121; align:left;"
+            >Get In Touch</p>
+            <br />
+            <br />
+          </v-flex>
+
+          <v-flex xs5 sm5 md10 lg10>
+            <v-layout row wrap justify-end>
+              <v-flex xs6 sm6 md3 lg3>
+                <v-btn
+                  large
+                  round
+                  block
+                  color="#ffffff"
+                  outline-color="#ffffff"
+                  class="subtitle-1 font-weight-medium"
+                >Contact</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card>
+>>>>>>> 7e147d62141c4304519768b5c964072877e76eed
 
     <br />
   </div>
@@ -372,8 +382,8 @@ export default {
 
 <style>
 .getInTouch.v-card.v-card--flat.v-sheet.theme--light {
-    margin-bottom: -90px;
-    padding: 20px;
+  margin-bottom: -90px;
+  padding: 20px;
 }
 .search {
   padding: 40px;
@@ -445,7 +455,6 @@ h4.ab.subtitle-2.headline.mb-1 {
   margin-bottom: auto;
 }
 
-
 .image-box .v-image {
   max-width: 100%;
   transition: all 0.3s;
@@ -485,10 +494,10 @@ background-color: #eabf00;
 }
 
 .OurBestProducts.v-card.v-card--flat.v-sheet.theme--light {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 70px;
-    padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 70px;
+  padding-bottom: 50px;
 }
 
 .custom-font1 {

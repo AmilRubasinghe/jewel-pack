@@ -78,7 +78,7 @@ export default {
        
        autoFill(){
             axios
-        .get("http://localhost:8000/api/showOrder")
+        .get(this.$baseUrl+"/showOrder")
         .then(response => {
           this.checkoutDetails.email = response.data.printOrder.customerEmail;
           this.checkoutDetails.order_id=response.data.printOrder.OID;
@@ -94,7 +94,7 @@ export default {
         this.checkoutDetails.amount=this.total;
 
          axios
-        .get("http://localhost:8000/api/showUser")
+        .get(this.$baseUrl+"/showUser")
         .then(response => {
           this.checkoutDetails.first_name= response.data.printUser.firstName;
            this.checkoutDetails.last_name= response.data.printUser.lastName;

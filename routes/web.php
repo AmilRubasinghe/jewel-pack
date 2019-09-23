@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+/*
 Route::get('/{any}', function(){
 	return view('index');
  })->where('any', '.*');
- 
+*/ 
 //Route::get('registerPage', ['uses'=>'UserController@registerPage','as' => 'registerPage']);
 /*
 Route::post('register',['uses'=>'UserController@registerUser',
@@ -39,10 +40,10 @@ Route::get('logout',['uses'=>'UserController@logoutUser',
 */
 Route::get('verifyEmailFirst',['uses'=>'UserController@verifyEmailFirst',
     'as' => 'verifyEmail']);
-
+/*
 Route::get('verify/{email}/{verifyToken}',['uses'=>'UserController@sendEmailDone',
     'as' => 'sendEmailDone']);
-
+*/
 	/*
 Route::get('loginPage',['uses'=>'UserController@loginPage',
     'as' => 'loginPage']);

@@ -85,7 +85,7 @@
               :height="60"
               :width="5"
               :radius="0"
-              :sizeUnit="px"
+              
             ></ScaleLoader>
           </v-layout>
         </v-container>

@@ -1,143 +1,177 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <div class="marginWith page">
-        <h1 class="custom-font1">{{pageTitle}}</h1>
+      <div>
+        <v-container pa-0>
+          <h1 class="custom-font1">{{pageTitle}}</h1>
 
-        <v-container v-if="searchMode">
-          <v-layout row wrap align-center justify-center>
-            <v-flex xs10 sm10 md9 lg8 xl8>
-              <v-text-field
-                label="Search"
-                outline
-                v-model="keywords"
-                color="#E65100"
-                placeholder="Find your box using color,size"
-                autofocus
-                onblur="this.focus()"
-              ></v-text-field>
-            </v-flex>
-            <v-btn icon @click="search" large>
-              <v-icon large color="#E65100">search</v-icon>
-            </v-btn>
-          </v-layout>
-        </v-container>
+          <v-container v-if="searchMode">
+            <v-layout row wrap align-center justify-center>
+              <v-flex xs10 sm10 md9 lg8 xl8>
+                <v-text-field
+                  label="Search"
+                  outline
+                  v-model="keywords"
+                  color="#E65100"
+                  placeholder="Find your box using color,size"
+                  autofocus
+                  onblur="this.focus()"
+                ></v-text-field>
+              </v-flex>
+              <v-btn icon @click="search" large>
+                <v-icon large color="#E65100">search</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-container>
 
-        <v-container>
-          <v-layout>
-            <div></div>
+          <v-container>
+            <v-layout>
+              <div></div>
 
-            <v-toolbar>
-              <v-toolbar-title>Sorting</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-flex xs12 sm6 md4 d-flex>
-                  <v-select
-                    :items="sortCategories"
-                    label="Sort by"
-                    outline
-                    menu-props
-                    v-model="sortCat"
-                  ></v-select>
-                </v-flex>
+              <v-toolbar>
+                <v-toolbar-title>Sorting</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                  <v-flex xs12 sm6 md4 d-flex>
+                    <v-select
+                      :items="sortCategories"
+                      label="Sort by"
+                      outline
+                      menu-props
+                      v-model="sortCat"
+                    ></v-select>
+                  </v-flex>
 
-                <v-flex xs12 sm6 md4 d-flex>
-                  <v-select
-                    label="Order"
-                    :items="sortAscOrDesc"
-                    item-text="text"
-                    item-value="value"
-                    v-model="sortOrder"
-                    outline
-                    menu-props
-                  ></v-select>
-                </v-flex>
-              </v-toolbar-items>
-            </v-toolbar>
-          </v-layout>
-        </v-container>
+                  <v-flex xs12 sm6 md4 d-flex>
+                    <v-select
+                      label="Order"
+                      :items="sortAscOrDesc"
+                      item-text="text"
+                      item-value="value"
+                      v-model="sortOrder"
+                      outline
+                      menu-props
+                    ></v-select>
+                  </v-flex>
+                </v-toolbar-items>
+              </v-toolbar>
+            </v-layout>
+          </v-container>
+          <v-container>
+            <v-layout
+              row
+              wrap
+              align-center
+              :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
+            >
+              <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
+                <br />
 
-        <v-layout row wrap align-center justify-center>
-          <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs12 sm12>
-            <br />
+                <transition-group name="staggered-fade" tag="v-card">
+                  <v-card
+                    class="card-5"
+                    style="cursor: pointer"
+                    light
+                    ripple
+                    align="center"
+                    @click="productPreview(products[i])"
+                    :key="item.PID"
+                  >
+                    <v-img
+                      :aspect-ratio="4/3"
+                      contain
+                      align="right"
+                      :src="products[i].Image"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                    >
+                      <v-container fill-height fluid>
+                        <v-layout fill-height>
+                          <v-flex xs12 align-end flexbox>
+                            <!--                   <span class="headline"></span> -->
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                    </v-img>
 
-            <transition-group name="staggered-fade" tag="v-card">
-              <v-card
-                class="card-5"
-                style="cursor: pointer"
-                light
-                ripple
-                align="center"
-                @click="productPreview(products[i])"
-                :key="item.PID"
-              >
-              <div class="image-box">
-                <v-img :aspect-ratio="4/3" contain align="center" :src="products[i].Image">
-
-                </v-img>
-                    </div>
-
-                <v-card-title>
-                  <v-layout colum wrap align-center justify-center>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <span>
-                        <p
-                          v-on:mouseover="toggleInfo"
-                          v-on:mouseleave="toggleInfo"
-                          data-aos="fade-up"
-                          class="title font-weight-regular"
-                          style="color:#212121;"
-                        >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
-                      </span>
-                    </v-flex>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <v-rating
-                        data-aos="zoom-in-up"
-                        readonly
-                        :value="4"
-                        dense
-                        hover
-                        background-color="amber accent-4"
-                        color="amber accent-3"
-                      ></v-rating>
-                    </v-flex>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <p
-                        v-if="products[i].Quantity"
-                        class="subtitle-2 font-weight-medium"
-                        style="color:#1B5E20;"
-                      >In Stock</p>
-
-                      <p
-                        v-if="!products[i].Quantity"
-                        class="subtitle-2 font-weight-medium"
-                        style="color:#D50000;"
-                      >Out of Stock</p>
-                    </v-flex>
-                    <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                      <v-layout row wrap align-center justify-center>
-                        <del class style="color:#616161;">
+                    <v-card-title>
+                      <v-layout colum wrap align-center justify-center>
+                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                          <span>
+                            <p
+                              v-on:mouseover="toggleInfo"
+                              v-on:mouseleave="toggleInfo"
+                              data-aos="fade-up"
+                              class="title font-weight-regular"
+                              style="color:#212121;"
+                            >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
+                          </span>
+                        </v-flex>
+                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                          <v-rating
+                            data-aos="zoom-in-up"
+                            readonly
+                            :value="4"
+                            dense
+                            hover
+                            background-color="amber accent-4"
+                            color="amber accent-3"
+                          ></v-rating>
+                        </v-flex>
+                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
                           <p
-                            v-if="products[i].slashedPrice"
-                            data-aos="fade-up"
-                            class="subtitle-1 font-weight-medium"
-                            style="color:#616161;"
-                          >{{products[i].slashedPrice}}LKR</p>
-                        </del>
+                            v-if="products[i].Quantity"
+                            class="subtitle-2 font-weight-medium"
+                            style="color:#1B5E20;"
+                          >In Stock</p>
 
-                        &nbsp; &nbsp;
-                        <p
-                          class="headline font-weight-bold"
-                          data-aos="fade-up"
-                          v-if="displayInfo"
-                          style="color:#F9A825;"
-                        >{{products[i].Price}}LKR</p>
-                        <p
-                          class="headline font-weight-bold"
-                          data-aos="fade-up"
-                          style="color:#212121;"
-                          v-else
-                        >{{products[i].Price}}LKR</p>
+                          <p
+                            v-if="!products[i].Quantity"
+                            class="subtitle-2 font-weight-medium"
+                            style="color:#D50000;"
+                          >Out of Stock</p>
+                        </v-flex>
+                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                          <v-layout row wrap align-center justify-center>
+                            <del class style="color:#616161;">
+                              <p
+                                v-if="products[i].slashedPrice"
+                                data-aos="fade-up"
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >{{products[i].slashedPrice}}LKR</p>
+                            </del>
+                            &nbsp; &nbsp;
+                            <p
+                              class="headline font-weight-bold"
+                              data-aos="fade-up"
+                              v-if="displayInfo"
+                              style="color:#F9A825;"
+                            >{{products[i].Price}}LKR</p>
+                            <p
+                              class="headline font-weight-bold"
+                              data-aos="fade-up"
+                              style="color:#212121;"
+                              v-else
+                            >{{products[i].Price}}LKR</p>
+                          </v-layout>
+                        </v-flex>
+                      </v-layout>
+                    </v-card-title>
+
+                    <v-card-actions>
+                      <v-layout row wrap align-center justify-center>
+                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                          <div class="text-center">
+                            <v-btn
+                              dark
+                              block
+                              color="#212121"
+                              outline-color="#ffffff"
+                              @click="productPreview(products[i])"
+                            >Product View</v-btn>
+                          </div>
+                        </v-flex>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -210,7 +244,7 @@
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
                                 alt="image1"
                               />
                             </label>
@@ -219,7 +253,7 @@
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
                                 alt="image2"
                               />
                             </label>
@@ -228,7 +262,7 @@
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg"
+                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
                                 alt="image3"
                               />
                             </label>
@@ -320,10 +354,9 @@
                               <v-select
                                 label="Sizes"
                                 :items="sizes"
-                                item-text="SName"
-                                item-value="CID"
                                 v-model.number="size"
                               ></v-select>
+                              
                             </v-flex>
                           </td>
                         </tr>
@@ -367,13 +400,13 @@
 
                     <v-card-actions>
                       <v-btn
-                        color="warning"
+                        color="primary"
                         dark
                         outline
                         round
                         @click="addToCart(selectedItem,value)"
                       >Add to cart</v-btn>
-                      <v-btn color="warning" dark outline round>Buy Now</v-btn>
+                      <v-btn color="primary" dark outline round>Buy Now</v-btn>
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -415,7 +448,7 @@ export default {
       size: 0,
       keywords: "",
 
-      sizes: ["25", "50", "100", "150", "200"],
+      sizes: [25, 50, 100, 150, 200],
       sortCategories: ["Size", "Price"],
       sortCat: "Size",
       sortAscOrDesc: [
@@ -449,6 +482,10 @@ export default {
   },
 
   methods: {
+
+    sel(){
+      console.log(this.size);
+    },
     toggleInfo() {
       this.displayInfo = !this.displayInfo;
     },
@@ -913,11 +950,6 @@ td {
   color: rgba(0, 0, 0, 0.87);
   padding: 2px;
 }
-
-
-
-
-
 
 .image-box .v-image {
   max-width: 100%;
