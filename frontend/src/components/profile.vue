@@ -32,16 +32,13 @@
             </v-card>
           </v-layout>
         </v-card-text>
-        
-        
+
         <v-layout justify-center>
           <v-flex lg9 md9 sm12 xs12>
-          <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
-          <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
-          <v-btn block dark color="black" @click="close" outline>Close</v-btn>
-        
+            <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
+            <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
+            <v-btn block dark color="black" @click="close" outline>Close</v-btn>
           </v-flex>
-
         </v-layout>
       </v-card>
     </v-dialog>
@@ -307,7 +304,8 @@ export default {
   methods: {
     selectFile(event) {
       this.file = this.$refs.file.files[0];
-      console.log(this.file.name);
+      
+     // console.log(this.file.name);
     },
 
     editPassword() {
@@ -475,8 +473,9 @@ export default {
         .post(this.$baseUrl + "/storeDP" + "?token=" + $Token, formData)
         .then(response => {
           this.close();
+          this.$router.go();
+
           this.file = "";
-          this.me();
           this.$dialog
             .alert("Succesfully Saved!", {
               okText: "Dismiss!"
@@ -486,13 +485,13 @@ export default {
             });
         })
         .catch(error => {
+          this.$refs.file.files[0] = "";
           console.log(error.response);
           console.log("Failed Save img url");
         });
     },
 
-    deleteDP(){
-
+    deleteDP() {
       this.$dialog
         .confirm("Delete the Photo?", {
           html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
@@ -510,15 +509,16 @@ export default {
             .then(response => {
               this.close();
               this.me();
-             // alert("Succesfully Deleted");
-             dialog.close();
+              // alert("Succesfully Deleted");
+              dialog.close();
 
-              this.$dialog.alert("Succesfully Deleted!",{
-                okText: "Dismiss!",
-              }).then(function(dialog) {
-                console.log("Closed");
-              });
-
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
             });
 
           setTimeout(() => {
@@ -531,8 +531,6 @@ export default {
           this.close();
           console.log("Delete aborted");
         });
-
-
     }
   }
 };
