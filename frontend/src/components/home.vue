@@ -15,14 +15,14 @@
       <v-layout wrap>
         <v-flex d-flex xs12 sm6 md3>
           <v-layout wrap justify-center>
-            <v-flex d-flex>
+            <v-flex d-flexxs12 sm6 md10>
               <p
                 data-aos="fade-up"
                 class="display-2 font-weight-bold"
                 style="color:#212121; align:center;"
               >Our Best Categories</p>
             </v-flex>
-            <v-flex d-flex>
+            <v-flex d-flex xs12 sm6 md9>
               <p
                 data-aos="fade-up"
                 class="title font-weight-medium"
@@ -212,17 +212,18 @@
                   <v-flex md11 lg11 xs11 sm11 offset-sm0 >
                     
                   <v-btn
-                    
+                    class="button"
+                    color="#212121"
                     dark
                     block 
-                    color="#212121"
-                    outline-color="#ffffff"
-                   
+                    
+
+
+                 
                     
                   >
-                   
-                    
-                  Product View</v-btn>
+                     Product View</v-btn>
+                  
                   
                   </v-flex>
                    </v-layout>
@@ -265,11 +266,12 @@
          <v-layout row wrap justify-end >
              <v-flex xs6 sm6 md3 lg3  >
           <v-btn
+                 
                    
                     large
                     round
                    block 
-                    color="#ffffff"
+                   
                     outline-color="#ffffff"
                     class="subtitle-1 font-weight-medium"
                     
@@ -467,6 +469,21 @@ h4.ab.subtitle-2.headline.mb-1 {
   padding-top: 70px;
   padding-bottom: 70px;
 }
+ .card.product.v-card.v-sheet.theme--light:hover{
+   text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 18px 15px rgba(0, 0, 0, 0.22);
+  border: 0.7px solid; 
+        
+
+} 
+.card.product.v-card.v-sheet.theme--light:hover .v-btn__content{
+
+background-color: #eabf00;
+
+
+}
+
 .OurBestProducts.v-card.v-card--flat.v-sheet.theme--light {
     padding-left: 50px;
     padding-right: 50px;
@@ -481,6 +498,7 @@ h4.ab.subtitle-2.headline.mb-1 {
 .custom-font3 {
   font-family: "Fredericka the Great", cursive;
   color: #ffdf00;
+  
 }
 
 .custom-font4 {

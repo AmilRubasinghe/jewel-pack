@@ -154,7 +154,7 @@
                     block 
                     color="#212121"
                     outline-color="#ffffff"
-                   
+                  
                     @click="productPreview(products[i])"
                   >
                    
@@ -244,20 +244,29 @@
                             <label
                               for="image1"
                               class="thumb"
-                              style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"
-                            ></label>
+                              
+                            ><img
+                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                alt="image1"
+                              /></label>
 
                             <label
                               for="image2"
                               class="thumb"
-                              style="background-image: url('http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg')"
-                            ></label>
+                              
+                            ><img
+                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
+                                alt="image2"
+                              /></label>
 
                             <label
                               for="image3"
                               class="thumb"
-                              style="background-image: url('http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg')"
-                            ></label>
+                              
+                            > <img
+                                src="http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg"
+                                alt="image3"
+                              /></label>
                           </v-flex>
                         </div>
                       </div>
@@ -757,7 +766,7 @@ td {
   flex-direction: row;
   padding: 0 10px;
 }
-.gallery .thumbnails .thumb {
+.gallery .thumbnails .thumb img {
   min-width: 120px;
   height: 100px;
   background-position: center center;
@@ -801,11 +810,11 @@ td {
 .gallery input#image1:checked ~ .wrap figure:not(:nth-of-type(1)) {
   opacity: 0;
 }
-.gallery input#image1:checked ~ .thumbnails .slider {
+.gallery input#image1:checked ~ .thumbnails .slider{
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
-.gallery input#image1:checked ~ .thumbnails .thumb:nth-of-type(1) {
+.gallery input#image1:checked ~ .thumbnails .thumb img:nth-of-type(1) {
   opacity: 1;
   cursor: default;
 }

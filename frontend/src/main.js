@@ -31,6 +31,9 @@ Vue.use(Snotify)
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 
+import ProductZoomer from 'vue-product-zoomer';
+Vue.use(ProductZoomer);
+
 
 import { VueSpinners } from '@saeris/vue-spinners'
 Vue.use(VueSpinners)
