@@ -48,6 +48,8 @@
                   <v-card-actions class="justify-center">
                     <v-btn block color="#FFAB00" @click="loginUser">Login</v-btn>
                   </v-card-actions>
+                    <v-btn to="request-password-reset" flat left>Forget Password?</v-btn>
+
                 </v-flex>
                 <v-divider class="mx-3 align-center hidden-sm-and-down" vertical></v-divider>
 

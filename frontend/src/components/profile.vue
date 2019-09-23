@@ -2,6 +2,50 @@
   <v-container grid-list-md text-xs-center>
     <notification v-if="notify" :message="notify" :type="status"></notification>
 
+    <v-dialog v-model="PhotoDialog" max-width="600px">
+      <v-card max-width="600px">
+        <v-card-title>
+          <span class="headline">Manage Display Picture</span>
+        </v-card-title>
+        <v-card-text>
+          <v-layout align-center justify-center>
+            <v-card
+              flat
+              color="#B0BEC5"
+              @click="$refs.file.click()"
+              ripple
+              hover
+              height="100"
+              width="300"
+              max-width="600px"
+            >
+              <form enctype="multipart/form-data">
+                <div class="text-xs-center">
+                  <label class="button">
+                    <input type="file" ref="file" @change="selectFile" style="display:none" />
+                    <v-icon outline large>cloud_upload</v-icon>
+                    <h4>Select photo</h4>
+                    <span v-if="file" class="file-name">{{file.name}}</span>
+                  </label>
+                </div>
+              </form>
+            </v-card>
+          </v-layout>
+        </v-card-text>
+        
+        
+        <v-layout justify-center>
+          <v-flex lg9 md9 sm12 xs12>
+          <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
+          <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
+          <v-btn block dark color="black" @click="close" outline>Close</v-btn>
+        
+          </v-flex>
+
+        </v-layout>
+      </v-card>
+    </v-dialog>
+
     <v-dialog v-model="dialog" max-width="700">
       <v-card>
         <v-card-title>
@@ -63,6 +107,7 @@
                   @click:append="show1 = !show1"
                   v-model="OldPassword"
                   label="Current Password"
+                  placeholder="Leave empty if you haven't create a password yet"
                 />
               </v-flex>
 
@@ -116,9 +161,27 @@
 
     <v-layout row wrap>
       <v-flex xs12 md4 sm12>
-        <v-avatar slot="offset" class="mx-auto d-block" size="230">
-          <img src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg" />
-        </v-avatar>
+        <v-hover v-slot:default="{ hover }">
+          <v-avatar slot="offset" class="mx-auto d-block" size="230">
+            <v-img :src="profileImage">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                  style="height: 40%;"
+                >
+                  <v-btn
+                    color="transparent"
+                    class="white--text"
+                    large
+                    :ripple="false"
+                    @click="PhotoDialog=!PhotoDialog"
+                  >update</v-btn>
+                </div>
+              </v-expand-transition>
+            </v-img>
+          </v-avatar>
+        </v-hover>
 
         <v-card-text class="text-xs-center">
           <h4 class="card-title font-weight-dark">{{fullname}}</h4>
@@ -184,6 +247,7 @@ import Store from "../store.js";
 export default {
   data() {
     return {
+      file: "",
       user: [],
       labelname: "Full Name",
       labelemail: "Email",
@@ -201,6 +265,7 @@ export default {
       defaultItem: {},
       dialog: false,
       passwordDialog: false,
+      PhotoDialog: false,
       show1: false,
       show2: false,
       show3: false,
@@ -216,6 +281,14 @@ export default {
   computed: {
     fullname: function() {
       return this.user.firstName + " " + this.user.lastName;
+    },
+
+    profileImage: function() {
+      if (this.user.profileImage) {
+        return this.user.profileImage;
+      } else {
+        return "http://localhost:8000/storage/dp/default.png";
+      }
     }
   },
 
@@ -232,6 +305,11 @@ export default {
   },
 
   methods: {
+    selectFile(event) {
+      this.file = this.$refs.file.files[0];
+      console.log(this.file.name);
+    },
+
     editPassword() {
       this.$validator.validateAll().then(result => {
         if (!result) {
@@ -288,7 +366,9 @@ export default {
     },
 
     close() {
-      (this.dialog = false), (this.passwordDialog = false);
+      (this.dialog = false),
+        (this.passwordDialog = false),
+        (this.PhotoDialog = false);
     },
 
     clear() {
@@ -383,6 +463,76 @@ export default {
 
           this.logout();
         });
+    },
+
+    sendFile() {
+      const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+      console.log("****");
+
+      let $Token = localStorage.getItem("token");
+      axios
+        .post(this.$baseUrl + "/storeDP" + "?token=" + $Token, formData)
+        .then(response => {
+          this.close();
+          this.file = "";
+          this.me();
+          this.$dialog
+            .alert("Succesfully Saved!", {
+              okText: "Dismiss!"
+            })
+            .then(function(dialog) {
+              console.log("Closed");
+            });
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("Failed Save img url");
+        });
+    },
+
+    deleteDP(){
+
+      this.$dialog
+        .confirm("Delete the Photo?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(this.$baseUrl + "/deleteDP/?token=" + $Token)
+            .then(response => {
+              this.close();
+              this.me();
+             // alert("Succesfully Deleted");
+             dialog.close();
+
+              this.$dialog.alert("Succesfully Deleted!",{
+                okText: "Dismiss!",
+              }).then(function(dialog) {
+                console.log("Closed");
+              });
+
+            });
+
+          setTimeout(() => {
+            console.log("Delete completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          this.close();
+          console.log("Delete aborted");
+        });
+
+
     }
   }
 };
@@ -392,6 +542,14 @@ export default {
 <style>
 .card-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
 }
 </style>
 
