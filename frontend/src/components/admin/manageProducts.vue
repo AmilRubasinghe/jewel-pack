@@ -429,6 +429,7 @@
                   <v-layout row wrap>
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
+<<<<<<< HEAD
                          <v-hover v-slot:default="{ hover }">
                         <v-img max-height="150" max-width="250" :src="editedItem.Image1">
                            <v-expand-transition>
@@ -449,6 +450,9 @@
 
                         </v-img>
                          </v-hover>
+=======
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image1"></v-img>
+>>>>>>> 66219315a04025012c7a76e3c8ee9f329bbc3136
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -999,7 +1003,11 @@ export default {
       this.newProduct.shipMethod = [...this.newProduct.shipMethod];
     },
 
+<<<<<<< HEAD
     
+=======
+    morePhotos() {},
+>>>>>>> 66219315a04025012c7a76e3c8ee9f329bbc3136
 
     catItems() {
       axios
@@ -1465,6 +1473,7 @@ export default {
   position: static;
   display: block;
   z-index: 10;
+<<<<<<< HEAD
 }
 
 
@@ -1482,6 +1491,8 @@ export default {
   opacity: 0.5;
   position: absolute;
   width: 100%;
+=======
+>>>>>>> 66219315a04025012c7a76e3c8ee9f329bbc3136
 }
 </style>
 
