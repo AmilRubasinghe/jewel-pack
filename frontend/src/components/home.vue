@@ -15,14 +15,14 @@
       <v-layout wrap>
         <v-flex d-flex xs12 sm6 md3>
           <v-layout wrap justify-center>
-            <v-flex d-flex>
+            <v-flex d-flexxs12 sm6 md10>
               <p
                 data-aos="fade-up"
                 class="display-2 font-weight-bold"
                 style="color:#212121; align:center;"
               >Our Best Categories</p>
             </v-flex>
-            <v-flex d-flex>
+            <v-flex d-flex xs12 sm6 md9>
               <p
                 data-aos="fade-up"
                 class="title font-weight-medium"
@@ -87,7 +87,11 @@
         <v-flex d-flex xs6 sm6 md7 lg7>
           <v-parallax
             height="500"
+<<<<<<< HEAD
             :src="img1"
+=======
+            src="http://localhost:8000/storage/home/photo.png"	
+>>>>>>> 66219315a04025012c7a76e3c8ee9f329bbc3136
             lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
           ></v-parallax>
         </v-flex>
@@ -154,7 +158,7 @@
 
             <v-card class="card product" style="cursor: pointer" align="center" max-width="500">
               <div class="image-box">
-                <v-img :aspect-ratio="1/1" :src="item.Image"></v-img>
+                <v-img :aspect-ratio="1/1" :src="item.Image1"></v-img>
               </div>
 
               <v-card-title>
@@ -216,7 +220,11 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
+<<<<<<< HEAD
       :src="img2"
+=======
+      src="http://localhost:8000/storage/home/home.png"
+>>>>>>> 66219315a04025012c7a76e3c8ee9f329bbc3136
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -224,36 +232,44 @@
       </v-layout>
     </v-parallax>
 
-    <v-card flat class="getInTouch" style="background-color:#FBC02D;">
-      <v-container>
-        <v-layout row wrap>
-          <v-flex xs4 sm4 md2 lg2 d-flex>
-            <p
-              data-aos="fade-up"
-              class="display-1 font-weight-bold"
-              style="color:#212121; align:left;"
-            >Get In Touch</p>
-            <br />
-            <br />
-          </v-flex>
-
-          <v-flex xs5 sm5 md10 lg10>
-            <v-layout row wrap justify-end>
-              <v-flex xs6 sm6 md3 lg3>
-                <v-btn
-                  large
-                  round
-                  block
-                  color="#ffffff"
-                  outline-color="#ffffff"
-                  class="subtitle-1 font-weight-medium"
-                >Contact</v-btn>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card>
+ <v-card flat class="getInTouch" style="background-color:#FBC02D;">
+   <v-container>
+   <v-layout row wrap >
+     
+      <v-flex xs4 sm4 md2 lg2 d-flex>
+        
+        <p
+          data-aos="fade-up"
+          class="display-1 font-weight-bold"
+          style="color:#212121; align:left;"
+        >Get In Touch</p>
+        <br /><br />
+        
+      </v-flex>
+      
+       <v-flex xs5 sm5 md10 lg10  >
+         <v-layout row wrap justify-end >
+             <v-flex xs6 sm6 md3 lg3  >
+          <v-btn
+                 
+                   
+                    large
+                    round
+                   block 
+                   
+                    outline-color="#ffffff"
+                    class="subtitle-1 font-weight-medium"
+                    
+                  >
+                   
+                    
+                  Contact</v-btn>
+             </v-flex>
+         </v-layout>
+       </v-flex>  
+   </v-layout>
+   </v-container>
+ </v-card>
 
     <br />
   </div>
@@ -444,6 +460,21 @@ h4.ab.subtitle-2.headline.mb-1 {
   padding-top: 70px;
   padding-bottom: 70px;
 }
+ .card.product.v-card.v-sheet.theme--light:hover{
+   text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 18px 15px rgba(0, 0, 0, 0.22);
+  border: 0.7px solid; 
+        
+
+} 
+.card.product.v-card.v-sheet.theme--light:hover .v-btn__content{
+
+background-color: #eabf00;
+
+
+}
+
 .OurBestProducts.v-card.v-card--flat.v-sheet.theme--light {
   padding-left: 50px;
   padding-right: 50px;
@@ -458,6 +489,7 @@ h4.ab.subtitle-2.headline.mb-1 {
 .custom-font3 {
   font-family: "Fredericka the Great", cursive;
   color: #ffdf00;
+  
 }
 
 .custom-font4 {

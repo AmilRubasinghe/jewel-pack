@@ -120,13 +120,36 @@ $products = product::where(function ($query) use($searchQuery, $field) {
        $arr = json_decode($request->input('method'));
      // return $arr[2]->shipId;
      //return count($arr);
-      $image = $request->file('file');
-      
-     // return $image;
-      $filename = time().'-'.$image->getClientOriginalName();
-    // return $filename;
-       $image->storeAs('public/product',$filename);
-      // return $image;
+     //image A
+      $image1 = $request->file('photoA');
+      // return $image1;
+      $filename1 = time().'-'.$image1->getClientOriginalName();
+    
+       $image1->storeAs('public/product',$filename1);
+
+
+      //image B
+       $image2 = $request->file('photoB');
+       /// return $image2;
+        $filename2 = time().'-'.$image2->getClientOriginalName();
+      // return $filename;
+         $image2->storeAs('public/product',$filename2);
+
+
+        //image C
+         $image3 = $request->file('photoC');
+       //return $image3;
+          $filename3 = time().'-'.$image3->getClientOriginalName();
+        // return $filename;
+           $image3->storeAs('public/product',$filename3);
+          //return $image3;
+          ////image D
+           $image4 = $request->file('photoD');
+          // return $image;
+            $filename4 = time().'-'.$image4->getClientOriginalName();
+          //return $filename4;
+             $image4->storeAs('public/product',$filename4);
+           //return $image4;
 
       $table = new product;
       
@@ -138,9 +161,18 @@ $products = product::where(function ($query) use($searchQuery, $field) {
       $table->slashedPrice = $request->input('slashedPrice');
       $table->border = $request->input('border');
       $table->description = $request->input('details');
-      $table->Image = url('/').'/storage/product/'.$filename;
 
-      $table->ImageName = $filename;
+      $table->Image1 = url('/').'/storage/product/'.$filename1;
+      $table->ImageName1 = $filename1;
+
+      $table->Image2 = url('/').'/storage/product/'.$filename2;
+      $table->ImageName2 = $filename2;
+
+      $table->Image3 = url('/').'/storage/product/'.$filename3;
+      $table->ImageName3 = $filename3;
+
+      $table->Image4 = url('/').'/storage/product/'.$filename4;
+      $table->ImageName4 = $filename4;
 
       $table->save();
 
