@@ -1,538 +1,604 @@
 <template>
-    <div>
-        <router-view></router-view>
+  <v-container grid-list-md text-xs-center>
+    <notification v-if="notify" :message="notify" :type="status"></notification>
 
-
-
-
-        <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="mask flex-center">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-md-7 col-12 order-md-1 order-2">
-                                    <h4>JewelPack boxes</h4>
-                                    <p>For your jewellery or GEMS</p>
-                                    <a href="#">BUY NOW</a> </div>
-                                <div class="col-md-5 col-12 order-md-2 order-1"><img src="https://images.pexels.com/photos/1050244/pexels-photo-1050244.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="mx-auto" alt="slide"></div>
-                            </div>
-                        </div>
+    <v-dialog v-model="PhotoDialog" max-width="600px">
+      <v-card max-width="600px">
+        <v-card-title>
+          <span class="headline">Manage Display Picture</span>
+        </v-card-title>
+        <v-card-text>
+          <v-flex d-flex>
+            <v-layout align-center justify-center>
+              <v-flex xs6 sm6 md6 lg6 d-flex>
+                <v-card flat ripple hover max-height="300" max-width="250">
+                  <form enctype="multipart/form-data">
+                    <div class="text-xs-center">
+                      <label class="button">
+                        <input
+                          id="photoA"
+                          type="file"
+                          ref="file"
+                          accept="image/*"
+                          @change="addFile('photoA', $event)"
+                          style="display:none"
+                        />
+                        <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                        />-->
+                        <v-icon outline large>cloud_upload</v-icon>
+                        <p class="subtitle-1 font-weight-medium" style="color:#616161;">Upload photo</p>
+                        <span v-if="photoA" class="file-name">
+                          <p
+                            class="subtitle-1 font-weight-medium"
+                            style="color:#eabf00; align:center;"
+                          >{{photoA.name}}</p>
+                        </span>
+                      </label>
                     </div>
+                  </form>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-card-text>
+
+        <v-layout justify-center>
+          <v-flex lg9 md9 sm12 xs12>
+            <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
+            <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
+            <v-btn block dark color="black" @click="close" outline>Close</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialog" max-width="700">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Update Details</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout column>
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.firstName" label="First Name" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.lastName" label="Last Name" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.contactNo" label="Contact No" />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field v-model="editedItem.email" label="Email" />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout row wrap>
+              <v-flex d-flex>
+                <v-btn color="primary" @click="close">Cancel</v-btn>
+              </v-flex>
+
+              <v-flex d-flex>
+                <v-btn color="primary" @click="save">Save</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="passwordDialog" max-width="700">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Update Password</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout column>
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  :type="show1 ? 'text' : 'password'"
+                  :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                  @click:append="show1 = !show1"
+                  v-model="OldPassword"
+                  label="Current Password"
+                  placeholder="Leave empty if you haven't create a password yet"
+                />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  ref="password"
+                  name="password"
+                  :type="show2 ? 'text' : 'password'"
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                  @click:append="show2 = !show2"
+                  v-model="NewPassword"
+                  label="New Password"
+                  v-validate="'required|min:6'"
+                  :error-messages="errors.collect('password')"
+                />
+              </v-flex>
+
+              <v-flex md3 sm3 lg3 xs3 d-flex>
+                <v-text-field
+                  :type="show3 ? 'text' : 'password'"
+                  :append-icon="show3 ? 'visibility' : 'visibility_off'"
+                  @click:append="show3 = !show3"
+                  v-model="ConfirmNewPassword"
+                  label="Confirm New Password"
+                  name="password_confirmation"
+                  v-validate="'required|min:6|confirmed:password'"
+                  data-vv-as="Confirm Password"
+                  :error-messages="errors.collect('password_confirmation')"
+                />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-container grid-list-md text-md-center fluid fill-height>
+            <v-layout row wrap>
+              <v-flex d-flex>
+                <v-btn color="primary" @click="close">Cancel</v-btn>
+              </v-flex>
+
+              <v-flex d-flex>
+                <v-btn color="primary" @click="editPassword">Save</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-layout row wrap>
+      <v-flex xs12 md4 sm12>
+        <v-hover v-slot:default="{ hover }">
+          <v-avatar slot="offset" class="mx-auto d-block" size="230">
+            <v-img :src="profileImage">
+              <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                  style="height: 40%;"
+                >
+                  <v-btn
+                    color="transparent"
+                    class="white--text"
+                    large
+                    :ripple="false"
+                    @click="PhotoDialog=!PhotoDialog"
+                  >update</v-btn>
                 </div>
+              </v-expand-transition>
+            </v-img>
+          </v-avatar>
+        </v-hover>
 
-            </div>
-        </div>
+        <v-card-text class="text-xs-center">
+          <h4 class="card-title font-weight-dark">{{fullname}}</h4>
+        </v-card-text>
+      </v-flex>
 
-        <!--slide end-->
-
-
-
-        <div class="container">
-            <div class="card">
-                <div class="container-fliud">
-                    <div class="wrapper row">
-                        <div class="preview col-md-6">
-
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1"><img src="http://localhost:8000/storage/product/1566405169-1.jpeg" /></div>
-                                <div class="tab-pane" id="pic-2"><img src="http://localhost:8000/storage/product/1566405169-1.jpeg" /></div>
-                                <div class="tab-pane" id="pic-3"><img src="http://localhost:8000/storage/product/1566405169-1.jpeg" /></div>
-                                <div class="tab-pane" id="pic-4"><img src="http://localhost:8000/storage/product/1565204602-10421193_1621549378090967_3170635747285958685_n.jpg" /></div>
-
-                            </div>
-                            <ul class="preview-thumbnail nav nav-tabs">
-                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://localhost:8000/storage/product/1566405169-1.jpeg" /></a></li>
-                                <li><a data-target="#pic-2" data-toggle="tab"><img src="http://localhost:8000/storage/product/1566405169-1.jpeg" /></a></li>
-                                <li><a data-target="#pic-3" data-toggle="tab"><img src="http://localhost:8000/storage/product/1565204602-10421193_1621549378090967_3170635747285958685_n.jpg" /></a></li>
-                                <li><a data-target="#pic-4" data-toggle="tab"><img src="http://localhost:8000/storage/product/1565204602-10421193_1621549378090967_3170635747285958685_n.jpg" /></a></li>
-                               
-                            </ul>         </div>
-                        <div class="details col-md-6">
-                            <h3 class="product-title"> Black Gold Line Box </h3>
-                            <div class="rating">
-                                <div class="stars">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <span class="review-no">41 reviews</span>
-                            </div>
-                            <p class="product-description">
-
-                                1 x 1 inches (2.5 x 2.5 cm)
-                            </p>
-                            <h4 class="price">current price: <span>$180</span></h4>
-                            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-                            <h5 class="sizes">sizes:
-                                <span class="size" data-toggle="tooltip" title="small">s</span>
-                                <span class="size" data-toggle="tooltip" title="medium">m</span>
-                                <span class="size" data-toggle="tooltip" title="large">l</span>
-                                <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-                            </h5>
-                            <h5 class="colors">colors:
-                                <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-                                <span class="color green"></span>
-                                <span class="color blue"></span>
-                            </h5>
-                            <div class="action">
-                                <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                                <button class="like btn btn-default" type="button">Add Review<span class="fa fa-heart"></span></button>
-                            </div>
-                        </div>
-                    </div>
+      <v-flex md8 xs12 sm12>
+        <v-card class="card-5 pa-3">
+          <form>
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelname}}</b>
+                  </p>
                 </div>
-            </div>
-        </div>
+                <v-text-field v-model="fullname" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
 
-
-
-
-
-        <!--second product-->
-
-
-
-
-        <div class="container">
-            <div class="card">
-                <div class="container-fliud">
-                    <div class="wrapper row">
-                        <div class="preview col-md-6">
-
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></div>
-                                <div class="tab-pane" id="pic-2"><img src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" /></div>
-                                <div class="tab-pane" id="pic-3"><img src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" /></div>
-                                <div class="tab-pane" id="pic-4"><img src="https://images.pexels.com/photos/371102/pexels-photo-371102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" /></div>
-
-                            </div>
-                            <ul class="preview-thumbnail nav nav-tabs">
-                                <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></a></li>
-                                <li><a data-target="#pic-2" data-toggle="tab"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></a></li>
-                                <li><a data-target="#pic-3" data-toggle="tab"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></a></li>
-                                <li><a data-target="#pic-4" data-toggle="tab"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></a></li>
-                                <li><a data-target="#pic-5" data-toggle="tab"><img src="https://scontent.fcmb4-1.fna.fbcdn.net/v/t1.0-9/11117608_1621552268090678_4173469079808702324_n.jpg?_nc_cat=101&_nc_ht=scontent.fcmb4-1.fna&oh=d9357269d1486457428618b2466134fa&oe=5CE17420" /></a></li>
-                            </ul>
-
-                        </div>
-                        <div class="details col-md-6">
-                            <h3 class="product-title">White Gold Line Box</h3>
-                            <div class="rating">
-                                <div class="stars">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <span class="review-no">41 reviews</span>
-                            </div>
-                            <p class="product-description">
-                                <b> White Gold Line box</b><br>
-                                1 x 1 inches (2.5 x 2.5 cm)
-                            </p>
-                            <h4 class="price">current price: <span>$150</span></h4>
-                            <p class="vote"><strong>85%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-                            <h5 class="sizes">sizes:
-                                <span class="size" data-toggle="tooltip" title="small">s</span>
-                                <span class="size" data-toggle="tooltip" title="medium">m</span>
-                                <span class="size" data-toggle="tooltip" title="large">l</span>
-                                <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-                            </h5>
-                            <h5 class="colors">colors:
-                                <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-                                <span class="color green"></span>
-                                <span class="color blue"></span>
-                            </h5>
-                            <div class="action">
-                                <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                                <button class="like btn btn-default" type="button">Add Review<span class="fa fa-heart"></span></button>
-                            </div>
-                        </div>
-                    </div>
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelemail}}</b>
+                  </p>
                 </div>
-            </div>
-        </div>
+                <v-text-field v-model="user.email" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
 
+            <v-layout align-center justify-center>
+              <v-flex md7 xs6 sm10 class="text-xs-left">
+                <div>
+                  <p class="ma-0 pa-0">
+                    <b>{{labelcontact}}</b>
+                  </p>
+                </div>
+                <v-text-field v-model="user.contactNo" readonly class="ma-0 pa-0"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </form>
 
-
-
-
-
-
-
-
-    </div>
+          <v-btn @click="editItem()" color="secondary">Edit Profile</v-btn>
+          <v-btn @click="editPasswordDialog()" color="secondary">Change Password</v-btn>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
+ 
+
+
+ 
+
 <script>
+import axios from "axios";
+import notification from "./notification.vue";
 
+import Store from "../store.js";
 
+export default {
+  data() {
+    return {
+      file: "",
+      photoA: undefined,
 
+      user: [],
+      labelname: "Full Name",
+      labelemail: "Email",
+      labelcontact: "Contact No",
+
+      editedItem: {
+        labelname: "",
+        labelemail: "",
+        labelcontact: ""
+      },
+
+      OldPassword: "",
+      NewPassword: "",
+      ConfirmNewPassword: "",
+      defaultItem: {},
+      dialog: false,
+      passwordDialog: false,
+      PhotoDialog: false,
+      show1: false,
+      show2: false,
+      show3: false,
+      notify: "",
+      status: ""
+    };
+  },
+
+  components: {
+    notification
+  },
+
+  computed: {
+    fullname: function() {
+      return this.user.firstName + " " + this.user.lastName;
+    },
+
+    profileImage: function() {
+      if (this.user.profileImage) {
+        return this.user.profileImage;
+      } else {
+        return "http://localhost:8000/storage/dp/default.png";
+      }
+    }
+  },
+
+  created: function() {
+    this.me();
+
+    // this.user=response.data.user;
+
+    if (Store.getters.user) {
+      this.user = Store.getters.user;
+    } else {
+      this.logout();
+    }
+  },
+
+  methods: {
+    selectFile(event) {
+      this.file = this.$refs.file.files[0];
+
+      // console.log(this.file.name);
+    },
+
+    addFile(fileKey, event) {
+      this[fileKey] = event.target.files[0];
+      console.log("File added", fileKey, event.target.files[0]);
+    },
+
+    editPassword() {
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
+        this.notify = "";
+
+        let $Token = localStorage.getItem("token");
+        axios
+          .post(this.$baseUrl + "/editPassword/?token=" + $Token, {
+            ID: this.user.ID,
+            OldPassword: this.OldPassword,
+            NewPassword: this.NewPassword
+          })
+          .then(response => {
+            this.close();
+            this.notify = response.data.message;
+            this.status = 2;
+          })
+
+          .catch(error => {
+            this.notify = error.response.data.message;
+            this.status = 0;
+            console.log(error.response);
+
+            console.log("ERROR");
+          });
+      });
+    },
+    myOrders() {
+      let $Token = localStorage.getItem("token");
+      axios
+        .post(this.$baseUrl + "/myOrder/?token=" + $Token)
+        .then(response => {
+          // console.log(response.data);
+        })
+
+        .catch(error => {
+          console.log(error.response);
+
+          console.log("ERROR");
+        });
+    },
+
+    editPasswordDialog() {
+      this.clear();
+      this.passwordDialog = true;
+    },
+
+    editItem() {
+      this.editedItem = Object.assign({}, this.user);
+      // console.log(this.editedItem);
+      this.dialog = true;
+    },
+
+    close() {
+      (this.dialog = false),
+        (this.passwordDialog = false),
+        (this.PhotoDialog = false);
+    },
+
+    clear() {
+      (this.OldPassword = ""),
+        (this.NewPassword = ""),
+        (this.ConfirmNewPassword = "");
+    },
+
+    save() {
+      this.notify = "";
+      let $Token = localStorage.getItem("token");
+
+      Object.assign(this.user, this.editedItem);
+
+      axios
+        .post(this.$baseUrl + "/editProfile/?token=" + $Token, this.editedItem)
+
+        .then(response => {
+          this.dialog = false;
+
+          this.notify = response.data.message;
+          this.status = 2;
+          this.message = response.data.message;
+        })
+        .catch(error => {
+          this.notify = error.response.data.message;
+          this.status = 0;
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
+      //this.users.push(this.editedItem);
+
+      this.close();
+    },
+
+    logout() {
+      let $Token = localStorage.getItem("token");
+
+      /* console.log(Token);*/
+
+      // this.$http.post('http://localhost:8000/api/logout?token='+$Token)
+
+      axios
+
+        .post(this.$baseUrl + "/logout?token=" + $Token)
+
+        .then(response => {
+          localStorage.removeItem("token");
+
+          let $Token = localStorage.getItem("token");
+
+          if (!$Token) {
+            this.$store.commit("setUser", null);
+
+            this.$router.push("/loginPage");
+          }
+        })
+
+        .catch(error => {
+          console.log(error.response);
+
+          console.log("ERROR");
+        });
+    },
+
+    me() {
+      let $Token = localStorage.getItem("token");
+
+      axios
+
+        .post(this.$baseUrl + "/me?token=" + $Token, {})
+
+        .then(response => {
+          if (!$Token) {
+            this.$router.push("/loginPage");
+          } else {
+            this.user = response.data.user;
+
+            Store.dispatch("setUser", this.user);
+          }
+        })
+
+        .catch(error => {
+          console.log(error.response);
+
+          console.log("ERROR");
+
+          this.$store.commit("setUser", null);
+
+          this.$router.push("/loginPage");
+
+          this.logout();
+        });
+    },
+
+    sendFile() {
+      const formData = new FormData();
+      //      formData.append("file", this.file, this.file.name);
+      formData.append("file", this.photoA, this.photoA.name);
+
+      console.log("****");
+
+      let $Token = localStorage.getItem("token");
+      axios
+        .post(this.$baseUrl + "/storeDP" + "?token=" + $Token, formData)
+        .then(response => {
+          this.close();
+          this.$router.go();
+
+          this.file = "";
+          this.$dialog
+            .alert("Succesfully Saved!", {
+              okText: "Dismiss!"
+            })
+            .then(function(dialog) {
+              console.log("Closed");
+            });
+        })
+        .catch(error => {
+          this.$refs.file.files[0] = "";
+          console.log(error.response);
+          console.log("Failed Save img url");
+        });
+    },
+
+    deleteDP() {
+      this.$dialog
+        .confirm("Delete the Photo?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(this.$baseUrl + "/deleteDP/?token=" + $Token)
+            .then(response => {
+              this.close();
+              this.me();
+              // alert("Succesfully Deleted");
+              dialog.close();
+
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          this.close();
+          console.log("Delete aborted");
+        });
+    }
+  }
+};
 </script>
 
+
 <style>
-    #myCarousel .carousel-item .mask {
-        position: absolute;
-        top: 0;
-        left:0;
-        height:100%;
-        width: 100%;
-        background-attachment: fixed;
-    }
-    #myCarousel h4{
-        font-size:50px;
-        margin-bottom:15px;
-        color:#FFF;
-        line-height:100%;
-        letter-spacing:0.5px;
-        font-weight:600;
-    }
-    #myCarousel p{
-        font-size:18px;
-        margin-bottom:15px;
-        color:#d5d5d5;
-    }
-    #myCarousel .carousel-item a{background:#F47735; font-size:14px; color:#FFF; padding:13px 32px; display:inline-block; }
-    #myCarousel .carousel-item a:hover{background:#394fa2; text-decoration:none;  }
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
+}
 
-    #myCarousel .carousel-item h4{-webkit-animation-name:fadeInLeft; animation-name:fadeInLeft;}
-    #myCarousel .carousel-item p{-webkit-animation-name:slideInRight; animation-name:slideInRight;}
-    #myCarousel .carousel-item a{-webkit-animation-name:fadeInUp; animation-name:fadeInUp;}
-    #myCarousel .carousel-item .mask img{-webkit-animation-name:slideInRight; animation-name:slideInRight; display:block; height:auto; max-width:100%;}
-    #myCarousel h4, #myCarousel p, #myCarousel a, #myCarousel .carousel-item .mask img{-webkit-animation-duration: 1s;
-        animation-duration: 1.2s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-    }
-    #myCarousel .container {max-width: 1430px;  }
-    #myCarousel .carousel-item{height:100%; min-height:550px; }
-    #myCarousel{position:relative; z-index:1; background:url(https://i.imgur.com/6axE29k.jpg) center center no-repeat; background-size:cover; }
+.v-responsive {
+  margin-bottom: 7px;
+}
 
-    .carousel-control-next, .carousel-control-prev{height:40px; width:40px; padding:12px; top:50%; bottom:auto; transform:translateY(-50%); background-color: #f47735; }
+.container.grid-list-md.text-md-center.fluid.fill-height {
+  padding-top: 0px;
+  padding-bottom: 0;
+}
 
+.flex.md6.sm12.lg6.xs12.d-flex {
+  padding-right: 30px;
+}
 
-    .carousel-item {
-        position: relative;
-        display: none;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        width: 100%;
-        transition: -webkit-transform .6s ease;
-        transition: transform .6s ease;
-        transition: transform .6s ease,-webkit-transform .6s ease;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -webkit-perspective: 1000px;
-        perspective: 1000px;
-    }
-    .carousel-fade .carousel-item {
-        opacity: 0;
-        -webkit-transition-duration: .6s;
-        transition-duration: .6s;
-        -webkit-transition-property: opacity;
-        transition-property: opacity
-    }
-    .carousel-fade .carousel-item-next.carousel-item-left, .carousel-fade .carousel-item-prev.carousel-item-right, .carousel-fade .carousel-item.active {
-        opacity: 1
-    }
-    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-right.active {
-        opacity: 0
-    }
-    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
-        -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-        transform: translateX(0)
-    }
-    @supports (transform-style:preserve-3d) {
-        .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
-            -webkit-transform:translate3d(0, 0, 0);
-            transform:translate3d(0, 0, 0)
-        }
-    }
-    .carousel-fade .carousel-item-left.active, .carousel-fade .carousel-item-next, .carousel-fade .carousel-item-prev, .carousel-fade .carousel-item-prev.active, .carousel-fade .carousel-item.active {
-        -webkit-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
-    }
-
-
-
-    @-webkit-keyframes fadeInLeft {
-        from {
-            opacity: 0;
-            -webkit-transform: translate3d(-100%, 0, 0);
-            transform: translate3d(-100%, 0, 0);
-        }
-
-        to {
-            opacity: 1;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    @keyframes fadeInLeft {
-        from {
-            opacity: 0;
-            -webkit-transform: translate3d(-100%, 0, 0);
-            transform: translate3d(-100%, 0, 0);
-        }
-
-        to {
-            opacity: 1;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    .fadeInLeft {
-        -webkit-animation-name: fadeInLeft;
-        animation-name: fadeInLeft;
-    }
-
-    @-webkit-keyframes fadeInUp {
-        from {
-            opacity: 0;
-            -webkit-transform: translate3d(0, 100%, 0);
-            transform: translate3d(0, 100%, 0);
-        }
-
-        to {
-            opacity: 1;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            -webkit-transform: translate3d(0, 100%, 0);
-            transform: translate3d(0, 100%, 0);
-        }
-
-        to {
-            opacity: 1;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    .fadeInUp {
-        -webkit-animation-name: fadeInUp;
-        animation-name: fadeInUp;
-    }
-
-    @-webkit-keyframes slideInRight {
-        from {
-            -webkit-transform: translate3d(100%, 0, 0);
-            transform: translate3d(100%, 0, 0);
-            visibility: visible;
-        }
-
-        to {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    @keyframes slideInRight {
-        from {
-            -webkit-transform: translate3d(100%, 0, 0);
-            transform: translate3d(100%, 0, 0);
-            visibility: visible;
-        }
-
-        to {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    .slideInRight {
-        -webkit-animation-name: slideInRight;
-        animation-name: slideInRight;
-    }
-
-
-
-
-
-
-
-
-    /*****************globals*************/
-    body {
-        font-family: 'open sans';
-        overflow-x: hidden; }
-
-    img {
-        max-width: 100%; }
-
-    .preview {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column; }
-    @media screen and (max-width: 996px) {
-        .preview {
-            margin-bottom: 20px; } }
-
-    .preview-pic {
-        -webkit-box-flex: 1;
-        -webkit-flex-grow: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1; }
-
-    .preview-thumbnail.nav-tabs {
-        border: none;
-        margin-top: 15px; }
-    .preview-thumbnail.nav-tabs li {
-        width: 18%;
-        margin-right: 2.5%; }
-    .preview-thumbnail.nav-tabs li img {
-        max-width: 100%;
-        display: block; }
-    .preview-thumbnail.nav-tabs li a {
-        padding: 0;
-        margin: 0; }
-    .preview-thumbnail.nav-tabs li:last-of-type {
-        margin-right: 0; }
-
-    .tab-content {
-        overflow: hidden; }
-    .tab-content img {
-        width: 100%;
-        -webkit-animation-name: opacity;
-        animation-name: opacity;
-        -webkit-animation-duration: .3s;
-        animation-duration: .3s; }
-
-    .card {
-        margin-top: 50px;
-        background: #eee;
-        padding: 3em;
-        line-height: 1.5em; }
-
-    @media screen and (min-width: 997px) {
-        .wrapper {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex; } }
-
-    .details {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column; }
-
-    .colors {
-        -webkit-box-flex: 1;
-        -webkit-flex-grow: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1; }
-
-    .product-title, .price, .sizes, .colors {
-        text-transform: UPPERCASE;
-        font-weight: bold; }
-
-    .checked, .price span {
-        color: #ff9f1a; }
-
-    .product-title, .rating, .product-description, .price, .vote, .sizes {
-        margin-bottom: 15px; }
-
-    .product-title {
-        margin-top: 0; }
-
-    .size {
-        margin-right: 10px; }
-    .size:first-of-type {
-        margin-left: 40px; }
-
-    .color {
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 10px;
-        height: 2em;
-        width: 2em;
-        border-radius: 2px; }
-    .color:first-of-type {
-        margin-left: 20px; }
-
-    .add-to-cart, .like {
-        background: #ff9f1a;
-        padding: 1.2em 1.5em;
-        border: none;
-        text-transform: UPPERCASE;
-        font-weight: bold;
-        color: #fff;
-        -webkit-transition: background .3s ease;
-        transition: background .3s ease; }
-    .add-to-cart:hover, .like:hover {
-        background: #b36800;
-        color: #fff; }
-
-    .not-available {
-        text-align: center;
-        line-height: 2em; }
-    .not-available:before {
-        font-family: fontawesome;
-        content: "\f00d";
-        color: #fff; }
-
-    .orange {
-        background: #ff9f1a; }
-
-    .green {
-        background: #85ad00; }
-
-    .blue {
-        background: #0076ad; }
-
-    .tooltip-inner {
-        padding: 1.3em; }
-
-    @-webkit-keyframes opacity {
-        0% {
-            opacity: 0;
-            -webkit-transform: scale(3);
-            transform: scale(3); }
-        100% {
-            opacity: 1;
-            -webkit-transform: scale(1);
-            transform: scale(1); } }
-
-    @keyframes opacity {
-        0% {
-            opacity: 0;
-            -webkit-transform: scale(3);
-            transform: scale(3); }
-        100% {
-            opacity: 1;
-            -webkit-transform: scale(1);
-            transform: scale(1); } }
-
-    /*# sourceMappingURL=style.css.map */
-
-    .navbar-custom {
-        color: #FFFFFF;
-        background-color: #CC3333;
-    }
-
+.flex.md3.sm12.lg3.xs12.d-flex {
+  padding: 0px;
+  margin: 0px;
+}
+.v-card.v-card--flat.v-card--hover.v-sheet.theme--light {
+  border: dashed;
+  background: content-box;
+  overflow: hidden;
+  /* background-color: rgb(176, 190, 197);*/
+  border-color: rgb(176, 190, 197);
+  position: static;
+  display: block;
+  z-index: 10;
+}
 </style>
+
+ 

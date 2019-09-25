@@ -11,27 +11,39 @@
           </v-card-title>
           <v-card-text>
             <v-layout align-center justify-center>
-              <v-card
-                flat
-                color="#B0BEC5"
-                @click="$refs.file.click()"
-                ripple
-                hover
-                height="100"
-                width="300"
-                max-width="600px"
-              >
-                <form enctype="multipart/form-data">
-                  <div class="text-xs-center">
-                    <label class="button">
-                      <input type="file" ref="file" @change="selectFile" style="display:none" />
-                      <v-icon outline large>cloud_upload</v-icon>
-                      <h4>Upload photo</h4>
-                      <span v-if="file" class="file-name">{{file.name}}</span>
-                    </label>
-                  </div>
-                </form>
-              </v-card>
+              <v-flex d-flex>
+                <v-layout align-center justify-center>
+                  <v-flex xs6 sm6 md6 lg6 d-flex>
+                    <v-card flat ripple hover max-height="300" max-width="250">
+                      <form enctype="multipart/form-data">
+                        <div class="text-xs-center">
+                          <label class="button">
+                            <input
+                              id="photoA"
+                              type="file"
+                              ref="file"
+                              accept="image/*"
+                              @change="addFile('photoA', $event)"
+                              style="display:none"
+                            />
+                            <v-icon outline large>cloud_upload</v-icon>
+                            <p
+                              class="subtitle-1 font-weight-medium"
+                              style="color:#616161;"
+                            >Upload photo</p>
+                            <span v-if="photoA" class="file-name">
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#eabf00; align:center;"
+                              >{{photoA.name}}</p>
+                            </span>
+                          </label>
+                        </div>
+                      </form>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
             </v-layout>
           </v-card-text>
           <v-card-actions>
@@ -167,6 +179,7 @@ export default {
       },
 
       file: "",
+      photoA: undefined,
 
       search: "",
       slideshowItems: [],
@@ -208,11 +221,16 @@ export default {
   },
 
   methods: {
+    /*
     selectFile(event) {
       this.file = this.$refs.file.files[0];
       console.log(this.file.name);
-    },
+    },*/
 
+    addFile(fileKey, event) {
+      this[fileKey] = event.target.files[0];
+      console.log("File added", fileKey, event.target.files[0]);
+    },
     upload() {
       let formData = new FormData();
 
@@ -240,7 +258,9 @@ export default {
 
     sendFile() {
       const formData = new FormData();
-      formData.append("file", this.file, this.file.name);
+      //formData.append("file", this.file, this.file.name);
+      formData.append("file", this.photoA, this.photoA.name);
+
       console.log("****");
 
       let $Token = localStorage.getItem("token");
@@ -255,15 +275,15 @@ export default {
           this.dialog = false;
           this.file = "";
           this.getSlideshow();
-         // alert("Succesfully Saved");
+          // alert("Succesfully Saved");
 
-          this.$dialog.alert("Succesfully Saved!",{
-                okText: "Dismiss!",
-              }).then(function(dialog) {
-                console.log("Closed");
-              });
-
-
+          this.$dialog
+            .alert("Succesfully Saved!", {
+              okText: "Dismiss!"
+            })
+            .then(function(dialog) {
+              console.log("Closed");
+            });
         })
         .catch(error => {
           console.log(error.response);
@@ -328,15 +348,16 @@ export default {
             .post(this.$baseUrl + "/deleteSlideshow/?token=" + $Token, item)
             .then(response => {
               this.getSlideshow();
-             // alert("Succesfully Deleted");
-             dialog.close();
+              // alert("Succesfully Deleted");
+              dialog.close();
 
-              this.$dialog.alert("Succesfully Deleted!",{
-                okText: "Dismiss!",
-              }).then(function(dialog) {
-                console.log("Closed");
-              });
-
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
             });
 
           setTimeout(() => {

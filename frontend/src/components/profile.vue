@@ -8,40 +8,44 @@
           <span class="headline">Manage Display Picture</span>
         </v-card-title>
         <v-card-text>
-          <v-layout align-center justify-center>
-            <v-card
-              flat
-              color="#B0BEC5"
-              @click="$refs.file.click()"
-              ripple
-              hover
-              height="100"
-              width="300"
-              max-width="600px"
-            >
-              <form enctype="multipart/form-data">
-                <div class="text-xs-center">
-                  <label class="button">
-                    <input type="file" ref="file" @change="selectFile" style="display:none" />
-                    <v-icon outline large>cloud_upload</v-icon>
-                    <h4>Select photo</h4>
-                    <span v-if="file" class="file-name">{{file.name}}</span>
-                  </label>
-                </div>
-              </form>
-            </v-card>
-          </v-layout>
+          <v-flex d-flex>
+            <v-layout align-center justify-center>
+              <v-flex xs6 sm6 md6 lg6 d-flex>
+                <v-card flat ripple hover max-height="300" max-width="250">
+                  <form enctype="multipart/form-data">
+                    <div class="text-xs-center">
+                      <label class="button">
+                        <input
+                          id="photoA"
+                          type="file"
+                          ref="file"
+                          accept="image/*"
+                          @change="addFile('photoA', $event)"
+                          style="display:none"
+                        />
+                        <v-icon outline large>cloud_upload</v-icon>
+                        <p class="subtitle-1 font-weight-medium" style="color:#616161;">Upload photo</p>
+                        <span v-if="photoA" class="file-name">
+                          <p
+                            class="subtitle-1 font-weight-medium"
+                            style="color:#eabf00; align:center;"
+                          >{{photoA.name}}</p>
+                        </span>
+                      </label>
+                    </div>
+                  </form>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-flex>
         </v-card-text>
-        
-        
+
         <v-layout justify-center>
           <v-flex lg9 md9 sm12 xs12>
-          <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
-          <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
-          <v-btn block dark color="black" @click="close" outline>Close</v-btn>
-        
+            <v-btn block dark color="primary" @click="sendFile">Upload</v-btn>
+            <v-btn block dark color="red" @click="deleteDP">Remove Current Photo</v-btn>
+            <v-btn block dark color="black" @click="close" outline>Close</v-btn>
           </v-flex>
-
         </v-layout>
       </v-card>
     </v-dialog>
@@ -248,6 +252,8 @@ export default {
   data() {
     return {
       file: "",
+      photoA: undefined,
+
       user: [],
       labelname: "Full Name",
       labelemail: "Email",
@@ -305,9 +311,16 @@ export default {
   },
 
   methods: {
+    /*
     selectFile(event) {
       this.file = this.$refs.file.files[0];
-      console.log(this.file.name);
+
+      // console.log(this.file.name);
+    },
+*/
+    addFile(fileKey, event) {
+      this[fileKey] = event.target.files[0];
+      console.log("File added", fileKey, event.target.files[0]);
     },
 
     editPassword() {
@@ -467,7 +480,9 @@ export default {
 
     sendFile() {
       const formData = new FormData();
-      formData.append("file", this.file, this.file.name);
+      //      formData.append("file", this.file, this.file.name);
+      formData.append("file", this.photoA, this.photoA.name);
+
       console.log("****");
 
       let $Token = localStorage.getItem("token");
@@ -475,8 +490,9 @@ export default {
         .post(this.$baseUrl + "/storeDP" + "?token=" + $Token, formData)
         .then(response => {
           this.close();
+          this.$router.go();
+
           this.file = "";
-          this.me();
           this.$dialog
             .alert("Succesfully Saved!", {
               okText: "Dismiss!"
@@ -486,13 +502,13 @@ export default {
             });
         })
         .catch(error => {
+          this.$refs.file.files[0] = "";
           console.log(error.response);
           console.log("Failed Save img url");
         });
     },
 
-    deleteDP(){
-
+    deleteDP() {
       this.$dialog
         .confirm("Delete the Photo?", {
           html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
@@ -510,15 +526,16 @@ export default {
             .then(response => {
               this.close();
               this.me();
-             // alert("Succesfully Deleted");
-             dialog.close();
+              // alert("Succesfully Deleted");
+              dialog.close();
 
-              this.$dialog.alert("Succesfully Deleted!",{
-                okText: "Dismiss!",
-              }).then(function(dialog) {
-                console.log("Closed");
-              });
-
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
             });
 
           setTimeout(() => {
@@ -531,8 +548,6 @@ export default {
           this.close();
           console.log("Delete aborted");
         });
-
-
     }
   }
 };
@@ -550,6 +565,34 @@ export default {
   opacity: 0.5;
   position: absolute;
   width: 100%;
+}
+
+.v-responsive {
+  margin-bottom: 7px;
+}
+
+.container.grid-list-md.text-md-center.fluid.fill-height {
+  padding-top: 0px;
+  padding-bottom: 0;
+}
+
+.flex.md6.sm12.lg6.xs12.d-flex {
+  padding-right: 30px;
+}
+
+.flex.md3.sm12.lg3.xs12.d-flex {
+  padding: 0px;
+  margin: 0px;
+}
+.v-card.v-card--flat.v-card--hover.v-sheet.theme--light {
+  border: dashed;
+  background: content-box;
+  overflow: hidden;
+  /* background-color: rgb(176, 190, 197);*/
+  border-color: rgb(176, 190, 197);
+  position: static;
+  display: block;
+  z-index: 10;
 }
 </style>
 
