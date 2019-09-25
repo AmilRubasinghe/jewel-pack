@@ -228,7 +228,7 @@
    <v-container>
    <v-layout row wrap >
      
-      <v-flex xs4 sm4 md2 lg2 d-flex>
+      <v-flex xs6 sm6 md3 lg3 d-flex>
         
         <p
           data-aos="fade-up"
@@ -239,7 +239,7 @@
         
       </v-flex>
       
-       <v-flex xs5 sm5 md10 lg10  >
+       <v-flex xs5 sm5 md9 lg9  >
          <v-layout row wrap justify-end >
              <v-flex xs6 sm6 md3 lg3  >
           <v-btn
@@ -506,6 +506,7 @@ background-color: #eabf00;
     font-family: "Eagle Lake", cursive;
     font-size: 45px;
   }
+  
 }
 
 @media screen and (max-width: 600px) {
@@ -566,5 +567,10 @@ background-color: #eabf00;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+
+
+p.custom-font4.font-weight-medium.aos-init.aos-animate {
+    margin-top: 77px;
 }
 </style>
