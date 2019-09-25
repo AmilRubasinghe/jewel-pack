@@ -87,7 +87,7 @@
         <v-flex d-flex xs6 sm6 md7 lg7>
           <v-parallax
             height="500"
-            src="http://localhost:8000/storage/home/photo.jpeg"
+            src="http://localhost:8000/storage/home/photo.png"	
             lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
           ></v-parallax>
         </v-flex>
@@ -154,7 +154,7 @@
 
             <v-card class="card product" style="cursor: pointer" align="center" max-width="500">
               <div class="image-box">
-                <v-img :aspect-ratio="1/1" :src="item.Image"></v-img>
+                <v-img :aspect-ratio="1/1" :src="item.Image1"></v-img>
               </div>
 
               <v-card-title>
@@ -216,7 +216,7 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="http://localhost:8000/storage/home/home.jpeg"
+      src="http://localhost:8000/storage/home/home.png"
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -224,7 +224,6 @@
       </v-layout>
     </v-parallax>
 
-<<<<<<< HEAD
  <v-card flat class="getInTouch" style="background-color:#FBC02D;">
    <v-container>
    <v-layout row wrap >
@@ -263,38 +262,6 @@
    </v-layout>
    </v-container>
  </v-card>
-=======
-    <v-card flat class="getInTouch" style="background-color:#FBC02D;">
-      <v-container>
-        <v-layout row wrap>
-          <v-flex xs4 sm4 md2 lg2 d-flex>
-            <p
-              data-aos="fade-up"
-              class="display-1 font-weight-bold"
-              style="color:#212121; align:left;"
-            >Get In Touch</p>
-            <br />
-            <br />
-          </v-flex>
-
-          <v-flex xs5 sm5 md10 lg10>
-            <v-layout row wrap justify-end>
-              <v-flex xs6 sm6 md3 lg3>
-                <v-btn
-                  large
-                  round
-                  block
-                  color="#ffffff"
-                  outline-color="#ffffff"
-                  class="subtitle-1 font-weight-medium"
-                >Contact</v-btn>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card>
->>>>>>> 7e147d62141c4304519768b5c964072877e76eed
 
     <br />
   </div>

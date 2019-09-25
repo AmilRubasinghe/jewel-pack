@@ -64,12 +64,12 @@
               align-center
               :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
             >
-              <v-flex v-for="(item, i) in products" :key="i" lg4 md6 xs10 sm10 class="pr-2">
-                <br />
-
+              <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs10 sm4 class="pr">
+                
                 <transition-group name="staggered-fade" tag="v-card">
                   <v-card
-                    class="card-5"
+                 
+                    class="card-5 Product"
                     style="cursor: pointer"
                     light
                     ripple
@@ -77,30 +77,26 @@
                     @click="productPreview(products[i])"
                     :key="item.PID"
                   >
+                  <div class="image-box">
                     <v-img
                       :aspect-ratio="4/3"
                       contain
                       align="right"
-                      :src="products[i].Image"
+                      :src="products[i].Image1"
                       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
                       transition="scale-transition"
                     >
-                      <v-container fill-height fluid>
-                        <v-layout fill-height>
-                          <v-flex xs12 align-end flexbox>
-                            <!--                   <span class="headline"></span> -->
-                          </v-flex>
-                        </v-layout>
-                      </v-container>
                     </v-img>
+                  </div>
+                    
+                   
 
                     <v-card-title>
                       <v-layout colum wrap align-center justify-center>
                         <v-flex md11 lg11 xs11 sm11 offset-sm0>
                           <span>
                             <p
-                              v-on:mouseover="toggleInfo"
-                              v-on:mouseleave="toggleInfo"
+                              
                               data-aos="fade-up"
                               class="title font-weight-regular"
                               style="color:#212121;"
@@ -145,15 +141,10 @@
                             <p
                               class="headline font-weight-bold"
                               data-aos="fade-up"
-                              v-if="displayInfo"
-                              style="color:#F9A825;"
-                            >{{products[i].Price}}LKR</p>
-                            <p
-                              class="headline font-weight-bold"
-                              data-aos="fade-up"
+                              
                               style="color:#212121;"
-                              v-else
                             >{{products[i].Price}}LKR</p>
+                           
                           </v-layout>
                         </v-flex>
                       </v-layout>
@@ -173,35 +164,13 @@
                           </div>
                         </v-flex>
                       </v-layout>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-
-                
-
-                 <v-card-actions>
-                    <v-layout row wrap align-center justify-center>
-                  <v-flex md11 lg11 xs11 sm11 offset-sm0 >
-                    <div class="text-center">
-                  <v-btn
-                     dark
-                    block 
-                    color="#212121"
-                    outline-color="#ffffff"
-                  
-                    @click="productPreview(products[i])"
-                  >
-                   
-                    
-                  Product View</v-btn>
-                    </div>
-                  </v-flex>
-                   </v-layout>
-                </v-card-actions>
-              </v-card>
-            </transition-group>
-          </v-flex>
-        </v-layout>
+                    </v-card-actions>
+                  </v-card>
+                </transition-group>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-container>
       </div>
 
       <v-layout row justify-center>
@@ -239,13 +208,18 @@
                         <input type="radio" id="image1" name="gallery-control" checked />
                         <input type="radio" id="image2" name="gallery-control" />
                         <input type="radio" id="image3" name="gallery-control" />
+                        <input type="radio" id="image4" name="gallery-control" />
 
                         <div class="wrap">
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
-                                alt="image1"
+                                contain
+                     
+                      :src="selectedItem.Image1"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                                
                               />
                             </label>
                           </figure>
@@ -253,8 +227,12 @@
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
-                                alt="image2"
+                                contain
+                     
+                      :src="selectedItem.Image2"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                                
                               />
                             </label>
                           </figure>
@@ -262,45 +240,79 @@
                           <figure>
                             <label for="fullscreen">
                               <img
-                                src="https://jewelpack.tk/storage/product/1566404772-1.jpeg"
-                                alt="image3"
+                                contain
+                     
+                      :src="selectedItem.Image3"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                               
+                              />
+                            </label>
+                          </figure>
+                          <figure>
+                            <label for="fullscreen">
+                              <img
+                                contain
+                     
+                      :src="selectedItem.Image4"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                               
                               />
                             </label>
                           </figure>
                         </div>
 
                         <div class="thumbnails">
-                          <v-flex xs12 md6 lg6 sm12>
+                          <v-flex xs6 md6 lg6 sm6>
                             <div class="slider">
                               <div class="indicator"></div>
                             </div>
 
-                            <label
-                              for="image1"
-                              class="thumb"
-                              
-                            ><img
-                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
-                                alt="image1"
-                              /></label>
+                            <label for="image1" class="thumb">
+                              <img
+                               contain
+                     
+                      :src="selectedItem.Image1"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                               
+                              />
+                            </label>
 
-                            <label
-                              for="image2"
-                              class="thumb"
-                              
-                            ><img
-                                src="http://localhost:8000/storage/product/1565204774-10636268_1621555728090332_7168703738469121013_n_2.jpg"
-                                alt="image2"
-                              /></label>
+                            <label for="image2" class="thumb">
+                              <img
+                                contain
+                      
+                      :src="selectedItem.Image2"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                                
+                              />
+                            </label>
 
-                            <label
-                              for="image3"
-                              class="thumb"
-                              
-                            > <img
-                                src="http://localhost:8000/storage/product/1565716825-WhatsApp Image 2019-08-12 at 8.40.36 PM.jpeg"
-                                alt="image3"
-                              /></label>
+                            <label for="image3" class="thumb">
+                              <img
+                               contain
+                      
+                      :src="selectedItem.Image3"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                                
+                              />
+                            </label>
+
+                            <label for="image4" class="thumb">
+                              <img
+                               contain
+                      
+                      :src="selectedItem.Image4"
+                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                      transition="scale-transition"
+                                
+                              />
+                            </label>
+                            
                           </v-flex>
                         </div>
                       </div>
@@ -351,12 +363,7 @@
                           >Lot Size:</td>
                           <td class="a-span12">
                             <v-flex xs12 sm12 md11 d-flex offset-xs0 offset-lg1>
-                              <v-select
-                                label="Sizes"
-                                :items="sizes"
-                                v-model.number="size"
-                              ></v-select>
-                              
+                              <v-select label="Sizes" :items="sizes" v-model.number="size"></v-select>
                             </v-flex>
                           </td>
                         </tr>
@@ -482,14 +489,10 @@ export default {
   },
 
   methods: {
-
-    sel(){
+    sel() {
       console.log(this.size);
     },
-    toggleInfo() {
-      this.displayInfo = !this.displayInfo;
-    },
-
+   
     sortProducts() {
       this.products = _.orderBy(this.products, this.sortCat, this.sortOrder);
     },
@@ -592,6 +595,21 @@ export default {
 
 
 <style>
+.card-5.Product.v-card.v-sheet.theme--light:hover{
+   text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 18px 15px rgba(0, 0, 0, 0.22);
+  border: 0.7px solid; 
+        
+
+} 
+.card-5.Product.v-card.v-sheet.theme--light:hover .v-btn__content{
+
+background-color: #eabf00;
+
+
+
+}
 .v-card__actions {
   align-items: center;
   /* display: flex; */
@@ -602,8 +620,9 @@ export default {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  /* padding-top: 0px; */
+  padding-top: 10px;
 }
+
 
 .minusplusnumber {
   border: 1px solid silver;
@@ -703,7 +722,7 @@ td {
   -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
-  height: 70vh;
+  height: 76vh;
   width: 100%;
 }
 /*both  display*/
@@ -948,7 +967,7 @@ td {
 
 .theme--light.v-sheet {
   color: rgba(0, 0, 0, 0.87);
-  padding: 2px;
+  padding: 1px;
 }
 
 .image-box .v-image {
