@@ -13,7 +13,7 @@
                   height="200"
                   @click="toggle"
                 >
-                  <v-img :aspect-ratio="2/1.1" :src="products[i].Image">
+                  <v-img :aspect-ratio="2/1.1" :src="products[i].Image1">
                     <v-scroll-y-transition>
                       <div
                         v-if="active || hover"
@@ -32,11 +32,13 @@
     <v-layout row wrap justify-center>
       <v-flex md4 xs6 sm4>
         <v-btn
-          block
+          block 
+          color="#FFAB00"
+          outline-color="#000000"
           class="ma-2"
           :loading="loading"
           :disabled="loading"
-          color="info"
+          
           @click="loader = 'loading'"
         >Accept Terms</v-btn>
       </v-flex>
