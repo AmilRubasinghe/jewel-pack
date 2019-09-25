@@ -87,7 +87,7 @@
         <v-flex d-flex xs6 sm6 md7 lg7>
           <v-parallax
             height="500"
-            src="http://localhost:8000/storage/home/photo.jpeg"
+            :src="img1"
             lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
           ></v-parallax>
         </v-flex>
@@ -216,7 +216,7 @@
     <!-- ..............Jewellery display.............................-->
 
     <v-parallax
-      src="http://localhost:8000/storage/home/home.jpeg"
+      :src="img2"
       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
     >
       <v-layout align-center column justify-center color="blue">
@@ -328,14 +328,21 @@ export default {
     });
   },
 
-  computed() {
-    /*
-      computed: {
-    fullHeight: function() {
-      return $this.100vh + " " + this.user.lastName;
-    }
-  },*/
-  }
+  computed: {
+    img1: function() {
+    
+      return this.$url + 'storage/home/photo.jpeg'
+
+    },
+
+    img2: function() {
+    
+      return this.$url + 'storage/home/home.jpeg'
+
+    },
+
+    
+  },
 };
 </script>
 
