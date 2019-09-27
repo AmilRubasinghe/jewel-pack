@@ -62,7 +62,7 @@
       <v-layout row wrap align-center justify-center>
         <v-flex d-flex xs6 sm6 md5 lg5>
           <v-card width="100%" height="500" flat style="background-color:#eabf00;">
-            <v-flex>
+            <v-flex  xs11 sm11 md11 lg11>
               <p data-aos="fade-up" class="custom-font4 font-weight-medium">
                 <br />‘The Art of Gifting’
                 <br />
@@ -228,7 +228,7 @@
    <v-container>
    <v-layout row wrap >
      
-      <v-flex xs4 sm4 md2 lg2 d-flex>
+      <v-flex xs7 sm7 md3 lg3 d-flex>
         
         <p
           data-aos="fade-up"
@@ -239,7 +239,7 @@
         
       </v-flex>
       
-       <v-flex xs5 sm5 md10 lg10  >
+       <v-flex xs5 sm5 md9 lg9  >
          <v-layout row wrap justify-end >
              <v-flex xs6 sm6 md3 lg3  >
           <v-btn
@@ -513,6 +513,7 @@ background-color: #eabf00;
     font-family: "Eagle Lake", cursive;
     font-size: 45px;
   }
+  
 }
 
 @media screen and (max-width: 600px) {
@@ -573,5 +574,10 @@ background-color: #eabf00;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+
+
+p.custom-font4.font-weight-medium.aos-init.aos-animate {
+    margin-top: 77px;
 }
 </style>

@@ -2,10 +2,20 @@
   <div id="app">
     <v-app id="inspire">
       <div>
-        <v-container pa-0>
-          <h1 class="custom-font1">{{pageTitle}}</h1>
-
-          <v-container v-if="searchMode">
+       <v-parallax
+             height="110"
+            src="http://localhost:8000/storage/home/product4.png"	
+            lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+          >
+          <h1 class="header" 	 style=" border: 1px solid #eabf00; "> <p
+          data-aos="fade-up"
+          class="display-1 font-weight-bold"
+          style="color:#eabf00; align:left;"
+        > {{pageTitle}}</p></h1>
+        </v-parallax>
+ 
+          <v-container v-if="searchMode" >
+            <v-card flat style="background-color:#FBC02D; border: 1px solid #212121; " >
             <v-layout row wrap align-center justify-center>
               <v-flex xs10 sm10 md9 lg8 xl8>
                 <v-text-field
@@ -22,17 +32,19 @@
                 <v-icon large color="#E65100">search</v-icon>
               </v-btn>
             </v-layout>
+            </v-card>
           </v-container>
 
-          <v-container>
-            <v-layout>
-              <div></div>
-
-              <v-toolbar>
+          <v-card flat  height="110" style="background-color:#FBC02D;">
+                <v-card flat class="toolbarSearch"  style="background-color:#FBC02D;">
+            <v-layout align-center justify-center>
+             
+              
+              <v-toolbar  flat  style="background-color:#FBC02D;">
                 <v-toolbar-title>Sorting</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                  <v-flex xs12 sm6 md4 d-flex>
+                  <v-flex xs12 sm6 md5 d-flex>
                     <v-select
                       :items="sortCategories"
                       label="Sort by"
@@ -42,7 +54,7 @@
                     ></v-select>
                   </v-flex>
 
-                  <v-flex xs12 sm6 md4 d-flex>
+                  <v-flex xs12 sm6 md5 d-flex offset-sm1>
                     <v-select
                       label="Order"
                       :items="sortAscOrDesc"
@@ -56,7 +68,8 @@
                 </v-toolbar-items>
               </v-toolbar>
             </v-layout>
-          </v-container>
+                </v-card>
+          </v-card>
           <v-container>
             <v-layout
               row
@@ -170,11 +183,11 @@
               </v-flex>
             </v-layout>
           </v-container>
-        </v-container>
+        
       </div>
 
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1200px">
+        <v-dialog v-model="dialog" max-width="1250px">
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -319,16 +332,19 @@
                     </section>
                   </v-flex>
 
-                  <v-flex xs8 md5>
-                    <h3
-                      class="display-1 font-weight-light orange--text mb-1"
-                    >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</h3>
+                  <v-flex class="details" xs12 md5 lg5 sm12>
+                    <p
+                    class="headline  font-weight-regular mb-1"
+          style="color:#eabf00;"
+                     
+                    >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</p>
 
-                    <p>{{selectedItem.description}}</p>
+                    <p  class="subtitle-1 font-weight-medium"
+                          style="color:#616161;">{{selectedItem.description}}</p>
 
                     <v-divider></v-divider>
 
-                    <table class="a-lineitem">
+                   <!-- <table class="a-lineitem">
                       <tbody>
                         <tr>
                           <td
@@ -372,7 +388,10 @@
                           <td
                             id="quantity_lbl"
                             class="a-color-secondary a-size-base a-text-right a-nowrap"
-                          >Quantity:</td>
+                          >
+                           <p  class="subtitle-2 font-weight-regular"
+                          style="color:#616161;">
+                          Quantity:</p></td>
                           <td class="a-span12">
                             <span id="quantity" class="a-size-medium a-color-quantity">
                               <div class="minusplusnumber">
@@ -391,9 +410,108 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table>-->
+                     <v-layout column>
 
-                    <div class="text-xs- mt-5">
+                         <v-flex d-flex>
+                           <v-flex md11 lg11 xs11 sm11>
+                          <v-layout column wrap >
+                              <v-flex d-flex>
+                             <p
+                              class="display-1 font-weight-bold"
+                             
+                              
+                              style="color:#212121;"
+                            >{{selectedItem.Price}}.00 LKR</p>
+                              </v-flex>
+                              <v-flex d-flex>
+                                <v-layout row wrap >
+                                <v-flex md5 lg5 xs7 sm7 offset-sm0>
+                            <del class style="color:#616161;">
+                              <p
+                                v-if="selectedItem.slashedPrice"
+                                
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                                
+                              > &nbsp; &nbsp; {{selectedItem.slashedPrice}}.00 LKR &nbsp; &nbsp;</p>
+                            </del>
+                                </v-flex>
+                            <v-flex md1 lg1 xs2 sm2>
+                            <p
+                                v-if="selectedItem.slashedPrice"
+                                
+                                class="title font-weight-medium"
+                                style="color:#C62828;"
+                              > {{(((selectedItem.slashedPrice-selectedItem.Price)*100)/selectedItem.Price).toFixed()}}% </p>
+                            </v-flex>
+                              <v-flex  md3 lg3 xs3 sm3>
+                            <p
+                                v-if="selectedItem.slashedPrice"
+                                
+                                class="subtitle-1 font-weight-medium discount"
+                                style="color:#C62828;"
+                              > Discount </p>
+                            </v-flex>
+                                </v-layout>
+                              </v-flex>
+                           
+                           
+                          </v-layout>
+                        </v-flex>
+                       
+                           
+                         </v-flex>
+
+                           <v-flex d-flex>
+                  <v-layout row wrap>
+                    <v-flex md2 sm4 lg2 xs4 d-flex>
+                     <p  class="subtitle-2 font-weight-regular lotsize"
+                          style="color:#616161;">
+                          Lot Size:</p>
+                    </v-flex>
+
+                    <v-flex md5 sm7 lg5 xs d-flex>
+                      <v-select label="Sizes" :items="sizes" v-model.number="size"></v-select>
+                     
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+                        
+                        
+                <v-flex d-flex>
+                  <v-layout row wrap>
+                    <v-flex md2 sm4 lg2 xs4 d-flex>
+                     <p  class="subtitle-2 font-weight-regular"
+                          style="color:#616161;">
+                          Quantity:</p>
+                    </v-flex>
+
+                    <v-flex md6 sm8 lg6 xs8 d-flex>
+                      <span id="quantity" class="a-size-medium a-color-quantity">
+                              <div class="minusplusnumber">
+                                <div class="mpbtn minus" v-on:click="decrement()">-</div>
+                                <div id="field_container">
+                                  
+                                  <input
+                                  style="color:#212121;"
+                                    @change="valid()"
+                                    type="number"
+                                    v-model.number="value"
+                                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                  />
+                                </div>
+                                <div class="mpbtn plus" v-on:click="increment()">+</div>
+                              </div>
+                            </span>
+                     
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+
+                
+                  <v-flex md6 sm12 lg6 xs12 d-flex >
+                   <div class="text-xs- mt-5">
                       <v-rating
                         color="yellow darken-3"
                         background-color="grey darken-1"
@@ -402,18 +520,43 @@
                         hover
                       ></v-rating>
                     </div>
+                  </v-flex>
+                
 
-                    <v-divider></v-divider>
+              </v-layout>
+            <v-divider></v-divider>
+
+          
+           
+              
+
+                    
+
+                    
 
                     <v-card-actions>
-                      <v-btn
-                        color="primary"
-                        dark
-                        outline
-                        round
+                      <v-layout row wrap>
+                <v-flex d-flex>
+                  <v-btn
+                         dark
+                              block
+                              color="#212121"
+                              outline-color="#ffffff"
+                        
                         @click="addToCart(selectedItem,value)"
                       >Add to cart</v-btn>
-                      <v-btn color="primary" dark outline round>Buy Now</v-btn>
+                </v-flex>
+
+                <v-flex d-flex>
+                 <v-btn  
+                              block
+                              color="#eabf00"
+                              outline-color="#ffffff">Buy Now</v-btn>
+                </v-flex>
+                
+              </v-layout>
+                      
+                      
                     </v-card-actions>
                   </v-flex>
                 </v-layout>
@@ -544,6 +687,18 @@ export default {
       this.size = 0;
       this.value = 0;
 
+      /* axios
+        .get(this.$baseUrl + "/size")
+        .then(response => {
+          response.data.catItems.forEach(element => {
+            this.category.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });*/
+
       this.dialog = true;
     },
 
@@ -595,6 +750,15 @@ export default {
 
 
 <style>
+p.subtitle-2.font-weight-regular.lotsize {
+    padding-top: 21px;
+}
+p.subtitle-1.font-weight-medium.discount {
+    margin-left: 3px;
+}
+.flex.details.xs12.md5.lg5.sm12 {
+    margin: 35px;
+}
 .card-5.Product.v-card.v-sheet.theme--light:hover{
    text-decoration: none;
   box-shadow: 0 1px 3px rgba(0,0,0,.3);
@@ -621,6 +785,7 @@ background-color: #eabf00;
   display: flex;
   flex-wrap: wrap;
   padding-top: 10px;
+  padding-bottom: 0px;
 }
 
 
@@ -666,12 +831,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 20px !important;
 }
 
-td {
-  width: 130px;
-  height: 40px;
-  text-align: center;
-  padding: 5px;
-}
+
 .cardmargin.v-card.v-sheet.theme--light {
   margin: 90px;
 }
@@ -680,9 +840,9 @@ td {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-.marginWith.page {
-  padding-left: 80px;
-  padding-right: 80px;
+
+h1.header {
+   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .custom-font1 {
@@ -722,14 +882,14 @@ td {
   -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
-  height: 76vh;
+  height: 79vh;
   width: 100%;
 }
 /*both  display*/
 .gallery .wrap {
   width: 100%;
   height: 100%;
-  position: static;
+ 
   margin: 0 auto;
   overflow: hidden;
   display: -webkit-box;
@@ -748,15 +908,15 @@ td {
 }
 /*big photo center*/
 .gallery .wrap figure {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-bottom: 0px;
   padding-bottom: 0px;
   height: 100%;
   min-width: 100%;
   -webkit-transition: opacity 0.25s ease-in-out 0.05s;
   transition: opacity 0.25s ease-in-out 0.05s;
-  position: relative;
+  
   left: 0;
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
@@ -799,7 +959,7 @@ td {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  min-width: 100px;
+  min-width: 80px;
   max-height: 100%;
   height: auto;
   -webkit-box-flex: 0;
@@ -823,17 +983,17 @@ td {
   padding: 0 10px;
 }
 .gallery .thumbnails .thumb img {
-  min-width: 120px;
-  height: 100px;
+  min-width: 110px;
+  height: 90px;
   background-position: center center;
   background-size: cover;
-  box-sizing: border-box;
+
   opacity: 0.7;
   margin: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   left: 0;
-  border-radius: 3px;
+  
   cursor: pointer;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -1002,5 +1162,21 @@ td {
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+
+
+
+
+
+p.display-1.font-weight-bold.aos-init.aos-animate {
+   padding-top:10px;
+   padding-bottom:10px;
+    padding-left: 77px;
+}
+.v-card.v-card--flat.v-sheet.theme--light {
+    padding-top: 12px;
+}
+.flex.details.xs12.md5.lg5.sm12 {
+    margin: 35px;
 }
 </style>
