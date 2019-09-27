@@ -70,6 +70,7 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::get('products', 'ProductController@getAllProduct');
   //  Route::get('product/{cid}', 'ProductController@getProduct');
     Route::get('category/{cid}', 'ProductController@getProduct');
+    Route::get('size', 'ProductController@getSizes');
 
 
     Route::post('coupons','CouponController@getCoupon');

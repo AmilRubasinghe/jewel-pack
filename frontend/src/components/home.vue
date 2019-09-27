@@ -62,7 +62,7 @@
       <v-layout row wrap align-center justify-center>
         <v-flex d-flex xs6 sm6 md5 lg5>
           <v-card width="100%" height="500" flat style="background-color:#eabf00;">
-            <v-flex>
+            <v-flex  xs11 sm11 md11 lg11>
               <p data-aos="fade-up" class="custom-font4 font-weight-medium">
                 <br />‘The Art of Gifting’
                 <br />
@@ -228,7 +228,7 @@
    <v-container>
    <v-layout row wrap >
      
-      <v-flex xs6 sm6 md3 lg3 d-flex>
+      <v-flex xs7 sm7 md3 lg3 d-flex>
         
         <p
           data-aos="fade-up"

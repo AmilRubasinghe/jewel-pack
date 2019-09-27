@@ -43,13 +43,13 @@
 
       <v-card-text class="grey darken-4 body-2">
         <strong>
-          <p class="body-2" style="color:#757575; align:center;">
+          <p class="caption" style="color:#757575; align:center;">
             <center>Copy right &copy; {{ new Date().getFullYear() }} web desing Srilanka</center>
           </p>
-          <p class="body-2"  style="color:#757575; align:center;">
+          <p class="caption"  style="color:#757575; align:center;">
             All rights design reserved design by
             <span
-              class="red--text body-1 overline"
+              class="red--text body-2 overline"
             >T E A M SPATA</span>
           </p>
         </strong>
