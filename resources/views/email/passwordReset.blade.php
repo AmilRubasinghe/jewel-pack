@@ -26,7 +26,8 @@ Thanks,<br>
 
 Click on the button below to change password
 
-@component('mail::button', ['url' => 'http://jewelpack.tk/response-password-reset?token='.$token])
+
+@component('mail::button', ['url' => url('/').'/response-password-reset?token='.$token])
 Reset Password
 @endcomponent
 

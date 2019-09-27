@@ -21,7 +21,7 @@ Route::post('/login',[
     'uses'=>'UserController@loginUser'
 ]);*/
 
-
+/*
 Route::group([
     'middleware' => 'api',
     'namespace' => 'App\Http\Controllers',
@@ -32,6 +32,8 @@ Route::group([
     
 
 });
+*/
+
 
 Route::get('pay', 'PaymentController@payHerePost');
 
@@ -45,6 +47,9 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('test', 'CategoryController@test');
 
 
+	
+    Route::get('verify/{email}/{verifyToken}',['uses'=>'userController@sendEmailDone',
+    'as' => 'sendEmailDone']);
 
 
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
@@ -61,9 +66,11 @@ Route::get('pay', 'PaymentController@payHerePost');
 //CategoryRoutes
     Route::get('category', 'CategoryController@getItem');
 
+    Route::get('selectedProducts', 'ProductController@getselectedProducts');
     Route::get('products', 'ProductController@getAllProduct');
   //  Route::get('product/{cid}', 'ProductController@getProduct');
     Route::get('category/{cid}', 'ProductController@getProduct');
+    Route::get('size', 'ProductController@getSizes');
 
 
     Route::post('coupons','CouponController@getCoupon');
@@ -96,6 +103,12 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         Route::post('me', 'userController@me');
 
         Route::post('myOrder', 'orderController@myOrder');
+        Route::post('editPassword', 'userController@editPassword');
+        Route::post('editProfile', 'userController@editUser');
+        Route::post('storeDP', 'userController@storeDP');
+        Route::post ( 'deleteDP', 'userController@deleteDP' );
+
+
         
         
     });
@@ -108,7 +121,7 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
         Route::post('editUser', 'userController@editUser');
         Route::post('deleteUser/{id}', 'userController@deleteUser');
         Route::post('restoreUser/{id}', 'userController@restoreUser');
-        Route::get('salesReport', 'salesReport@getReport');
+        Route::get('salesReport', 'salesReportController@getReport');
         
         
     });
@@ -116,6 +129,9 @@ Route::post('checkoutNotify','PaymentController@checkoutNotify');
     
     
 //SlideshowModuleRoutes
+
+Route::get('getMsg', 'ContactUsController@getAll');
+Route::post('saveMsg', 'ContactUsController@save');
 
 
 Route::group(['middleware' => 'jwt.verify:admin,editor'], function() {

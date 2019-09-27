@@ -27,6 +27,7 @@ class ProductlotController extends Controller
                 $thisProduct->Quantity = $thisProduct->Quantity+$request->input('quantity');
                 $thisProduct->save();
         
+                
         
                 return response()->json(['productlot'=>$table,'message'=>"Productlot added succesfully !"]);
         

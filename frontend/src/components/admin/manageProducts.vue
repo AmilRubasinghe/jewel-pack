@@ -8,8 +8,10 @@
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" max-width="900">
         <v-card>
-          <v-card-title>
-            <span class="headline">Upload Form</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Upload Form</p>
+            </span>
           </v-card-title>
 
           <v-card-text>
@@ -107,13 +109,13 @@
                             @input="remove(item)"
                           >
                             <strong>{{item.shipMethod}}</strong>
-&nbsp;
+                            &nbsp;
                           </v-chip>
                         </template>
                       </v-combobox>
                     </v-flex>
 
-                     <v-flex md6 sm12 lg6 xs12 d-flex >
+                    <v-flex md6 sm12 lg6 xs12 d-flex>
                       <v-text-field
                         input-type="number"
                         v-model="newProduct.slashedPrice"
@@ -126,48 +128,180 @@
                         onkeydown="javascript: return event.keyCode == 69 ? false : true"
                       />
                     </v-flex>
-
-                     
-                  </v-layout> 
-                   </v-flex > 
-                     <v-flex md3 sm12 lg3 xs12 d-flex>
-                       <v-checkbox
-                        v-model="newProduct.border"
-                        v-validate="'required'"
-                        :error-messages="errors.collect('checkbox')"
-                        value="1"
-                        label="Gold border"
-                        data-vv-name="checkbox"
-                        type="checkbox"
-                        required
-                      ></v-checkbox>
-                    </v-flex>
+                  </v-layout>
+                </v-flex>
+                <v-flex md3 sm12 lg3 xs12 d-flex>
+                  <v-checkbox
+                    v-model="newProduct.border"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('checkbox')"
+                    value="1"
+                    label="Gold border"
+                    data-vv-name="checkbox"
+                    type="checkbox"
+                    required
+                  ></v-checkbox>
+                </v-flex>
 
                 <v-flex d-flex>
                   <v-layout row wrap justify-center>
-                    <v-flex xs9 sm9 md4 lg4 d-flex>
-                      <v-card
-                        flat
-                        color="#B0BEC5"
-                        @click="$refs.file.click()"
-                        ripple
-                        hover
-                        height="100"
-                        width="100"
-                        max-width="500px"
-                      >
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
                               <input
+                                id="photoA"
+                                type="file"
+                                ref="file-1"
+                                accept="image/*"
+                                @change="addFile('photoA', $event)"
+                                style="display:none"
+                              />
+                              <!--<input
                                 type="file"
                                 ref="file"
                                 @change="selectFile"
                                 style="display:none"
-                              />
+                              />-->
                               <v-icon outline large>cloud_upload</v-icon>
-                              <h4>Upload photo</h4>
-                              <span v-if="file" class="file-name">{{file.name}}</span>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoA" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoA.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+                    <!-- <v-flex xs9 sm9 md7 lg7  d-flex>
+                     <v-card
+                flat
+                color="#B0BEC5"
+                @click="$refs.file.click()"
+                ripple
+                hover
+                max-height="300"
+                
+                max-width="600"
+              >
+              
+  
+<vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" v-on:vdropzone-sending="addProduct" >
+  <v-icon outline large>cloud_upload</v-icon>
+ <h4>Upload photo</h4>
+</vue-dropzone>
+
+</v-card>
+                    </v-flex>-->
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoB', $event)"
+                                style="display:none"
+                              />
+                              <!--<input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoB" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoB.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoC', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoC" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoC.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoD', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoD" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoD.name}}</p>
+                              </span>
                             </label>
                           </div>
                         </form>
@@ -184,15 +318,15 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap justify-end>
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn outline color="primary" @click="clear">clear</v-btn>
+                  <v-btn outline color="#eabf00" @click="clear">clear</v-btn>
                 </v-flex>
 
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn color="primary" @click="dialog = false">Close</v-btn>
+                  <v-btn color="#eabf00" @click="dialog = false">Close</v-btn>
                 </v-flex>
 
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn color="primary" @click="addProduct">Save</v-btn>
+                  <v-btn color="#eabf00" @click="addProduct">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -202,10 +336,13 @@
 
       <v-dialog v-model="showModal" max-width="900">
         <v-card>
-          <v-card-title>
-            <span class="headline">Edit Product</span>
+            <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit Product</p>
+            </span>
           </v-card-title>
 
+         
           <v-card-text>
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout column>
@@ -278,7 +415,7 @@
                         :items=" ShippingMethodItems"
                         item-text="shipMethod"
                         item-value="shipId"
-                        v-model="editedItem.shipMethod"
+                        v-model="editedItem.shipId"
                         outline
                         menu-props
                       ></v-select>
@@ -288,30 +425,175 @@
                   </v-layout>
                 </v-flex>
 
-                <v-flex xs12 sm6 offset-sm4>
-                  <v-img height="155" width="350" max-width="260px" :src="editedItem.Image"></v-img>
+                <v-flex d-flex>
+                  <v-layout row wrap>
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                         <v-hover v-slot:default="{ hover }">
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image1">
+                           <v-expand-transition>
+                <div
+                  v-if="hover"
+                  class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                  style="height: 40%;"
+                >
+                  <v-btn
+                    color="transparent"
+                    class="white--text"
+                    large
+                    :ripple="false"
+                    @click="deletePhoto"
+                  >Delete</v-btn>
+                </div>
+              </v-expand-transition>
 
-                  <v-card
-                    flat
-                    color="#B0BEC5"
-                    @click="$refs.file.click()"
-                    ripple
-                    hover
-                    height="70"
-                    width="260"
-                    max-width="600px"
-                  >
-                    <form enctype="multipart/form-data">
-                      <div class="text-xs-center">
-                        <label class="button">
-                          <input type="file" ref="file" @change="selectFile" style="display:none" />
-                          <v-icon outline large>cloud_upload</v-icon>
-                          <h4>Upload photo</h4>
-                          <span v-if="file" class="file-name">{{file.name}}</span>
-                        </label>
-                      </div>
-                    </form>
-                  </v-card>
+                        </v-img>
+                         </v-hover>
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoA', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoA" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoA.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoB', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoB" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoB.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoC', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoC" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoC.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+
+                    <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                id="photoA"
+                                type="file"
+                                ref="file"
+                                accept="image/*"
+                                @change="addFile('photoD', $event)"
+                                style="display:none"
+                              />
+                              <!-- <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />-->
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="photoD" class="file-name">
+                                <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{photoD.name}}</p>
+                              </span>
+                            </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -468,17 +750,27 @@
               <td class="text-xs-center">{{ props.item.PID }}</td>
               <td class="text-xs-center">{{ props.item.Size }}</td>
               <td class="text-xs-center">{{ props.item.CID }}</td>
-              <td class="text-xs-left">{{ props.item.Image}}</td>
+              <td class="text-xs-left">{{ props.item.Image1}}</td>
               <td class="text-xs-left">
-                <v-img :src="props.item.Image"></v-img>
+                <v-img :src="props.item.Image1"></v-img>
+              </td>
+              <td class="text-xs-left">
+                <v-img :src="props.item.Image2"></v-img>
+              </td>
+              <td class="text-xs-left">
+                <v-img :src="props.item.Image3"></v-img>
+              </td>
+              <td class="text-xs-left">
+                <v-img :src="props.item.Image4"></v-img>
               </td>
               <td class="text-xs-center">{{ props.item.Quantity}}</td>
               <td class="text-xs-center">{{ props.item.Colour }}</td>
               <td class="text-xs-center">{{ props.item.Price }}</td>
               <td class="text-xs-center">{{ props.item.slashedPrice }}</td>
-              
+
               <td class="text-xs-left">{{ props.item.description }}</td>
               <td class="text-xs-center">{{ props.item.border }}</td>
+              <td class="text-xs-center">{{ props.item.shipMethod }}</td>
 
               <td class="justify-center layout px-0">
                 <v-icon
@@ -488,7 +780,6 @@
                   class="mr-2"
                   @click="AddQuantity(props.item)"
                 >add_box</v-icon>
-                
 
                 <v-icon
                   color="deep-purple darken-1"
@@ -525,14 +816,35 @@
 <script>
 import axios from "axios";
 import navDrawer from "../admin/navDrawer.vue";
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
+  name: "app",
+
   data() {
     return {
+      /*dropzoneOptions: {
+          url: 'https://httpbin.org/post',
+          thumbnailWidth: 150,
+          maxFilesize: 0.5,
+          headers: { "My-Awesome-Header": "header value" },
+          addRemoveLinks: true,
+        dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD HERE",
+
+     
+          
+      },*/
+
+      photoA: undefined,
+      photoB: undefined,
+      photoC: undefined,
+      photoD: undefined,
+
       dialog: false,
       showModal: false,
       showQuantity: false,
       editedIndex: -1,
-      imageName: "",
+      imageName1: "",
       imageUrl: "",
       imageFile: "",
       LotQuantity: "",
@@ -553,7 +865,7 @@ export default {
         PID: 0,
         Size: 0,
         CID: "",
-        Image: "",
+        Image1: "",
         Quantity: "",
         Colour: "",
         Price: "",
@@ -576,10 +888,10 @@ export default {
         size: "",
         colour: "",
         border: 0,
-        image: "",
+        image1: "",
         cid: "",
-        slashedPrice:"",
-        shipMethod:[],
+        slashedPrice: "",
+        shipMethod: []
       },
 
       newLotQuantity: {
@@ -598,7 +910,7 @@ export default {
       defaultItem: {
         imageID: 0,
         // size: 0,
-        image: "",
+        image1: "",
         ext: "",
         deleteURL: ""
       },
@@ -617,12 +929,15 @@ export default {
         { text: "Size", value: "Size" },
         { text: "Cat. ID", value: "CID" },
         { text: "Image", value: "Image" },
-        { text: "Preview", value: "preview" },
+        { text: "Preview 1", value: "preview 1" },
+        { text: "Preview 2", value: "preview 2" },
+        { text: "Preview 3", value: "preview 3" },
+        { text: "Preview 4", value: "preview 4" },
         { text: "Quantity", value: "Quantity" },
         { text: "Colour", value: "Colour" },
         { text: "Price", value: "Price" },
         { text: "Slashed Price", value: "slashedPrice" },
-       
+
         { text: "Details", value: "description" },
         { text: "Border", value: "border" },
 
@@ -639,6 +954,8 @@ export default {
   },
 
   components: {
+    vueDropzone: vue2Dropzone,
+
     navDrawer
   },
 
@@ -682,9 +999,11 @@ export default {
       this.newProduct.shipMethod = [...this.newProduct.shipMethod];
     },
 
+    
+
     catItems() {
       axios
-        .get(this.$baseUrl+"/category")
+        .get(this.$baseUrl + "/category")
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);
@@ -698,7 +1017,7 @@ export default {
 
     lotItems() {
       axios
-        .get(this.$baseUrl+"/getLot")
+        .get(this.$baseUrl + "/getLot")
         .then(response => {
           response.data.lotItems.forEach(element => {
             this.lotItem.push(element);
@@ -727,19 +1046,19 @@ export default {
           console.log("ERROR");
         });
     },
+    addFile(fileKey, event) {
+      this[fileKey] = event.target.files[0];
+      console.log("File added", fileKey, event.target.files[0]);
+    },
 
-    selectFile(event) {
+    /*selectFile(event) {
       this.file = this.$refs.file.files[0];
 
       let $Token = localStorage.getItem("token");
-    
-    },
+    },*/
 
     addProduct() {
-      
-    
-
-    /*  axios
+      /*  axios
 
         .post(this.$baseUrl+"/test",{
 
@@ -792,22 +1111,34 @@ export default {
       // this.newProduct.image = formData;*/
 
       let $Token = localStorage.getItem("token");
-  
-      axios
-        .post(this.$baseUrl+"/addProduct?token=" + $Token,{
-              file:this.file,
-              details: this.newProduct.details,
-              price: this.newProduct.price,
-              slashedPrice: this.newProduct.slashedPrice,
-              size: this.newProduct.size,
-              border: this.newProduct.border,
-              colour: this.newProduct.colour,
-              cid: this.newProduct.cid,
-              method: this.newProduct.shipMethod,
-            
 
-        })
-       
+      var json_arr = JSON.stringify(this.newProduct.shipMethod);
+      // console.log(json_arr);
+
+      const formData = new FormData();
+      formData.append("photoA", this.photoA, this.photoA.name);
+      formData.append("photoB", this.photoB, this.photoB.name);
+      formData.append("photoC", this.photoC, this.photoC.name);
+      formData.append("photoD", this.photoC, this.photoD.name);
+      /*formData.append("file", this.file, this.file.name);*/
+      formData.append("method", json_arr);
+      formData.append("details", this.newProduct.details);
+      formData.append("price", this.newProduct.price);
+      formData.append("slashedPrice", this.newProduct.slashedPrice);
+      formData.append("size", this.newProduct.size);
+      formData.append("border", this.newProduct.border);
+      formData.append("colour", this.newProduct.colour);
+      formData.append("cid", this.newProduct.cid);
+
+      console.log("&&&&&&&&&&&&&&");
+      console.log(this.photoA.name);
+      console.log(this.photoB.name);
+      console.log(this.photoC.name);
+      console.log(this.photoD.name);
+
+      axios
+        .post(this.$baseUrl + "/addProduct?token=" + $Token, formData)
+
         .then(response => {
           console.log(response.data);
           this.dialog = false;
@@ -824,7 +1155,7 @@ export default {
       (this.table_title = "Active Products"), (this.deletedItem = false);
 
       axios
-        .get(this.$baseUrl+"/products")
+        .get(this.$baseUrl + "/products")
         .then(response => {
           this.products = response.data.product;
 
@@ -840,7 +1171,7 @@ export default {
       (this.table_title = "Deleted Products"), (this.deletedItem = true);
       let $Token = localStorage.getItem("token");
       axios
-        .post(this.$baseUrl+"/deletedProducts?token=" + $Token)
+        .post(this.$baseUrl + "/deletedProducts?token=" + $Token)
         .then(response => {
           this.products = response.data.product;
 
@@ -877,10 +1208,10 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
-      this.newProduct.slashedPrice="";
-      
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
+      this.newProduct.slashedPrice = "";
+      this.newProduct.shipMethod = "";
     },
 
     clearQuntity() {
@@ -895,9 +1226,11 @@ export default {
       this.newProduct.price = "";
       this.newProduct.border = false;
       this.newProduct.details = "";
-      this.newProduct.shipMethod="";
-      this.newProduct.cid="";
-      this.newProduct.slashedPrice="";
+      this.newProduct.shipMethod = "";
+      this.newProduct.cid = "";
+      this.newProduct.slashedPrice = "";
+      this.newProduct.shipMethod = "";
+
       this.dialog = true;
     },
 
@@ -908,7 +1241,8 @@ export default {
 
         axios
           .post(
-            this.$baseUrl+"/editProduct/" +
+            this.$baseUrl +
+              "/editProduct/" +
               this.editedItem.PID +
               "?token=" +
               $Token,
@@ -931,49 +1265,100 @@ export default {
       console.log(this.editedItem);
       this.showModal = true;
     },
+    deletePhoto(){
+
+
+
+      
+    },
 
     deleteItem(item) {
-      var result = confirm("Want to delete product" + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/deleteProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      //var result = confirm("Want to delete product" + item.PID + "?");
+
+      this.$dialog
+        .confirm("Delete the selected product?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/deleteProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Product succesfully Deleted");
-          });
-      }
+              this.productItems();
+              // alert("Product succesfully Deleted");
+
+              this.$dialog
+                .alert("Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     restoreItem(item) {
-      var result = confirm("Want to restore " + item.PID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/restoreProduct/" +
-              item.PID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Restore the selected file?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Restore!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/restoreProduct/" + item.PID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.productItems();
-            alert("Succesfully Restored");
-          });
-      }
+              this.productItems();
+              //  alert("Succesfully Restored");
+              this.$dialog
+                .alert("Succesfully Restored!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
     selectFile(event) {
@@ -986,40 +1371,42 @@ export default {
       this.showQuantity = true;
     },
 
-   
     DeleteQuntity() {
-       var result = confirm("Want to delete lot in product " + this.editedItem.PID + "?");
+      var result = confirm(
+        "Want to delete lot in product " + this.editedItem.PID + "?"
+      );
       if (result) {
         const formData = new FormData();
 
-      formData.append("lid", this.newLotQuantity.lot);
-      formData.append("pid", this.editedItem.PID);
-      formData.append("quantity", this.TotallotQuantity);
-      console.log("**************************");
-      console.log(this.newLotQuantity.lot);
-      console.log(this.editedItem.PID);
-      console.log(this.TotallotQuantity);
+        formData.append("lid", this.newLotQuantity.lot);
+        formData.append("pid", this.editedItem.PID);
+        formData.append("quantity", this.TotallotQuantity);
+        console.log("**************************");
+        console.log(this.newLotQuantity.lot);
+        console.log(this.editedItem.PID);
+        console.log(this.TotallotQuantity);
 
         //Logic to delete the item
         let $Token = localStorage.getItem("token");
         axios
-          .post(
-            this.$baseUrl+"/deleteProductLot?token=" + $Token,
-          formData
-          )
+          .post(this.$baseUrl + "/deleteProductLot?token=" + $Token, formData)
           .then(response => {
             this.showQuantity = false;
             /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
             this.productItems();
-            alert("Product lot qunantity succesfully Deleted");
+            //    alert("Product lot qunantity succesfully Deleted");
+            this.$dialog
+              .alert("Product Lot Qunantity Succesfully Deleted!", {
+                okText: "Dismiss!"
+              })
+              .then(function(dialog) {
+                console.log("Closed");
+              });
           });
       }
     },
-
-
-  
 
     SaveQuntity() {
       const formData = new FormData();
@@ -1037,10 +1424,7 @@ export default {
       let $Token = localStorage.getItem("token");
 
       axios
-        .post(
-          this.$baseUrl+"/addProductLot?token=" + $Token,
-          formData
-        )
+        .post(this.$baseUrl + "/addProductLot?token=" + $Token, formData)
         .then(response => {
           this.showQuantity = false;
           this.productItems();
@@ -1071,6 +1455,33 @@ export default {
 .flex.md3.sm12.lg3.xs12.d-flex {
   padding: 0px;
   margin: 0px;
+}
+.v-card.v-card--flat.v-card--hover.v-sheet.theme--light {
+  border: dashed;
+  background: content-box;
+  overflow: hidden;
+  /* background-color: rgb(176, 190, 197);*/
+  border-color: rgb(176, 190, 197);
+  position: static;
+  display: block;
+  z-index: 10;
+}
+
+
+
+
+
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
 }
 </style>
 

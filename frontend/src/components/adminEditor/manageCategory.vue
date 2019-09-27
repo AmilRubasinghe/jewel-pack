@@ -1,119 +1,117 @@
 <template>
   <div>
     <br />
-    
-  
-   <div class="container" v-bind:style="{ background: '#B0BEC5'}">
-     <v-dialog v-model="dialog" max-width=700>
-            <v-card>
-              <v-card-title>
-                <span class="headline">Add category</span>
-              </v-card-title>
 
-              <v-card-text>
-                <v-container grid-list-md text-md-center fluid fill-height>
-                  <v-layout column>
-                    <v-flex md3 sm3 lg3 xs3 d-flex>
-                      <v-text-field  
-                      v-model="newCategory.CName"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('CategoryName')"
-                      label="Category Name"
-                      data-vv-name="CategoryName"
-                      required />
-                    </v-flex>
+    <div class="container" v-bind:style="{ background: '#B0BEC5'}">
+      <v-dialog v-model="dialog" max-width="700">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Add category</span>
+          </v-card-title>
 
-                    <v-flex md3 sm3 lg3 xs3 d-flex>
-                      <v-text-field
-                       v-model="newCategory.icon"
-                      v-validate="'required'"
-                      :error-messages="errors.collect('IconCode')"
-                      label="IconCode"
-                      placeholder="Leave blank for default icon"
-                      data-vv-name="IconCode"
-                      required
-                      />
-                    </v-flex>
-                    <v-flex d-flex>
-                  <v-layout row wrap justify-center>  
-                    <v-flex xs9 sm9 md4 lg4 d-flex >
-                     <v-card flat color=#B0BEC5 @click="$refs.file.click()" ripple hover height="100" width="300"  max-width="600px">
-                            
+          <v-card-text>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout column>
+                <v-flex md3 sm3 lg3 xs3 d-flex>
+                  <v-text-field
+                    v-model="newCategory.CName"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('CategoryName')"
+                    label="Category Name"
+                    data-vv-name="CategoryName"
+                    required
+                  />
+                </v-flex>
+
+                <v-flex md3 sm3 lg3 xs3 d-flex>
+                  <v-text-field
+                    v-model="newCategory.icon"
+                    v-validate="'required'"
+                    :error-messages="errors.collect('IconCode')"
+                    label="IconCode"
+                    placeholder="Leave blank for default icon"
+                    data-vv-name="IconCode"
+                    required
+                  />
+                </v-flex>
+                <v-flex d-flex>
+                  <v-layout row wrap justify-center>
+                    <v-flex xs9 sm9 md4 lg4 d-flex>
+                      <v-card
+                        flat
+                        color="#B0BEC5"
+                        @click="$refs.file.click()"
+                        ripple
+                        hover
+                        height="100"
+                        width="300"
+                        max-width="600px"
+                      >
                         <form enctype="multipart/form-data">
-                        <div class="text-xs-center">
-                            
-                        
-
-                            <label class="button"  >
-                                    <input 
-                                    type="file"
-                                    ref="file"
-                                    @change="selectFile"
-                                    style="display:none"
-                                    >
-                                    <v-icon outline large>cloud_upload</v-icon>
-                                    <h4>Upload photo</h4>
-                                    <span v-if="file" class="file-name">{{file.name}}</span>
+                          <div class="text-xs-center">
+                            <label class="button">
+                              <input
+                                type="file"
+                                ref="file"
+                                @change="selectFile"
+                                style="display:none"
+                              />
+                              <v-icon outline large>cloud_upload</v-icon>
+                              <h4>Upload photo</h4>
+                              <span v-if="file" class="file-name">{{file.name}}</span>
                             </label>
-                        </div>
-                        
+                          </div>
                         </form>
-                        </v-card>
+                      </v-card>
                     </v-flex>
-                    </v-layout> 
-                   </v-flex > 
-                    </v-layout>
-                    
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
 
-                </v-container>
-              </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout row wrap>
+                <v-flex d-flex>
+                  <v-btn outline color="primary" @click="clear">clear</v-btn>
+                </v-flex>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
-<v-container grid-list-md text-md-center fluid fill-height>
-      <v-layout row wrap>
-        <v-flex d-flex>
-          <v-btn outline color="primary" @click="clear">clear</v-btn>
-        
-        </v-flex>
+                <v-flex d-flex>
+                  <v-btn dark color="blue" @click="dialog = false">Close</v-btn>
+                </v-flex>
+                <v-flex d-flex>
+                  <v-btn dark color="blue" @click="addCat">Save</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-        <v-flex d-flex>
-         <v-btn  dark color="blue" @click="dialog = false">Close</v-btn>
-        </v-flex>
-         <v-flex d-flex>
-          <v-btn  dark color="blue" @click="addCat">Save</v-btn>
-        </v-flex>
-        </v-layout>
-        </v-container>
-               
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+      <v-dialog v-model="showModal" max-width="700">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Edit Category</span>
+          </v-card-title>
 
-   
-      
-      <v-dialog v-model="showModal" max-width=700>
-            <v-card>
-              <v-card-title>
-                <span class="headline">Edit Category</span>
-              </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout column>
+                <v-flex md3 sm3 lg3 xs3 d-flex>
+                  <v-text-field v-model="editedItem.CID" label="CID" disabled />
+                </v-flex>
 
-              <v-card-text>
-                <v-container grid-list-md text-md-center fluid fill-height>
-                  <v-layout column>
-                    <v-flex md3 sm3 lg3 xs3 d-flex>
-                      <v-text-field v-model="editedItem.CID" label="CID" disabled />
-                    </v-flex>
+                <v-flex md3 sm3 lg3 xs3 d-flex>
+                  <v-text-field v-model="editedItem.CName" label="Category Name" />
+                </v-flex>
 
-                    <v-flex md3 sm3 lg3 xs3 d-flex>
-                      <v-text-field v-model="editedItem.CName" label="Category Name" />
-                    </v-flex>
+                <v-flex md3 sm3 lg3 xs3 d-flex>
+                  <v-text-field v-model="editedItem.icon" label="Icon" />
+                </v-flex>
 
-                    <v-flex md3 sm3 lg3 xs3 d-flex>
-                      <v-text-field v-model="editedItem.icon" label="Icon" />
-                    </v-flex>
-                    
-                     <v-flex xs12 sm6 offset-sm4>
+                <v-flex xs12 sm6 offset-sm4>
                   <v-img height="155" width="350" max-width="260px" :src="editedItem.Image"></v-img>
 
                   <v-card
@@ -138,34 +136,26 @@
                     </form>
                   </v-card>
                 </v-flex>
-                  
-                     </v-layout>
-                </v-container>
-              </v-card-text>
+              </v-layout>
+            </v-container>
+          </v-card-text>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
-<v-container grid-list-md text-md-center fluid fill-height>
-     
-      <v-layout row wrap>
-        <v-flex d-flex >
-         <v-btn dark color="blue"  @click="close">Cancel</v-btn>
-        </v-flex>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout row wrap>
+                <v-flex d-flex>
+                  <v-btn dark color="blue" @click="close">Cancel</v-btn>
+                </v-flex>
 
-        <v-flex d-flex >
-           <v-btn  dark color="blue"  @click="editSave">Save</v-btn>
-        </v-flex>
-        </v-layout>
-       
-        </v-container>
-               
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-
-
-    
+                <v-flex d-flex>
+                  <v-btn dark color="blue" @click="editSave">Save</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <v-card>
         <v-card-title>
@@ -228,6 +218,7 @@
               <td class="text-xs-center">{{ props.item.CName }}</td>
               <td class="text-xs-center">{{ props.item.icon }}</td>
               <td class="text-xs-center">{{ props.item.Image }}</td>
+              <td class="text-xs-center">{{ props.item.file }}</td>
                 <td class="text-xs-left">
                 <v-img :src="props.item.Image"></v-img>
               </td>
@@ -279,13 +270,13 @@ export default {
       },
       selected: [],
       categoryItems: [],
-         file: "",
+      file: "",
       headers: [
         { text: "Category ID", value: "CID" },
         { text: "Category Name", value: "CName" },
         { text: "Icon Code", value: "icon" },
         { text: "Image", value: "Image" },
-         { text: "Preview", value: "preview" },
+        { text: "Preview", value: "preview" },
         { text: "Action", value: "action" }
       ]
     };
@@ -306,9 +297,9 @@ export default {
     },
 
     catItems() {
-      this.deleted=false;
+      this.deleted = false;
       axios
-        .get(this.$baseUrl+"/category")
+        .get(this.$baseUrl + "/category")
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -321,20 +312,18 @@ export default {
     },
 
     addCat() {
-        const formData = new FormData();
+      const formData = new FormData();
       formData.append("file", this.file, this.file.name);
 
       formData.append("CName", this.newCategory.CName);
       formData.append("icon", this.newCategory.icon);
-      console.log( "this.newCategory.icon");
+      console.log("this.newCategory.icon");
 
       let $Token = localStorage.getItem("token");
       axios
-        .post(
-          this.$baseUrl+"/addCat?token=" + $Token,formData
-        )
+        .post(this.$baseUrl + "/addCat?token=" + $Token, formData)
         .then(response => {
-           this.dialog = false;
+          this.dialog = false;
           this.catItems();
         })
         .catch(error => {
@@ -343,10 +332,10 @@ export default {
         });
     },
     getDeletedCat() {
-      this.deleted=true;
+      this.deleted = true;
       let $Token = localStorage.getItem("token");
       axios
-        .get(this.$baseUrl+"/deletedCategory?token="+$Token)
+        .get(this.$baseUrl + "/deletedCategory?token=" + $Token)
         .then(response => {
           this.categoryItems = response.data.catItems;
 
@@ -381,17 +370,26 @@ export default {
     },
 
     editSave() {
+       const formData = new FormData();
+      formData.append("file", this.file, this.file.name);
+
+      formData.append("CName", this.editedItem.CName);
+      formData.append("icon", this.editedItem.icon);
+      console.log( this.editedItem.icon);
+
       let $Token = localStorage.getItem("token");
+   
       if (this.editedIndex > -1) {
         Object.assign(this.categoryItems[this.editedIndex], this.editedItem);
 
         axios
           .post(
-            this.$baseUrl+"/editCat/" +
+            this.$baseUrl +
+              "/editCat/" +
               this.editedItem.CID +
               "?token=" +
               $Token,
-            this.editedItem
+            formData
           )
           .then(response => {
             this.showModal = false;
@@ -405,58 +403,104 @@ export default {
     },
 
     restoreItem(item) {
-      var result = confirm("Want to restore " + item.CID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/restoreCategory/" +
-              item.CID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Want to restore category " + item.CID + "?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Restore!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl +
+                "/restoreCategory/" +
+                item.CID +
+                "?token=" +
+                $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.catItems();
-            alert("Succesfully Restored");
-          });
-      }
+              this.catItems();
+
+              this.$dialog
+                .alert("Succesfully Restored!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Restore action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
 
-     selectFile(event){
-            this.file= this.$refs.file.files[0];
-            console.log(this.file.name);
-        },
-    
+    selectFile(event) {
+      this.file = this.$refs.file.files[0];
+      console.log(this.file.name);
+    },
 
     deleteItem(item) {
-      var result = confirm("Want to delete Category" + item.CID + "?");
-      if (result) {
-        //Logic to delete the item
-        let $Token = localStorage.getItem("token");
-        axios
-          .post(
-            this.$baseUrl+"/deleteCategory/" +
-              item.CID +
-              "?token=" +
-              $Token
-          )
-          .then(response => {
-            /*axios.get(item.deleteURL).then(res=>{
+      this.$dialog
+        .confirm("Delete Category " + item.CID + "?", {
+          html: false, // set to true if your message contains HTML tags. eg: "Delete <b>Foo</b> ?"
+          loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+          reverse: false, // switch the button positions (left to right, and vise versa)
+          okText: "Yes, Delete!",
+          cancelText: "Cancel",
+          animation: "bounce", // Available: "zoom", "bounce", "fade"
+          backdropClose: true // set to true to close the dialog when clicking outside of the dialog window, i.e. click landing on the mask
+        })
+        .then(dialog => {
+          let $Token = localStorage.getItem("token");
+          axios
+            .post(
+              this.$baseUrl + "/deleteCategory/" + item.CID + "?token=" + $Token
+            )
+            .then(response => {
+              /*axios.get(item.deleteURL).then(res=>{
                             console.log(res);
                         });*/
-            this.catItems();
-            alert("Category succesfully Deleted");
-          });
-      }
+              this.catItems();
+              //  alert("Category succesfully Deleted");
+
+              this.$dialog
+                .alert("Category Succesfully Deleted!", {
+                  okText: "Dismiss!"
+                })
+                .then(function(dialog) {
+                  console.log("Closed");
+                });
+            });
+
+          setTimeout(() => {
+            console.log("Delete action completed ");
+            dialog.close();
+          }, 2500);
+        })
+        .catch(() => {
+          // Triggered when cancel button is clicked
+          console.log("Delete aborted");
+        });
     },
-    dialogOpen(){
+    dialogOpen() {
       this.clear();
-    this.dialog = true;
-    },
+      this.dialog = true;
+    }
   }
 };
 </script>

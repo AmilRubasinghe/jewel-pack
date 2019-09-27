@@ -1,96 +1,112 @@
-
-
-
-
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container fluid fill-height  grid-list-md text-center>
-        <v-layout wrap>
-          <v-flex xs12 sm12 md6 lg6>
-            <v-card class="elevation-14">
-              <v-toolbar color="#CD853F" dark flat>
-                <v-toolbar-title>Register</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form @submit.prevent="registerUser">
-                  <v-text-field
-                    label="First Name"
-                    
-                    prepend-icon="person"
-                    type="text"
-                    v-validate="'required'"
-                    v-model="register.firstname"
-                    name="first_name"
-                    data-vv-as="First Name"
-                    :error-messages="errors.collect('first_name')"
-                  ></v-text-field>
-                  <v-text-field
-                    label="Last Name"
-                    name="last_name"
-                    prepend-icon="person"
-                    type="text"
-                    v-validate="'required'"
-                    data-vv-as="Last Name"
-                    v-model="register.lastname"
-                    :error-messages="errors.collect('last_name')"
-                  ></v-text-field>
-                  <v-text-field
-                    label="Email"
-                    name="email"
-                    prepend-icon="email"
-                    type="email"
-                    v-validate="'email|required'"
-                    v-model="register.email"
-                    data-vv-as="Email"
-                     :error-messages="errors.collect('email')"
-                  ></v-text-field>
+  <div>
+    <v-container>
+      <alert v-if="alert" v-bind:message="alert" />
+      <notification v-if="notify" :message="notify" :type="status"></notification>
+      <v-snackbar v-if="snack" v-model="snackActive" bottom center multi-line :timeout="0">
+        {{ snack }}
+        <v-btn flat color="red" @click="resendEmail">Resend</v-btn>
+        <v-btn flat color="red" @click="snackActive=!snackActive">Close</v-btn>
+      </v-snackbar>
+    </v-container>
 
-                  <v-text-field
-                    ref="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="lock"
-                    type="password"
-                    v-validate="'required|min:6'"
-                    v-model="register.password"
-                    :error-messages="errors.collect('password')"
-                  ></v-text-field>
+    <v-container grid-list-md text-lg-center>
+      <v-layout justify-center>
+        <v-flex lg9 md9 sm12 xs12>
+          <v-card class="card-5">
+            <v-card-title class="justify-center">
+              <h3 color="primary">Let's Create Your Account</h3>
+            </v-card-title>
+            <v-divider class="mx-5 justify-center v-divider-1"></v-divider>
+            <v-layout row wrap align-center justify-center>
+              <v-flex>
+                <v-card-text>
+                  <v-form @submit.prevent="registerUser">
+                    <v-text-field
+                      label="First Name"
+                      prepend-icon="person"
+                      type="text"
+                      v-validate="'required'"
+                      v-model="register.firstname"
+                      name="first_name"
+                      data-vv-as="First Name"
+                      :error-messages="errors.collect('first_name')"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Last Name"
+                      name="last_name"
+                      prepend-icon="person"
+                      type="text"
+                      v-validate="'required'"
+                      data-vv-as="Last Name"
+                      v-model="register.lastname"
+                      :error-messages="errors.collect('last_name')"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Email"
+                      name="email"
+                      prepend-icon="email"
+                      type="email"
+                      v-validate="'email|required'"
+                      v-model="register.email"
+                      data-vv-as="Email"
+                      :error-messages="errors.collect('email')"
+                    ></v-text-field>
 
-                  <v-text-field
-                    id="confirm password"
-                    label="Confirm Password"
-                    name="password_confirmation"
-                    prepend-icon="lock"
-                    type="password"
-                    v-validate="'required|min:6|confirmed:password'"
-                    data-vv-as="confirm password"
-                    v-model="register.confirm_password"
-                    :error-messages="errors.collect('password_confirmation')"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="#FFAB00" @click='registerUser'>Register</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-          <v-flex xs12 sm12 md6 lg6>
-            <v-card height="400">
-                <div id="my-signin2"></div>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+                    <v-text-field
+                      ref="password"
+                      label="Password"
+                      name="password"
+                      prepend-icon="lock"
+                      type="password"
+                      v-validate="'required|min:6'"
+                      v-model="register.password"
+                      :error-messages="errors.collect('password')"
+                    ></v-text-field>
+
+                    <v-text-field
+                      id="confirm password"
+                      label="Confirm Password"
+                      name="password_confirmation"
+                      prepend-icon="lock"
+                      type="password"
+                      v-validate="'required|min:6|confirmed:password'"
+                      data-vv-as="confirm password"
+                      v-model="register.confirm_password"
+                      :error-messages="errors.collect('password_confirmation')"
+                    ></v-text-field>
+                  </v-form>
+                </v-card-text>
+                <v-card-actions class="justify-center">
+                  <v-btn block color="#FFAB00" @click="registerUser">Register</v-btn>
+                </v-card-actions>
+              </v-flex>
+              <v-divider class="mx-3 align-center hidden-sm-and-down" vertical></v-divider>
+
+              <v-flex lg6 md6 sm12 xs12>
+                <v-divider class="mx-3 align-center hidden-md-and-up"></v-divider>
+                <div class="my-signin2" id="my-signin2"></div>
+
+                <v-card-title class="justify-center">
+                  <h4>or</h4>
+                </v-card-title>
+
+                <v-btn block dark color="red" to="registerPage">sign in</v-btn>
+                <v-btn block dark color="green" to="home">Continue as guest</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
 import alert from "./alert.vue";
 import axios from "axios";
 import Store from "../store.js";
+import notification from "./notification.vue";
 export default {
   data() {
     return {
@@ -101,43 +117,56 @@ export default {
         password: "",
         confirm_password: ""
       },
-      alert: ""
+      alert: "",
+      notify: "",
+      status: ""
     };
   },
 
-   mounted() {
+  mounted() {
     this.renderButton();
   },
   components: {
-    alert
+    alert,
+    notification
   },
   methods: {
     registerUser() {
-      this.$validator.validateAll();
+      this.notify = "";
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
 
-      Store.commit("setEmailToVerify", this.register.email);
-      if (!this.errors.any()) {
-        axios
-          .post(this.$baseUrl+"/register", this.register, {})
-          .then(response => {
-            //console.log(response.data.message);
-            this.$router.push({
-              path: "/loginPage",
-              query: {
-                alert: response.data.message,
-                snack: response.data.snack
-              }
+        Store.commit("setEmailToVerify", this.register.email);
+        if (!this.errors.any()) {
+          axios
+            .post(this.$baseUrl + "/register", this.register, {})
+            .then(response => {
+              //console.log(response.data.message);
+              this.$router.push({
+                path: "/loginPage",
+                query: {
+                  alert: response.data.message,
+                  snack: response.data.snack
+                }
+              });
+            })
+            .catch(error => {
+              //console.log(error.response.data.errors);
+              let err;
+              $.each(error.response.data.errors, function(key, value) {
+                console.log(value[0]);
+                err = value[0];
+              });
+
+              this.notify = err;
+              this.status = 0;
+              console.log("ERROR");
             });
-          })
-          .catch(error => {
-            console.log(error.response);
-            console.log("ERROR");
-          });
-      }
+        }
+      });
     },
-
- 
-
 
     onSuccess(googleUser) {
       // console.log(googleUser.getAuthResponse().id_token);
@@ -206,4 +235,51 @@ export default {
 
 
 <style>
+html,
+body,
+app-root {
+  height: 100%;
+  margin: 0;
+}
+.inventory-body {
+  min-width: 100%;
+  background-image: url("https://coloredbrain.com/wp-content/uploads/2016/07/login-background.jpg");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  background-size: cover;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.my-signin2 {
+  width: 100%;
+}
+
+.my-signin2 > div {
+  margin: 0 auto;
+}
+
+.g-signin2 {
+  width: 100%;
+}
+
+.g-signin2 > div {
+  margin: 0 auto;
+}
+
+.v-divider-1 {
+  display: block !important;
+  flex: 1 1 0px !important;
+  max-width: 100% !important;
+  border: solid !important;
+  border-width: thin 0 0 0 !important;
+}
 </style>

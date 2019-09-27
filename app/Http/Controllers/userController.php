@@ -17,6 +17,9 @@ use phpDocumentor\Reflection\Types\Null_;
 use JWTAuth;
 use App\Http\Controllers\Controller;
 use DB;
+use Hash;
+
+
 class userController extends Controller
 {
 
@@ -109,10 +112,10 @@ class userController extends Controller
 	    $user = User::where(['email'=>$email,'verifyToken'=>$verifyToken])->first();
 	    if($user){
 	        user::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['emailStatus'=>'1','verifyToken'=>Null]);
-            return redirect('http://localhost:8080/loginPage')->with('responseReg','Registration & verification Completed');
+            return redirect(url('/').'/loginPage')->with('responseReg','Registration & verification Completed');
             
         }else{
-            return redirect('http://localhost:8080/loginPage')->with('responseVerifyErr','User Not Found');
+            return redirect(url('/').'/loginPage')->with('responseVerifyErr','User Not Found');
         }
 
     }
@@ -131,7 +134,7 @@ class userController extends Controller
 
         if(!$token=JWTAuth::attempt($data)){
         //    if ($token = $this->guard()->attempt($data)) {
-                return response()->json(['message'=>'Email or Password you entered is incorrect !'],200);
+                return response()->json(['message'=>'Email or Password you entered is incorrect !'],422);
         }
         
         $user =auth()->user();
@@ -298,6 +301,7 @@ public function logoutUser(Request $request){
 
     
     public function editUser(Request $request){
+        
         $thisUser=User::findOrFail($request->input('ID'));
         $thisUser->firstName = $request->input('firstName');
         $thisUser->lastName = $request->input('lastName');
@@ -308,8 +312,89 @@ public function logoutUser(Request $request){
 
         $thisUser->save();
         //return $thisUser;
-        return response()->json(['user' => $thisUser,'message' => "Succesfully Edited"]);
+        return response()->json(['message' => "Profile Succesfully Edited"]);
     }
+
+
+    public function storeDP(Request $request){
+        
+        $thisUser=JWTAuth::parseToken()->authenticate();
+
+        if($thisUser->profileImage){
+        
+        $this->deleteDP();
+
+
+        }
+
+
+        $image = $request->file('file');
+        $filename = $thisUser->ID.'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/dp',$filename);
+
+      //  $thisUser->profileImage=$filename;
+       // $table->name = $filename;
+
+       $thisUser->profileImageName = $filename;    
+        $thisUser->profileImage = url('/').'/storage/dp/'.$filename;
+
+    $thisUser->save();
+    return response()->json(['message'=>"Image uploaded succesfully !"]);      
+    
+    
+    }
+
+    public function deleteDP() {
+
+        $thisUser=JWTAuth::parseToken()->authenticate();
+
+        \Storage::delete('public/dp/'.$thisUser->profileImageName);
+        $thisUser->profileImage = null;
+        $thisUser->profileImageName = null;
+
+        $thisUser->save();
+
+      //  $table = slideshow::findOrFail( $request->input('imageID'))->delete();
+        
+        return response()->json(['message'=>"Photo deleted succesfully !"]);
+    }
+
+    public function editPassword(Request $request){
+
+       if(JWTAuth::parseToken()->authenticate()->password||$request->get('OldPassword')){
+        if (!(Hash::check($request->get('OldPassword'), JWTAuth::parseToken()->authenticate()->password))) {
+            // The passwords matches
+       //     return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+        return response()->json(['message' => "Your current password does not matches with the password you provided. Please try again."],404);
+
+        }
+       }
+
+
+
+        if(strcmp($request->get('OldPassword'), $request->get('NewPassword')) == 0){
+            //Current password and new password are same
+            //return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        return response()->json(['message' => "New Password cannot be same as your current password. Please choose a different password."],404);
+
+        }
+
+
+        $validatedData = $request->validate([
+            //'OldPassword' => 'required',
+            'NewPassword' => 'required|min:6',
+        ]);
+
+        
+
+        $thisUser=JWTAuth::parseToken()->authenticate();
+        $thisUser->password = bcrypt($request->input('NewPassword'));
+        $thisUser->save();
+
+        return response()->json(['message' => "Password Succesfully Changed"]);
+    }
+
+
 
    public function printUser(){
     $newuser =DB::table('users')->orderBy('created_at','desc')->first(); // it will get the entire table
