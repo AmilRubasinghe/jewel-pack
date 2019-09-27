@@ -134,7 +134,7 @@ export default {
               email: this.email
             })
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               this.notify = response.data.data;
               this.status = 2;
               //  this.clear();
