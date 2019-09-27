@@ -79,9 +79,38 @@
           <td><br>Items:</td>
           <td class="sm-only-text-right"><br> 
           <input type="text" name="items" v-model="checkoutDetails.items" readonly>
+          <template>
+               <v-card
+                    max-width="950"
+                    class="mx-auto">
+                 <v-list>
+                 <template v-for="(item, index) in $store.state.cart">
+
+                  <v-divider v-if="index < $store.state.cart.length" :key="index+1"></v-divider>
+
+                 <v-list-tile
+                 :key="item.Colour">
+          <v-list-tile-avatar>
+            <img :src="item.Image">
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <v-list-item-title v-html="item.Size + item.Colour"></v-list-item-title>
+          </v-list-tile-content>
+           <v-list-tile-content>
+            <v-list-item-title v-html="item.qty"></v-list-item-title>Boxes
+          </v-list-tile-content>
+          <v-list-tile-content>
+            <v-list-item-title v-html="item.qty"></v-list-item-title>Boxes
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
+  </v-card>
+</template>
           </td>
         </tr>
-
+<br><br>
         <tr>
           <td><br>Subtotal:</td>
           <td class="sm-only-text-right"><br> 
@@ -123,7 +152,7 @@
      <input type="hidden" name="custom_1"  v-model="checkoutDetails.email"> 
 
      <v-btn color="amber" type="submit">Pay now</v-btn> 
-    <v-btn color="#FFF176" href="/home">Cancel</v-btn>
+    <v-btn color="#FFF176" @click="saveOrder()">Pay Later</v-btn>
   </v-form>
     </v-container>
     </v-app>
@@ -156,7 +185,7 @@ export default {
             email:"",
             order_id:"",
             phone:"",
-            items : "Gem Boxes",
+            items : "",
             currency : "LKR",
             amount :"",
             country:"Sri Lanka",  
@@ -183,7 +212,11 @@ export default {
     editedIndex: -1,
 
     computed:{
-        items(){return this.$store.state.cart},
+        items(){
+          let itemdesc;
+          for(let item of this.$store.state.cart){
+          }
+          },
         item_count(){return this.$store.state.cartCount},
         subtotal(){
             let total =0;
@@ -210,8 +243,8 @@ export default {
             this.user=Store.getters.user;
             this.checkoutDetails.first_name=this.user.firstName;
             this.checkoutDetails.last_name=this.user.lastName;
-          }
-      /*axios
+      }else{
+      axios
         .get("http://localhost:8000/api/showUser")
         .then(response => {
           this.checkoutDetails.first_name= response.data.printUser.firstName;
@@ -222,8 +255,8 @@ export default {
         .catch(error => {
           console.log(error.response);
           console.log("ERROR");
-        });*/
-
+        });
+      }
         axios
         .get(this.$baseUrl+"/showOrder")
         .then(response => {
@@ -317,6 +350,28 @@ export default {
         doc.save("sample.pdf");
       });
     */
+    },
+
+    saveOrder(){
+       let $id = this.checkoutDetails.order_id;
+        console.log($id);
+       if (!this.errors.any()) {
+                axios.post('http://localhost:8000/api/PayLater',this.order_id,
+                {
+                 
+                })
+                
+                .then(response=>{
+               // console.log(response.data.message);
+                console.log(response.data.orderId);
+                     
+                })
+                .catch(error=>{
+                    console.log(error.response);
+                    console.log("ERROR");
+                })
+            }
+
     }
 }
 }

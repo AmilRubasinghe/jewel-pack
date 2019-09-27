@@ -51,6 +51,7 @@ class OrderController extends Controller
         $table->customerEmail =$request->input('email') ;
         $table->contactNo = $request->input('phone');
         $table->deliveryAddress = $request->input('address');
+        $table->order_status = $request->input('order_status');
 
     $table->save();
 
@@ -72,6 +73,13 @@ class OrderController extends Controller
        $orders = order::where('ID', '=', $userID)->get();
 
         return response()->json(['orders'=>$orders]);
+    }
+
+    public function setOrderPending(Request $request){
+        $id = $request->input('Id');
+        order::where('OID','=',$id)->update(['order_status'=>'Pending']);
+        //return response()->json(['message'=>"Order id pending!"]);
+        return response()->json($id);
     }
 
 
