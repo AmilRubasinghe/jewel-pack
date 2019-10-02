@@ -688,7 +688,8 @@ export default {
       this.value = 0;
 
       /* axios
-        .get(this.$baseUrl + "/size")
+    
+        .get(this.$baseUrl + "/size/"+ item.PID)
         .then(response => {
           response.data.catItems.forEach(element => {
             this.category.push(element);

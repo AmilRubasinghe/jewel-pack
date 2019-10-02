@@ -6,9 +6,12 @@
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="showModal" max-width="1200">
         <v-card>
-          <v-card-title>
-            <span class="headline">Edit User</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit User</p>
+            </span>
           </v-card-title>
+         
 
           <v-card-text>
             <v-container grid-list-md>
@@ -51,9 +54,25 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+            <v-spacer></v-spacer> <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout justify-end row wrap>
+                <v-flex md2 sm4 lg2 xs4 d-flex>
+                  <v-btn dark
+                              block
+                              color="#212121"
+                              outline-color="#ffffff" @click="close">Cancel</v-btn>
+                </v-flex>
+
+                <v-flex md2 sm4 lg2 xs4 d-flex>
+                  <v-btn  dark
+                              block
+                              color="#212121"
+                              outline-color="#ffffff" @click="save">Save</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+           
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -155,6 +174,7 @@ import navDrawer from "../admin/navDrawer.vue";
 export default {
   data() {
     return {
+      photoA: undefined,
       snackbar: false,
       message: "",
 

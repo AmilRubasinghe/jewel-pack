@@ -6,9 +6,12 @@
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" max-width="600px">
         <v-card max-width="600px">
-          <v-card-title>
-            <span class="headline">Upload File</span>
+           <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Upload File</p>
+            </span>
           </v-card-title>
+         
           <v-card-text>
             <v-layout align-center justify-center>
               <v-flex d-flex>
@@ -48,17 +51,32 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue" @click="sendFile">Upload</v-btn>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout justify-end row wrap>
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="dialog = false">Close</v-btn>
+                </v-flex>
+
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="sendFile">Upload</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+           <!-- <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
+            <v-btn outline color="blue" @click="sendFile">Upload</v-btn>-->
           </v-card-actions>
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="showModal">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit Item</span>
+      <v-dialog v-model="showModal"  max-width="1200px">
+        <v-card  max-width="1200px">
+           <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit Item</p>
+            </span>
           </v-card-title>
+         
 
           <v-card-text>
             <v-container grid-list-md>
@@ -78,8 +96,20 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout justify-end row wrap>
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="close">Cancel</v-btn>
+                </v-flex>
+
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="editSave">Save</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+           <!-- <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>-->
           </v-card-actions>
         </v-card>
       </v-dialog>
