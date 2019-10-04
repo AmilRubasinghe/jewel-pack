@@ -2,20 +2,22 @@
   <div id="app">
     <v-app id="inspire">
       <div>
-       <v-parallax
-             height="110"
-            src="http://localhost:8000/storage/home/product4.png"	
-            lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-          >
-          <h1 class="header" 	 style=" border: 1px solid #eabf00; "> <p
-          data-aos="fade-up"
-          class="display-1 font-weight-bold"
-          style="color:#eabf00; align:left;"
-        > {{pageTitle}}</p></h1>
+        <v-parallax
+          height="110"
+          src="http://localhost:8000/storage/home/product4.png"
+          lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+        >
+          <h1 class="header" style=" border: 1px solid #eabf00; ">
+            <p
+              data-aos="fade-up"
+              class="display-1 font-weight-bold"
+              style="color:#eabf00; align:left;"
+            >{{pageTitle}}</p>
+          </h1>
         </v-parallax>
- 
-          <v-container v-if="searchMode" >
-            <v-card flat style="background-color:#FBC02D; border: 1px solid #212121; " >
+
+        <v-container v-if="searchMode">
+          <v-card flat style="background-color:#FBC02D; border: 1px solid #212121; ">
             <v-layout row wrap align-center justify-center>
               <v-flex xs10 sm10 md9 lg8 xl8>
                 <v-text-field
@@ -32,15 +34,13 @@
                 <v-icon large color="#E65100">search</v-icon>
               </v-btn>
             </v-layout>
-            </v-card>
-          </v-container>
+          </v-card>
+        </v-container>
 
-          <v-card flat  height="110" style="background-color:#FBC02D;">
-                <v-card flat class="toolbarSearch"  style="background-color:#FBC02D;">
+        <v-card flat height="110" style="background-color:#FBC02D;">
+          <v-card flat class="toolbarSearch" style="background-color:#FBC02D;">
             <v-layout align-center justify-center>
-             
-              
-              <v-toolbar  flat  style="background-color:#FBC02D;">
+              <v-toolbar flat style="background-color:#FBC02D;">
                 <v-toolbar-title>Sorting</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
@@ -68,28 +68,26 @@
                 </v-toolbar-items>
               </v-toolbar>
             </v-layout>
-                </v-card>
           </v-card>
-          <v-container>
-            <v-layout
-              row
-              wrap
-              align-center
-              :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
-            >
-              <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs10 sm4 class="pr">
-                
-                <transition-group name="staggered-fade" tag="v-card">
-                  <v-card
-                 
-                    class="card-5 Product"
-                    style="cursor: pointer"
-                    light
-                    ripple
-                    align="center"
-                    @click="productPreview(products[i])"
-                    :key="item.PID"
-                  >
+        </v-card>
+        <v-container>
+          <v-layout
+            row
+            wrap
+            align-center
+            :class="{'justify-center': $vuetify.breakpoint.smAndDown, 'justify-left': $vuetify.breakpoint.mdAndUp}"
+          >
+            <v-flex v-for="(item, i) in products" :key="i" lg3 md3 xs10 sm4 class="pr">
+              <transition-group name="staggered-fade" tag="v-card">
+                <v-card
+                  class="card-5 Product"
+                  style="cursor: pointer"
+                  light
+                  ripple
+                  align="center"
+                  @click="productPreview(products[i])"
+                  :key="item.PID"
+                >
                   <div class="image-box">
                     <v-img
                       :aspect-ratio="4/3"
@@ -98,96 +96,89 @@
                       :src="products[i].Image1"
                       lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
                       transition="scale-transition"
-                    >
-                    </v-img>
+                    ></v-img>
                   </div>
-                    
-                   
 
-                    <v-card-title>
-                      <v-layout colum wrap align-center justify-center>
-                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                          <span>
-                            <p
-                              
-                              data-aos="fade-up"
-                              class="title font-weight-regular"
-                              style="color:#212121;"
-                            >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
-                          </span>
-                        </v-flex>
-                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                          <v-rating
-                            data-aos="zoom-in-up"
-                            readonly
-                            :value="4"
-                            dense
-                            hover
-                            background-color="amber accent-4"
-                            color="amber accent-3"
-                          ></v-rating>
-                        </v-flex>
-                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                  <v-card-title>
+                    <v-layout colum wrap align-center justify-center>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <span>
                           <p
-                            v-if="products[i].Quantity"
-                            class="subtitle-2 font-weight-medium"
-                            style="color:#1B5E20;"
-                          >In Stock</p>
+                            data-aos="fade-up"
+                            class="subtitle-1 font-weight-regular"
+                            style="color:#212121;"
+                          >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
+                        </span>
+                      </v-flex>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <v-rating
+                          data-aos="zoom-in-up"
+                          readonly
+                          :value="4"
+                          dense
+                          hover
+                          background-color="amber accent-4"
+                          color="amber accent-3"
+                        ></v-rating>
+                      </v-flex>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <p
+                          v-if="products[i].Quantity"
+                          class="subtitle-2 font-weight-medium"
+                          style="color:#1B5E20;"
+                        >In Stock</p>
 
-                          <p
-                            v-if="!products[i].Quantity"
-                            class="subtitle-2 font-weight-medium"
-                            style="color:#D50000;"
-                          >Out of Stock</p>
-                        </v-flex>
-                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                          <v-layout row wrap align-center justify-center>
-                            <del class style="color:#616161;">
-                              <p
-                                v-if="products[i].slashedPrice"
-                                data-aos="fade-up"
-                                class="subtitle-1 font-weight-medium"
-                                style="color:#616161;"
-                              >{{products[i].slashedPrice}}LKR</p>
-                            </del>
-                            &nbsp; &nbsp;
+                        <p
+                          v-if="!products[i].Quantity"
+                          class="subtitle-2 font-weight-medium"
+                          style="color:#D50000;"
+                        >Out of Stock</p>
+                      </v-flex>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <v-layout row wrap align-center justify-center>
+                          <del class style="color:#616161;">
                             <p
-                              class="headline font-weight-bold"
+                              v-if="products[i].slashedPrice"
                               data-aos="fade-up"
-                              
-                              style="color:#212121;"
-                            >{{products[i].Price}}LKR</p>
-                           
-                          </v-layout>
-                        </v-flex>
-                      </v-layout>
-                    </v-card-title>
+                              class="subtitle-1 font-weight-medium"
+                              style="color:#616161;"
+                            >{{products[i].slashedPrice}}LKR</p>
+                          </del>
+                          &nbsp; &nbsp;
+                          <p
+                            class="headline font-weight-bold"
+                            data-aos="fade-up"
+                            style="color:#212121;"
+                          >{{products[i].Price}}LKR</p>
+                        </v-layout>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-title>
 
-                    <v-card-actions>
-                      <v-layout row wrap align-center justify-center>
-                        <v-flex md11 lg11 xs11 sm11 offset-sm0>
-                          <div class="text-center">
-                            <v-btn
-                              dark
-                              block
-                              color="#212121"
-                              outline-color="#ffffff"
-                              @click="productPreview(products[i])"
-                            >Product View</v-btn>
-                          </div>
-                        </v-flex>
-                      </v-layout>
-                    </v-card-actions>
-                  </v-card>
-                </transition-group>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        
+                  <v-card-actions>
+                    <v-layout row wrap align-center justify-center>
+                      <v-flex md11 lg11 xs11 sm11 offset-sm0>
+                        <div class="text-center">
+                          <v-btn
+                            dark
+                            block
+                            color="#212121"
+                            outline-color="#ffffff"
+                            @click="productPreview(products[i])"
+                          >Product View</v-btn>
+                        </div>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-actions>
+                </v-card>
+              </transition-group>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </div>
 
-      <v-layout row justify-center>
-        <v-dialog v-model="dialog" max-width="1250px">
+    
+        <v-dialog v-model="dialog" max-width="1250px" >
           <v-card class="card-5" v-if="selectedItem">
             <v-card-text>
               <button type="button" class="close" aria-label="Close" flat @click="dialog = false">
@@ -195,7 +186,7 @@
               </button>
               <v-container grid-list-md>
                 <!--................................-->
-                <v-layout row wrap>
+                <v-layout row>
                   <v-flex xs12 md6 lg6 sm12>
                     <!--<v-hover>
                       <v-card
@@ -228,11 +219,9 @@
                             <label for="fullscreen">
                               <img
                                 contain
-                     
-                      :src="selectedItem.Image1"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                                
+                                :src="selectedItem.Image1"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
                           </figure>
@@ -240,12 +229,11 @@
                           <figure>
                             <label for="fullscreen">
                               <img
+                              v-if="selectedItem.Image2"
                                 contain
-                     
-                      :src="selectedItem.Image2"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                                
+                                :src="selectedItem.Image2"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
                           </figure>
@@ -253,24 +241,22 @@
                           <figure>
                             <label for="fullscreen">
                               <img
+                               v-if="selectedItem.Image3"
                                 contain
-                     
-                      :src="selectedItem.Image3"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                               
+                                :src="selectedItem.Image3"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
                           </figure>
                           <figure>
                             <label for="fullscreen">
                               <img
+                               v-if="selectedItem.Image4"
                                 contain
-                     
-                      :src="selectedItem.Image4"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                               
+                                :src="selectedItem.Image4"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
                           </figure>
@@ -284,48 +270,42 @@
 
                             <label for="image1" class="thumb">
                               <img
-                               contain
-                     
-                      :src="selectedItem.Image1"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                               
+                                contain
+                                :src="selectedItem.Image1"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
 
                             <label for="image2" class="thumb">
                               <img
+                               v-if="selectedItem.Image2"
                                 contain
-                      
-                      :src="selectedItem.Image2"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                                
+                                :src="selectedItem.Image2"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
 
                             <label for="image3" class="thumb">
                               <img
-                               contain
-                      
-                      :src="selectedItem.Image3"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                                
+                               v-if="selectedItem.Image3"
+                                contain
+                                :src="selectedItem.Image3"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
 
                             <label for="image4" class="thumb">
                               <img
-                               contain
-                      
-                      :src="selectedItem.Image4"
-                      lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
-                      transition="scale-transition"
-                                
+                               v-if="selectedItem.Image4"
+                                contain
+                                :src="selectedItem.Image4"
+                                lazy-src="https://jewelpack.tk/storage/loader/CompleteZanyIlsamochadegu-small.gif"
+                                transition="scale-transition"
                               />
                             </label>
-                            
                           </v-flex>
                         </div>
                       </div>
@@ -333,18 +313,22 @@
                   </v-flex>
 
                   <v-flex class="details" xs12 md5 lg5 sm12>
-                    <p
-                    class="headline  font-weight-regular mb-1"
-          style="color:#eabf00;"
-                     
-                    >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</p>
+                    <v-layout column>
+                      <v-flex d-flex>
+                      <p
+                        class="headline font-weight-regular "
+                        style="color:#eabf00;"
+                      >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</p>
+                      </v-flex>
+                      <v-flex d-flex>
+                      <p
+                        class="subtitle-1 font-weight-medium"
+                        style="color:#616161;"
+                      >{{selectedItem.description}}</p>
+                      </v-flex>
+                      <v-divider></v-divider>
 
-                    <p  class="subtitle-1 font-weight-medium"
-                          style="color:#616161;">{{selectedItem.description}}</p>
-
-                    <v-divider></v-divider>
-
-                   <!-- <table class="a-lineitem">
+                      <!-- <table class="a-lineitem">
                       <tbody>
                         <tr>
                           <td
@@ -410,154 +394,133 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>-->
-                     <v-layout column>
-
-                         <v-flex d-flex>
-                           <v-flex md11 lg11 xs11 sm11>
-                          <v-layout column wrap >
+                      </table>-->
+                     
+                       
                               <v-flex d-flex>
-                             <p
-                              class="display-1 font-weight-bold"
-                             
-                              
-                              style="color:#212121;"
-                            >{{selectedItem.Price}}.00 LKR</p>
+                                <p
+                                  class="display-1 font-weight-bold"
+                                  style="color:#212121;"
+                                >{{selectedItem.Price}}.00 LKR</p>
                               </v-flex>
+
+
                               <v-flex d-flex>
-                                <v-layout row wrap >
-                                <v-flex md5 lg5 xs7 sm7 offset-sm0>
-                            <del class style="color:#616161;">
-                              <p
-                                v-if="selectedItem.slashedPrice"
-                                
-                                class="subtitle-1 font-weight-medium"
-                                style="color:#616161;"
-                                
-                              > &nbsp; &nbsp; {{selectedItem.slashedPrice}}.00 LKR &nbsp; &nbsp;</p>
-                            </del>
-                                </v-flex>
-                            <v-flex md1 lg1 xs2 sm2>
-                            <p
-                                v-if="selectedItem.slashedPrice"
-                                
-                                class="title font-weight-medium"
-                                style="color:#C62828;"
-                              > {{(((selectedItem.slashedPrice-selectedItem.Price)*100)/selectedItem.Price).toFixed()}}% </p>
-                            </v-flex>
-                              <v-flex  md3 lg3 xs3 sm3>
-                            <p
-                                v-if="selectedItem.slashedPrice"
-                                
-                                class="subtitle-1 font-weight-medium discount"
-                                style="color:#C62828;"
-                              > Discount </p>
-                            </v-flex>
+                                <v-layout row wrap>
+                                  <v-flex md5 lg5 xs7 sm7 offset-sm0>
+                                    <del class style="color:#616161;">
+                                      <p
+                                        v-if="selectedItem.slashedPrice"
+                                        class="subtitle-1 font-weight-medium"
+                                        style="color:#616161;"
+                                      >&nbsp; &nbsp; {{selectedItem.slashedPrice}}.00 LKR &nbsp; &nbsp;</p>
+                                    </del>
+                                  </v-flex>
+                                  <v-flex md1 lg1 xs2 sm2>
+                                    <p
+                                      v-if="selectedItem.slashedPrice"
+                                      class="title font-weight-medium"
+                                      style="color:#C62828;"
+                                    >{{(((selectedItem.slashedPrice-selectedItem.Price)*100)/selectedItem.Price).toFixed()}}%</p>
+                                  </v-flex>
+                                  <v-flex md3 lg3 xs3 sm3>
+                                    <p
+                                      v-if="selectedItem.slashedPrice"
+                                      class="subtitle-1 font-weight-medium discount"
+                                      style="color:#C62828;"
+                                    >Discount</p>
+                                  </v-flex>
                                 </v-layout>
                               </v-flex>
+
                            
-                           
+
+                        <v-flex d-flex>
+                          <v-layout row wrap>
+                            <v-flex md2 sm4 lg2 xs4 d-flex>
+                              <p
+                                class="subtitle-2 font-weight-regular lotsize"
+                                style="color:#616161;"
+                              >Lot Size:</p>
+                            </v-flex>
+
+                            <v-flex md5 sm7 lg5 xs d-flex>
+                              <v-select
+                                label="Sizes"
+                                :items="sizes"
+                                item-text="lotquantity"
+                                item-value="lid"
+                                v-model.number="size"
+                              ></v-select>
+                            </v-flex>
                           </v-layout>
                         </v-flex>
-                       
-                           
-                         </v-flex>
 
-                           <v-flex d-flex>
-                  <v-layout row wrap>
-                    <v-flex md2 sm4 lg2 xs4 d-flex>
-                     <p  class="subtitle-2 font-weight-regular lotsize"
-                          style="color:#616161;">
-                          Lot Size:</p>
-                    </v-flex>
+                        <v-flex d-flex>
+                          <v-layout row wrap>
+                            <v-flex md2 sm4 lg2 xs4 d-flex>
+                              <p
+                                class="subtitle-2 font-weight-regular"
+                                style="color:#616161;"
+                              >Quantity:</p>
+                            </v-flex>
 
-                    <v-flex md5 sm7 lg5 xs d-flex>
-                      <v-select label="Sizes" :items="sizes" v-model.number="size"></v-select>
-                     
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-                        
-                        
-                <v-flex d-flex>
-                  <v-layout row wrap>
-                    <v-flex md2 sm4 lg2 xs4 d-flex>
-                     <p  class="subtitle-2 font-weight-regular"
-                          style="color:#616161;">
-                          Quantity:</p>
-                    </v-flex>
-
-                    <v-flex md6 sm8 lg6 xs8 d-flex>
-                      <span id="quantity" class="a-size-medium a-color-quantity">
-                              <div class="minusplusnumber">
-                                <div class="mpbtn minus" v-on:click="decrement()">-</div>
-                                <div id="field_container">
-                                  
-                                  <input
-                                  style="color:#212121;"
-                                    @change="valid()"
-                                    type="number"
-                                    v-model.number="value"
-                                    onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                                  />
+                            <v-flex md6 sm8 lg6 xs8 d-flex>
+                              <span id="quantity" class="a-size-medium a-color-quantity">
+                                <div class="minusplusnumber">
+                                  <div class="mpbtn minus" v-on:click="decrement()">-</div>
+                                  <div id="field_container">
+                                    <input
+                                      style="color:#212121;"
+                                      @change="valid()"
+                                      type="number"
+                                      v-model.number="value"
+                                      onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                    />
+                                  </div>
+                                  <div class="mpbtn plus" v-on:click="increment()">+</div>
                                 </div>
-                                <div class="mpbtn plus" v-on:click="increment()">+</div>
-                              </div>
-                            </span>
-                     
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
+                              </span>
+                            </v-flex>
+                          </v-layout>
+                        </v-flex>
 
-                
-                  <v-flex md6 sm12 lg6 xs12 d-flex >
-                   <div class="text-xs- mt-5">
-                      <v-rating
-                        color="yellow darken-3"
-                        background-color="grey darken-1"
-                        empty-icon="$vuetify.icons.ratingFull"
-                        half-increments
-                        hover
-                      ></v-rating>
-                    </div>
-                  </v-flex>
-                
+                        <v-flex md6 sm12 lg6 xs12 d-flex>
+                          <div class="text-xs- mt-5">
+                            <v-rating
+                              color="yellow darken-3"
+                              background-color="grey darken-1"
+                              empty-icon="$vuetify.icons.ratingFull"
+                              half-increments
+                              hover
+                            ></v-rating>
+                          </div>
+                        </v-flex>
 
-              </v-layout>
-            <v-divider></v-divider>
+                      
+                      <v-divider></v-divider>
 
-          
-           
-              
-
-                    
-
-                    
-
-                    <v-card-actions>
-                      <v-layout row wrap>
-                <v-flex d-flex>
-                  <v-btn
-                         dark
+                      <v-card-actions>
+                        <v-layout row wrap>
+                          <v-flex d-flex>
+                            <v-btn
+                              dark
                               block
                               color="#212121"
                               outline-color="#ffffff"
-                        
-                        @click="addToCart(selectedItem,value)"
-                      >Add to cart</v-btn>
-                </v-flex>
+                              @click="addToCart(selectedItem,value)"
+                            >Add to cart</v-btn>
+                          </v-flex>
+                         
+                          <v-flex d-flex>
+                            <v-btn block color="#eabf00" outline-color="#ffffff">Buy Now</v-btn>
+                          </v-flex>
 
-                <v-flex d-flex>
-                 <v-btn  
-                              block
-                              color="#eabf00"
-                              outline-color="#ffffff">Buy Now</v-btn>
-                </v-flex>
-                
-              </v-layout>
+                        </v-layout>
+                      </v-card-actions>
                       
-                      
-                    </v-card-actions>
+
+                    </v-layout>
                   </v-flex>
                 </v-layout>
 
@@ -566,7 +529,7 @@
             </v-card-text>
           </v-card>
         </v-dialog>
-      </v-layout>
+      
     </v-app>
   </div>
 </template>
@@ -598,7 +561,7 @@ export default {
       size: 0,
       keywords: "",
 
-      sizes: [25, 50, 100, 150, 200],
+      sizes: [],
       sortCategories: ["Size", "Price"],
       sortCat: "Size",
       sortAscOrDesc: [
@@ -635,7 +598,7 @@ export default {
     sel() {
       console.log(this.size);
     },
-   
+
     sortProducts() {
       this.products = _.orderBy(this.products, this.sortCat, this.sortOrder);
     },
@@ -687,6 +650,26 @@ export default {
       this.size = 0;
       this.value = 0;
 
+      console.log("*****************");
+      console.log(this.selectedItem);
+      const formData = new FormData();
+      formData.append("PID", this.selectedItem.PID);
+      console.log(this.selectedItem.PID);
+      axios
+        .post(this.$baseUrl + "/Lotquantity", formData)
+
+        .then(response => {
+          console.log(response.data.lotValue);
+          this.sizes = response.data.lotValue;
+          this.dialog = true;
+
+          console.log("Product lots Added");
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
       /* axios
     
         .get(this.$baseUrl + "/size/"+ item.PID)
@@ -700,7 +683,7 @@ export default {
           console.log("ERROR");
         });*/
 
-      this.dialog = true;
+      //this.dialog = true;
     },
 
     increment() {
@@ -722,6 +705,27 @@ export default {
 
     addToCart(selectedItem) {
       this.$store.commit("addToCart", selectedItem);
+    },
+
+    getShippingMethod(selectedItem) {
+      console.log("*****************");
+      console.log(selectedItem);
+      const formData = new FormData();
+      formData.append("PID", this.selectedItem.PID);
+
+      axios
+        .post(this.$baseUrl + "/shippingMethod", formData)
+
+        .then(response => {
+          console.log(response.data.shipmethod);
+          this.dialog = false;
+
+          console.log("Product Succesfully Added");
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
     },
 
     valid() {
@@ -751,29 +755,21 @@ export default {
 
 
 <style>
-p.subtitle-2.font-weight-regular.lotsize {
-    padding-top: 21px;
+.lotsize {
+  padding-top: 21px;
 }
-p.subtitle-1.font-weight-medium.discount {
-    margin-left: 3px;
+.discount {
+  margin-left: 4px;
 }
-.flex.details.xs12.md5.lg5.sm12 {
-    margin: 35px;
-}
-.card-5.Product.v-card.v-sheet.theme--light:hover{
-   text-decoration: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+
+.card-5.Product.v-card.v-sheet.theme--light:hover {
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 18px 15px rgba(0, 0, 0, 0.22);
-  border: 0.7px solid; 
-        
-
-} 
-.card-5.Product.v-card.v-sheet.theme--light:hover .v-btn__content{
-
-background-color: #eabf00;
-
-
-
+  border: 0.7px solid;
+}
+.card-5.Product.v-card.v-sheet.theme--light:hover .v-btn__content {
+  background-color: #eabf00;
 }
 .v-card__actions {
   align-items: center;
@@ -788,7 +784,6 @@ background-color: #eabf00;
   padding-top: 10px;
   padding-bottom: 0px;
 }
-
 
 .minusplusnumber {
   border: 1px solid silver;
@@ -832,7 +827,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 20px !important;
 }
 
-
 .cardmargin.v-card.v-sheet.theme--light {
   margin: 90px;
 }
@@ -841,9 +835,8 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-
 h1.header {
-   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .custom-font1 {
@@ -857,10 +850,7 @@ h1.header {
   font-size: 2.5em;
   color: rgba(129, 91, 24, 0.788);
 }
-.flex.xs12.sm12.md11.d-flex.offset-xs0.offset-lg1 {
-  margin: 0px;
-  padding: 0px;
-}
+
 
 .product-description {
   font-family: "Rye", cursive;
@@ -890,7 +880,7 @@ h1.header {
 .gallery .wrap {
   width: 100%;
   height: 100%;
- 
+
   margin: 0 auto;
   overflow: hidden;
   display: -webkit-box;
@@ -917,7 +907,7 @@ h1.header {
   min-width: 100%;
   -webkit-transition: opacity 0.25s ease-in-out 0.05s;
   transition: opacity 0.25s ease-in-out 0.05s;
-  
+
   left: 0;
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
@@ -994,7 +984,7 @@ h1.header {
   -ms-flex-negative: 0;
   flex-shrink: 0;
   left: 0;
-  
+
   cursor: pointer;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -1027,7 +1017,7 @@ h1.header {
 .gallery input#image1:checked ~ .wrap figure:not(:nth-of-type(1)) {
   opacity: 0;
 }
-.gallery input#image1:checked ~ .thumbnails .slider{
+.gallery input#image1:checked ~ .thumbnails .slider {
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
@@ -1165,19 +1155,15 @@ h1.header {
   -ms-transform: translate(-50%, -50%);
 }
 
-
-
-
-
 p.display-1.font-weight-bold.aos-init.aos-animate {
-   padding-top:10px;
-   padding-bottom:10px;
-    padding-left: 77px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 77px;
 }
 .v-card.v-card--flat.v-sheet.theme--light {
-    padding-top: 12px;
+  padding-top: 12px;
 }
-.flex.details.xs12.md5.lg5.sm12 {
-    margin: 35px;
+.details {
+  margin: 35px;
 }
 </style>

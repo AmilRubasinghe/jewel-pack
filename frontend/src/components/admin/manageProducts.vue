@@ -489,7 +489,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
+                        <v-img  v-if="editedItem.Image2" max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -526,7 +526,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
+                        <v-img v-if="editedItem.Image3"  max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -563,7 +563,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
+                        <v-img v-if="editedItem.Image4" max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">

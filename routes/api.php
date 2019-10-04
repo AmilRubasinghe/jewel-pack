@@ -58,6 +58,10 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('register','userController@registerUser');
     Route::post('resendvEmail','userController@resendvEmail');
     Route::post('search','ProductController@search');
+
+
+    Route::post('shippingMethod','ProductshippingmethodController@getProductShippingMethod');
+Route::post('Lotquantity','ProductlotController@getProductsLots');
     
     
     Route::post('guard','userController@guard');
@@ -169,6 +173,9 @@ Route::get('deletedCategory','CategoryController@getDeletedCat');
 
 Route::post('addProductLot','ProductlotController@addProductlot');
 Route::post('deleteProductLot','ProductlotController@deleteProductLot');
+
+
+
 
 
 });

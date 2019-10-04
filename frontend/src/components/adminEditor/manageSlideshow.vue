@@ -21,25 +21,10 @@
                       <form enctype="multipart/form-data">
                         <div class="text-xs-center">
                           <label class="button">
-                            <input
-                              id="photoA"
-                              type="file"
-                              ref="file"
-                              accept="image/*"
-                              @change="addFile('photoA', $event)"
-                              style="display:none"
-                            />
-                            <v-icon outline large>cloud_upload</v-icon>
-                            <p
-                              class="subtitle-1 font-weight-medium"
-                              style="color:#616161;"
-                            >Upload photo</p>
-                            <span v-if="photoA" class="file-name">
-                              <p
-                                class="subtitle-1 font-weight-medium"
-                                style="color:#eabf00; align:center;"
-                              >{{photoA.name}}</p>
-                            </span>
+                            <input type="file" ref="file" @change="selectFile" style="display:none" />
+                          <v-icon outline large>cloud_upload</v-icon>
+                          <h4>Upload photo</h4>
+                          <span v-if="file" class="file-name">{{file.name}}</span>
                           </label>
                         </div>
                       </form>
@@ -251,16 +236,16 @@ export default {
   },
 
   methods: {
-    /*
+    
     selectFile(event) {
       this.file = this.$refs.file.files[0];
       console.log(this.file.name);
-    },*/
+    },
 
-    addFile(fileKey, event) {
+    /*addFile(fileKey, event) {
       this[fileKey] = event.target.files[0];
       console.log("File added", fileKey, event.target.files[0]);
-    },
+    },*/
     upload() {
       let formData = new FormData();
 
@@ -268,7 +253,7 @@ export default {
                 Add the form data we need to submit
             */
       formData.append("file", this.file);
-
+//formData.append("file", this.photoA, this.photoA.name);
       /*
           Make the request to the POST /single-file URL
         */
@@ -288,8 +273,8 @@ export default {
 
     sendFile() {
       const formData = new FormData();
-      //formData.append("file", this.file, this.file.name);
-      formData.append("file", this.photoA, this.photoA.name);
+     formData.append("file", this.file, this.file.name);
+     // formData.append("file", this.photoA, this.photoA.name);
 
       console.log("****");
 

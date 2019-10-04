@@ -25,7 +25,7 @@
     </v-layout>
     
 
-    <v-toolbar app flat prominent height="75vh" scroll-off-screen>
+    <v-toolbar app flat prominent height="65vh" scroll-off-screen>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="role=='admin'"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -282,6 +282,9 @@
         </v-dialog>
       </v-menu>
     </v-toolbar>
+
+
+    
 
     <v-navigation-drawer
       v-if="role=='admin'"
