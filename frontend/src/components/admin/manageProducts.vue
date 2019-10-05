@@ -318,15 +318,21 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap justify-end>
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn outline color="#eabf00" @click="clear">clear</v-btn>
+                  <v-btn outline block color="#eabf00" outline-color="#ffffff" @click="clear">clear</v-btn>
                 </v-flex>
 
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn color="#eabf00" @click="dialog = false">Close</v-btn>
+                  <v-btn
+                    dark
+                    block
+                    color="#212121"
+                    outline-color="#ffffff"
+                    @click="dialog = false"
+                  >Close</v-btn>
                 </v-flex>
 
                 <v-flex xs4 sm4 md2 lg2 d-flex>
-                  <v-btn color="#eabf00" @click="addProduct">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="addProduct">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -336,13 +342,12 @@
 
       <v-dialog v-model="showModal" max-width="900">
         <v-card>
-            <v-card-title style="background-color:#eabf00;  ">
+          <v-card-title style="background-color:#eabf00;  ">
             <span class="headline">
               <p class="headline font-weight-bold" style="color:#212121; ">Edit Product</p>
             </span>
           </v-card-title>
 
-         
           <v-card-text>
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout column>
@@ -429,26 +434,25 @@
                   <v-layout row wrap>
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                         <v-hover v-slot:default="{ hover }">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image1">
-                           <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
-                  style="height: 40%;"
-                >
-                  <v-btn
-                    color="transparent"
-                    class="white--text"
-                    large
-                    :ripple="false"
-                    @click="deletePhoto"
-                  >Delete</v-btn>
-                </div>
-              </v-expand-transition>
-
-                        </v-img>
-                         </v-hover>
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img max-height="150" max-width="250" :src="editedItem.Image1">
+                            <v-expand-transition>
+                              <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                                style="height: 40%;"
+                              >
+                                <v-btn
+                                  color="transparent"
+                                  class="white--text"
+                                  large
+                                  :ripple="false"
+                                  @click="deletePhoto"
+                                >Delete</v-btn>
+                              </div>
+                            </v-expand-transition>
+                          </v-img>
+                        </v-hover>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -485,7 +489,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
+                        <v-img  v-if="editedItem.Image2" max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -522,7 +526,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
+                        <v-img v-if="editedItem.Image3"  max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -559,7 +563,7 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
+                        <v-img v-if="editedItem.Image4" max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -604,11 +608,11 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout justify-end row wrap>
                 <v-flex md3 sm4 lg3 xs4 d-flex>
-                  <v-btn color="primary" @click="close">Cancel</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="close">Cancel</v-btn>
                 </v-flex>
 
                 <v-flex md3 sm4 lg3 xs4 d-flex>
-                  <v-btn color="primary" @click="editSave">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="editSave">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -620,8 +624,10 @@
 
       <v-dialog v-model="showQuantity" max-width="700">
         <v-card>
-          <v-card-title>
-            <span class="headline">Add Quantity</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Add Quantity</p>
+            </span>
           </v-card-title>
 
           <v-card-text>
@@ -671,17 +677,34 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap>
                 <v-flex d-flex>
-                  <v-btn outline color="primary" @click="clearQuntity">clear</v-btn>
+                  <v-btn
+                    outline
+                    block
+                    color="#eabf00"
+                    outline-color="#ffffff"
+                    @click="clearQuntity"
+                  >clear</v-btn>
                 </v-flex>
 
                 <v-flex d-flex>
-                  <v-btn color="primary" @click="close">Cancel</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="close">Cancel</v-btn>
                 </v-flex>
                 <v-flex d-flex>
-                  <v-btn color="primary" @click="SaveQuntity">Add to Lot</v-btn>
+                  <v-btn
+                    dark
+                    block
+                    color="#212121"
+                    outline-color="#ffffff"
+                    @click="SaveQuntity"
+                  >Add to Lot</v-btn>
                 </v-flex>
                 <v-flex d-flex>
-                  <v-btn color="blue darken-1" @click="DeleteQuntity">Delete to Lot</v-btn>
+                  <v-btn
+                    block
+                    color="#eabf00"
+                    outline-color="#ffffff"
+                    @click="DeleteQuntity"
+                  >Delete to Lot</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -999,8 +1022,6 @@ export default {
       this.newProduct.shipMethod = [...this.newProduct.shipMethod];
     },
 
-    
-
     catItems() {
       axios
         .get(this.$baseUrl + "/category")
@@ -1265,12 +1286,7 @@ export default {
       console.log(this.editedItem);
       this.showModal = true;
     },
-    deletePhoto(){
-
-
-
-      
-    },
+    deletePhoto() {},
 
     deleteItem(item) {
       //var result = confirm("Want to delete product" + item.PID + "?");
@@ -1466,11 +1482,6 @@ export default {
   display: block;
   z-index: 10;
 }
-
-
-
-
-
 
 .card-5 {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);

@@ -6,9 +6,12 @@
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" max-width="600px">
         <v-card max-width="600px">
-          <v-card-title>
-            <span class="headline">Upload File</span>
+           <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Upload File</p>
+            </span>
           </v-card-title>
+         
           <v-card-text>
             <v-layout align-center justify-center>
               <v-flex d-flex>
@@ -18,25 +21,10 @@
                       <form enctype="multipart/form-data">
                         <div class="text-xs-center">
                           <label class="button">
-                            <input
-                              id="photoA"
-                              type="file"
-                              ref="file"
-                              accept="image/*"
-                              @change="addFile('photoA', $event)"
-                              style="display:none"
-                            />
-                            <v-icon outline large>cloud_upload</v-icon>
-                            <p
-                              class="subtitle-1 font-weight-medium"
-                              style="color:#616161;"
-                            >Upload photo</p>
-                            <span v-if="photoA" class="file-name">
-                              <p
-                                class="subtitle-1 font-weight-medium"
-                                style="color:#eabf00; align:center;"
-                              >{{photoA.name}}</p>
-                            </span>
+                            <input type="file" ref="file" @change="selectFile" style="display:none" />
+                          <v-icon outline large>cloud_upload</v-icon>
+                          <h4>Upload photo</h4>
+                          <span v-if="file" class="file-name">{{file.name}}</span>
                           </label>
                         </div>
                       </form>
@@ -48,17 +36,32 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
-            <v-btn outline color="blue" @click="sendFile">Upload</v-btn>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout justify-end row wrap>
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="dialog = false">Close</v-btn>
+                </v-flex>
+
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="sendFile">Upload</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+           <!-- <v-btn outline color="blue" @click="dialog = false">Close</v-btn>
+            <v-btn outline color="blue" @click="sendFile">Upload</v-btn>-->
           </v-card-actions>
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="showModal">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit Item</span>
+      <v-dialog v-model="showModal"  max-width="1200px">
+        <v-card  max-width="1200px">
+           <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit Item</p>
+            </span>
           </v-card-title>
+         
 
           <v-card-text>
             <v-container grid-list-md>
@@ -78,8 +81,20 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>
+            <v-container grid-list-md text-md-center fluid fill-height>
+              <v-layout justify-end row wrap>
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="close">Cancel</v-btn>
+                </v-flex>
+
+                <v-flex md3 sm4 lg3 xs4 d-flex>
+                  <v-btn dark block color="#212121" outline-color="#ffffff"  @click="editSave">Save</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+           <!-- <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+            <v-btn color="blue darken-1" flat @click="editSave">Save</v-btn>-->
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -221,16 +236,16 @@ export default {
   },
 
   methods: {
-    /*
+    
     selectFile(event) {
       this.file = this.$refs.file.files[0];
       console.log(this.file.name);
-    },*/
+    },
 
-    addFile(fileKey, event) {
+    /*addFile(fileKey, event) {
       this[fileKey] = event.target.files[0];
       console.log("File added", fileKey, event.target.files[0]);
-    },
+    },*/
     upload() {
       let formData = new FormData();
 
@@ -238,7 +253,7 @@ export default {
                 Add the form data we need to submit
             */
       formData.append("file", this.file);
-
+//formData.append("file", this.photoA, this.photoA.name);
       /*
           Make the request to the POST /single-file URL
         */
@@ -258,8 +273,8 @@ export default {
 
     sendFile() {
       const formData = new FormData();
-      //formData.append("file", this.file, this.file.name);
-      formData.append("file", this.photoA, this.photoA.name);
+     formData.append("file", this.file, this.file.name);
+     // formData.append("file", this.photoA, this.photoA.name);
 
       console.log("****");
 

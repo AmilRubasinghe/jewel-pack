@@ -5,9 +5,12 @@
     <div class="container" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" max-width="700">
         <v-card>
-          <v-card-title>
-            <span class="headline">Add category</span>
+           <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Add category</p>
+            </span>
           </v-card-title>
+         
 
           <v-card-text>
             <v-container grid-list-md text-md-center fluid fill-height>
@@ -36,29 +39,66 @@
                 </v-flex>
                 <v-flex d-flex>
                   <v-layout row wrap justify-center>
+                    <!-- <v-flex xs6 sm6 md3 lg3 d-flex>
+                      <v-card flat ripple hover max-height="300" max-width="250">
+                        <v-img max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
+                        <form enctype="multipart/form-data">
+                          <div class="text-xs-center">
+                             <label class="button">
+                            <input
+                              id="photoA"
+                              type="file"
+                              ref="file"
+                              accept="image/*"
+                              @change="addFile('photoA', $event)"
+                              style="display:none"
+                            />
+                            <v-icon outline large>cloud_upload</v-icon>
+                            <p
+                              class="subtitle-1 font-weight-medium"
+                              style="color:#616161;"
+                            >Upload photo</p>
+                            <span v-if="photoA" class="file-name">
+                              <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#eabf00; align:center;"
+                              >{{photoA.name}}</p>
+                            </span>
+                          </label>
+                          </div>
+                        </form>
+                      </v-card>
+                    </v-flex>-->
+
                     <v-flex xs9 sm9 md4 lg4 d-flex>
                       <v-card
-                        flat
-                        color="#B0BEC5"
-                        @click="$refs.file.click()"
-                        ripple
-                        hover
-                        height="100"
-                        width="300"
-                        max-width="600px"
+                      flat ripple hover max-height="300" max-width="250"
+                        
                       >
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
                               <input
-                                type="file"
-                                ref="file"
+                               id="photoA"
+                              type="file"
+                              ref="file"
+                              accept="image/*"
+                            
+                              style="display:none"
+                                
                                 @change="selectFile"
-                                style="display:none"
+                              
                               />
+                              
                               <v-icon outline large>cloud_upload</v-icon>
-                              <h4>Upload photo</h4>
-                              <span v-if="file" class="file-name">{{file.name}}</span>
+                               <p
+                                class="subtitle-1 font-weight-medium"
+                                style="color:#616161;"
+                              >Upload photo</p>
+                              <span v-if="file" class="file-name"> <p
+                                  class="subtitle-1 font-weight-medium"
+                                  style="color:#eabf00; align:center;"
+                                >{{file.name}}</p></span>
                             </label>
                           </div>
                         </form>
@@ -75,14 +115,17 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap>
                 <v-flex d-flex>
-                  <v-btn outline color="primary" @click="clear">clear</v-btn>
+                  <v-btn outline block color="#eabf00" outline-color="#ffffff" @click="clear">clear</v-btn>
                 </v-flex>
 
                 <v-flex d-flex>
-                  <v-btn dark color="blue" @click="dialog = false">Close</v-btn>
+                  <v-btn dark
+                    block
+                    color="#212121"
+                    outline-color="#ffffff" @click="dialog = false">Close</v-btn>
                 </v-flex>
                 <v-flex d-flex>
-                  <v-btn dark color="blue" @click="addCat">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="addCat">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -92,9 +135,12 @@
 
       <v-dialog v-model="showModal" max-width="700">
         <v-card>
-          <v-card-title>
-            <span class="headline">Edit Category</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit Category</p>
+            </span>
           </v-card-title>
+         
 
           <v-card-text>
             <v-container grid-list-md text-md-center fluid fill-height>
@@ -116,7 +162,7 @@
 
                   <v-card
                     flat
-                    color="#B0BEC5"
+                   
                     @click="$refs.file.click()"
                     ripple
                     hover
@@ -145,11 +191,11 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap>
                 <v-flex d-flex>
-                  <v-btn dark color="blue" @click="close">Cancel</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="close">Cancel</v-btn>
                 </v-flex>
 
                 <v-flex d-flex>
-                  <v-btn dark color="blue" @click="editSave">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="editSave">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -252,6 +298,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      
       dialog: false,
       showModal: false,
       deleted: false,
@@ -448,6 +495,7 @@ export default {
           console.log("Delete aborted");
         });
     },
+    
 
     selectFile(event) {
       this.file = this.$refs.file.files[0];
@@ -504,6 +552,18 @@ export default {
   }
 };
 </script>
+<style>
+.v-card.v-card--flat.v-card--hover.v-sheet.theme--light {
+  border: dashed;
+  background: content-box;
+  overflow: hidden;
+  /* background-color: rgb(176, 190, 197);*/
+  border-color: rgb(176, 190, 197);
+  position: static;
+  display: block;
+  z-index: 10;
+}
+</style>
 
 
 

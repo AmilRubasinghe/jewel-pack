@@ -4,8 +4,10 @@
     <div class="container 1" v-bind:style="{ background: '#B0BEC5'}">
       <v-dialog v-model="dialog" max-width="700">
         <v-card>
-          <v-card-title>
-            <span class="headline">Upload Shipping Methods</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Upload Shipping Methods</p>
+            </span>
           </v-card-title>
 
           <v-card-text>
@@ -41,14 +43,20 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap>
                 <v-flex d-flex>
-                  <v-btn color="primary" @click="clear">clear</v-btn>
+                  <v-btn outline block color="#eabf00" outline-color="#ffffff" @click="clear">clear</v-btn>
                 </v-flex>
 
                 <v-flex d-flex>
-                  <v-btn outline color="primary" @click="dialog = false">Close</v-btn>
+                  <v-btn
+                    dark
+                    block
+                    color="#212121"
+                    outline-color="#ffffff"
+                    @click="dialog = false"
+                  >Close</v-btn>
                 </v-flex>
                 <v-flex d-flex>
-                  <v-btn outline color="blue" @click="Save">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="Save">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -58,8 +66,10 @@
 
       <v-dialog v-model="showModal" max-width="700">
         <v-card>
-          <v-card-title>
-            <span class="headline">Edit Shopping Method</span>
+          <v-card-title style="background-color:#eabf00;  ">
+            <span class="headline">
+              <p class="headline font-weight-bold" style="color:#212121; ">Edit Shopping Method</p>
+            </span>
           </v-card-title>
 
           <v-card-text>
@@ -98,11 +108,11 @@
             <v-container grid-list-md text-md-center fluid fill-height>
               <v-layout row wrap justify-end>
                 <v-flex md6 sm4 lg6 xs4 d-flex>
-                  <v-btn color="primary" @click="close">Cancel</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="close">Cancel</v-btn>
                 </v-flex>
 
                 <v-flex md6 sm4 lg6 xs4 d-flex>
-                  <v-btn color="primary" @click="editSave">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="editSave">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -159,9 +169,9 @@
           </template>
           <template v-slot:items="props">
             <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td class="text-xs-center">{{ props.item.shipId }}</td>
-              <td class="text-xs-center">{{ props.item.shipMethod }}</td>
-              <td class="text-xs-center">{{ props.item.flatRate }}</td>
+              <td class="text-xs-left">{{ props.item.shipId }}</td>
+              <td class="text-xs-left">{{ props.item.shipMethod }}</td>
+              <td class="text-xs-justify-center">{{ props.item.flatRate }}</td>
               <td class="justify-center layout px-0">
                 <v-icon
                   color="deep-purple darken-1"
@@ -187,7 +197,7 @@ export default {
   data() {
     return {
       dialog: false,
-       editedIndex: -1,
+      editedIndex: -1,
 
       search: "",
 
@@ -247,7 +257,7 @@ export default {
     },
 
     editItem(item) {
-       this.editedIndex = this.ShippingMethodItems.indexOf(item);
+      this.editedIndex = this.ShippingMethodItems.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.showModal = true;
     },
@@ -310,10 +320,13 @@ export default {
       this.newItem.flatRate = "";
     },
 
-     editSave() {
+    editSave() {
       let $Token = localStorage.getItem("token");
       if (this.editedIndex > -1) {
-        Object.assign(this.ShippingMethodItems[this.editedIndex], this.editedItem);
+        Object.assign(
+          this.ShippingMethodItems[this.editedIndex],
+          this.editedItem
+        );
 
         axios
           .post(
@@ -332,7 +345,7 @@ export default {
         this.ShippingMethodItems.push(this.editedItem);
       }
       this.close();
-    },
+    }
   }
 };
 </script>

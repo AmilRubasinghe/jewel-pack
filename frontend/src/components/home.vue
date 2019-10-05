@@ -18,14 +18,14 @@
             <v-flex d-flexxs12 sm6 md10>
               <p
                 data-aos="fade-up"
-                class="display-2 font-weight-bold"
+                class="display-2 font-weight-bold bestProduct"
                 style="color:#212121; align:center;"
               >Our Best Categories</p>
             </v-flex>
             <v-flex d-flex xs12 sm6 md9>
               <p
                 data-aos="fade-up"
-                class="title font-weight-medium"
+                class="title font-weight-medium bestProduct"
                 style="color:#616161; align:center;"
               >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
             </v-flex>
@@ -50,7 +50,7 @@
               <p
                 justify-center
                 data-aos="fade-up"
-                class="headline font-weight-medium"
+                class="headline font-weight-medium bestProduct"
                 style="color:#212121; align:center;"
               >{{item.name}}</p>
             </v-card-text>
@@ -63,14 +63,14 @@
         <v-flex d-flex xs6 sm6 md5 lg5>
           <v-card width="100%" height="500" flat style="background-color:#eabf00;">
             <v-flex  xs11 sm11 md11 lg11>
-              <p data-aos="fade-up" class="custom-font4 font-weight-medium">
+              <p data-aos="fade-up" class="custom-font4 font-weight-medium bestProduct">
                 <br />‘The Art of Gifting’
                 <br />
               </p>
               <p
                 data-aos="fade-up"
                 data-aos-delay="50"
-                class="title font-weight-medium"
+                class="title font-weight-medium bestProduct"
                 style="color:#312121; align:center;"
               >
                 Our Group understands that
@@ -125,15 +125,17 @@
     <!--...................newest product...................-->
 
     <v-card flat class="OurBestProducts">
+      <v-layout  align-center justify-center>
       <v-flex d-flex>
         <p
           data-aos="fade-up"
-          class="display-1 font-weight-bold"
+          class="display-1 font-weight-bold bestProduct"
           style="color:#212121; align:center;"
         >Our Best Products</p>
         <br />
         <br />
       </v-flex>
+      </v-layout>
 
       <!--<v-layout wrap>
           <v-flex v-for="(item, i) in selectedProducts" :key="i" d-flex xs12 sm6 md3>
@@ -376,13 +378,21 @@ h3 {
 span {
   color: #8383b6;
 }
-p {
-  margin-bottom: 8px;
+.bestProduct  {
+   margin-bottom: 8px;
   margin: 0 0 10px;
   text-align: center;
   font-size: initial;
   margin-top: 5px;
 }
+
+/*p {
+  margin-bottom: 8px;
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: initial;
+  margin-top: 5px;
+}*/
 
 .gallery_product {
   padding: 10px 10px;
@@ -422,9 +432,7 @@ h3.newest {
   margin-top: 100px;
 }
 
-h4.ab.subtitle-2.headline.mb-1 {
-  text-align: center;
-}
+
 .flex.d-flex {
   margin-bottom: auto;
 }
