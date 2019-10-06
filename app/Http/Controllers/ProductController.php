@@ -224,32 +224,82 @@ if(File::exists($filename)) {
   $institution->save();    
   //Found existing file then delete
   File::delete($filename);  // or unlink($filename);
+
 */
+$arr = json_decode($request->input('method'));
+
+$image1 = $request->file('photoA');
+// return $image1;
+$filename1 = time().'-'.$image1->getClientOriginalName();
+
+ $image1->storeAs('public/product',$filename1);
+
+
+//image B
+ $image2 = $request->file('photoB');
+ /// return $image2;
+  $filename2 = time().'-'.$image2->getClientOriginalName();
+// return $filename;
+   $image2->storeAs('public/product',$filename2);
+
+
+  //image C
+   $image3 = $request->file('photoC');
+ //return $image3;
+    $filename3 = time().'-'.$image3->getClientOriginalName();
+  // return $filename;
+     $image3->storeAs('public/product',$filename3);
+    //return $image3;
+    ////image D
+     $image4 = $request->file('photoD');
+    // return $image;
+      $filename4 = time().'-'.$image4->getClientOriginalName();
+    //return $filename4;
+       $image4->storeAs('public/product',$filename4);
 
   
   $thisProduct=product::findOrFail($productId);
   //$thisImage =slideshow::where('imageId', $imageId)->first();
+
   $thisProduct->timestamps = false;
   $thisProduct->PID = $request->input('PID');
-  $thisProduct->Size = $request->input('Size');
-  $thisProduct->CID = $request->input('CID');
-  $thisProduct->Image = $request->input('Image');
-  $thisProduct->Quantity = $request->input('Quantity');
-  $thisProduct->Colour = $request->input('Colour');
-  $thisProduct->Price = $request->input('Price');
-  $thisProduct->unitWeight = $request->input('unitWeight');
+  $thisProduct->Size = $request->input('size');
+  $thisProduct->CID = $request->input('cid');
+ 
+  
+  $thisProduct->Colour = $request->input('colour');
+  $thisProduct->Price = $request->input('price');
+  $thisProduct->slashedPrice = $request->input('slashedPrice');
+ 
   $thisProduct->border = $request->input('border');
   $thisProduct->description = $request->input('description');
+
+  $thisProduct->Image1 = url('/').'/storage/product/'.$filename1;
+      $thisProduct->ImageName1 = $filename1;
+
+      $thisProduct->Image2 = url('/').'/storage/product/'.$filename2;
+      $thisProduct->ImageName2 = $filename2;
+
+      $thisProduct->Image3 = url('/').'/storage/product/'.$filename3;
+      $thisProduct->ImageName3 = $filename3;
+
+      $thisProduct->Image4 = url('/').'/storage/product/'.$filename4;
+      $thisProduct->ImageName4 = $filename4;
   
+      $thisProduct->save();
 
-  $thisProduct->save();
-
-      $thisship = new productshippingmethod;
-      $thisship->pid = $request->input('PID');
-      $thisship->shipid= $request->input('shipMethod');
-      $thisship->save();
-
-  
+      $shiptable = new productshippingmethod;
+      
+      
+ 
+       for($i = 0; $i < count($arr); $i++) {
+         $shiptable = new productshippingmethod;
+         $shiptable->pid = $thisProduct->PID;
+         
+         $shiptable->shipid =$arr[$i]->shipId;
+ 
+         $shiptable->save();
+       }
   return response()->json(['editedProduct'=>$thisProduct,'message'=>"Product edited succesfully !"]);
 }
 
@@ -258,8 +308,33 @@ public function deleteProduct($productId){
 
   product::where(['PID'=>$productId])->update(['isDeleted'=>'1']);
   
+  
   return response()->json(['message'=>"Product deleted succesfully !"]);
 }
+
+
+public function deleteProductImage(Request $request){
+
+
+  $thisProduct=product::findOrFail($request->input('PID'));
+
+  
+$ImageName= 'ImageName'.$request->input('nameID');
+$Image= 'Image'.$request->input('nameID');
+
+\Storage::delete('public/product/'.$thisProduct->ImageName);
+
+$thisProduct->$ImageName = null;
+$thisProduct->$Image = null;
+
+$thisProduct->save();
+
+return response()->json(['message'=>"Product Image deleted succesfully !"]);
+
+
+}
+
+
 
 
 

@@ -415,18 +415,58 @@
                 <v-flex d-flex>
                   <v-layout row wrap>
                     <v-flex md6 sm12 lg6 xs12 d-flex>
-                      <v-select
+                      <!-- <v-select
                         label="Shipping Method"
                         :items=" ShippingMethodItems"
                         item-text="shipMethod"
                         item-value="shipId"
-                        v-model="editedItem.shipId"
+                        chips
+                        clearable
+                        multiple
                         outline
+                        solo
+                        v-model="editedShippingMethodItems"
                         menu-props
-                      ></v-select>
+                      ></v-select>-->
+
+                      <v-combobox
+                        v-model="editedShippingMethodItems"
+                        :items=" ShippingMethodItems"
+                        item-text="shipMethod"
+                        item-value="shipId"
+                        label="Shipping Method"
+                        chips
+                        clearable
+                        multiple
+                        outline
+                        solo
+                      >
+                        <template v-slot:selection="{ attrs,item , select, selected }">
+                          <v-chip
+                            v-bind="attrs"
+                            :input-value="selected"
+                            close
+                            @click="selectShip(item)"
+                            @input="remove(item)"
+                          >
+                            <strong>{{item.shipMethod}}</strong>
+                            &nbsp;
+                          </v-chip>
+                        </template>
+                      </v-combobox>
                     </v-flex>
 
-                    <v-flex md9 sm12 lg9 xs12 d-flex></v-flex>
+                    <v-flex md6 sm12 lg6 xs12 d-flex>
+                      <v-text-field
+                        input-type="number"
+                        v-model="editedItem.slashedPrice"
+                        v-validate="'required'"
+                        label="Slashed Price"
+                        data-vv-name="slashedPrice"
+                        type="number"
+                        onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                      />
+                    </v-flex>
                   </v-layout>
                 </v-flex>
 
@@ -435,7 +475,12 @@
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
                         <v-hover v-slot:default="{ hover }">
-                          <v-img max-height="150" max-width="250" :src="editedItem.Image1">
+                          <v-img
+                            v-if="editedItem.Image1"
+                            max-height="150"
+                            max-width="250"
+                            :src="editedItem.Image1"
+                          >
                             <v-expand-transition>
                               <div
                                 v-if="hover"
@@ -447,7 +492,7 @@
                                   class="white--text"
                                   large
                                   :ripple="false"
-                                  @click="deletePhoto"
+                                  @click="deletePhoto(editedItem,1)"
                                 >Delete</v-btn>
                               </div>
                             </v-expand-transition>
@@ -489,7 +534,30 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img  v-if="editedItem.Image2" max-height="150" max-width="250" :src="editedItem.Image2"></v-img>
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img
+                            v-if="editedItem.Image2"
+                            max-height="150"
+                            max-width="250"
+                            :src="editedItem.Image2"
+                          >
+                            <v-expand-transition>
+                              <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                                style="height: 40%;"
+                              >
+                                <v-btn
+                                  color="transparent"
+                                  class="white--text"
+                                  large
+                                  :ripple="false"
+                                  @click="deletePhoto(editedItem,2)"
+                                >Delete</v-btn>
+                              </div>
+                            </v-expand-transition>
+                          </v-img>
+                        </v-hover>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -526,7 +594,30 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img v-if="editedItem.Image3"  max-height="150" max-width="250" :src="editedItem.Image3"></v-img>
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img
+                            v-if="editedItem.Image3"
+                            max-height="150"
+                            max-width="250"
+                            :src="editedItem.Image3"
+                          >
+                            <v-expand-transition>
+                              <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                                style="height: 40%;"
+                              >
+                                <v-btn
+                                  color="transparent"
+                                  class="white--text"
+                                  large
+                                  :ripple="false"
+                                  @click="deletePhoto(editedItem,3)"
+                                >Delete</v-btn>
+                              </div>
+                            </v-expand-transition>
+                          </v-img>
+                        </v-hover>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -563,7 +654,30 @@
 
                     <v-flex xs6 sm6 md3 lg3 d-flex>
                       <v-card flat ripple hover max-height="300" max-width="250">
-                        <v-img v-if="editedItem.Image4" max-height="150" max-width="250" :src="editedItem.Image4"></v-img>
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img
+                            v-if="editedItem.Image4"
+                            max-height="150"
+                            max-width="250"
+                            :src="editedItem.Image4"
+                          >
+                            <v-expand-transition>
+                              <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out black darken-1 v-card--reveal display-1 white--text"
+                                style="height: 40%;"
+                              >
+                                <v-btn
+                                  color="transparent"
+                                  class="white--text"
+                                  large
+                                  :ripple="false"
+                                  @click="deletePhoto(editedItem,4)"
+                                >Delete</v-btn>
+                              </div>
+                            </v-expand-transition>
+                          </v-img>
+                        </v-hover>
                         <form enctype="multipart/form-data">
                           <div class="text-xs-center">
                             <label class="button">
@@ -612,7 +726,7 @@
                 </v-flex>
 
                 <v-flex md3 sm4 lg3 xs4 d-flex>
-                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="editSave">Save</v-btn>
+                  <v-btn dark block color="#212121" outline-color="#ffffff" @click="editSave()">Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -775,16 +889,16 @@
               <td class="text-xs-center">{{ props.item.CID }}</td>
               <td class="text-xs-left">{{ props.item.Image1}}</td>
               <td class="text-xs-left">
-                <v-img :src="props.item.Image1"></v-img>
+                <v-img v-if="props.item.Image1" :src="props.item.Image1"></v-img>
               </td>
               <td class="text-xs-left">
-                <v-img :src="props.item.Image2"></v-img>
+                <v-img v-if="props.item.Image2" :src="props.item.Image2"></v-img>
               </td>
               <td class="text-xs-left">
-                <v-img :src="props.item.Image3"></v-img>
+                <v-img v-if="props.item.Image3" :src="props.item.Image3"></v-img>
               </td>
               <td class="text-xs-left">
-                <v-img :src="props.item.Image4"></v-img>
+                <v-img v-if="props.item.Image4" :src="props.item.Image4"></v-img>
               </td>
               <td class="text-xs-center">{{ props.item.Quantity}}</td>
               <td class="text-xs-center">{{ props.item.Colour }}</td>
@@ -808,7 +922,7 @@
                   color="deep-purple darken-1"
                   medium
                   class="mr-2"
-                  @click="editItem(props.item)"
+                  @click="wanteditItem(props.item)"
                 >edit</v-icon>
                 <v-icon
                   v-if="!deletedItem"
@@ -927,6 +1041,7 @@ export default {
       category: [],
       lotItem: [],
       ShippingMethodItems: [],
+      editedShippingMethodItems: [],
 
       colours: ["White", "Black"],
 
@@ -1010,6 +1125,9 @@ export default {
   },
 
   methods: {
+    wanteditItem(item) {
+      this.editItem(item);
+    },
     selectShip(item) {
       this.newProduct.shipMethod.push(item);
     },
@@ -1070,6 +1188,10 @@ export default {
     addFile(fileKey, event) {
       this[fileKey] = event.target.files[0];
       console.log("File added", fileKey, event.target.files[0]);
+
+      // let k = fileKey;
+      // this.editedItem.[k] = event.target.files[0];
+      // console.log(this.editedItem);
     },
 
     /*selectFile(event) {
@@ -1134,13 +1256,13 @@ export default {
       let $Token = localStorage.getItem("token");
 
       var json_arr = JSON.stringify(this.newProduct.shipMethod);
-      // console.log(json_arr);
+      console.log(this.newProduct.shipMethod);
 
       const formData = new FormData();
       formData.append("photoA", this.photoA, this.photoA.name);
       formData.append("photoB", this.photoB, this.photoB.name);
       formData.append("photoC", this.photoC, this.photoC.name);
-      formData.append("photoD", this.photoC, this.photoD.name);
+      formData.append("photoD", this.photoD, this.photoD.name);
       /*formData.append("file", this.file, this.file.name);*/
       formData.append("method", json_arr);
       formData.append("details", this.newProduct.details);
@@ -1232,7 +1354,6 @@ export default {
       this.newProduct.shipMethod = "";
       this.newProduct.cid = "";
       this.newProduct.slashedPrice = "";
-      this.newProduct.shipMethod = "";
     },
 
     clearQuntity() {
@@ -1250,7 +1371,6 @@ export default {
       this.newProduct.shipMethod = "";
       this.newProduct.cid = "";
       this.newProduct.slashedPrice = "";
-      this.newProduct.shipMethod = "";
 
       this.dialog = true;
     },
@@ -1258,8 +1378,42 @@ export default {
     editSave() {
       let $Token = localStorage.getItem("token");
       if (this.editedIndex > -1) {
-        Object.assign(this.products[this.editedIndex], this.editedItem);
+        // Object.assign(this.products[this.editedIndex], this.editedItem);
+        console.log("************");
+        console.log(this.editedIndex);
+        console.log(this.editedShippingMethodItems);
+        var json_arr = JSON.stringify(this.editedShippingMethodItems);
+        console.log("&&&&&&&&&&&&&&");
+        console.log(this.photoA.name);
+        console.log(this.photoB.name);
+        console.log(this.photoC.name);
+        console.log(this.photoD.name);
+        console.log(this.editedItem.PID);
+        console.log(this.editedItem.description);
+        console.log(this.editedItem.Price);
+        console.log(this.editedItem.slashedPrice);
+        console.log(this.editedItem.Size);
+        console.log(this.editedItem.border);
+        console.log(this.editedItem.colour);
+        console.log(this.editedItem.Colour);
 
+        const formData = new FormData();
+        formData.append("photoA", this.photoA, this.photoA.name);
+        formData.append("photoB", this.photoB, this.photoB.name);
+        formData.append("photoC", this.photoC, this.photoC.name);
+        formData.append("photoD", this.photoD, this.photoD.name);
+        /*formData.append("file", this.file, this.file.name);*/
+        formData.append("method", json_arr);
+        formData.append("PID", this.editedItem.PID);
+        formData.append("description", this.editedItem.description);
+        formData.append("price", this.editedItem.Price);
+        formData.append("slashedPrice", this.editedItem.slashedPrice);
+        formData.append("size", this.editedItem.Size);
+        formData.append("border", this.editedItem.border);
+        formData.append("colour", this.editedItem.Colour);
+        formData.append("cid", this.editedItem.CID);
+        // console.log(item);
+        console.log(this.editedItem);
         axios
           .post(
             this.$baseUrl +
@@ -1267,7 +1421,7 @@ export default {
               this.editedItem.PID +
               "?token=" +
               $Token,
-            this.editedItem
+            formData
           )
           .then(response => {
             this.showModal = false;
@@ -1284,9 +1438,52 @@ export default {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       console.log(this.editedItem);
+      //  console.log(this.editedItem.shipId);
+      const formData = new FormData();
+      formData.append("PID", item.PID);
+      axios
+        .post(this.$baseUrl + "/shippingMethod", formData)
+
+        .then(response => {
+          this.editedShippingMethodItems = response.data.shipmethod;
+          console.log(this.editedShippingMethodItems);
+          console.log(response.data.shipmethod);
+          this.dialog = false;
+
+          console.log("Product shippingmethod Succesfully Added");
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+
       this.showModal = true;
     },
-    deletePhoto() {},
+    deletePhoto(item, nameID) {
+      let $Token = localStorage.getItem("token");
+      console.log(item.PID);
+      console.log(nameID);
+
+      const formData = new FormData();
+      formData.append("PID", item.PID);
+      formData.append("nameID", nameID);
+
+      axios
+        .post(this.$baseUrl + "/deleteProductImage?token=" + $Token, formData)
+
+        .then(response => {
+          this.showModal = false;
+
+          this.productItems();
+
+          console.log("Product Image Succesfully Deleted");
+          // this.editItem(item);
+        })
+        .catch(error => {
+          console.log(error.response);
+          console.log("ERROR");
+        });
+    },
 
     deleteItem(item) {
       //var result = confirm("Want to delete product" + item.PID + "?");

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-item-group v-model="selected" multiple max="12" active-class="primary">
+    <v-item-group v-model="selected" multiple max="8" active-class="primary">
       <v-container grid-list-md>
         <v-layout wrap>
           <v-flex v-for="(item,i) in products" :key="item.PID" xs9 md4>
@@ -32,13 +32,12 @@
     <v-layout row wrap justify-center>
       <v-flex md4 xs6 sm4>
         <v-btn
-          block 
+          block
           color="#FFAB00"
           outline-color="#000000"
           class="ma-2"
           :loading="loading"
           :disabled="loading"
-          
           @click="loader = 'loading'"
         >Accept Terms</v-btn>
       </v-flex>
@@ -87,7 +86,7 @@ export default {
           this.products = response.data.product;
 
           this.checkSelected();
-         // console.log(this.products);
+          // console.log(this.products);
         })
         .catch(error => {
           console.log(error.response);
@@ -105,18 +104,14 @@ export default {
       });*/
 
       for (var index in this.products) {
-          
         if (this.products[index].isSelected) {
           //console.log(parseInt(index, 10));
           this.selected.push(parseInt(index, 10));
           //console.log(this.products[index]);
         }
-
       }
 
-      
-
-   //  console.log(this.selected);
+      //  console.log(this.selected);
     },
 
     loaderNumber() {

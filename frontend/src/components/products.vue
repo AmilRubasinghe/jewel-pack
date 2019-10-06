@@ -105,9 +105,9 @@
                         <span>
                           <p
                             data-aos="fade-up"
-                            class="subtitle-1 font-weight-regular"
+                            class="subtitle-1 font-weight-medium"
                             style="color:#212121;"
-                          >{{products[i].Size}} {{products[i].Colour}} Colour Box</p>
+                          >{{products[i].Size}} {{products[i].Colour}} Box</p>
                         </span>
                       </v-flex>
                       <v-flex md11 lg11 xs11 sm11 offset-sm0>
@@ -316,9 +316,9 @@
                     <v-layout column>
                       <v-flex d-flex>
                       <p
-                        class="headline font-weight-regular "
+                        class="headline font-weight-medium "
                         style="color:#eabf00;"
-                      >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp; Colour Box</p>
+                      >{{selectedItem.Size}}&nbsp;{{selectedItem.Colour}}&nbsp;Box</p>
                       </v-flex>
                       <v-flex d-flex>
                       <p
@@ -418,18 +418,12 @@
                                   </v-flex>
                                   <v-flex md1 lg1 xs2 sm2>
                                     <p
-                                      v-if="selectedItem.slashedPrice"
-                                      class="title font-weight-medium"
+                                      v-if="selectedItem.slashedPrice && (selectedItem.slashedPrice>selectedItem.Price)"
+                                      class="subtitle-1 font-weight-medium"
                                       style="color:#C62828;"
-                                    >{{(((selectedItem.slashedPrice-selectedItem.Price)*100)/selectedItem.Price).toFixed()}}%</p>
+                                    >{{(((selectedItem.slashedPrice-selectedItem.Price)*100)/selectedItem.slashedPrice).toFixed()}}%Discount</p>
                                   </v-flex>
-                                  <v-flex md3 lg3 xs3 sm3>
-                                    <p
-                                      v-if="selectedItem.slashedPrice"
-                                      class="subtitle-1 font-weight-medium discount"
-                                      style="color:#C62828;"
-                                    >Discount</p>
-                                  </v-flex>
+                                 
                                 </v-layout>
                               </v-flex>
 
@@ -446,7 +440,9 @@
 
                             <v-flex md5 sm7 lg5 xs d-flex>
                               <v-select
-                                label="Sizes"
+                               v-model="select"
+                                
+                                label="Select"
                                 :items="sizes"
                                 item-text="lotquantity"
                                 item-value="lid"
@@ -511,6 +507,7 @@
                               @click="addToCart(selectedItem,value)"
                             >Add to cart</v-btn>
                           </v-flex>
+                          
                          
                           <v-flex d-flex>
                             <v-btn block color="#eabf00" outline-color="#ffffff">Buy Now</v-btn>
@@ -661,6 +658,7 @@ export default {
         .then(response => {
           console.log(response.data.lotValue);
           this.sizes = response.data.lotValue;
+          this.size=response.data.lotValue[0];
           this.dialog = true;
 
           console.log("Product lots Added");
@@ -730,8 +728,10 @@ export default {
 
     valid() {
       if (this.value >= this.selectedItem.Quantity) {
+         alert("Available only " + this.selectedItem.Quantity + " units");
         this.value = this.selectedItem.Quantity;
       } else if (this.value <= this.min) {
+        alert("Negative quantity not allowed");
         this.value = this.min;
       }
     },
@@ -766,7 +766,8 @@ export default {
   text-decoration: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 18px 15px rgba(0, 0, 0, 0.22);
-  border: 0.7px solid;
+  border: 0.7px solid ;
+ 
 }
 .card-5.Product.v-card.v-sheet.theme--light:hover .v-btn__content {
   background-color: #eabf00;

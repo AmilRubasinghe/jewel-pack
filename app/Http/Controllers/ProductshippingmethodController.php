@@ -22,7 +22,7 @@ class ProductshippingmethodController extends Controller
         // return $shipmethod;
         $ship=DB::table('productshippingmethods')
         ->join('shippingmethods','productshippingmethods.shipid','=','shippingmethods.shipId')
-        ->select('shipMethod')->where('pid','=',$thisship)->get();
+        ->where('pid','=',$thisship)->get();
         return response()->json(['shipmethod'=>$ship,'message'=>"Category edited succesfully !"]);
 
     }

@@ -47,6 +47,9 @@ Route::get('pay', 'PaymentController@payHerePost');
     Route::post('test', 'CategoryController@test');
 
 
+
+
+
 	
     Route::get('verify/{email}/{verifyToken}',['uses'=>'userController@sendEmailDone',
     'as' => 'sendEmailDone']);
@@ -158,6 +161,8 @@ Route::post('addHomeProduct','ProductController@addHomeProduct');
 Route::post('editProduct/{id}','ProductController@editProduct');
 Route::post('deletedProducts','ProductController@getDeletedProducts');
 Route::post ( 'deleteProduct/{id}', 'ProductController@deleteProduct' );
+Route::post ( 'deleteProductImage', 'ProductController@deleteProductImage' );
+
 Route::post('restoreProduct/{id}', 'ProductController@restoreProduct');
 
 
