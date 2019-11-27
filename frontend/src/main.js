@@ -55,10 +55,7 @@ Vue.prototype.$url = 'http://localhost:8000/';
 
 
 
-/*
-Vue.prototype.$baseUrl = 'https://jewelpack.tk/api';
-Vue.prototype.$url = 'https://jewelpack.tk/';
-*/
+
 
 new Vue({
   el: '#app',
