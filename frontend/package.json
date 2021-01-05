@@ -12,7 +12,7 @@
   "dependencies": {
     "@saeris/vue-spinners": "^1.0.8",
     "aos": "^3.0.0-beta.6",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.2",
     "html2canvas": "^1.0.0-rc.4",
